@@ -1,0 +1,23 @@
+{
+  "skill_name": "smartshare-qa",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "US-1234: Permitir que o usuário altere o campo 'Observação' quando o documento estiver no status 'Em revisão'. Critério de aceite: o campo deve aceitar até 500 caracteres. Monta a análise e o mapa de testes.",
+      "expected_output": "Análise de negócio com ambiguidades (quais perfis? outros status?), mapa com positivos, negativos por status, valor limite 499/500/501, permissão UI e API, concorrência, regressão, as 6 dimensões avaliadas e pendências marcadas como 'Informação não encontrada / necessita validação'.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Testei em HML: ao salvar o documento no status Em revisão a tela mostra 'Erro inesperado' e no network a API /documentos/salvar retorna 500. Escreve o bug.",
+      "expected_output": "Bug no padrão Contexto / Resultado Atual / Resultado Esperado / Impacto, título BUG – específico, severidade como sugestão, campos desconhecidos (versão, perfil) como 'Não informado' sem inventar.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Release 3.8.0 em homologação: 42 testes planejados, 40 executados, 37 passaram, 3 falharam (1 crítico na emissão de documento, 2 cosméticos). Dá pra liberar?",
+      "expected_output": "Relatório de homologação com status sugerido Reprovada devido à falha crítica, resumo numérico, riscos, 2 não executados sinalizados, recomendação objetiva e ressalva de que a decisão final é humana.",
+      "files": []
+    }
+  ]
+}
