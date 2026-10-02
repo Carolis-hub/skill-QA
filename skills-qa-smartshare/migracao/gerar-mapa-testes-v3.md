@@ -57,6 +57,26 @@ Se não houver acesso ao navegador: pedir que a pessoa cole título, Description
 - Telas, APIs, regras e integrações impactadas estão identificadas?
 - Campos vazios (Alteração de Classe/Tela, Caso de Teste), Análise Review ainda "New", tasks de CR/Mapa ausentes.
 
+### Registrar os pendentes da análise (arquivo separado)
+
+Sempre que a validação da **Análise dev** encontrar pelo menos um ponto pendente (incoerência, item em aberto, incompleto, divergência, risco não tratado), criar um arquivo na pasta `pendencias-skills`. Se não houver nenhum pendente, **não criar** o arquivo.
+
+- Caminho: `/mnt/user-data/outputs/pendencias-skills/US <ID>.txt` (texto puro, UTF-8, sem markdown). Criar a pasta se não existir. Se o arquivo da US já existir, sobrescrever com a lista atualizada.
+- Conteúdo **bem resumido**: só título, ID, dev e os itens pendentes, uma linha por item. Sem contexto longo, sem descrição da US, sem casos de teste.
+
+```
+US <ID>
+Título: <título da US>
+Dev da análise: <nome do dev que fez a análise>
+
+Itens pendentes na análise:
+1. <pendência em uma linha>
+2. <pendência em uma linha>
+```
+
+- Os itens são os mesmos que alimentam a mensagem para o dev (seção 5), mas escritos de forma curta.
+- Quando o dev responder (seção 6), atualizar o arquivo removendo os itens resolvidos; se todos forem resolvidos, avisar a pessoa e perguntar se o arquivo pode ser apagado.
+
 ---
 
 ## 3. Montar os casos de teste
@@ -137,6 +157,7 @@ Resultado esperado:
 
 1. Uma frase: mapa pronto + quantidade de casos.
 2. **Validação:** Descrição / Critérios de aceite / Análise dev, cada um com OK ou com ressalvas e os pontos principais (curtos).
+   - Se houve pendentes na análise, informar o caminho do arquivo criado em `pendencias-skills/US <ID>.txt`.
 3. **Mensagem para o dev**, pronta para copiar, em bloco de código:
    - Começa com "Oi <primeiro nome>, tudo bem? Estou montando o mapa de testes da US <ID> (<tema>) e tenho algumas dúvidas sobre a análise (task <ID>):"
    - Perguntas numeradas com título curto, contexto em 1 linha e a pergunta objetiva.
@@ -172,4 +193,5 @@ Resultado esperado:
 - Manter nomes de telas, campos e mensagens exatamente como estão na task.
 - Numerar os critérios como CA01, CA02... na ordem da US, se não estiverem numerados.
 - Ressalvas na validação não impedem o mapa: gerar o mapa mesmo assim.
+- Pendência na análise dev gera arquivo em `pendencias-skills/US <ID>.txt`, resumido; sem pendência, não criar arquivo.
 - Escrever em português do Brasil, linguagem simples.
