@@ -1,0 +1,128 @@
+US #163010 - Migração tela de gerenciamento | Gerenciamento de parâmetros (Back-end)
+Dúvidas a esclarecer, separadas em BLOQUEANTES e QUE PODEM ESPERAR
+Gerado em: 2026-10-20 | Projeto: SHARE-4 | Mapa de testes: card #163274 | Card de Análise: #163266 | PR: #29298
+Origem: /analise-negocio, /analise-tecnica e /gerar-mapa-testes-v3 desta US.
+Os itens marcados [H#n] são os cenários do mapa que estão como HIPOTESE enquanto a dúvida não for respondida.
+
+Critério da separação:
+- BLOQUEANTE: impede concluir a análise de negócio ou impede executar o mapa de testes.
+- PODE ESPERAR: o mapa já cobre o assunto como HIPOTESE (ou o cenário fica NAO EXECUTADO) e o restante dos testes segue sem a resposta.
+
+================================================================
+PARTE A - BLOQUEANTES (1 aberto: A4; A1, A2 e A3 respondidos ou fechados em 2026-10-21)
+================================================================
+
+A1. PM-01 | PM (Carina) | Limite de tamanho do Valor (CA 14, Escopo) [H#15, H#16]
+  RESPONDIDO pela PM em 2026-10-21: o limite é 2000 caracteres, valendo também para os sensíveis (10, 104, 107 e 109), porque não se sabe o tamanho das senhas. A pergunta (c) não foi respondida de forma explícita; com limite de 2000, 2001 deve ser rejeitado (a confirmar ao registrar na US).
+  Pendente: a PM registrar isso na US (CA 14) para a análise de negócio ser reexecutada. O mapa já pode tratar #15 e #16 como confirmados.
+  Bloqueia: a análise de negócio (a US remete ao limite do Clássico sem definir o valor).
+  Contexto: o CA 14 diz "limite do Clássico [A DEFINIR valor]". O banco não limita o tamanho, então a API é quem impõe. O dev recomendou 2000 caracteres, que é o limite declarado na tela do Clássico (card de Análise, D-03).
+  Perguntas:
+  a) O limite máximo do Valor é 2000 caracteres? Se não, qual é?
+  b) Vale igual para todos os parâmetros, inclusive os sensíveis (10, 104, 107 e 109)?
+  c) Um valor com exatamente 2000 caracteres deve ser aceito e um com 2001 rejeitado?
+  Registrar na US: trocar o "[A DEFINIR valor]" do CA 14 pelo número confirmado.
+
+A2. PM-02 | PM (Carina) | Cache de parâmetros (CA 16, Escopo, Impactos) [H#31]
+  Atualização 2026-10-21: com a resposta do dev em A3 (não há cache), falta só a PM confirmar que o CA 16 pode ser retirado ou reescrito (pergunta a) e registrar na US. A pergunta (b) deixou de se aplicar.
+  FECHADO em 2026-10-21 por decisão da usuária (Caroline): considerar a resposta do dev (A3: não há cache) como resposta a este item. O CA 16 passa a ser tratado como "sem cache; o valor novo é lido na leitura seguinte" (cenário #31). Observação: a US ainda traz "[A DEFINIR]" no CA 16; enquanto não for registrado lá, a /analise-negocio pode voltar a sinalizar o item.
+  Bloqueia: a análise de negócio (a US remete ao cache do Clássico sem dizer se existe). Depende da resposta do dev em A3.
+  Contexto: a US diz "invalidação/recarga de cache de parâmetros (se existir)" e o CA 16 está com "[A DEFINIR]". O dev recomenda que não há cache no Clássico nem no net8 (D-06), mas ainda falta confirmar com ele.
+  Perguntas:
+  a) Se for confirmado que não há cache, o CA 16 pode ser retirado ou reescrito? Sugestão: "Após atualizar um valor pela API do Share 4, o Clássico e os Workers leem o valor novo na próxima consulta, sem ação manual".
+  b) Se houver cache em algum serviço, em quanto tempo o valor novo precisa valer: imediatamente, no próximo ciclo ou após reinício?
+  Registrar na US: trocar o "[A DEFINIR]" do CA 16 e ajustar o "(se existir)" do Escopo.
+
+A3. DEV-01 | Dev (Vinicius) | Cache em memória fora do Clássico web (D-06) [H#31]
+  RESPONDIDO pelo dev em 2026-10-21 (análise de código): nenhum serviço guarda valor de parâmetro em memória; toda leitura vai ao banco. ParametroService.GetParametroValor faz SELECT a cada chamada (sem ICache/Redis nem campo estático); os Workers (Project.Agent.Worker.Bpm e WorkerScheduler) usam o serviço Scoped e cada job do Quartz abre escopo novo, então relê o banco a cada execução; o parâmetro 88 também lê direto. No Clássico (RetParametro, ParametroBLL/ParametroDAL, RetParametroProxy) todos fazem SELECT ds_valor FROM PARAMETRO a cada chamada, sem HttpRuntime.Cache, Application[], MemoryCache, Session[] ou static, em todos os projetos que leem PARAMETRO. Ressalvas: é análise de código, não do que roda em produção (não descarta serviços de cliente fora dos dois repositórios); valor lido durante uma operação em andamento não muda no meio dela, vale a partir da leitura seguinte. Resolve a pergunta (a) e (b) de A3. Falta a PM decidir o CA 16 (ver A2).
+  Bloqueia: fecha o A2 (sem a resposta do dev, a PM não consegue decidir o CA 16).
+  Contexto: o card diz que não há cache no Clássico nem no net8 e pede "confirmar com dev".
+  Perguntas:
+  a) Algum serviço fora do Clássico web guarda valores de parâmetros em memória? Inclui os Workers que usam ParametroService.GetParametroValor e qualquer outro host que leia PARAMETRO.
+  b) Se algum guardar, após um PUT /api/Parametro o valor novo vale na hora, no próximo ciclo ou só depois de reiniciar o serviço?
+
+A4. DEV-06 | Dev (Vinicius) | Ambiente de teste
+  Resposta parcial do dev em 2026-10-21: o PR continua ativo (feature/163010-gerenciamento-de-parametros para feature/main-management-screens-phase-3). Continua sem resposta: onde o build está implantado, URL do Share 4 e do Clássico, contas, massa de dados e acesso aos logs (itens a a e).
+  Bloqueia: o /executar-teste (e o /validar-ambiente).
+  Perguntas:
+  a) Em qual ambiente o build do PR #29298 está implantado? O PR está ativo (não mesclado em feature/main-management-screens-phase-3); precisa estar implantado para testar.
+  b) URL do Share 4 e do Clássico nesse ambiente, e confirmação de que os dois apontam para a mesma base (CAs 24 a 27).
+  c) Como obter as contas de teste: administrador (cdTipoUsuario = 1), usuário sem perfil administrativo, e um segundo administrador (CA 15)?
+  d) Os parâmetros 10, 104, 107, 109, 111, 58, 90 e 96 existem no ambiente? Há um usuário com cd_visao_wf = 6 para testar o 90? Há um parâmetro sensível obrigatório sem valor gravado (CA 13)?
+  e) Há acesso de leitura ao log da API e à tabela LOG_APLICACAO para o CA 22?
+
+================================================================
+PARTE B - PODEM ESPERAR (12 itens)
+================================================================
+Nenhum bloqueia a análise de negócio nem a execução dos demais cenários. Enquanto não houver resposta, os cenários citados ficam como HIPOTESE (ou NAO EXECUTADO, quando faltar condição de ambiente).
+
+--- Para a PM (Carina) ---
+
+B1. PM-03 | Parâmetros que aceitam Valor vazio (D-01) [H#38]
+  RESPONDIDO pelo dev em 2026-10-21 (ver B13): só 109 e 111 são opcionais para os testes; os demais exigem preenchimento. Falta apenas a PM registrar na US.
+  RESPOSTA PARCIAL da PM em 2026-10-21: pelo que ela pesquisou, não há outros opcionais além de 109 e 111, e a ideia era o dev validar no código se existem outros. Passa para o dev (ver B13). Hipótese #38 continua até essa validação.
+  O dev propõe lista fixa: 109 e 111. A tabela não tem essa informação (no Clássico só o 109 é opcional; a US cita o 111).
+  Pergunta: há outros parâmetros opcionais além de 109 e 111?
+
+B2. PM-04 | Sensível obrigatório, sem valor gravado, enviado vazio (D-02, CA 13) [H#14]
+  O dev recomenda erro só se o parâmetro for obrigatório E não houver valor gravado.
+  Pergunta: confirma essa regra? (Pendência PD-163010-03, hoje "Parcial"; o dev também deve registrar o resultado, ver B7.)
+
+B3. PM-05 | Parâmetro 58 (D-04) [H#37]
+  Por que está pendente: a regra no Share 4 foi alterada e é diferente da do Share Clássico (informado em 2026-10-21). Como a US pede paridade, a diferença precisa de decisão da PM.
+  No Clássico, salvar o 58 valida "0"/"1" e cria índice Full-Text em DOCUMENTO. O dev propõe, no Share 4: validar "0"/"1" e recusar a mudança para "1", orientando a fazer pelo Clássico.
+  Perguntas:
+  a) Essa recusa é aceitável, dado que a US fala em "paridade de regras"?
+  b) Se não, o Share 4 deve criar o índice Full-Text?
+
+B4. PM-06 | Parâmetro 90 (D-05) [H#36]
+  Por que está pendente: a regra no Share 4 foi alterada e é diferente da do Share Clássico (informado em 2026-10-21). Atenção: o card de Análise (D-05) fala em replicar o efeito do Clássico; confirmar com o dev qual regra de fato difere antes de levar à PM.
+  No Clássico, salvar o 90 com valor "0" executa UPDATE USUARIO SET cd_visao_wf = 1 WHERE cd_visao_wf = 6.
+  Pergunta: o Share 4 deve replicar esse efeito, na mesma transação? (O dev propõe que sim.)
+
+B5. PM-07 | Parâmetro 96 oculto da lista [H#35]
+  RESPONDIDO pela PM em 2026-10-21: o 96 se mantém oculto por enquanto. O mapa já pode tratar #35 como confirmado (depende de o parâmetro 96 existir no ambiente). Registrar na US.
+  Por que está pendente: a regra no Share 4 foi alterada e é diferente da do Share Clássico (informado em 2026-10-21). Atenção: o card de Análise diz que o 96 fica oculto, como no Clássico; confirmar com o dev qual regra de fato difere antes de levar à PM.
+  No Clássico, o 96 nunca aparece na lista. A US não diz isso.
+  Pergunta: o Share 4 também deve ocultar o 96 da listagem?
+
+B6. PM-08 e PM-09 | Meta de desempenho e formato dos erros
+  a) Meta de desempenho da listagem (Impactos > Performance): a US diz "meta de tempo [A DEFINIR]"; o dev informa "sem meta; medir na validação integrada" (D-11). Existe uma meta (ex.: até X segundos com 87+ registros)?
+  b) Formato dos erros (com o time de Front): a convenção do projeto devolve HTTP 500 com lista de erros para validação e "não encontrado". Os CAs 6, 9, 13 e 14 falam em "erro de validação" e "não encontrado", sem dizer o código HTTP. O HTTP 500 com lista de erros é o aceito como resultado esperado, ou deve ser 400/404?
+
+--- Para o dev (Vinicius) ---
+
+B7. DEV-02 | Pendência PD-163010-03 (CA 13) [H#14]
+  Confirmar o comportamento implementado para sensível obrigatório, sem valor gravado, enviado vazio (ver B2) e registrar o resultado no PBI.
+
+B8. DEV-03 | Parâmetros 58, 90 e 96 no código [H#35, H#36, H#37]
+  O PR cobre esses comportamentos? Foram implementados como no card (96 oculto; 90 atualiza USUARIO; 58 valida "0"/"1" e recusa "1")? Isso fecha o que o código faz, enquanto a PM decide o que deve valer (B3 a B5).
+
+B9. DEV-04 | Oracle [H#39]
+  O card cita risco de ORA-01461 ao gravar valor acima de 4000 bytes em CLOB.
+  Perguntas:
+  a) O PR trata esse caso (tipo do parâmetro no Oracle)?
+  b) Há ambiente Oracle real para testar?
+  c) Qual o tamanho de valor que reproduz o problema, dado o limite de 2000 caracteres (se confirmado)?
+  Sem resposta: o cenário 39 fica NAO EXECUTADO.
+
+B10. DEV-05 | Falha de base (CA 28) [mapa #30]
+  Como simular a base indisponível em ambiente de teste (feature flag, string de conexão inválida, mock, parar o serviço)?
+  Sem resposta: o cenário 30 fica NAO EXECUTADO; os demais seguem.
+
+B11. DEV-07 | Campos do card de Análise (#163266)
+  Os campos Pontosdeimpacto e CasodeTeste estão vazios; o conteúdo está só no Description. Pode preenchê-los (ou confirmar que o Description é a fonte)? Isso permite rodar /analise-tecnica sem desvio da regra.
+
+B12. DEV-08 | Leitura do código (confirmações de diff)
+  Foi lida só a lista de arquivos do PR, não os diffs. Confirmar que a lista de sensíveis (ParametroCatalog) é 10, 104, 107 e 109 e que o middleware Share4UserAuthorizationMiddleware alterado não muda o comportamento de outras rotas.
+
+
+B13. DEV-09 | Dev (Vinicius) | Outros parâmetros opcionais no código (vem de B1)
+  RESPONDIDO pelo dev em 2026-10-21: para os testes, considerar somente 109 e 111 como opcionais; os demais exigem preenchimento. Fecha B1 e a hipótese #38.
+  A PM não encontrou outros parâmetros opcionais além de 109 e 111 e pediu que o dev valide no código se existem outros. Confirmar a lista de parâmetros com Valor opcional e registrar no PBI. [H#38]
+================================================================
+RESUMO
+================================================================
+Bloqueante aberto (1): A4 para o dev (ambiente de teste). A1 respondido pela PM, A3 respondido pelo dev e A2 fechado com a resposta do dev, todos em 2026-10-21.
+Podem esperar: B1 a B6 para a PM (B5 respondido; B1 respondido pela PM e pelo dev, fechado); B7 a B12 para o dev (B13 respondido).
+Hipóteses abertas no mapa: 14, 36, 37 e 39. Confirmadas em 2026-10-21: 15 e 16 (PM, limite de 2000), 35 (PM, 96 oculto), 31 (dev, sem cache, por análise de código) e 38 (dev, só 109 e 111 opcionais). O comentário na US #163010 e o card #163274 ainda listam as 9 como abertas.

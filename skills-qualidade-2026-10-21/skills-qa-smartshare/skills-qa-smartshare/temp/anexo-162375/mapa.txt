@@ -1,0 +1,295 @@
+﻿
+Mapa de Testes — US 162365 — Adaptar Minhas Tarefas, Acompanhar e Fluxos Finalizados ao lazy loading da API do Share 4
+Mapa de Testes — US 162365 — Adaptar Minhas Tarefas, Acompanhar e Fluxos Finalizados ao lazy loading da API do Share 4
+Análise dev: Task 162373 (Felipe Schwabe). Branch / PR: Não informado. · Data: 19/10/2026
+JavaScript desativado ou bloqueado nesta visualização: os checkboxes ficam desabilitados. Abra o arquivo diretamente no Chrome ou no Edge (duplo clique no arquivo).
+Ativando… (se esta mensagem não mudar, o script não está rodando: abra o arquivo em um navegador)
+Todos
+Pendentes
+Testados
+Exportar marcações
+Importar
+Limpar
+Tabela completa (28 cenários)
+Testado | # | Cenário | Configurações necessárias | Ação | Resultado Esperado | Tipo | Técnica | Dimensão | Origem | 
+POSITIVO | 
+| CT-001 | Carga inicial: o primeiro bloco aparece sem aguardar a lista completa P1 | App conectado a [SERVIDOR_NOVO]; [USUARIO_VOLUME] com 250 itens em cada tela; proxy ligado.
+Usuário [USUARIO_VOLUME]
+| O usuário deve entrar com [USUARIO_VOLUME] e abrir Minhas Tarefas, contando os itens exibidos sem rolar.
+O usuário deve conferir a requisição feita no proxy.
+O usuário deve repetir os passos 1 e 2 em Acompanhar e em Fluxos Finalizados.
+| O sistema deve exibir o primeiro bloco (menos de 250 itens) logo na abertura, sem esperar a lista completa. Registrar o tamanho do bloco e o tempo de abertura.
+O sistema deve ter feito uma requisição de listagem pedindo só o primeiro bloco (e não os 250 itens). Registrar os parâmetros de paginação (DUV-01).
+O sistema deve exibir o primeiro bloco em cada tela, com o mesmo comportamento de Minhas Tarefas.
+| Funcional positivo | Casos de uso | Positivo | CA-01, CD-01, PI-01, RN-01 | 
+| CT-002 | Rolar perto do fim carrega o próximo bloco com indicador no rodapé e mantém a posição P1 | App conectado a [SERVIDOR_NOVO]; [USUARIO_VOLUME] logado; proxy ligado; conexão lenta, se possível, para ver o indicador.
+Itens com títulos numerados (001 a 250)
+| O usuário deve abrir Minhas Tarefas e rolar devagar até perto do fim do primeiro bloco, anotando o título do último item visível.
+O usuário deve aguardar o fim do carregamento.
+O usuário deve repetir os passos 1 e 2 em Acompanhar e em Fluxos Finalizados.
+| O sistema deve exibir o indicador de carregamento no rodapé da lista quando o próximo bloco é pedido. Registrar em que posição o pedido acontece (DUV-03).
+O sistema deve adicionar os novos itens ao final da lista, esconder o indicador e manter na tela o item que o usuário estava vendo, sem voltar ao topo.
+O sistema deve se comportar do mesmo modo nas duas telas.
+| Funcional positivo | Transição de estado | Positivo | CA-02, CD-02, CD-03, PI-02, RN-01 | 
+| CT-003 | Rolar até o fim mostra todos os 250 itens, sem repetição e sem falta P0 | App conectado a [SERVIDOR_NOVO]; [USUARIO_VOLUME] com 250 itens numerados (001 a 250) em cada tela.
+Títulos 001 a 250
+| O usuário deve abrir Minhas Tarefas e rolar até o fim da lista, anotando o primeiro e o último título de cada bloco.
+O usuário deve conferir o último item da lista.
+O usuário deve repetir os passos 1 e 2 em Acompanhar e em Fluxos Finalizados.
+| O sistema deve exibir os itens em sequência, do 001 ao 250, sem título repetido e sem número faltando entre um bloco e outro.
+O sistema deve exibir o item 250 como o último, sem indicador de carregamento.
+O sistema deve exibir os 250 itens completos em cada tela.
+| Funcional positivo | Valor limite | Positivo | CA-04, CD-02, PI-01 | 
+| CT-009 | Pull-to-refresh reinicia a lista a partir do primeiro bloco P1 | App conectado a [SERVIDOR_NOVO]; [USUARIO_VOLUME] logado; proxy ligado.
+Nenhum adicional.
+| O usuário deve abrir Minhas Tarefas e rolar até carregar ao menos 3 blocos.
+O usuário deve voltar ao topo e puxar a lista para atualizar.
+O usuário deve rolar de novo até o fim.
+O usuário deve repetir em Acompanhar e em Fluxos Finalizados.
+| O sistema deve exibir os itens dos 3 blocos.
+O sistema deve reiniciar a lista a partir do primeiro bloco e pedir só o primeiro bloco no proxy.
+O sistema deve carregar os blocos seguintes em ordem, sem repetição, até o último item.
+O sistema deve se comportar do mesmo modo.
+| Funcional positivo | Transição de estado | Positivo | CA-09, CD-06, PI-03 | 
+| CT-010 | Busca considera todos os registros do servidor e reinicia a paginação P1 | App conectado a [SERVIDOR_NOVO]; [USUARIO_VOLUME] logado; só o primeiro bloco carregado; proxy ligado.
+Termo de busca: título de um item que está no 5º bloco (ex.: 200), que ainda não foi carregado; e um termo sem resultado zzzz9999
+| O usuário deve abrir Minhas Tarefas, sem rolar, e buscar o item de título 200.
+O usuário deve limpar a busca.
+O usuário deve buscar zzzz9999.
+O usuário deve repetir os passos 1 a 3 em Acompanhar e em Fluxos Finalizados.
+| O sistema deve enviar o critério de busca à API (conferir no proxy), reiniciar a lista e exibir o item 200, mesmo sem ele ter sido carregado antes.
+O sistema deve voltar à lista completa a partir do primeiro bloco.
+O sistema deve exibir a lista sem itens (resultado vazio da busca), sem erro e sem indicador de carregamento.
+O sistema deve se comportar do mesmo modo.
+| Funcional positivo | Partição de equivalência | Positivo | CA-10, CD-05, PI-03 | 
+| CT-011 | Filtro reinicia a paginação e considera todos os registros P2 | App conectado a [SERVIDOR_NOVO]; [USUARIO_VOLUME] logado; só o primeiro bloco carregado; proxy ligado.
+Um filtro que o app já oferece e que selecione itens que só aparecem em blocos posteriores (registrar qual, DUV-09)
+| O usuário deve abrir Minhas Tarefas e aplicar um filtro disponível na tela.
+O usuário deve rolar até o fim do resultado.
+O usuário deve remover o filtro.
+O usuário deve repetir em Acompanhar e em Fluxos Finalizados.
+| O sistema deve enviar o filtro à API, reiniciar a paginação e exibir todos os itens do servidor que atendem ao filtro, inclusive os que estariam em blocos ainda não carregados.
+O sistema deve carregar os blocos seguintes do resultado filtrado, sem repetição.
+O sistema deve voltar à lista completa a partir do primeiro bloco.
+O sistema deve se comportar do mesmo modo.
+| Funcional positivo | Partição de equivalência | Positivo | CA-10, CD-05, PI-03 | 
+| CT-012 | Ordenação reinicia a paginação e ordena todo o conjunto P2 | App conectado a [SERVIDOR_NOVO]; [USUARIO_VOLUME] logado; proxy ligado.
+Uma ordenação disponível no app (ex.: do mais antigo ao mais novo, ou o inverso; registrar qual)
+| O usuário deve abrir Fluxos Finalizados, rolar até carregar 2 blocos e trocar a ordenação para a inversa.
+O usuário deve rolar até o fim.
+O usuário deve repetir em Minhas Tarefas e em Acompanhar.
+| O sistema deve enviar a ordenação à API, reiniciar a lista e exibir no topo o item que antes era o último de todos (por exemplo, o 250), e não só o último do bloco carregado.
+O sistema deve exibir todos os itens na nova ordem, sem repetição.
+O sistema deve se comportar do mesmo modo.
+| Funcional positivo | Partição de equivalência | Positivo | CA-10, CD-05, PI-03 | 
+| CT-013 | Contador usa o total da API, e não o tamanho do bloco P1 | App conectado a [SERVIDOR_NOVO]; [USUARIO_VOLUME] com 250 itens em Minhas Tarefas.
+Total esperado: 250
+| O usuário deve entrar com [USUARIO_VOLUME] e localizar o contador de itens de Minhas Tarefas (na tela ou no menu), sem rolar a lista.
+O usuário deve rolar a lista até o fim e olhar o contador de novo.
+O usuário deve repetir em Acompanhar e em Fluxos Finalizados, se houver contador.
+| O sistema deve exibir 250 (o total do servidor), e não o número de itens do primeiro bloco. Registrar onde o contador aparece (DUV-09).
+O sistema deve manter 250.
+O sistema deve exibir o total correto em cada tela.
+| Funcional positivo | Partição de equivalência | Positivo | CA-11, PI-04 | 
+| CT-014 | Voltar do detalhe mantém a posição e os itens já carregados P1 | App conectado a [SERVIDOR_NOVO]; [USUARIO_VOLUME] logado.
+Nenhum adicional.
+| O usuário deve abrir Minhas Tarefas, rolar até carregar o 3º bloco e abrir um item desse bloco.
+O usuário deve voltar para a lista (botão voltar).
+O usuário deve repetir em Acompanhar e em Fluxos Finalizados.
+| O sistema deve exibir o detalhe do item.
+O sistema deve exibir a lista na mesma posição, com os 3 blocos já carregados, sem voltar ao topo e sem recarregar o primeiro bloco.
+O sistema deve se comportar do mesmo modo.
+| Funcional positivo | Transição de estado | Positivo | CA-12, CD-08 | 
+| CT-015 | Minhas Tarefas: executar uma tarefa não faz outra sumir nem duplicar P1 | App conectado a [SERVIDOR_NOVO]; [USUARIO_VOLUME] com 250 tarefas numeradas.
+Tarefa 010 (do primeiro bloco) para executar
+| O usuário deve abrir Minhas Tarefas, rolar até carregar 2 blocos e abrir a tarefa 010.
+O usuário deve executar/concluir a tarefa 010 e voltar para a lista.
+O usuário deve rolar até o fim da lista, conferindo os números.
+O usuário deve conferir o contador de Minhas Tarefas.
+| O sistema deve exibir o detalhe da tarefa.
+O sistema deve exibir a lista sem a tarefa 010.
+O sistema deve exibir todas as demais tarefas (as 249 restantes), sem repetir nenhuma e sem pular nenhuma na emenda entre blocos.
+O sistema deve exibir 249.
+| Funcional positivo | Transição de estado | Positivo | CA-13 | 
+| CT-017 | Acompanhar: fluxo finalizado sai de Acompanhar e aparece em Fluxos Finalizados P2 | App conectado a [SERVIDOR_NOVO]; [USUARIO_VOLUME] acompanhando um fluxo FLUXO-ACOMP-01 em andamento; [USUARIO_ADMIN] pode finalizá-lo.
+Fluxo FLUXO-ACOMP-01
+| O usuário deve abrir Acompanhar e localizar FLUXO-ACOMP-01.
+O usuário [USUARIO_ADMIN] deve finalizar FLUXO-ACOMP-01 em outro dispositivo.
+O usuário deve puxar Acompanhar para atualizar.
+O usuário deve abrir Fluxos Finalizados e buscar FLUXO-ACOMP-01.
+| O sistema deve exibir o fluxo na lista.
+O sistema deve registrar o fluxo como finalizado.
+O sistema deve não exibir mais FLUXO-ACOMP-01 em Acompanhar.
+O sistema deve exibir o fluxo em Fluxos Finalizados.
+| Funcional positivo | Transição de estado | Positivo | CA-15 | 
+| CT-018 | Fluxos Finalizados com milhares de itens: primeira página rápida, sem travar, e rolagem até os mais antigos P2 | App conectado a [SERVIDOR_NOVO]; usuário [USUARIO_MILHARES] com milhares de fluxos finalizados (quantidade a informar).
+Usuário [USUARIO_MILHARES]
+| O usuário deve abrir Minhas Tarefas e anotar o tempo até a primeira página.
+O usuário deve abrir Fluxos Finalizados e anotar o tempo até a primeira página.
+O usuário deve rolar de forma contínua por 2 minutos e depois ir direto aos mais antigos (rolando até o fim).
+| O sistema deve exibir a primeira página; registrar o tempo como referência.
+O sistema deve exibir a primeira página em tempo equivalente ao de Minhas Tarefas, sem travar o app. Registrar os dois tempos (DUV-06).
+O sistema deve continuar respondendo sem travar nem fechar o app, e permitir chegar ao fluxo mais antigo.
+| Desempenho | Casos de uso | Positivo | CA-16, CD-01 | 
+| CT-021 | Servidor atualizado depois: o mesmo app passa a paginar sem reinstalar P1 | EXECUTAR SÓ SE a infra puder atualizar [SERVIDOR_ANTIGO] para a versão com lazy loading (DUV-02).
+App já instalado e usado em [SERVIDOR_ANTIGO] (como no CT-019); proxy ligado.
+Usuário [USUARIO_VOLUME]
+| O usuário deve abrir Minhas Tarefas em [SERVIDOR_ANTIGO] e confirmar a lista completa.
+A infra deve atualizar o servidor para a versão com lazy loading, sem mexer no app.
+O usuário deve sair do app, entrar de novo (sem reinstalar) e abrir Minhas Tarefas.
+O usuário deve repetir em Acompanhar e em Fluxos Finalizados.
+| O sistema deve exibir a lista completa (CT-019).
+O servidor deve passar a responder com a API paginada.
+O sistema deve usar o carregamento paginado automaticamente: primeiro bloco, indicador no rodapé e blocos seguintes (confirmar no proxy).
+O sistema deve usar a paginação nas três telas.
+| Funcional positivo | Transição de estado | Positivo | CA-22, CD-10, PI-06 | 
+| CT-022 | Troca de servidor: cada ambiente usa o modo correto, sem misturar P1 | Usuário com acesso a [SERVIDOR_ANTIGO] e [SERVIDOR_NOVO] ([USUARIO_VOLUME] nos dois); proxy ligado.
+URLs [URL_SERVIDOR_ANTIGO] e [URL_SERVIDOR_NOVO]
+| O usuário deve entrar em [SERVIDOR_NOVO] (informando [URL_SERVIDOR_NOVO] na tela de URL) e abrir Minhas Tarefas.
+O usuário deve sair, informar [URL_SERVIDOR_ANTIGO] na tela de URL, entrar e abrir Minhas Tarefas.
+O usuário deve voltar a [SERVIDOR_NOVO] pelo mesmo caminho.
+O usuário deve repetir em Acompanhar e em Fluxos Finalizados em um dos ciclos.
+| O sistema deve exibir o primeiro bloco e paginar ao rolar.
+O sistema deve exibir a lista completa em uma chamada, sem indicador de "carregar mais".
+O sistema deve voltar a paginar, sem herdar o modo da lista completa.
+O sistema deve usar o modo correto de cada servidor nas três telas.
+| Funcional positivo | Casos de uso | Positivo | CA-23, RN-02 | 
+NEGATIVO | 
+| CT-004 | Fim da lista: nenhuma nova requisição e nenhum indicador P1 | Lista de Minhas Tarefas totalmente carregada (CT-003); proxy ligado e limpo.
+Nenhum adicional.
+| O usuário deve limpar o registro do proxy e rolar para cima e para baixo no fim da lista por 30 segundos.
+O usuário deve repetir em Acompanhar e em Fluxos Finalizados.
+| O sistema deve não fazer nenhuma requisição de listagem e não exibir indicador de carregamento.
+O sistema deve se comportar do mesmo modo.
+| Funcional negativo | Transição de estado | Negativo | CA-03, CD-04, OFE-02 | 
+| CT-007 | Falha ao carregar o bloco seguinte: itens permanecem e "Tentar novamente" pede o mesmo bloco P1 | App conectado a [SERVIDOR_NOVO]; [USUARIO_VOLUME] com o primeiro bloco já exibido; proxy ligado.
+Nenhum adicional.
+| O usuário deve abrir Minhas Tarefas, ativar o modo avião e rolar até perto do fim do primeiro bloco.
+O usuário deve desativar o modo avião e tocar em "Tentar novamente".
+O usuário deve repetir em Acompanhar e em Fluxos Finalizados.
+| O sistema deve manter os itens já carregados na tela e exibir, no rodapé, o aviso de falha com a opção "Tentar novamente". Registrar o texto (DUV-04).
+O sistema deve pedir de novo o mesmo bloco (confirmar no proxy que é o mesmo bloco) e acrescentar os itens ao final, sem repetir nem pular.
+O sistema deve se comportar do mesmo modo.
+| Funcional negativo | Transição de estado | Negativo | CA-07, CD-07 | 
+| CT-008 | Falha na carga inicial: estado de erro com tentar novamente, e não lista vazia P1 | App conectado a [SERVIDOR_NOVO]; [USUARIO_VOLUME] logado.
+Nenhum adicional.
+| O usuário deve ativar o modo avião e abrir Minhas Tarefas.
+O usuário deve desativar o modo avião e tocar na opção de tentar novamente.
+O usuário deve repetir em Acompanhar e em Fluxos Finalizados.
+| O sistema deve exibir o estado de erro que o app já usa hoje, com a opção de tentar novamente, e não a mensagem de lista vazia. Registrar o texto (DUV-04).
+O sistema deve carregar o primeiro bloco normalmente.
+O sistema deve se comportar do mesmo modo.
+| Funcional negativo | Partição de equivalência | Negativo | CA-08, CD-07 | 
+DADOS | 
+| CT-006 | Estado vazio: mensagem atual de lista vazia, sem indicador P2 | App conectado a [SERVIDOR_NOVO]; [USUARIO_VAZIO] sem itens nas três telas.
+Usuário [USUARIO_VAZIO]
+| O usuário deve entrar com [USUARIO_VAZIO] e abrir Minhas Tarefas.
+O usuário deve aguardar 10 segundos e puxar a tela para atualizar.
+O usuário deve repetir em Acompanhar e em Fluxos Finalizados.
+| O sistema deve exibir a mensagem de lista vazia que o app já usa hoje, sem indicador de carregamento. Registrar o texto (DUV-04).
+O sistema deve manter a mensagem de lista vazia e não ficar carregando.
+O sistema deve exibir a mensagem de lista vazia em cada tela.
+| Funcional negativo | Partição de equivalência | Dados | CA-06, RN-01 | 
+| CT-026 | Borda do bloco: usuário com exatamente um bloco de itens e com um item a mais P1 | EXECUTAR SÓ SE o tamanho do bloco N for conhecido (CT-001, DUV-01).
+Usuários com exatamente N-1, N e N+1 itens em Minhas Tarefas (ou massa equivalente).
+N-1, N e N+1 itens, com títulos numerados
+| O usuário deve abrir Minhas Tarefas com N-1 itens e rolar até o fim.
+O usuário deve repetir com exatamente N itens.
+O usuário deve repetir com N+1 itens.
+| O sistema deve exibir os N-1 itens, sem indicador e sem nova requisição.
+O sistema deve exibir os N itens, sem repetir nem faltar, e terminar a lista sem indicador de carregamento infinito.
+O sistema deve exibir os N do primeiro bloco e, ao rolar, carregar o N+1-ésimo item em um segundo bloco, sem repetir nenhum.
+| Valor limite | Valor limite | Dados | CA-01, CA-03, CA-17 | 
+PERMISSÃO | 
+| CT-025 | Permissão: nenhum fluxo sem acesso aparece em nenhum bloco P0 | App conectado a [SERVIDOR_NOVO]; [USUARIO_PERMISSAO] com itens próprios em volume (mais de um bloco) e, no servidor, fluxos que ele não tem permissão de ver, entre eles em posições que cairiam em blocos posteriores.
+Fluxos sem permissão identificados (ex.: PROIBIDO-001 a PROIBIDO-050)
+| O usuário deve entrar com [USUARIO_PERMISSAO], abrir Fluxos Finalizados e rolar até o fim, carregando todos os blocos.
+O usuário deve buscar PROIBIDO.
+O usuário deve conferir o contador da tela.
+O usuário deve repetir em Minhas Tarefas e em Acompanhar.
+| O sistema deve exibir só os fluxos aos quais ele tem acesso, sem nenhum PROIBIDO-... em nenhum bloco.
+O sistema deve exibir lista vazia, sem expor os fluxos sem permissão.
+O sistema deve exibir o total só dos fluxos permitidos (sem contar os PROIBIDO-...).
+O sistema deve se comportar do mesmo modo.
+| Segurança | Partição de equivalência | Permissão | CA-19, PI-07 | 
+REGRESSÃO | 
+| CT-019 | Servidor sem lazy loading: lista completa como hoje, sem erro e sem "carregar mais" P1 | App (versão nova) conectado a [SERVIDOR_ANTIGO]; [USUARIO_VOLUME] com 250 itens em cada tela; proxy ligado.
+Usuário [USUARIO_VOLUME] em [SERVIDOR_ANTIGO]
+| O usuário deve entrar em [SERVIDOR_ANTIGO] com [USUARIO_VOLUME] e abrir Minhas Tarefas.
+O usuário deve conferir as requisições no proxy.
+O usuário deve repetir em Acompanhar e em Fluxos Finalizados.
+| O sistema deve exibir a lista completa (250 itens) em uma única chamada, sem erro, sem tela vazia e sem indicador de "carregar mais".
+O sistema deve ter feito a chamada no formato antigo, sem tentar antes a API paginada (nada de tentativa e erro).
+O sistema deve exibir a lista completa em cada tela.
+| Regressão | Partição de equivalência | Regressão | CA-20, CD-09, PI-05, PI-06, RN-02 | 
+| CT-020 | Servidor antigo: busca, filtros, ordenação, contadores, atualizar e abrir itens como hoje P1 | App (versão nova) conectado a [SERVIDOR_ANTIGO]; [USUARIO_VOLUME] logado.
+Termo de busca 200; um filtro e uma ordenação disponíveis
+| O usuário deve abrir Minhas Tarefas e buscar 200.
+O usuário deve limpar a busca, aplicar um filtro e trocar a ordenação.
+O usuário deve conferir o contador e puxar a lista para atualizar.
+O usuário deve abrir um item e executar uma ação disponível.
+O usuário deve repetir os passos 1 a 4 em Acompanhar e em Fluxos Finalizados (no que se aplicar).
+| O sistema deve exibir o item 200, como na versão atual do app.
+O sistema deve filtrar e ordenar como na versão atual do app.
+O sistema deve exibir o contador correto (250) e atualizar a lista completa.
+O sistema deve abrir o item e executar a ação como na versão atual do app.
+O sistema deve se comportar como na versão atual do app.
+| Regressão | Casos de uso | Regressão | CA-21 | 
+| CT-023 | Poucos itens: lista completa como hoje, sem "carregar mais" P1 | App conectado a [SERVIDOR_NOVO]; [USUARIO_POUCOS] com menos itens que um bloco (ex.: 5) em cada tela; proxy ligado.
+Usuário [USUARIO_POUCOS]
+| O usuário deve entrar com [USUARIO_POUCOS] e abrir Minhas Tarefas.
+O usuário deve rolar até o fim da lista.
+O usuário deve repetir em Acompanhar e em Fluxos Finalizados.
+| O sistema deve exibir todos os itens, sem indicador de carregamento no rodapé.
+O sistema deve não pedir mais nenhum bloco (sem nova requisição no proxy).
+O sistema deve se comportar do mesmo modo.
+| Regressão | Partição de equivalência | Regressão | CA-17, RN-01 | 
+| CT-024 | Itens de blocos posteriores têm as mesmas ações do primeiro bloco P1 | App conectado a [SERVIDOR_NOVO]; [USUARIO_VOLUME] logado.
+Um item do primeiro bloco (010) e um item do 4º bloco (180)
+| O usuário deve abrir Minhas Tarefas, abrir o item 010 e anotar as ações disponíveis.
+O usuário deve voltar, rolar até o 4º bloco e abrir o item 180.
+O usuário deve executar uma ação disponível no item 180.
+O usuário deve repetir o passo 2 em Acompanhar e em Fluxos Finalizados.
+| O sistema deve exibir o detalhe e as ações do item.
+O sistema deve exibir o detalhe com as mesmas ações do item 010, no mesmo formato.
+O sistema deve executar a ação com o mesmo resultado que a do item do primeiro bloco.
+O sistema deve abrir os itens com as ações disponíveis hoje nessas telas.
+| Regressão | Partição de equivalência | Regressão | CA-18 | 
+| CT-027 | hipóteseApp antigo contra servidor novo P2 | EXECUTAR SÓ SE houver o instalável da versão anterior do app.
+[SERVIDOR_NOVO]; [USUARIO_VOLUME] com 250 itens.
+Instalável do app anterior
+| O usuário deve instalar a versão anterior do app, entrar em [SERVIDOR_NOVO] com [USUARIO_VOLUME] e abrir Minhas Tarefas.
+O usuário deve contar os itens exibidos e comparar com os 250 esperados.
+| O sistema deve exibir a lista completa, só o primeiro bloco ou erro. Registrar o comportamento observado. VERIFICAR COM DEV/PO
+O sistema deve exibir os 250 itens ou registrar quantos faltam. VERIFICAR COM DEV/PO
+| Compatibilidade | Error guessing | Regressão | DUV-07 | 
+CONCORRÊNCIA | 
+| CT-005 | Rolar rápido não dispara requisições duplicadas para o mesmo bloco P1 | App conectado a [SERVIDOR_NOVO]; [USUARIO_VOLUME] logado; proxy ligado; conexão lenta para o bloco demorar.
+Nenhum adicional.
+| O usuário deve abrir Minhas Tarefas, rolar rápido várias vezes para baixo e para cima perto do fim do primeiro bloco, durante o carregamento do segundo.
+O usuário deve conferir no proxy as requisições do segundo bloco.
+O usuário deve rolar até o fim e conferir a lista.
+| O sistema deve manter um único indicador de carregamento no rodapé.
+O sistema deve ter feito uma única requisição para o segundo bloco, sem repetição.
+O sistema deve exibir todos os itens sem repetição.
+| Funcional / desempenho | Error guessing | Concorrência | CA-05, PI-04, OFE-02 | 
+| CT-016 | Minhas Tarefas: nova tarefa atribuída entre blocos não duplica nem pula itens P1 | App conectado a [SERVIDOR_NOVO]; [USUARIO_VOLUME] com 250 tarefas numeradas; [USUARIO_ADMIN] disponível em outro dispositivo.
+Nova tarefa 251, a ser atribuída a [USUARIO_VOLUME]
+| O usuário deve abrir Minhas Tarefas e carregar só o primeiro bloco, anotando o último título visível.
+O usuário [USUARIO_ADMIN] deve, em outro dispositivo, atribuir uma nova tarefa (251) a [USUARIO_VOLUME].
+O usuário deve rolar para carregar o próximo bloco e continuar até o fim.
+O usuário deve puxar a lista para atualizar e rolar até o fim.
+| O sistema deve exibir o primeiro bloco.
+O sistema deve registrar a nova tarefa para [USUARIO_VOLUME].
+O sistema deve carregar o próximo bloco sem repetir nenhuma tarefa já exibida e sem pular nenhuma. Registrar se a nova tarefa aparece nesta rolagem ou só ao atualizar.
+O sistema deve exibir as 251 tarefas, a nova inclusive, sem repetição.
+| Funcional | Transição de estado | Concorrência | CA-14, DUV-05 | 
+| CT-028 | hipóteseBusca, filtro ou ordenação aplicados enquanto um bloco ainda carrega P2 | App conectado a [SERVIDOR_NOVO]; [USUARIO_VOLUME] logado; conexão lenta; proxy ligado.
+Termo de busca 200
+| O usuário deve abrir Minhas Tarefas, rolar até pedir o segundo bloco e, ainda durante o carregamento, buscar 200.
+O usuário deve aguardar o fim de todas as requisições e rolar a lista.
+| O sistema deve exibir só o resultado da busca, sem itens do bloco anterior misturados. Registrar o comportamento observado. VERIFICAR COM DEV/PO
+O sistema deve manter só o resultado da busca, sem itens duplicados ou fora do critério. Registrar o comportamento observado. VERIFICAR COM DEV/PO
+| Funcional | Error guessing | Concorrência | DUV-10, CA-05, CA-10 | 
+As marcações ficam salvas só neste navegador, por cenário. Use Exportar e Importar para levá-las a outra máquina.
+

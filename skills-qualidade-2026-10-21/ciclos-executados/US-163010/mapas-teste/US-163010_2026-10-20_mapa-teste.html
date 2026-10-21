@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa de Testes — US 163010 — Gerenciamento de parâmetros (Back-end)</title>
+<style>
+:root{--bg:#f5f7f6;--card:#fff;--text:#1d2521;--muted:#5b6b63;--border:#dfe6e2;--accent:#00774b;--head:#eef4f1;--group:#dcebe4;--hip:#fff7e0;--hip-b:#f0d98a;--code:#eef2ef;
+--pos:#0f7a3c;--pos-bg:#e4f6ea;--neg:#b3261e;--neg-bg:#fbe9e7;--bor:#8a5a00;--bor-bg:#fff3dc}
+:root[data-theme="dark"]{--bg:#121715;--card:#1b2220;--text:#e4ebe7;--muted:#9fb0a7;--border:#2c3733;--accent:#3ecf8e;--head:#222c28;--group:#1f2e28;--hip:#33290f;--hip-b:#5a4817;--code:#26312d;
+--pos:#7be3b4;--pos-bg:#173023;--neg:#ff9a92;--neg-bg:#3a1b19;--bor:#f0c36a;--bor-bg:#3a2f12}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121715;--card:#1b2220;--text:#e4ebe7;--muted:#9fb0a7;--border:#2c3733;--accent:#3ecf8e;--head:#222c28;--group:#1f2e28;--hip:#33290f;--hip-b:#5a4817;--code:#26312d;
+--pos:#7be3b4;--pos-bg:#173023;--neg:#ff9a92;--neg-bg:#3a1b19;--bor:#f0c36a;--bor-bg:#3a2f12}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1280px;margin:0 auto;padding:24px 16px 56px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 10px}
+.sub{color:var(--muted);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.chip{border:1px solid var(--border);background:var(--head);border-radius:999px;padding:3px 12px;font-size:13px}
+.chip b{color:var(--accent)}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 12px}
+select,input,button{font:inherit;color:var(--text);background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 10px}
+input{min-width:220px}button{cursor:pointer}
+table{width:100%;border-collapse:collapse;table-layout:fixed;background:var(--card);border:1px solid var(--border)}
+th,td{border:1px solid var(--border);padding:6px 8px;vertical-align:top;text-align:left;word-wrap:break-word;font-size:13px}
+th{background:var(--head);position:sticky;top:0;z-index:1}
+tr.grp td{background:var(--group);font-weight:700}
+tr.hip td{background:var(--hip)}tr.hip td:first-child{box-shadow:inset 3px 0 var(--hip-b)}
+.tag{display:inline-block;border-radius:6px;padding:0 7px;font-size:12px;font-weight:600}
+.t-positivo{background:var(--pos-bg);color:var(--pos)}.t-negativo{background:var(--neg-bg);color:var(--neg)}.t-borda{background:var(--bor-bg);color:var(--bor)}
+.pre{display:block;margin:0 0 3px;font-size:12px}.pre code{background:var(--code);border-radius:4px;padding:0 4px}
+.hipx{background:var(--hip);border:1px solid var(--hip-b);border-radius:6px;padding:0 5px;font-weight:700;font-size:12px}
+ul.pl{margin:0;padding-left:18px}ul.pl li{margin:3px 0}
+.tw{overflow-x:auto}.tw table{min-width:1100px}
+.muted{color:var(--muted)}
+@media print{select,input,button,.bar{display:none}th{position:static}}
+</style>
+</head>
+<body>
+<main>
+<h1>Mapa de Testes — US 163010</h1>
+<p class="sub">Migração tela de gerenciamento | Gerenciamento de parâmetros (Back-end) · SHARE-4 · Sprint Migração - Telas de Gerenciamento - Fase 3</p>
+<div class="card">
+  <p style="margin:0">Cópia local do mapa publicado no card <b>#163274</b> (Criar Mapa de Teste), em 2026-10-20. Gerada com <code>/gerar-mapa-testes-v3</code>. O card do Azure DevOps continua sendo a fonte oficial. <b>Atualizado em 2026-10-21 com respostas da PM e do dev</b> (cenários 15, 16, 31, 35 e 38 deixaram de ser hipótese); o card #163274 ainda não reflete isso.</p>
+  <div class="chips" id="chips"></div>
+</div>
+
+<h2>Fonte e histórico de defeitos</h2>
+<div class="card">
+<ul class="pl">
+<li><b>Fonte técnica:</b> card Análise #163266. Os campos <code>Pontosdeimpacto</code> e <code>CasodeTeste</code> estão vazios; usado o Description como fonte (autorizado pela usuária). PR #29298 (ativo, 38 arquivos; lista lida, diffs não).</li>
+<li><b>Histórico de defeitos:</b> #155782 (token 109 em texto claro) gerou o cenário 32; #158841 (parâmetro 111 opcional) reforça o cenário 8. Não considerados: #164473, #154467, #91981 e #81702.</li>
+<li><b>Observações sem cenário:</b> dados legados do Clássico (aspas duplicadas, sensível sem criptografia); erros de validação e "não encontrado" voltam como HTTP 500 com lista de erros; bug #164473 (parâmetro 88) é da tela nova.</li>
+<li><b>Dimensões:</b> positivo, negativo, permissão, dados, concorrência e regressão. Nenhuma N/A.</li>
+</ul>
+</div>
+
+<h2>Cenários de teste</h2>
+<div class="bar">
+  <input id="q" type="search" placeholder="Buscar (cenário, ação, CA, pré-requisito)">
+  <select id="fd"><option value="">Dimensão: todas</option></select>
+  <select id="ft"><option value="">Tipo: todos</option></select>
+  <select id="fo"><option value="">Origem: todas</option></select>
+  <select id="fh"><option value="">Hipóteses: todas</option><option value="h">Só hipóteses</option><option value="n">Sem hipóteses</option></select>
+  <button id="rs">Limpar</button>
+  <button id="th">Tema</button>
+  <span class="muted" id="cnt"></span>
+</div>
+<div class="tw">
+<table>
+<colgroup><col style="width:3%"><col style="width:11%"><col style="width:16%"><col style="width:20%"><col style="width:20%"><col style="width:7%"><col style="width:9%"><col style="width:7%"><col style="width:7%"></colgroup>
+<thead><tr><th>#</th><th>Cenário</th><th>Pré-requisitos</th><th>Ação</th><th>Resultado esperado</th><th>Tipo</th><th>Técnica</th><th>Dimensão</th><th>Origem</th></tr></thead>
+<tbody id="tb"></tbody>
+</table>
+</div>
+
+<h2>Pré-requisitos de ambiente (consolidado)</h2>
+<div class="card"><ul class="pl" id="pre"></ul></div>
+<p class="muted">Pré-requisitos marcados <span class="hipx">HIPOTESE</span> não estão confirmados nas fontes e devem ser verificados antes de <code>/executar-teste</code>. Hipóteses abertas: 14, 36, 37 e 39. Confirmadas em 2026-10-21: 15, 16 (PM, limite de 2000), 35 (PM, 96 oculto), 31 (dev, sem cache) e 38 (dev, só 109 e 111 opcionais).</p>
+</main>
+<script>
+(function(){
+var A='[AMBIENTE] build do PR #29298 implantado',
+U='[USUARIO] 1 administrador (cdTipoUsuario = 1)',
+B='[AMBIENTE] API do Share 4 e Clássico na mesma base',
+S10='[DADOS] parâmetros 10, 104, 107 e 109 com valor gravado',
+NS='[DADOS] 1 parâmetro não sensível',
+SE='[DADOS] 1 parâmetro sensível';
+// [#, categoria, cenário, pré-requisitos, ação, esperado, tipo, técnica, dimensão, origem]
+var R=[
+['=== FLUXO PRINCIPAL ==='],
+[1,'Listagem por blocos (CA1)',[A,U,'[DADOS] pelo menos 87 parâmetros na base'],'GET /api/Parametro pedindo bloco inicial, intermediário e último, ordenado por Código','Cada bloco vem como esperado, sem repetir nem pular item entre blocos consecutivos; vem o total e, por item, Código, Descrição, obrigatoriedade e indicador de sensível','positivo','valor-limite','positivo','história'],
+[2,'Filtro por Descrição (CA1)',[A,U,'[DADOS] pelo menos 87 parâmetros na base'],'GET /api/Parametro com termo parcial de Descrição, em maiúsculas e minúsculas','Retorna só os parâmetros que casam, sem diferenciar maiúsculas de minúsculas, ordenados por Código','positivo','partição-equivalência','positivo','história'],
+[3,'Consulta de parâmetro comum (CA3)',[A,U,'[DADOS] 1 parâmetro não sensível com valor gravado'],'GET /api/Parametro/GetOne?cd_parametro=<comum>','Retorna Código, Descrição, obrigatoriedade e Valor','positivo','partição-equivalência','positivo','história'],
+[4,'Consulta de sensível com valor (CA4)',[A,U,S10],'GetOne de cada sensível','A resposta não contém o valor, só a quantidade de caracteres','positivo','partição-equivalência','positivo','história'],
+[5,'Atualização válida de parâmetro comum (CA7)',[A,U,NS],'PUT /api/Parametro com código e novo valor válido','Só o Valor é gravado; Código e Descrição permanecem','positivo','partição-equivalência','positivo','história'],
+[6,'Sensível: substituir (CA12)',[A,U,SE],'PUT com novo valor','Valor substituído; resposta traz só a nova quantidade de caracteres','positivo','partição-equivalência','positivo','história'],
+[7,'Sensível: manter o atual (CA11)',[A,U,'[DADOS] 1 parâmetro sensível com valor gravado'],'PUT sem novo valor','O valor gravado é mantido','positivo','partição-equivalência','positivo','história'],
+[8,'Valor vazio no 111 (CA8, regressão #158841)',[A,U,'[DADOS] parâmetro 111 existente'],'PUT no 111 com Valor vazio','Gravado vazio, sem erro','positivo','partição-equivalência','positivo','história, histórico de defeitos'],
+[9,'Obrigatoriedade por parâmetro (CA10)',[A,U,'[DADOS] 1 parâmetro opcional e 1 obrigatório'],'PUT vazio em cada um','Cada um aplica a sua regra, sem regra global','positivo','tabela-decisão','positivo','história'],
+['=== FLUXO ALTERNATIVO ==='],
+[10,'Filtro sem resultado (CA2)',[A,U],'GET /api/Parametro com termo sem correspondência','Lista vazia, total 0, sem erro','borda','partição-equivalência','dados','história'],
+[11,'Sensível sem valor gravado (CA5)',[A,U,'[DADOS] 1 parâmetro sensível sem valor gravado'],'GetOne desse parâmetro','Quantidade de caracteres = 0','borda','valor-limite','dados','história'],
+[12,'Parâmetro inexistente (CA6)',[A,U,'[DADOS] código que não existe na base'],'GetOne e PUT com esse código','Não encontrado nas duas; nada é criado','negativo','partição-equivalência','negativo','história'],
+['=== VALIDACOES DE CAMPOS ==='],
+[13,'Vazio em obrigatório, front burlado (CA9)',[A,U,'[DADOS] 1 parâmetro obrigatório com valor gravado'],'PUT com Valor vazio direto na API','Erro de validação; o valor gravado não muda','negativo','partição-equivalência','negativo','história'],
+[14,'HIPOTESE: sensível obrigatório sem valor gravado, enviado vazio (CA13)',[A,U,'HIPOTESE: [DADOS] 1 sensível obrigatório sem valor gravado'],'PUT sem novo valor','HIPOTESE: erro de validação, só quando não há valor gravado (card D-02, não confirmado)','negativo','tabela-decisão','negativo','hipótese'],
+[15,'Limite de tamanho, aceita no limite (CA14)',[A,U,NS],'PUT com valor de exatamente 2000 caracteres','Aceito e gravado (limite de 2000 caracteres, confirmado pela PM em 2026-10-21; vale também para os sensíveis)','borda','valor-limite','negativo','história (resposta da PM)'],
+[16,'Limite de tamanho, rejeita acima (CA14)',[A,U,NS],'PUT com 2001 caracteres','Erro de validação; nada gravado (limite de 2000 caracteres confirmado pela PM em 2026-10-21; 2001 rejeitado decorre do limite, a registrar na US)','borda','valor-limite','negativo','história (resposta da PM)'],
+[17,'Criar parâmetro rejeitado (CA17)',[A,U],'POST /api/Parametro','Rejeitado (rota inexistente ou erro); nada criado','negativo','partição-equivalência','negativo','história'],
+[18,'Excluir parâmetro rejeitado, individual e em lote (CA18)',[A,U],'DELETE de um parâmetro e de vários','Rejeitado nos dois casos; nada removido','negativo','partição-equivalência','negativo','história'],
+[19,'Alterar Código ou Descrição rejeitado (CA19)',[A,U],'PUT tentando mudar Código ou Descrição','Rejeitado; dados permanecem','negativo','partição-equivalência','negativo','história'],
+['=== PERMISSAO ==='],
+[20,'Perfil administrativo (CA20)',[A,U],'Chamar listar, consultar e atualizar','A API atende as três','positivo','partição-equivalência','permissão','história'],
+[21,'Usuário sem perfil administrativo (CA21)',[A,'[USUARIO] 1 usuário sem perfil administrativo'],'Chamar listar, consultar e atualizar','Recusa nas três; nada devolvido nem gravado','negativo','partição-equivalência','permissão','história'],
+[22,'Sem sessão (CA21)',[A],'Chamar os três endpoints sem autenticação','Recusa; nada devolvido','negativo','partição-equivalência','permissão','história'],
+['=== DADOS E CASOS DE BORDA ==='],
+[23,'Nenhum valor sensível em requisição, resposta ou log (CA22)',[A,U,SE,'[AMBIENTE] acesso ao log da API e a LOG_APLICACAO'],'Consultar e atualizar um sensível e inspecionar logs','Nenhum registro contém o valor; a auditoria só diz valor alterado/mantido','negativo','exploratório','dados','história'],
+[24,'Todos os sensíveis do Clássico vêm como sensíveis (CA23, PD-163010-01)',[A,U,S10],'Listar e consultar cada um','Todos com indicador de sensível; nenhum devolvido como comum','positivo','partição-equivalência','regressão','história'],
+[25,'Share 4 para Clássico (CA24)',[A,B,U],'Atualizar pela API e consultar no Clássico','Clássico mostra o novo valor, sem ação manual','positivo','exploratório','regressão','história'],
+[26,'Clássico para Share 4 (CA25)',[A,B,U],'Atualizar no Clássico e consultar pela API (comum e sensível)','Comum: novo valor. Sensível: nova quantidade de caracteres','positivo','exploratório','regressão','história'],
+[27,'Criado ou excluído no Clássico (CA26)',[A,B,U],'Criar e depois excluir um parâmetro no Clássico e listar pela API','A listagem reflete a mudança na próxima consulta, sem erro','positivo','exploratório','dados','história'],
+[28,'Preservação dos dados (CA27)',[A,B,U],'Atualizar um parâmetro pela primeira vez pela API e reabrir no Clássico','Só o Valor mudou; Código, Descrição e demais dados iguais; nenhum parâmetro perdido ou duplicado','positivo','exploratório','regressão','história'],
+['=== CONCORRENCIA ==='],
+[29,'Edição concorrente (CA15)',[A,'[USUARIO] 2 administradores distintos',NS],'Dois PUT simultâneos com valores diferentes no mesmo parâmetro','Sem erro de conflito; permanece o último valor salvo','positivo','exploratório','concorrência','história'],
+['=== ERROS DE INTEGRACAO / API ==='],
+[30,'Falha de base tratada (CA28)',[A,U,'HIPOTESE: [AMBIENTE] mecanismo para deixar a base indisponível em teste'],'Chamar a API com a base indisponível','Erro tratado, sem detalhe técnico nem valor exposto','negativo','exploratório','negativo','história'],
+[31,'Sem cache de parâmetros: valor novo lido na leitura seguinte (CA16)',[A,B,U],'Atualizar um valor pela API e lê-lo logo depois pelo Clássico e por um Worker','O sistema lê o valor novo na leitura seguinte, sem invalidação manual (dev confirmou em 2026-10-21, por análise de código, que toda leitura vai ao banco; leitura já em andamento não muda no meio). A PM ainda vai ajustar o CA 16','positivo','exploratório','regressão','análise técnica (dev)'],
+['=== REGRESSAO ==='],
+[32,'Token 109 nunca em texto claro (#155782)',[A,U,S10],'Listar, consultar e atualizar o 109','Nenhuma resposta traz o token; só a quantidade de caracteres','negativo','partição-equivalência','regressão','histórico de defeitos'],
+[33,'Clássico continua com Incluir/Excluir (decisão 4 da US)',[B,U],'Incluir e excluir um parâmetro no Clássico','Funciona como antes; a tela do Clássico não foi alterada','positivo','exploratório','regressão','história'],
+[34,'Leitores de parâmetro seguem lendo (login 110/111, Workers)',[A,'[CONFIG] Workers com ParametroService registrado',U],'Atualizar 110/111 pela API e exercitar login e um Worker','Leem o valor novo; nenhum erro por causa das alterações em ParametroService','positivo','exploratório','regressão','análise técnica'],
+['=== CASOS DE BORDA / HIPOTESES ==='],
+[35,'Parâmetro 96 oculto da lista',[A,U,'HIPOTESE: [DADOS] parâmetro 96 existente'],'Listar todos os blocos','O 96 nunca aparece na listagem (PM confirmou em 2026-10-21 que se mantém oculto por enquanto)','borda','partição-equivalência','dados','história (resposta da PM)'],
+[36,'HIPOTESE: parâmetro 90 com 0 atualiza USUARIO',[A,U,'HIPOTESE: [DADOS] 1 usuário com cd_visao_wf = 6'],'PUT no 90 com valor 0','HIPOTESE: o usuário passa a cd_visao_wf = 1, na mesma transação (card D-05, sem decisão do PO)','borda','partição-equivalência','dados','hipótese'],
+[37,'HIPOTESE: parâmetro 58 só aceita 0/1 e recusa 1',[A,U],'PUT no 58 com 0, 1 e 2','HIPOTESE: 0 aceito; 1 recusado orientando o Clássico; 2 inválido (card D-04, sem decisão do PO)','borda','partição-equivalência','negativo','hipótese'],
+[38,'Só 109 e 111 aceitam vazio',[A,U],'PUT vazio em 109, 111 e em outros parâmetros','109 e 111 aceitam; os demais rejeitam (dev confirmou em 2026-10-21: só 109 e 111 são opcionais; PM não achou outros)','borda','tabela-decisão','negativo','análise técnica (dev)'],
+[39,'HIPOTESE: valor grande no Oracle sem ORA-01461',[A,'[AMBIENTE] base Oracle real',U],'PUT com valor longo (acima de 4000 bytes, se o limite permitir)','HIPOTESE: grava sem erro de banco (risco do card)','borda','valor-limite','dados','hipótese']
+];
+var tb=document.getElementById('tb'),q=document.getElementById('q'),fd=document.getElementById('fd'),ft=document.getElementById('ft'),fo=document.getElementById('fo'),fh=document.getElementById('fh');
+function uniq(i){var s={};R.forEach(function(r){if(r.length>1){String(r[i]).split(', ').forEach(function(v){s[v]=1;});}});return Object.keys(s);}
+function fill(sel,vals){vals.forEach(function(v){var o=document.createElement('option');o.value=v;o.textContent=v;sel.appendChild(o);});}
+fill(fd,uniq(7));fill(ft,uniq(5));fill(fo,uniq(8));
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+function pre(td,list){list.forEach(function(p){var d=el('span','pre');var h=p.indexOf('HIPOTESE:')===0;if(h){d.appendChild(el('span','hipx','HIPOTESE'));d.appendChild(document.createTextNode(' '));p=p.slice(9).trim();}
+var m=p.match(/^(\[[A-Z]+\])\s*(.*)$/);if(m){d.appendChild(el('code',null,m[1]));d.appendChild(document.createTextNode(' '+m[2]));}else d.appendChild(document.createTextNode(p));td.appendChild(d);});}
+function render(){
+ var term=q.value.toLowerCase(),shown=0,pend=null;tb.textContent='';var rows=[];
+ R.forEach(function(r){
+  if(r.length===1){pend=r[0];return;}
+  var hip=String(r[1]).indexOf('HIPOTESE')===0||String(r[8])==='hipótese';
+  if(fd.value&&r[7]!==fd.value)return;if(ft.value&&r[5]!==ft.value)return;
+  if(fo.value&&String(r[8]).split(', ').indexOf(fo.value)<0)return;
+  if(fh.value==='h'&&!hip)return;if(fh.value==='n'&&hip)return;
+  if(term&&(r[0]+' '+r[1]+' '+r[2].join(' ')+' '+r[3]+' '+r[4]).toLowerCase().indexOf(term)<0)return;
+  if(pend){var g=el('tr','grp'),c=el('td',null,pend);c.colSpan=9;g.appendChild(c);tb.appendChild(g);pend=null;}
+  var tr=el('tr',hip?'hip':'');
+  [r[0],r[1]].forEach(function(v){tr.appendChild(el('td',null,v));});
+  var tp=el('td');pre(tp,r[2]);tr.appendChild(tp);
+  tr.appendChild(el('td',null,r[3]));tr.appendChild(el('td',null,r[4]));
+  var tt=el('td');tt.appendChild(el('span','tag t-'+r[5],r[5]));tr.appendChild(tt);
+  [r[6],r[7],r[8]].forEach(function(v){tr.appendChild(el('td',null,v));});
+  tb.appendChild(tr);shown++;
+ });
+ document.getElementById('cnt').textContent=shown+' de '+R.filter(function(r){return r.length>1;}).length+' cenários';
+}
+[q,fd,ft,fo,fh].forEach(function(e){e.addEventListener('input',render);});
+document.getElementById('rs').onclick=function(){q.value='';fd.value=ft.value=fo.value=fh.value='';render();};
+document.getElementById('th').onclick=function(){var r=document.documentElement,d=r.getAttribute('data-theme');
+ var dark=d?d==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.setAttribute('data-theme',dark?'light':'dark');};
+// resumo e consolidado
+var sc=R.filter(function(r){return r.length>1;}),hs=sc.filter(function(r){return String(r[8])==='hipótese';}).length;
+var cats=R.filter(function(r){return r.length===1;}).length;
+var ch=document.getElementById('chips');
+[['Cenários',sc.length],['Categorias',cats],['Hipóteses',hs],['Positivos',sc.filter(function(r){return r[5]==='positivo';}).length],['Negativos',sc.filter(function(r){return r[5]==='negativo';}).length],['Borda',sc.filter(function(r){return r[5]==='borda';}).length]].forEach(function(p){
+ var c=el('span','chip');c.appendChild(document.createTextNode(p[0]+': '));c.appendChild(el('b',null,p[1]));ch.appendChild(c);});
+var map={},order=[];sc.forEach(function(r){r[2].forEach(function(p){if(!map[p]){map[p]=[];order.push(p);}map[p].push(r[0]);});});
+var ul=document.getElementById('pre');
+order.forEach(function(p){var li=el('li');pre(li,[p]);var s=li.firstChild;s.style.display='inline';li.appendChild(document.createTextNode(' — cenários: #'+map[p].join(', #')));ul.appendChild(li);});
+render();
+})();
+</script>
+</body>
+</html>
