@@ -104,6 +104,17 @@ Leia o arquivo **mais recente** (maior data/hora no nome) de `$CICLOS_DIR\US-<ID
 
 ---
 
+## Step 2.7 — (Opcional) Validar o card `Análise` no código do hub
+
+Validação **somente leitura** dos itens do card `Análise` contra o código dos repositórios do hub SmartShare. O código **corrobora** o card; não o substitui.
+
+- **Localizar o hub:** use a variável de ambiente `SMARTSHARE_HUB`; se ausente, tente `C:\GIT\smartshare-hub`. Se nenhum existir, **pule este passo sem erro** e registre em "Informações ausentes" que o código não foi consultado.
+- **Se existir:** para os itens de `$ANALISE_PONTOS` (arquivos, classes, endpoints, tabelas citados), confirme no código se existem e se fazem o que o card diz. Cite `repositório, arquivo <path>` como evidência.
+- Divergência entre card e código vira **discrepância** no relatório (Step 4); não corrija o card nem o código, e não altere nada no hub (nenhum checkout, pull, commit ou escrita).
+- Não crie item de análise novo a partir do código: só valide o que o card já declara.
+
+---
+
 ## Step 3 — Estruturar a análise técnica
 
 Produza, sempre citando a origem (`análise do dev` ou `PR #<n>, arquivo <path>`):

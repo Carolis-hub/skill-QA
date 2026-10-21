@@ -8,6 +8,8 @@ Rodada 1: neutralização inicial. Rodada 2: alinhamento ao pacote de referênci
 
 Rodada 5 (2026-10-20): diretório único de registro das execuções (`C:\skills-qualidade\ciclos-executados`); ALT-087 a ALT-089. A origem imutável não foi alterada.
 
+Rodada 6 (2026-10-21): validação opcional do código via hub SmartShare (somente leitura); ALT-090 e ALT-091. A origem imutável não foi alterada.
+
 Rodada 3 (2026-10-15): endurecimento de regra solicitado pelo usuário em `analise-negocio` (gate de conclusão; ALT-064 a ALT-067). A origem imutável não foi alterada.
 
 | ID | Rodada | Skill | Tipo | Alteração | Evidência | Observação |
@@ -101,3 +103,5 @@ Rodada 3 (2026-10-15): endurecimento de regra solicitado pelo usuário em `anali
 | ALT-087 | 5 | analise-negocio | Funcional (regra/procedimento: persistência) | [Steps 4.5 e 5, front matter, introdução e nova "Regra de registro (diretório único)"] caminhos de gravação deixam de ser "relativo ao diretório de trabalho" e passam a `$CICLOS_DIR` = `C:\skills-qualidade\ciclos-executados` (`$CICLOS_DIR\US-<ID>\pendencias-dev\...` e `...\analises-negocio\...`) | N/A | Havia dois diretórios (`skills-qa-smartshare\...\ciclos-executados` e `C:\skills-qualidade\ciclos-executados`) conforme o diretório da sessão. Revisa ALT-080 |
 | ALT-088 | 5 | analise-tecnica | Funcional (regra/procedimento) | [Step 2.5 e título da seção do relatório] leitura das pendências passa a `$CICLOS_DIR\US-<ID>\pendencias-dev\US-<ID>_*.md`, com `$CICLOS_DIR` = `C:\skills-qualidade\ciclos-executados` | N/A | Acompanha ALT-087. Revisa ALT-081 |
 | ALT-089 | 5 | validar-ambiente | Funcional (regra/procedimento: persistência) | [Step de gravação] caminho passa a `$CICLOS_DIR\US-<ID>\validacoes-ambiente\US-<ID>_<$EXEC>.md`, diretório único, nunca relativo ao diretório de trabalho nem dentro de `skills-qa-smartshare` | N/A | Acompanha ALT-087 |
+| ALT-090 | 6 | analise-tecnica | Funcional (regra/procedimento) | [novo Step 2.7] validação opcional, somente leitura, dos itens do card `Análise` no código dos repositórios do hub (`SMARTSHARE_HUB` ou `C:\GIT\smartshare-hub`); pula sem erro se o hub não existir | N/A | Solicitação do usuário (2026-10-21). Código corrobora o card, não o substitui. Origem: REGISTRO_ALTERACOES do Downloads (ALT-084), renumerado |
+| ALT-091 | 6 | gerar-mapa-testes-v3 | Funcional (regra/procedimento) | [novo Step 3.7] consulta opcional, somente leitura, ao código via hub para precisar Ação/Resultado Esperado; não cria cenário fora das 4 fontes do Step 4.0 | N/A | Acompanha ALT-090. Origem: REGISTRO_ALTERACOES do Downloads (ALT-085), renumerado |

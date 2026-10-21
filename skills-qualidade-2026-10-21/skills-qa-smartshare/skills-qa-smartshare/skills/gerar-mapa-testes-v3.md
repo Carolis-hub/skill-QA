@@ -124,6 +124,16 @@ Se a busca não retornar nada relacionado, **isso não é bloqueante** — pross
 
 ---
 
+## Step 3.7 — (Opcional) Consultar o código via hub
+
+Consulta **somente leitura** ao código dos repositórios do hub SmartShare, apenas para **precisar Ação e Resultado Esperado** de cenários já justificados.
+
+- **Localizar o hub:** variável `SMARTSHARE_HUB`; se ausente, `C:\GIT\smartshare-hub`. Se não existir, **pule sem erro** e siga.
+- Use o código para detalhar nomes de campos/telas, mensagens, validações e valores reais. Nunca altere nada no hub.
+- **Não crie cenário novo a partir do código.** Cenários só nascem das 4 fontes do Step 4.0; o código apenas refina a redação dos já existentes.
+
+---
+
 ## Step 4 — Generate test map table
 
 ### 4.0 — Escopo de origem (obrigatório, ler antes de 4.1)
