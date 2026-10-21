@@ -24,7 +24,7 @@ Linhas +/− medidas com `git diff --no-index --numstat` em 2026-10-20.
 | gerar-mapa-testes-v3.md | +59 / −20 | Alteração esperada (adaptação funcional + coluna `Pré-requisitos`, rodada 4) |
 | homologar-release.md | +2 / −2 | Alteração esperada (adaptação funcional) |
 | priorizar-automacao.md | +6 / −6 | Alteração esperada (adaptação funcional) |
-| validar-ambiente.md | +203 / −0 | Arquivo adicionado (nova skill, rodada 4; ajustada na rodada 5) |
+| validar-ambiente.md | +235 / −0 | Arquivo adicionado (nova skill, rodada 4; ajustada nas rodadas 5 e 8) |
 
 ## Reconciliação com REGISTRO_ALTERACOES.md
 
@@ -66,3 +66,4 @@ Comparação concluída para todos os arquivos de skill. As skills não foram ex
 ## Reexecução
 
 `git diff --no-index <origem>\<skill>.md <destino>\skills\<skill>.md` para cada skill (ou, para todas, `git diff --no-index --numstat <origem> <destino>\skills`); regenerar este relatório após novas alterações.
+- **Rodada 8 (2026-10-21, ALT-094…ALT-095):** `validar-ambiente.md` cria usuários de teste ausentes e grava credenciais em `usuarios-teste.local.md` (Step 4.5); `executar-teste.md` Step 4.1 lê esse arquivo. Manifesto atualizado só para essas duas skills; patch regenerado.

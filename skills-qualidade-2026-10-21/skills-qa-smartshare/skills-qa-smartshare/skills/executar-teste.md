@@ -175,6 +175,8 @@ Apresente essa triagem ao usuário **antes** de começar a executar, como uma li
 
 Resolva URL/usuário/senha a partir do arquivo/cofre de credenciais do ambiente do SmartShare (caminho a confirmar com o usuário; ex.: `~/.claude/secrets/smartshare-ambientes.md`, se existir). Se houver mais de uma instância, identifique qual o cenário precisa pelo domínio da funcionalidade descrita na US/mapa de testes; se a US não deixar claro se é o SmartShare clássico ou o SmartShare 4, confirme com a usuária antes de navegar. Se o rótulo de instância/canal/banco escrito no mapa de testes parecer uma inferência (combina conhecimento genérico do produto com um trecho ambíguo da análise técnica, sem citação direta) em vez de um fato confirmado, não seguir cegamente — confirmar com a usuária antes de navegar. Se o campo relevante nesse arquivo ainda estiver como `<preencher>`, trate como credencial ausente (Step 3). Nunca hardcode URL/credencial diferente do que está registrado nesse arquivo.
 
+**Usuários de teste por perfil:** se existir `C:\skills-qualidade\ciclos-executados\US-<ID>\usuarios-teste.local.md` (criado por `/validar-ambiente`), use-o para cenários cujo `Pre-requisitos` traga `[USUARIO]`: faça login com o login/senha do perfil correspondente em vez do usuário padrão do cofre, e refaça o login ao trocar de perfil entre cenários. Nunca copie a senha para o relatório, o chat, o log ou o work item. Se o arquivo não existir ou o login falhar, siga a regra de credencial ausente (Step 3), sem criar usuário nem adivinhar senha.
+
 Se o comando estiver sendo usado para um sistema fora do SmartShare, pergunte a URL e as credenciais antes de prosseguir — não adivinhe endpoint de outro sistema.
 
 1. `mcp__playwright__browser_navigate` para a URL de login.

@@ -1,0 +1,35 @@
+Olá, Carina! Tudo bem?
+
+Estou analisando a US #162412 (Migração Share 4 | Login, esqueci senha, 2FA e banner) e preciso de algumas definições para conseguir concluir a análise de negócio. Vários critérios de aceite pedem "o mesmo texto/comportamento que já existe hoje no Codex", mas sem dizer qual é esse texto ou comportamento. Assim o QA não consegue escrever o resultado esperado do teste sem abrir o sistema legado.
+
+Você poderia registrar as respostas abaixo na própria US (ou me passar o texto exato, que eu registro)?
+
+1) CA 2 - Excesso de tentativas
+   a) Quantas tentativas erradas bloqueiam o usuário?
+   b) Qual é a duração do bloqueio?
+   c) Qual é o texto exato da mensagem exibida no nyx-alert?
+
+2) CA 3 - Campos obrigatórios
+   a) Qual é o texto exato do erro quando usuário/e-mail ou senha estão em branco?
+   b) É uma mensagem única ou uma por campo?
+
+3) CA 4 - Serviço indisponível
+   a) Qual é o texto exato da mensagem?
+   b) O que deve acontecer ao clicar em "Tentar novamente" (repete o login, recarrega a tela)?
+
+4) CA 9a - Código 2FA incorreto ou expirado
+   a) Qual é o texto exato da mensagem?
+   b) Código incorreto e código expirado mostram a mesma mensagem ou mensagens diferentes?
+
+5) CA 7 e 7a - "Esqueci minha senha"
+   a) Qual é o texto exato da confirmação por toast (a mesma para usuário existente e inexistente)?
+   b) Qual é o conteúdo esperado do e-mail enviado e o formato/destino do link de redefinição?
+
+6) CA 5 - "Entrar com Microsoft"
+   Qual é a regra que decide o roteamento para Azure AD ou AD on-premise para cada cliente (de onde vem essa configuração)?
+
+Obs.: os demais critérios (CA 1, 6, 8, 9, 10, 11 e 12) já estão claros e não precisam de ajuste.
+
+Assim que a US estiver atualizada, eu reexecuto a análise de negócio e sigo para o mapa de testes.
+
+Obrigada!
