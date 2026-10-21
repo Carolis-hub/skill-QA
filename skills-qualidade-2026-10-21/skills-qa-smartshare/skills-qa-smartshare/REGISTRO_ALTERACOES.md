@@ -10,6 +10,8 @@ Rodada 5 (2026-10-20): diretório único de registro das execuções (`C:\skills
 
 Rodada 6 (2026-10-21): validação opcional do código via hub SmartShare (somente leitura); ALT-090 e ALT-091. A origem imutável não foi alterada.
 
+Rodada 7 (2026-10-21): HTML interativo local do mapa de testes a partir de template versionado; ALT-092 e ALT-093. A origem imutável não foi alterada.
+
 Rodada 3 (2026-10-15): endurecimento de regra solicitado pelo usuário em `analise-negocio` (gate de conclusão; ALT-064 a ALT-067). A origem imutável não foi alterada.
 
 | ID | Rodada | Skill | Tipo | Alteração | Evidência | Observação |
@@ -105,3 +107,5 @@ Rodada 3 (2026-10-15): endurecimento de regra solicitado pelo usuário em `anali
 | ALT-089 | 5 | validar-ambiente | Funcional (regra/procedimento: persistência) | [Step de gravação] caminho passa a `$CICLOS_DIR\US-<ID>\validacoes-ambiente\US-<ID>_<$EXEC>.md`, diretório único, nunca relativo ao diretório de trabalho nem dentro de `skills-qa-smartshare` | N/A | Acompanha ALT-087 |
 | ALT-090 | 6 | analise-tecnica | Funcional (regra/procedimento) | [novo Step 2.7] validação opcional, somente leitura, dos itens do card `Análise` no código dos repositórios do hub (`SMARTSHARE_HUB` ou `C:\GIT\smartshare-hub`); pula sem erro se o hub não existir | N/A | Solicitação do usuário (2026-10-21). Código corrobora o card, não o substitui. Origem: REGISTRO_ALTERACOES do Downloads (ALT-084), renumerado |
 | ALT-091 | 6 | gerar-mapa-testes-v3 | Funcional (regra/procedimento) | [novo Step 3.7] consulta opcional, somente leitura, ao código via hub para precisar Ação/Resultado Esperado; não cria cenário fora das 4 fontes do Step 4.0 | N/A | Acompanha ALT-090. Origem: REGISTRO_ALTERACOES do Downloads (ALT-085), renumerado |
+| ALT-092 | 7 | gerar-mapa-testes-v3 | Funcional (regra/procedimento) | [novo Step 5b, item 12 de "O que muda", Step 7 e Troubleshooting] após a aprovação, grava em `$CICLOS_DIR\US-<ID>\mapas-teste\US-<ID>_<$EXEC>_mapa-teste.html` uma versão interativa do mapa (checkbox Testado, filtros, busca, exportar/importar), montada só por substituição de placeholders no template; não escreve no Azure DevOps e pula sem erro se o template não existir | N/A | Solicitação do usuário (2026-10-21). Modelo de referência: `US-162122_2026-10-20_mapa-teste.html`. Origem por siglas CA/CT/PI/Bug e selo de hipótese seguem o modelo |
+| ALT-093 | 7 | gerar-mapa-testes-v3 (novo arquivo de apoio) | Funcional (novo arquivo) | Novo `templates\mapa-teste-viewer.template.html` (CSS/JS do modelo US-162122 + placeholders `{{...}}` documentados em comentário no topo) | N/A | Acompanha ALT-092. Validado com o mapa da US #162683 (62 cenários) |

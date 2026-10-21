@@ -49,6 +49,8 @@ Linhas +/− medidas com `git diff --no-index --numstat` em 2026-10-20.
 - **Rodada 3 (2026-10-15, ALT-064…ALT-083):** endurecimento de regra em `analise-negocio` (gate de conclusão, Steps 3.5, 4.5 e 5, pontos de atenção do dev), validação das pendências do dev em `analise-tecnica` (Step 2.5) e regras novas em `executar-teste` (prevalência da US sobre a KB, seção `Divergências da KB`).
 - **Rodada 4 (2026-10-20, ALT-084…ALT-086):** coluna `Pré-requisitos` em `gerar-mapa-testes-v3.md` (Step 4.2b, `colspan` 8→9), parser de 9 colunas em `executar-teste.md` e nova skill `validar-ambiente.md`.
 - **Rodada 5 (2026-10-20, ALT-087…ALT-089):** diretório único de registro das execuções, `C:\skills-qualidade\ciclos-executados` (`$CICLOS_DIR`), em `analise-negocio.md`, `analise-tecnica.md` e `validar-ambiente.md`. Os caminhos deixam de ser relativos ao diretório de trabalho. O diretório `ciclos-executados` que ficava dentro de `skills-qa-smartshare` foi unificado com o da raiz (arquivos copiados e conferidos byte a byte).
+- **Rodada 6 (2026-10-21, ALT-090…ALT-091):** validação opcional do código via hub em `analise-tecnica.md` (Step 2.7) e `gerar-mapa-testes-v3.md` (Step 3.7).
+- **Rodada 7 (2026-10-21, ALT-092…ALT-093):** HTML interativo local do mapa (`gerar-mapa-testes-v3.md`, Step 5b) e novo `templates\mapa-teste-viewer.template.html`. **Não reconciliadas** com `diff-completo.patch` e `manifesto-arquivos.md` (não regenerados nas rodadas 6 e 7).
 - A origem (`Skills-QA-Processo_2026-09-28`) **permanece imutável**: hash de `analise-negocio.md` conferido contra o manifesto de 2026-10-14 (`68bf9fc61bc0`). `diff-completo.patch` e `manifesto-arquivos.md` foram regenerados na rodada 5 e refletem o estado atual dos 10 arquivos.
 
 ## Pendências de revisão

@@ -29,6 +29,8 @@ Examples:
 
 11. **Coluna `Pré-requisitos` por cenário** (Step 4.2b, 2026-10-20) — cada linha da tabela passa a declarar o que o **ambiente** precisa ter para o teste ser executável (ex.: processo configurado com 2 atividades de usuário, perfil de usuário específico, massa de dados, feature flag). A coluna é escrita em formato padronizado (`[CATEGORIA] requisito verificável`) para que uma skill posterior leia o mapa, inspecione o ambiente e valide se ele suporta a execução de cada cenário antes de `/executar-teste`. Esta skill apenas **declara** os pré-requisitos — não consulta nem valida o ambiente.
 
+12. **HTML interativo local do mapa** (Step 5b, 2026-10-21) — além do HTML publicado no card, a skill grava em `$CICLOS_DIR\US-<ID>\mapas-teste\` uma versão interativa (checkbox "Testado" com progresso, filtros, busca, exportar/importar marcações, tema claro/escuro, layout para celular), montada a partir do template versionado `$TEMPLATES_DIR\mapa-teste-viewer.template.html`. O conteúdo é o mesmo do mapa aprovado; só muda a apresentação. Não é publicado no Azure DevOps.
+
 ---
 
 ## Encoding Policy (read before executing any step)
@@ -318,6 +320,29 @@ Se a tabela for muito grande e você quiser revisar antes de publicar, salve o H
 
 ---
 
+## Step 5b — Gerar o HTML interativo local (modelo)
+
+Executar **depois da aprovação do Step 4.5**, com a mesma tabela aprovada, e **independente do Step 6** (se a publicação falhar, o arquivo local ainda deve ser gravado). Este passo não escreve nada no Azure DevOps.
+
+**Variáveis:** `$CICLOS_DIR` = `C:\skills-qualidade\ciclos-executados`; `$TEMPLATES_DIR` = `C:\skills-qualidade\skills-qa-smartshare\skills-qa-smartshare\templates`; `$EXEC` = data da execução (`AAAA-MM-DD`).
+
+1. Leia `$TEMPLATES_DIR\mapa-teste-viewer.template.html`. Se não existir, **pule o passo sem erro** e avise no Step 7 que o HTML interativo não foi gerado. O comentário no topo do template descreve cada placeholder e o formato exato das linhas.
+2. **Não altere o CSS nem o JS do template.** Substitua apenas os placeholders `{{...}}`:
+   - `{{TITULO}}`: `Mapa de Testes — US <ID> — <título curto da história>`; `{{PROJETO}}`, `{{SPRINT}}` e `{{CARD_MAPA_ID}}` do Step 1/2.
+   - `{{RESUMO_HTML}}`: parágrafos **Objetivo**, **Fonte técnica**, **Origem (siglas)**, **Histórico de defeitos considerado** e **Dimensões cobertas** (mesmo conteúdo do HTML do Step 5), seguidos de `<h4>Critérios de aceite</h4><ul>…</ul>`.
+   - `{{LINHAS_HTML}}`: uma linha `<tr class="group">` por categoria (nomes **com acentos**: `VALIDAÇÕES DE CAMPOS`, `PERMISSÃO`, `CONCORRÊNCIA`, `ERROS DE INTEGRAÇÃO / API`, `REGRESSÃO`, `CASOS DE BORDA / HIPÓTESES`) e uma linha `<tr data-id="N">` por cenário, no formato do template. `{{TOTAL}}` = número de cenários.
+   - `{{PREREQ_HTML}}`: o mesmo consolidado do Step 5, em `<li>`.
+   - `{{CHAVE_STORAGE}}` = `mapa-teste-us-<ID>-<slug>-testados-v1`; `{{ARQUIVO_EXPORT}}` = `mapa-teste-us-<ID>-<slug>.html` (`<slug>` curto, minúsculo, sem acentos).
+3. **Regras de apresentação (as mesmas do modelo de referência):**
+   - Coluna **Origem** em siglas: `CA<n>` (Critério de Aceite), `CT` (Casos de Teste do dev), `PI` (Pontos de Impacto do dev), `Bug #<id>` (histórico de defeitos). Cenário `HIPOTESE:` leva `HIPOTESE: <siglas>, hipótese` e a linha recebe `class="row-hipotese"` e o selo `<span class="hip-badge">hipótese</span>` antes do nome (sem repetir o prefixo `HIPOTESE:` no texto).
+   - Tags: `tag-positivo` / `tag-negativo` em Tipo e Dimensão, `tag-regressao` em Dimensão `regressão`, `tag` simples nos demais.
+   - Linha `N/A` (ex.: Concorrência): Configurações = `Nenhum específico`; Ação, Resultado, Tipo e Técnica = `—`.
+   - Pré-requisitos no formato `[CATEGORIA] requisito` separados por `<br>`, texto idêntico ao do Step 5. Escape de `&`, `<` e `>` em todo texto de célula.
+4. Grave em `$CICLOS_DIR\US-<ID>\mapas-teste\US-<ID>_<$EXEC>_mapa-teste.html` (crie os diretórios se não existirem; **nunca sobrescreva** uma execução anterior: se o nome já existir, acrescente `_HHmm`). Nunca grave em pasta relativa ao diretório de trabalho nem dentro de `skills-qa-smartshare`.
+5. Confira antes de reportar: nenhum `{{` restante no arquivo e o número de `<tr data-id` igual ao total de cenários.
+
+---
+
 ## Step 6 — Publicar via MCP
 
 - **Se `CARD_EXISTS = false`:** chame `mcp__azure-devops__create_work_item` com `workItemType: "Criar Mapa de Teste"`, `title: "Mapa de teste"`, `description: {HTML do Step 5}`, `parentId: $WI_ID`, `areaPath: $STORY_AREA_PATH`, `iterationPath: $STORY_ITERATION_PATH`, `projectId: $STORY_PROJECT`. Capture o `id` retornado como `$MAPA_CARD_ID`.
@@ -354,6 +379,7 @@ Reporte ao usuário:
 
 - Card publicado: `#$MAPA_CARD_ID` (criado ou atualizado), com link (`https://dev.azure.com/selbettidev/{projeto}/_workitems/edit/{id}`).
 - Quantidade de cenários publicados e categorias cobertas.
+- **HTML interativo local:** caminho do arquivo gravado no Step 5b (ou aviso de que o template não foi encontrado e o passo foi pulado).
 - **Dimensões cobertas:** lista das dimensões (positivo/negativo/permissão/dados/concorrência/regressão) efetivamente presentes na tabela aprovada, e quais ficaram `N/A` com o motivo.
 - **Pré-requisitos de ambiente:** lista consolidada dos requisitos distintos (por categoria) e quantos cenários dependem de cada um — é o que a skill de validação de ambiente vai consumir.
 - **Histórico de defeitos considerado:** IDs dos bugs de `$DEFECT_HISTORY` que geraram cenário de regressão, ou "nenhum encontrado / busca indisponível".
@@ -391,4 +417,5 @@ falhou, se for o caso).
 - Se `create_work_item`/`update_work_item` falhar (ex.: `"Criar Mapa de Teste"` não é um tipo válido no processo do projeto informado, ou `parentId`/`areaPath` inconsistentes), pare e reporte o erro exato retornado pelo MCP — nunca tente contornar criando um tipo de work item diferente ou publicando em outro lugar sem confirmar com o usuário.
 - O comentário do Step 6.5 vai na **história** (`$WI_ID`), nunca no card "Criar Mapa de Teste" — postar lá misturaria o conteúdo do mapa com discussão, e ninguém olha o histórico de comentários de um card de mapa. Nunca mover os cenários `HIPOTESE:` para fora da tabela do mapa por causa desse comentário — ele é um apontador, não um substituto do mapa.
 - Se não for possível determinar o pré-requisito de um cenário a partir das 4 fontes, não deixe a célula vazia nem invente: registre o item com prefixo `HIPOTESE:` (Step 4.2b), para que a skill de validação de ambiente o trate como não verificável.
+- O HTML interativo do Step 5b é só um arquivo local de apoio à execução manual: o que vale como mapa é o conteúdo publicado no card. Se os dois divergirem, refaça o Step 5b a partir da tabela aprovada — nunca edite o mapa só no arquivo local.
 - Se, ao montar um cenário, a única justificativa que você consegue escrever na coluna Origem é "achei isso interessante na análise técnica" sem apontar para Instruções QA/Critérios de Aceite/Pontos de Impacto/Casos de Teste (Step 4.0), **não crie o cenário** — é sinal de que ele está fora do escopo da história, mesmo que pareça um risco técnico legítimo.
