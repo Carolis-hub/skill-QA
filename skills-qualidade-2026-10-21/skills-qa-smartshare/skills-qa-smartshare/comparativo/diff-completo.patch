@@ -784,10 +784,10 @@ index 5aff133..ecc6732 100644
  
 diff --git a/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md b/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md
 new file mode 100644
-index 0000000..a7d8015
+index 0000000..9e86137
 --- /dev/null
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md
-@@ -0,0 +1,233 @@
+@@ -0,0 +1,250 @@
 +---
 +description: Le o mapa de testes publicado no card "Criar Mapa de Teste" filho de uma User Story do Azure DevOps, extrai a coluna Pre-requisitos (formato [CATEGORIA] requisito), valida no ambiente de teste se cada requisito existe e, quando nao existir, CONFIGURA o ambiente (cria usuarios, processos, configuracoes, dados) pela UI. URLs do ambiente, URLs de telas necessarias, admin e usuarios vem de um arquivo de configuracao preenchido pela usuaria (C:\skills-qualidade\config\ambiente-teste.local.md); usuarios criados sao gravados nele. Entrega, por requisito, ATENDIDO / CONFIGURADO / NAO ATENDIDO / NAO VERIFICAVEL e, por cenario, EXECUTAVEL / PARCIAL / BLOQUEADO. Nao executa os cenarios e nunca atua fora de ambiente marcado como teste.
 +---
@@ -816,6 +816,7 @@ index 0000000..a7d8015
 +- **Nunca marcar `ATENDIDO` ou `CONFIGURADO` sem evidência.** Cada um precisa apontar a observação que o comprova (tela/consulta e valor encontrado). Depois de configurar, **reverifique** o requisito pela UI; sem confirmação → não vale.
 +- **Tentar antes de declarar `NAO VERIFICAVEL`/`NAO ATENDIDO`.** Razões válidas para `NAO VERIFICAVEL`: (1) falta de acesso (credencial, permissão, URL, MCP) depois de uma tentativa real; (2) requisito vago, sem número, `HIPOTESE:`; (3) só verificável por ação proibida acima. "Não tentei" não é motivo.
 +- **Credenciais só no `$AMBIENTE_CFG`.** Senha de admin e de usuário (informado ou criado) nunca vai ao relatório, ao chat, ao LOG-ACOES ou ao work item. Connection string e token idem.
++- **Dúvida de conceito ou de como configurar: consultar o hub, senão sinalizar. Nunca inventar.** Termos do mapa que a skill não saiba definir (ex.: "o que é um usuário publicador?", "como crio um perfil?", qual permissão compõe um perfil, onde fica um parâmetro) seguem o Step 3.5. Sem definição no hub, KB ou memória, a skill **não chuta** perfil, permissão ou configuração: sinaliza à usuária e deixa o requisito `NAO VERIFICAVEL`/`NAO ATENDIDO`.
 +- **Não reinterpretar o mapa.** Esta skill não cria, remove nem edita cenários ou pré-requisitos; se um pré-requisito parecer errado ou faltar, sinalize e deixe a correção para `/gerar-mapa-testes-v3`.
 +
 +---
@@ -889,6 +890,18 @@ index 0000000..a7d8015
 +| `AMBIENTE` | Versão/build, URL, disponibilidade | Nada a configurar: divergência vira `NAO ATENDIDO` com instrução |
 +
 +Liste explicitamente cada item que será criado/alterado (`o quê`, `onde`, `valor`). **A configuração só começa com o "sim" da usuária neste plano**; sem ele, a skill roda só a verificação e os ausentes ficam `NAO ATENDIDO`. Se `$ambiente` parecer produção ou não for `teste` no arquivo, pare aqui (guardrail). Com muitos requisitos, diga a ordem planejada — comece pelos que bloqueiam mais cenários — e prossiga; não pede nova confirmação por requisito, salvo ação irreversível.
++
++---
++
++## Step 3.5 — Resolver dúvidas de conceito e de configuração (hub primeiro)
++
++Para cada requisito cujo termo ou configuração a skill não saiba definir (ex.: "usuário publicador", "como criar um perfil", quais permissões formam um perfil, onde fica um parâmetro), antes de verificar ou configurar, nesta ordem:
++
++1. **Hub (código, somente leitura).** Localize-o por `SMARTSHARE_HUB`; se ausente, `C:\GIT\smartshare-hub`. Busque o termo e sua configuração: enums/constantes de perfil e permissão, seeds/migrations, telas e serviços de cadastro de perfil/usuário, parâmetros. Cite `repositório, arquivo <path>` como evidência. Nenhum checkout, pull, commit ou escrita no hub.
++2. **KB e memória do SmartShare** (Gate de contexto, Step 0.6).
++3. **Não localizou?** **Sinalize à usuária** e não configure: diga o termo, o que buscou (hub: onde procurou; KB/memória) e a pergunta objetiva (ex.: "o que define o perfil publicador no SmartShare e como é criado?"). Registre em "Dúvidas sinalizadas" do relatório. O requisito fica `NAO VERIFICAVEL (definição não localizada)`; se a usuária responder na hora, siga com a resposta e registre a fonte como "informado pela usuária".
++
++Hub ausente (nenhum caminho existe) não é erro: pula o item 1 e registra que o código não foi consultado. O que o hub revelar entra como evidência, mas **não substitui** o texto do mapa: divergência entre hub e mapa vai para "Observações".
 +
 +---
 +
@@ -982,6 +995,9 @@ index 0000000..a7d8015
 +
 +Credenciais em `$AMBIENTE_CFG` — a senha **não** aparece neste relatório.
 +
++## Dúvidas sinalizadas
++- <termo/configuração>: <onde buscou (hub: repositório/arquivo, KB, memória)> — <pergunta objetiva à usuária>
++
 +## Não verificados (e por quê)
 +- <requisito NAO VERIFICAVEL>: <razão válida>
 +
@@ -1011,6 +1027,7 @@ index 0000000..a7d8015
 +- **Mapa sem coluna `Pre-requisitos` (8 colunas):** não há o que validar. Pare e sugira regerar com `/gerar-mapa-testes-v3`; nunca invente pré-requisitos.
 +- **Muitos cenários `Nenhum específico`:** é válido. Eles entram como `EXECUTAVEL`; só informe a contagem.
 +- **Requisito vago** (ex.: "ambiente configurado", sem número): `NAO VERIFICAVEL (requisito vago)`; sugira reescrevê-lo no mapa com `/gerar-mapa-testes-v3` em vez de interpretá-lo.
++- **Termo desconhecido (ex.: "usuário publicador") ou perfil que não sabe criar:** consultar o hub (Step 3.5); sem definição lá, sinalizar à usuária e não criar perfil/usuário por palpite.
 +- **`$AMBIENTE_CFG` ausente ou com `<preencher>` no que é necessário:** criar a partir do modelo e parar pedindo o campo exato; nunca adivinhar URL/senha.
 +- **Plano de configuração não aprovado / sem admin no arquivo / ambiente não `teste`:** rodar só a verificação; ausentes ficam `NAO ATENDIDO` com instrução em "O que preparar no ambiente".
 +- **Configuração recusada pelo sistema** (permissão, campo obrigatório, regra de negócio): `NAO ATENDIDO` com a mensagem; não contornar nem alterar outra configuração para "destravar".
