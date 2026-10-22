@@ -302,7 +302,7 @@ index 02df567..d7348b7 100644
  3. Se a busca não encontrar nenhuma página relacionada, não conclua automaticamente que não existe documentação — chame `mcp__azure-devops__list_wiki_pages` para navegar a árvore e checar manualmente se a funcionalidade está descrita em uma página com nome que a busca de texto não capturou.
  
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/executar-teste.md b/skills-qa-smartshare/skills-qa-smartshare/skills/executar-teste.md
-index a34f35c..3f6a9c6 100644
+index a34f35c..07d4f4b 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/executar-teste.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/executar-teste.md
 @@ -7,8 +7,8 @@ Executar os testes da User Story do Azure DevOps a partir de **$ARGUMENTS**.
@@ -413,7 +413,7 @@ index a34f35c..3f6a9c6 100644
 -Para o produto Cobrança, resolva URL/usuário/senha lendo `~/.claude/secrets/cobranca-ambientes.md` — ele tem 5 instâncias (Cooperado legado, Cooperativa, Central, Confederação, Cooperado nova plataforma), todas em HMG. Identifique qual instância o cenário precisa pelo domínio da funcionalidade descrita na US/mapa de testes (ex.: login/lembrar-me de cooperado → instância "Cooperado"; se a US não deixar claro se é a plataforma legada ou a nova, confirme com a usuária antes de navegar). Se o rótulo de instância/canal/banco escrito no mapa de testes parecer uma inferência (combina conhecimento genérico do produto com um trecho ambíguo da análise técnica, sem citação direta) em vez de um fato confirmado, não seguir cegamente — confirmar com a usuária antes de navegar. Se o campo relevante nesse arquivo ainda estiver como `<preencher>`, trate como credencial ausente (Step 3). Nunca hardcode URL/credencial diferente do que está registrado nesse arquivo.
 +Resolva URL/usuário/senha a partir do arquivo/cofre de credenciais do ambiente do SmartShare (caminho a confirmar com o usuário; ex.: `~/.claude/secrets/smartshare-ambientes.md`, se existir). Se houver mais de uma instância, identifique qual o cenário precisa pelo domínio da funcionalidade descrita na US/mapa de testes; se a US não deixar claro se é o SmartShare clássico ou o SmartShare 4, confirme com a usuária antes de navegar. Se o rótulo de instância/canal/banco escrito no mapa de testes parecer uma inferência (combina conhecimento genérico do produto com um trecho ambíguo da análise técnica, sem citação direta) em vez de um fato confirmado, não seguir cegamente — confirmar com a usuária antes de navegar. Se o campo relevante nesse arquivo ainda estiver como `<preencher>`, trate como credencial ausente (Step 3). Nunca hardcode URL/credencial diferente do que está registrado nesse arquivo.
 +
-+**Usuários de teste por perfil:** se existir `C:\skills-qualidade\ciclos-executados\US-<ID>\usuarios-teste.local.md` (criado por `/validar-ambiente`), use-o para cenários cujo `Pre-requisitos` traga `[USUARIO]`: faça login com o login/senha do perfil correspondente em vez do usuário padrão do cofre, e refaça o login ao trocar de perfil entre cenários. Nunca copie a senha para o relatório, o chat, o log ou o work item. Se o arquivo não existir ou o login falhar, siga a regra de credencial ausente (Step 3), sem criar usuário nem adivinhar senha.
++**Ambiente e usuários de teste:** se existir `C:\skills-qualidade\config\ambiente-teste.local.md` (preenchido pela usuária e complementado por `/validar-ambiente`), ele é a fonte preferencial de URL base, URLs das telas e usuários, antes do cofre. Para cenários cujo `Pre-requisitos` traga `[USUARIO]`, faça login com o login/senha do perfil correspondente na seção "Usuários de teste" (mesmo ambiente) em vez do usuário padrão, e refaça o login ao trocar de perfil entre cenários. Nunca copie senha para o relatório, o chat, o log ou o work item. Se o arquivo não existir, o campo estiver `<preencher>` ou o login falhar, siga a regra de credencial ausente (Step 3), sem criar usuário nem adivinhar senha.
  
 -Se o comando estiver sendo usado para um sistema fora de Cobrança, pergunte a URL e as credenciais antes de prosseguir — não adivinhe endpoint de outro sistema.
 +Se o comando estiver sendo usado para um sistema fora do SmartShare, pergunte a URL e as credenciais antes de prosseguir — não adivinhe endpoint de outro sistema.
@@ -784,15 +784,15 @@ index 5aff133..ecc6732 100644
  
 diff --git a/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md b/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md
 new file mode 100644
-index 0000000..8a6bc19
+index 0000000..a7d8015
 --- /dev/null
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md
-@@ -0,0 +1,235 @@
+@@ -0,0 +1,233 @@
 +---
-+description: Le o mapa de testes publicado no card "Criar Mapa de Teste" filho de uma User Story do Azure DevOps, extrai a coluna Pre-requisitos (formato [CATEGORIA] requisito), inspeciona o ambiente de teste somente em leitura (browser, banco read-only, configuracao) e valida se ele suporta a execucao de cada cenario. Entrega, por requisito, ATENDIDO / NAO ATENDIDO / NAO VERIFICAVEL e, por cenario, EXECUTAVEL / PARCIAL / BLOQUEADO, para decidir se vale rodar /executar-teste. Unica escrita permitida: criar, em ambiente de teste, os usuarios exigidos pelos pre-requisitos [USUARIO] que nao existirem, gravando login/senha em arquivo local para o /executar-teste. Nao altera mais nada no ambiente, nao cria massa de dados e nao executa os cenarios.
++description: Le o mapa de testes publicado no card "Criar Mapa de Teste" filho de uma User Story do Azure DevOps, extrai a coluna Pre-requisitos (formato [CATEGORIA] requisito), valida no ambiente de teste se cada requisito existe e, quando nao existir, CONFIGURA o ambiente (cria usuarios, processos, configuracoes, dados) pela UI. URLs do ambiente, URLs de telas necessarias, admin e usuarios vem de um arquivo de configuracao preenchido pela usuaria (C:\skills-qualidade\config\ambiente-teste.local.md); usuarios criados sao gravados nele. Entrega, por requisito, ATENDIDO / CONFIGURADO / NAO ATENDIDO / NAO VERIFICAVEL e, por cenario, EXECUTAVEL / PARCIAL / BLOQUEADO. Nao executa os cenarios e nunca atua fora de ambiente marcado como teste.
 +---
 +
-+Validar se o ambiente suporta os testes da User Story do Azure DevOps a partir de **$ARGUMENTS**.
++Validar e preparar o ambiente para os testes da User Story do Azure DevOps a partir de **$ARGUMENTS**.
 +
 +Formato esperado: `[ID da User Story] [nome do projeto (opcional)] [ambiente (opcional, default: HMG)]`
 +
@@ -800,29 +800,34 @@ index 0000000..8a6bc19
 +- `157538` → projeto resolvido automaticamente a partir do próprio work item, ambiente HMG
 +- `157538 "Nome do Projeto" HMG`
 +
-+Esta skill fica **entre** `/gerar-mapa-testes-v3` e `/executar-teste`: o primeiro declara, por cenário, o que o ambiente precisa ter (coluna `Pre-requisitos`); esta skill olha o ambiente real e responde, antes de gastar uma execução, "esse ambiente consegue rodar esses cenários?". Não executa cenário nenhum.
++Esta skill fica **entre** `/gerar-mapa-testes-v3` e `/executar-teste`: o primeiro declara, por cenário, o que o ambiente precisa ter (coluna `Pre-requisitos`); esta skill olha o ambiente real, **configura o que faltar** e responde "esse ambiente consegue rodar esses cenários?". Não executa cenário nenhum.
++
++**Arquivo de configuração (`$AMBIENTE_CFG`)** = `C:\skills-qualidade\config\ambiente-teste.local.md`, caminho absoluto. É preenchido pela usuária (modelo em `templates\ambiente-teste.template.md`) com: ambientes e URL base, URLs das telas necessárias, login/senha do admin e usuários de teste. Contém senhas: nunca vai para o GitHub nem para relatório/chat/work item.
 +
 +---
 +
 +## Regra fundamental (guardrails)
 +
-+- **Somente leitura, com uma única exceção: usuários de teste (`[USUARIO]`).** Nunca criar, alterar ou excluir dado, configuração, processo ou flag no ambiente — nem "só para destravar". A exceção é o Step 4.5: criar o usuário exigido por um requisito `[USUARIO]` que **não existe** no ambiente. Nunca alterar nem excluir usuário existente, nunca conceder perfil/permissão além do que o requisito pede e nunca criar usuário em produção. Banco: apenas `SELECT`/`information_schema` (usuário é criado pela UI de cadastro, nunca por `INSERT`). UI: apenas navegar e consultar telas de configuração; nunca salvar, publicar, ativar ou submeter formulário. Se um requisito (exceto `[USUARIO]`) só puder ser satisfeito alterando o ambiente, o resultado é `NAO ATENDIDO` e a skill descreve **o que precisa ser preparado** — quem prepara é a usuária ou o time.
-+- **Nunca rodar contra produção.** Se a URL do ambiente resolvido parecer produção (sem `hom`/`homolog`/`hml`/`dev` no domínio, ou a usuária não confirmar que é ambiente de teste), parar e perguntar antes de navegar.
-+- **Nunca marcar `ATENDIDO` sem evidência.** Cada `ATENDIDO` precisa apontar a observação que o comprova (tela/configuração consultada, resultado de query, valor encontrado). Sem evidência, o resultado é `NAO VERIFICAVEL`, nunca `ATENDIDO`.
-+- **Tentar antes de declarar `NAO VERIFICAVEL`.** As únicas razões válidas são: (1) falta de acesso (credencial, permissão, MCP indisponível) depois de uma tentativa real; (2) o requisito está redigido de forma que não permite verificação objetiva (vago, sem número, `HIPOTESE:`); (3) a verificação exigiria escrita ou ação irreversível. "Não tentei" ou "dá trabalho" não são motivos — tente no mesmo turno.
-+- **Credenciais só no arquivo de usuários de teste.** Login/senha dos usuários **criados por esta skill** vão exclusivamente para `usuarios-teste.local.md` (Step 4.5), nunca para o relatório, o chat, o LOG-ACOES ou o work item. Senha de admin, token e connection string nunca são registrados em lugar nenhum.
-+- **Não reinterpretar o mapa.** Esta skill não cria, remove nem edita cenários ou pré-requisitos; se um pré-requisito parecer errado ou faltar, sinalize no relatório e deixe a correção para `/gerar-mapa-testes-v3`.
++- **Só atua em ambiente de teste declarado no `$AMBIENTE_CFG`.** O ambiente precisa estar listado lá com `Tipo = teste` e a URL de navegação precisa pertencer à URL base dele. Qualquer outra URL (ou produção, ou URL que a usuária não confirmar como teste) → parar e perguntar antes de navegar. Nunca inventar URL.
++- **Validar primeiro, configurar só o que falta.** Requisito já atendido não é tocado. Só se configura o que um requisito do mapa exige e que a verificação provou ausente.
++- **Configuração é por UI, com plano confirmado.** Criar/ajustar pela interface (nunca `INSERT`/`UPDATE`/`DELETE` no banco; banco só `SELECT`). O que será configurado é apresentado no Step 3 e só começa com o "sim" explícito da usuária.
++- **Aditivo e rastreável.** Pode **criar** (usuário, processo, parâmetro, registro) e **ligar/ajustar** configuração exigida pelo requisito. Nunca excluir nem sobrescrever dado/configuração existente que não seja do requisito, nunca redefinir senha de usuário existente, nunca conceder perfil de administrador a usuário de teste. Cada mudança é registrada no relatório com **antes → depois**, para a usuária poder desfazer.
++- **Ação irreversível ou de efeito fora do ambiente pede confirmação própria**, mesmo com o plano aprovado: publicar/ativar versão que não pode ser revertida, disparar integração real, enviar e-mail/notificação real, apagar algo. Se o requisito só se satisfaz assim e a usuária não autorizar → `NAO ATENDIDO`.
++- **Nunca marcar `ATENDIDO` ou `CONFIGURADO` sem evidência.** Cada um precisa apontar a observação que o comprova (tela/consulta e valor encontrado). Depois de configurar, **reverifique** o requisito pela UI; sem confirmação → não vale.
++- **Tentar antes de declarar `NAO VERIFICAVEL`/`NAO ATENDIDO`.** Razões válidas para `NAO VERIFICAVEL`: (1) falta de acesso (credencial, permissão, URL, MCP) depois de uma tentativa real; (2) requisito vago, sem número, `HIPOTESE:`; (3) só verificável por ação proibida acima. "Não tentei" não é motivo.
++- **Credenciais só no `$AMBIENTE_CFG`.** Senha de admin e de usuário (informado ou criado) nunca vai ao relatório, ao chat, ao LOG-ACOES ou ao work item. Connection string e token idem.
++- **Não reinterpretar o mapa.** Esta skill não cria, remove nem edita cenários ou pré-requisitos; se um pré-requisito parecer errado ou faltar, sinalize e deixe a correção para `/gerar-mapa-testes-v3`.
 +
 +---
 +
-+## Step 0 — Validar ferramentas e argumentos
++## Step 0 — Validar ferramentas, arquivo de configuração e argumentos
 +
 +1. Se `$ARGUMENTS` estiver vazio, pare e peça o ID da US.
 +2. Verifique que `mcp__azure-devops` está conectado (chamada de teste em `get_work_item`).
-+3. Verifique que `mcp__playwright` está conectado (`browser_tabs` com `action: "list"`). Se estiver indisponível, **não pare**: requisitos que só podem ser verificados pela UI viram `NAO VERIFICAVEL` (motivo: browser indisponível) e o relatório avisa.
-+4. Verifique se há MCP de banco somente leitura para o ambiente do SmartShare (nome a confirmar). Se não houver, requisitos que dependem de consulta a dados seguem para a UI quando possível; senão, `NAO VERIFICAVEL` (motivo: sem acesso de leitura ao banco).
-+5. Se houver requisito `[USUARIO]`, verifique se há credencial de administrador (com permissão de cadastrar usuários) no arquivo/cofre de credenciais do ambiente, o mesmo de `/executar-teste` Step 4.1. Sem ela, usuários ausentes não podem ser criados: ficam `NAO ATENDIDO` com o motivo "sem credencial de admin para criar".
-+6. **Gate de contexto**, igual ao de `/executar-teste` (Step 0.4): busque na memória e na KB do SmartShare por termos da US (nome da tela, do processo, do perfil) antes de navegar. Isso evita procurar por tentativa e erro onde uma configuração está. Em divergência entre KB e US, prevalece a US e a divergência é sinalizada no relatório.
++3. **Leia `$AMBIENTE_CFG`.** Se não existir, crie-o a partir de `templates\ambiente-teste.template.md` (pasta `config` incluída), diga à usuária que ele precisa ser preenchido (URL base, URLs necessárias, admin, usuários) e **pare**. Se existir, resolva `$ambiente` (argumento ou `ambiente_padrao`) e extraia: URL base, URLs necessárias, admin e usuários do ambiente. Campo `<preencher>` necessário ao que será validado = informação ausente: pare e peça exatamente esse campo. Nunca adivinhe URL ou senha.
++4. Verifique que `mcp__playwright` está conectado. Se indisponível, **não pare**: tudo que depende da UI vira `NAO VERIFICAVEL` (motivo: browser indisponível) e nada é configurado.
++5. Verifique se há MCP de banco somente leitura para o ambiente (nome a confirmar). Se não houver, a verificação segue pela UI; senão `NAO VERIFICAVEL` (sem acesso de leitura ao banco).
++6. **Gate de contexto**, igual ao de `/executar-teste` (Step 0.4): busque na memória e na KB do SmartShare por termos da US (tela, processo, perfil) antes de navegar, para saber onde cada configuração está. Em divergência entre KB e US, prevalece a US e a divergência é sinalizada.
 +
 +---
 +
@@ -866,62 +871,48 @@ index 0000000..8a6bc19
 +
 +---
 +
-+## Step 3 — Planejar a verificação e confirmar
++## Step 3 — Planejar a verificação e a configuração, e confirmar
 +
-+Antes de navegar, apresente ao usuário:
++Antes de navegar, apresente à usuária:
 +
-+- ambiente e URL resolvidos;
++- ambiente, URL base e as URLs do `$AMBIENTE_CFG` que serão usadas;
 +- quantidade de cenários e de requisitos distintos, por categoria;
-+- como cada categoria será verificada (tabela abaixo) e o que ficará `NAO VERIFICAVEL` de antemão;
-+- se houver `[USUARIO]`: a lista de usuários que serão criados caso não existam (login, perfil/permissões) e o caminho do arquivo de credenciais. **A criação só prossegue com o "sim" explícito da usuária nesta confirmação**, e só depois de confirmado que o ambiente é de teste.
++- como cada categoria será verificada e **o que será configurado caso falte** (tabela abaixo), com o que ficará `NAO VERIFICAVEL` de antemão.
 +
-+| Categoria | Como verificar (somente leitura) |
-+|---|---|
-+| `PROCESSO` | Telas de configuração/modelagem do processo ou workflow: contar e tipificar atividades/etapas, conferir regras e sequência. Banco read-only, se houver, para confirmar a definição |
-+| `USUARIO` | Cadastro de usuários/perfis/grupos: existência, quantidade, perfil e permissão. Se o usuário **não existir**, criá-lo pelo cadastro da UI (Step 4.5) e gravar login/senha no arquivo de usuários de teste. Nunca autenticar com credencial que não tenha sido fornecida pela usuária ou criada por esta skill |
-+| `DADOS` | Consulta de leitura no banco ou busca na UI por registro que satisfaça o estado exigido (status, vazio, inexistente) |
-+| `CONFIG` | Telas de parâmetros/licenças/módulos; flags quando legíveis. Flag não legível → `NAO VERIFICAVEL` |
-+| `INTEGRACAO` | Acessibilidade do serviço (resposta de uma URL/tela de status, configuração do conector). Nunca disparar operação real com efeito colateral |
-+| `AMBIENTE` | Versão/build exibido pelo sistema, URL, disponibilidade da aplicação |
++| Categoria | Verificar | Se não existir, configurar (UI do ambiente de teste) |
++|---|---|---|
++| `PROCESSO` | Telas de modelagem/workflow: contar e tipificar atividades/etapas, regras e sequência | Criar o processo/fluxo com a estrutura exigida (ex.: 2 atividades de usuário). Publicar/ativar só com confirmação própria (irreversível?) |
++| `USUARIO` | Primeiro o `$AMBIENTE_CFG` (usuário informado), depois o cadastro do ambiente: existência, perfil, permissão | Criar o usuário com o perfil mínimo exigido (Step 4.5) e gravar login/senha no `$AMBIENTE_CFG` |
++| `DADOS` | `SELECT` no banco read-only, ou busca na UI por registro no estado exigido (status, vazio, inexistente) | Criar o registro pela UI no estado exigido. Estado que só o banco/rotina produz → `NAO ATENDIDO` com instrução |
++| `CONFIG` | Telas de parâmetros/licenças/módulos; flags quando legíveis | Ajustar o parâmetro/módulo exigido, registrando o valor anterior. Flag não legível/editável → `NAO VERIFICAVEL` |
++| `INTEGRACAO` | Acessibilidade do serviço (URL/tela de status, conector configurado) | Só configurar o conector no ambiente de teste. Nunca disparar operação real com efeito colateral |
++| `AMBIENTE` | Versão/build, URL, disponibilidade | Nada a configurar: divergência vira `NAO ATENDIDO` com instrução |
 +
-+**Se `$ambiente` parecer produção, pare aqui e pergunte** (guardrail). Se o volume for grande (muitos requisitos), diga a ordem planejada — comece pelos requisitos que bloqueiam mais cenários — e prossiga; a verificação é somente leitura, não precisa de nova confirmação por requisito.
++Liste explicitamente cada item que será criado/alterado (`o quê`, `onde`, `valor`). **A configuração só começa com o "sim" da usuária neste plano**; sem ele, a skill roda só a verificação e os ausentes ficam `NAO ATENDIDO`. Se `$ambiente` parecer produção ou não for `teste` no arquivo, pare aqui (guardrail). Com muitos requisitos, diga a ordem planejada — comece pelos que bloqueiam mais cenários — e prossiga; não pede nova confirmação por requisito, salvo ação irreversível.
 +
 +---
 +
-+## Step 4 — Inspecionar o ambiente (somente leitura)
++## Step 4 — Verificar e configurar o ambiente
 +
 +Para cada requisito de `$REQUISITOS`, na ordem planejada:
 +
-+1. Verifique conforme a tabela do Step 3. Reaproveite uma observação já feita (ex.: a mesma tela de usuários serve a vários requisitos `USUARIO`).
-+2. Atribua o status:
-+   - **`ATENDIDO`** — a observação comprova o requisito, com a quantidade/estado exigido (ex.: exigia "2 atividades de usuário" e o processo tem exatamente 2 ou mais, conforme a redação — registre o valor observado).
-+   - **`NAO ATENDIDO`** — a observação mostra que o ambiente não tem o que se pede (ex.: processo com 1 atividade de usuário). Registre o valor observado e o que falta para atender.
-+   - **`NAO VERIFICAVEL`** — não foi possível observar, com uma das 3 razões válidas das regras fundamentais, indicando qual.
-+3. Registre **evidência curta** por requisito: onde olhou (tela/menu ou consulta) e o valor encontrado. Em UI, tire screenshot só quando a evidência não for textual. Em banco, registre a consulta (sem dados sensíveis) e o resumo do resultado.
-+4. Se uma observação revelar algo relevante fora do que o requisito pede (ex.: o processo existe, mas está inativo), registre como **observação** no requisito — sem converter em novo requisito nem alterar o mapa.
++1. **Verifique** conforme a tabela do Step 3. Reaproveite observações já feitas (a mesma tela de usuários serve a vários requisitos).
++2. **Se atendido** → `ATENDIDO`, registrando o valor observado (ex.: exigia "2 atividades de usuário" e o processo tem 2).
++3. **Se não atendido e configurável** (e a usuária aprovou o plano) → configure (Step 4.5 para usuário; demais categorias pela UI conforme a tabela), registrando **antes → depois**, e **reverifique**. Confirmado → `CONFIGURADO`. Não confirmado, ou o sistema recusou (permissão, validação, campo desconhecido) → `NAO ATENDIDO` com a mensagem do sistema; não tente contornar.
++4. **Se não atendido e não configurável** (categoria `AMBIENTE`, estado que só o banco produz, plano não aprovado, ação irreversível não autorizada, falta de admin) → `NAO ATENDIDO`, valor observado e o que falta.
++5. **Se não foi possível observar**, com uma das 3 razões válidas → `NAO VERIFICAVEL`, indicando qual.
++6. Registre **evidência curta** por requisito: onde olhou e o valor. Screenshot só quando a evidência não for textual. Em banco, a consulta (sem dado sensível) e o resumo.
++7. Achado relevante fora do requisito (ex.: o processo existe, mas está inativo) vai como **observação**, sem virar novo requisito nem alterar o mapa.
 +
-+### 4.5 — Criar usuários ausentes e salvar as credenciais
++Pare e peça ajuda (uma pergunta objetiva) só quando faltar acesso que a usuária provavelmente tem. Antes de perguntar, mostre o que tentou. Se ela não puder ajudar, siga com `NAO VERIFICAVEL`.
 +
-+Aplica-se **somente** a requisito `[USUARIO]` que, após a verificação do item 1, esteja `NAO ATENDIDO` por inexistência do usuário, e **somente** com o ambiente confirmado como teste e o "sim" do Step 3.
++### 4.5 — Usuários: reaproveitar, senão criar, e gravar no `$AMBIENTE_CFG`
 +
-+1. **Defina o que criar** a partir do texto do requisito (ex.: "usuário com perfil Aprovador" → um usuário com esse perfil). Requisito vago, sem perfil identificável → `NAO VERIFICAVEL (requisito vago)`, não crie. Um usuário serve a todos os requisitos que ele satisfaz (não crie duplicata). Perfil/grupo inexistente no ambiente → não crie o perfil; `NAO ATENDIDO` e liste em "O que preparar no ambiente".
-+2. **Reaproveite antes de criar:** consulte `usuarios-teste.local.md` (abaixo). Se já houver login registrado para esse perfil e ele existir no ambiente, use-o (`ATENDIDO`, evidência "já existente, credencial em `usuarios-teste.local.md`").
-+3. **Gere login e senha:** login `qa.<perfil-sem-acento-minusculo>.us<ID>` (ex.: `qa.aprovador.us162683`); e-mail, se obrigatório, no domínio de teste do ambiente, nunca o de pessoa real; senha aleatória de 16 caracteres (maiúscula, minúscula, número e símbolo) gerada na hora, ex.: `-join ((48..57)+(65..90)+(97..122)+(33,35,36,37,42,43,45,63) | Get-Random -Count 16 | % {[char]$_})` (reponha um símbolo/maiúscula se a amostra não tiver todos). Nunca reutilizar senha de pessoa real ou de outro sistema.
-+4. **Crie pela UI** de cadastro de usuários (`mcp__playwright`, autenticado com o admin do cofre), preenchendo só o necessário e atribuindo apenas o perfil/permissão exigidos. Depois **confirme que existe**: reabra o cadastro e veja o usuário listado com o perfil. Se o sistema forçar troca de senha no primeiro acesso, desmarque a opção quando existir; senão, faça o primeiro login, troque para a senha gerada e registre isso na coluna Observação.
-+5. **Grave as credenciais** em `$CICLOS_DIR\US-<ID>\usuarios-teste.local.md` (um arquivo por US; **anexe** linhas, nunca apague as existentes), criando o arquivo com este cabeçalho se não existir:
-+
-+```
-+# Usuários de teste — US #<ID>
-+> Credenciais de ambiente de TESTE criadas pelo /validar-ambiente. Não commitar, não copiar para relatório/chat/work item.
-+
-+| Login | Senha | Perfil/permissões | Ambiente (URL) | Criado em | Requisito que originou | Observação |
-+|---|---|---|---|---|---|---|
-+```
-+
-+6. Status do requisito: `ATENDIDO`, com evidência "criado nesta validação (cadastro conferido)". Se a criação falhar (sem permissão, validação do sistema, campo obrigatório desconhecido), não tente contornar: `NAO ATENDIDO`, com a mensagem do sistema, e liste em "O que preparar no ambiente".
-+7. **Nunca** altere, redefina senha ou exclua usuário que já existia, nem crie usuário com perfil de administrador.
-+
-+Pare e peça ajuda à usuária (uma pergunta objetiva) só quando faltar acesso que ela provavelmente tem (credencial, permissão para uma tela). Antes de perguntar, mostre o que já tentou. Se ela não puder ajudar, siga com `NAO VERIFICAVEL`.
++1. **Defina o usuário** a partir do texto do requisito (ex.: "usuário com perfil Aprovador"). Vago, sem perfil identificável → `NAO VERIFICAVEL (requisito vago)`. Perfil/grupo inexistente no ambiente → não crie o perfil; `NAO ATENDIDO` com instrução. Um usuário serve a todos os requisitos que ele satisfaz.
++2. **Reaproveite:** procure em "Usuários de teste" do `$AMBIENTE_CFG` um usuário do ambiente com esse perfil e confirme que existe e entra (login com a credencial do arquivo). Existindo → `ATENDIDO` (evidência: "informado em `$AMBIENTE_CFG`, login confirmado"). Falhou o login → não redefina a senha; trate como ausente e crie outro (observação na linha antiga: "login falhou em <data>").
++3. **Crie** pelo cadastro de usuários do ambiente (URL do `$AMBIENTE_CFG`; admin do arquivo): login `qa.<perfil-sem-acento-minusculo>.us<ID>`; e-mail, se obrigatório, no domínio de teste do ambiente e nunca de pessoa real; senha aleatória de 16 caracteres gerada na hora (maiúscula, minúscula, número, símbolo), ex.: `-join ((48..57)+(65..90)+(97..122)+(33,35,36,37,42,43,45,63) | Get-Random -Count 16 | % {[char]$_})`; só o perfil/permissão exigido. Se o sistema forçar troca de senha no primeiro acesso, desmarque quando existir; senão faça o primeiro login, troque para a senha gerada e anote na Observação.
++4. **Reverifique:** o usuário aparece no cadastro com o perfil e o login com a senha gerada funciona (depois deslogue). Só então `CONFIGURADO`.
++5. **Grave** uma linha em "Usuários de teste" do `$AMBIENTE_CFG` (via `Edit`, **anexando**; nunca apague nem reescreva linhas existentes): `Login | Senha | Perfil | Ambiente | CRIADO | <US> | <data> | <obs>`.
 +
 +---
 +
@@ -931,7 +922,7 @@ index 0000000..8a6bc19
 +
 +| Situação dos requisitos do cenário | Viabilidade |
 +|---|---|
-+| todos `ATENDIDO`, ou `Nenhum específico` | **EXECUTAVEL** |
++| todos `ATENDIDO`/`CONFIGURADO`, ou `Nenhum específico` | **EXECUTAVEL** |
 +| algum `NAO ATENDIDO` | **BLOQUEADO** (cite o(s) requisito(s) que faltam) |
 +| nenhum `NAO ATENDIDO`, mas algum `NAO VERIFICAVEL` | **PARCIAL** (executável por conta e risco: cite o que não foi confirmado) |
 +
@@ -955,6 +946,7 @@ index 0000000..8a6bc19
 +ambiente: <ambiente> (<URL>)
 +execucao: <$EXEC>
 +veredito: <PRONTO | PRONTO COM RESSALVAS | PARCIALMENTE PRONTO | NAO PRONTO>
++configurado: <n itens configurados>
 +---
 +```
 +
@@ -964,11 +956,11 @@ index 0000000..8a6bc19
 +# Validação de ambiente — #<ID> <Título da US>
 +
 +Mapa: #<MAPA_ID> · Ambiente: <ambiente> (<URL>) · Execução: <$EXEC>
-+**Veredito: <veredito>** — <N> cenários: <a> executáveis, <b> parciais, <c> bloqueados
++**Veredito: <veredito>** — <N> cenários: <a> executáveis, <b> parciais, <c> bloqueados · <k> itens configurados
 +
 +## Requisitos (<M> distintos)
 +
-+| Requisito | Status | Evidência / valor observado | Cenários |
++| Requisito | Status (ATENDIDO / CONFIGURADO / NAO ATENDIDO / NAO VERIFICAVEL) | Evidência / valor observado | Cenários |
 +|---|---|---|---|
 +| [PROCESSO] fluxo com 2 atividades de usuário | NAO ATENDIDO | Processo "X" tem 1 atividade de usuário (Modelagem > Processo X) | #3, #7 |
 +
@@ -977,14 +969,18 @@ index 0000000..8a6bc19
 +| # | Cenário | Categoria | Viabilidade | Motivo (requisitos pendentes) |
 +|---|---|---|---|---|
 +
-+## O que preparar no ambiente
++## O que foi configurado (antes → depois)
++| Requisito | O que foi feito | Onde (tela/URL) | Antes → depois |
++|---|---|---|---|
++
++## O que preparar no ambiente (pendente — não foi possível configurar)
 +- <requisito NAO ATENDIDO>: <o que falta, em termos acionáveis — ex.: "configurar processo com 2 atividades de usuário">
 +
 +## Usuários de teste
-+| Login | Perfil | Situação (JA EXISTIA / CRIADO / FALHA) | Cenários |
++| Login | Perfil | Situação (INFORMADO / CRIADO / FALHA) | Cenários |
 +|---|---|---|---|
 +
-+Credenciais em `$CICLOS_DIR\US-<ID>\usuarios-teste.local.md` — a senha **não** aparece neste relatório.
++Credenciais em `$AMBIENTE_CFG` — a senha **não** aparece neste relatório.
 +
 +## Não verificados (e por quê)
 +- <requisito NAO VERIFICAVEL>: <razão válida>
@@ -996,7 +992,7 @@ index 0000000..8a6bc19
 +- <PRONTO: rodar /executar-teste <ID>> · <RESSALVAS/PARCIAL: rodar /executar-teste ciente de que os cenários PARCIAL/BLOQUEADO podem virar NAO EXECUTADO> · <NAO PRONTO: preparar o ambiente e revalidar>
 +```
 +
-+Esta skill **não altera nenhum work item** nem posta comentário (e o comentário, se pedido, nunca inclui senha). Se a usuária pedir para registrar o resultado na US, ofereça postar um comentário-resumo (veredito e "O que preparar no ambiente") — só com confirmação explícita, no mesmo padrão do Step 6.5 de `/gerar-mapa-testes-v3`.
++Esta skill **não altera nenhum work item** nem posta comentário (e o comentário, se pedido, nunca inclui senha). A configuração do ambiente é a única escrita que ela faz. Se a usuária pedir para registrar o resultado na US, ofereça postar um comentário-resumo (veredito e "O que preparar no ambiente") — só com confirmação explícita, no mesmo padrão do Step 6.5 de `/gerar-mapa-testes-v3`.
 +
 +---
 +
@@ -1005,7 +1001,7 @@ index 0000000..8a6bc19
 +Acrescente uma linha ao final da tabela em `~/.claude/docs/projetos/skills-qa/LOG-ACOES.md` (via `Edit`, nunca sobrescrevendo o arquivo):
 +
 +```
-+| <data/hora atual, ex.: `Get-Date -Format "yyyy-MM-dd HH:mm"`> | `/validar-ambiente` | Validação de ambiente (somente leitura) | US #<ID> / mapa #<MAPA_ID> | <Sucesso \| Parcial \| Falha> | <usuária> | veredito: <veredito>; <a>/<b>/<c> cenários exec./parc./bloq.; relatório: <caminho>; usuários criados: <n> |
++| <data/hora atual, ex.: `Get-Date -Format "yyyy-MM-dd HH:mm"`> | `/validar-ambiente` | Validação e configuração de ambiente de teste | US #<ID> / mapa #<MAPA_ID> | <Sucesso \| Parcial \| Falha> | <usuária> | veredito: <veredito>; <a>/<b>/<c> cenários exec./parc./bloq.; relatório: <caminho>; itens configurados: <k> (usuários: <n>) |
 +```
 +
 +---
@@ -1015,10 +1011,12 @@ index 0000000..8a6bc19
 +- **Mapa sem coluna `Pre-requisitos` (8 colunas):** não há o que validar. Pare e sugira regerar com `/gerar-mapa-testes-v3`; nunca invente pré-requisitos.
 +- **Muitos cenários `Nenhum específico`:** é válido. Eles entram como `EXECUTAVEL`; só informe a contagem.
 +- **Requisito vago** (ex.: "ambiente configurado", sem número): `NAO VERIFICAVEL (requisito vago)`; sugira reescrevê-lo no mapa com `/gerar-mapa-testes-v3` em vez de interpretá-lo.
-+- **Requisito verificável só com escrita** (ex.: "processo publicado"): `NAO VERIFICAVEL`, com a razão. Nunca criar dado para provar. A única exceção é o usuário ausente (Step 4.5).
-+- **Usuário `[USUARIO]` ausente e sem credencial de admin / sem confirmação da usuária / ambiente não confirmado como teste:** não criar; `NAO ATENDIDO` com o motivo e entrada em "O que preparar no ambiente".
-+- **Usuário registrado em `usuarios-teste.local.md` mas apagado do ambiente:** não reutilizar a credencial; trate como ausente e crie de novo (nova linha; na antiga, observação "removido do ambiente").
-+- **`usuarios-teste.local.md` guarda senha em texto:** é intencional e restrito a ambiente de teste; o arquivo fica fora do sync com o GitHub.
++- **`$AMBIENTE_CFG` ausente ou com `<preencher>` no que é necessário:** criar a partir do modelo e parar pedindo o campo exato; nunca adivinhar URL/senha.
++- **Plano de configuração não aprovado / sem admin no arquivo / ambiente não `teste`:** rodar só a verificação; ausentes ficam `NAO ATENDIDO` com instrução em "O que preparar no ambiente".
++- **Configuração recusada pelo sistema** (permissão, campo obrigatório, regra de negócio): `NAO ATENDIDO` com a mensagem; não contornar nem alterar outra configuração para "destravar".
++- **Requisito que só se satisfaz com ação irreversível ou efeito externo** (publicar versão definitiva, integração real, notificação): pedir confirmação própria; sem ela, `NAO ATENDIDO`.
++- **Usuário do arquivo apagado do ambiente ou com login falho:** não reutilizar nem redefinir senha; criar outro e anotar na linha antiga.
++- **`$AMBIENTE_CFG` guarda senha em texto:** intencional e restrito a ambiente de teste; o arquivo fica fora do sync com o GitHub.
 +- **Ambiente indisponível ou instável:** veredito `NAO PRONTO`, motivo no relatório; não classifique requisitos individualmente por palpite.
 +- **Resultado muda entre execuções** (ambiente mutável): por isso cada validação é gravada com `$EXEC` e nunca sobrescrita; o relatório vale para o momento em que foi feito. Recomende revalidar logo antes de `/executar-teste` se houve mudança no ambiente.
 +- **Divergência entre a tabela e a seção consolidada do mapa:** a tabela de cenários prevalece; sinalize em "Observações".
