@@ -1,6 +1,6 @@
 # RELATORIO_DIFF
 
-Gerado em 2026-10-14 com `git diff --no-index` e replay determinístico das alterações registradas; atualizado em 2026-10-20 (rodada 5) com `git diff --no-index` sobre o estado atual.
+Gerado em 2026-10-14 com `git diff --no-index` e replay determinístico das alterações registradas; atualizado em 2026-10-22 (rodada 8) com `git diff --no-index` sobre o estado atual.
 
 ## Resumo
 
@@ -11,7 +11,7 @@ Gerado em 2026-10-14 com `git diff --no-index` e replay determinístico das alte
 
 ## Por arquivo
 
-Linhas +/− medidas com `git diff --no-index --numstat` em 2026-10-20.
+Linhas +/− medidas com `git diff --no-index --numstat` em 2026-10-22.
 
 | Arquivo | Linhas +/− | Classificação |
 |---|---|---|
