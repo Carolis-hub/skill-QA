@@ -14,7 +14,7 @@ Rodada 7 (2026-10-21): HTML interativo local do mapa de testes a partir de templ
 
 Rodada 8 (2026-10-21): `validar-ambiente` valida os pré-requisitos e configura o ambiente de teste (usuários, processo, parâmetros, dados) a partir de `config\ambiente-teste.local.md` (URLs, admin, usuários); `executar-teste` usa esse arquivo no login; ALT-094 a ALT-096. A origem imutável não foi alterada.
 
-Rodada 9 (2026-10-23): regra fixa de hub somente leitura (ALT-097); alidar-ambiente passa a perguntar a URL base a cada execução e a usar telas de configuração (usuário, perfil, área, papel) com caminhos relativos (ALT-098 a ALT-103). A origem imutável não foi alterada.
+Rodada 9 (2026-10-23): regra fixa de hub somente leitura (ALT-097); `validar-ambiente passa a perguntar a URL base a cada execução e a usar telas de configuração (usuário, perfil, área, papel) com caminhos relativos (ALT-098 a ALT-103). A origem imutável não foi alterada.
  3 (2026-10-15): endurecimento de regra solicitado pelo usuário em `analise-negocio` (gate de conclusão; ALT-064 a ALT-067). A origem imutável não foi alterada.
 
 | ID | Rodada | Skill | Tipo | Alteração | Evidência | Observação |
