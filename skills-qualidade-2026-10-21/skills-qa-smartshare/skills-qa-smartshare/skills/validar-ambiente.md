@@ -23,10 +23,10 @@ Esta skill fica **entre** `/gerar-mapa-testes-v3` e `/executar-teste`: o primeir
 | Menu configurações | `workspace/management/configuracoes` | ponto de entrada das configurações |
 | Usuário | `workspace/management/configuracoes/usuario` | criar usuário |
 | Perfil | `workspace/management/configuracoes/perfil` | criar perfil |
-| Área | **a confirmar** (a usuária informou o mesmo caminho do perfil, provável engano) | criar área |
+| Área | `workspace/management/configuracoes/perfil` (mesma tela do perfil, confirmado pela usuária) | criar área |
 | Papel | `workspace/management/configuracoes/papel` | criar papel |
 
-Perfil, área e papel são **dependências do cadastro de usuário** (Step 4.5). Caminho de área não confirmado: perguntar à usuária (ou, se ela mandar navegar, abrir o menu configurações e localizar a opção); nunca usar a URL de perfil no lugar.
+Perfil, área e papel são **dependências do cadastro de usuário** (Step 4.5). A área é cadastrada na mesma tela do perfil (confirmado pela usuária em 2026-10-23); se a tela não oferecer o cadastro de área, localizar a opção pelo menu configurações e perguntar, sem inventar caminho.
 
 ---
 
@@ -147,7 +147,7 @@ Pare e peça ajuda (uma pergunta objetiva) só quando faltar acesso que a usuár
 
 1. **Defina o usuário** a partir do texto do requisito (ex.: "usuário com perfil Aprovador"). Vago, sem perfil identificável → `NAO VERIFICAVEL (requisito vago)`. Perfil/grupo inexistente no ambiente → não crie o perfil; `NAO ATENDIDO` com instrução. Um usuário serve a todos os requisitos que ele satisfaz.
 2. **Reaproveite:** procure em "Usuários de teste" do `$AMBIENTE_CFG` um usuário do ambiente com esse perfil e confirme que existe e entra (login com a credencial do arquivo). Existindo → `ATENDIDO` (evidência: "informado em `$AMBIENTE_CFG`, login confirmado"). Falhou o login → não redefina a senha; trate como ausente e crie outro (observação na linha antiga: "login falhou em <data>").
-3. **Prepare as dependências do usuário (perfil, área, papel).** Abra a tela de usuário (`$URL_BASE` + `workspace/management/configuracoes/usuario`) e identifique quais desses itens o cadastro exige. Para cada um que o requisito pede e **não existe**, crie-o antes do usuário pela respectiva tela (perfil: `.../configuracoes/perfil`; papel: `.../configuracoes/papel`; área: caminho a confirmar, ver "Telas de configuração"), sempre de forma aditiva e registrando antes → depois. Se o item já existe, reaproveite (não edite). Não localizou a definição de qual permissão compõe o perfil/papel → Step 3.5, não chute. A ordem de criação segue o que a tela de usuário exigir; não presuma.
+3. **Prepare as dependências do usuário (perfil, área, papel).** Abra a tela de usuário (`$URL_BASE` + `workspace/management/configuracoes/usuario`) e identifique quais desses itens o cadastro exige. Para cada um que o requisito pede e **não existe**, crie-o antes do usuário pela respectiva tela (perfil: `.../configuracoes/perfil`; papel: `.../configuracoes/papel`; área: mesma tela do perfil, ver "Telas de configuração"), sempre de forma aditiva e registrando antes → depois. Se o item já existe, reaproveite (não edite). Não localizou a definição de qual permissão compõe o perfil/papel → Step 3.5, não chute. A ordem de criação segue o que a tela de usuário exigir; não presuma.
 4. **Crie** pelo cadastro de usuários do ambiente (`$URL_BASE` + caminho de usuário; admin do arquivo): login `qa.<perfil-sem-acento-minusculo>.us<ID>`; e-mail, se obrigatório, no domínio de teste do ambiente e nunca de pessoa real; senha aleatória de 16 caracteres gerada na hora (maiúscula, minúscula, número, símbolo), ex.: `-join ((48..57)+(65..90)+(97..122)+(33,35,36,37,42,43,45,63) | Get-Random -Count 16 | % {[char]$_})`; só o perfil/permissão exigido. Se o sistema forçar troca de senha no primeiro acesso, desmarque quando existir; senão faça o primeiro login, troque para a senha gerada e anote na Observação.
 5. **Reverifique:** o usuário aparece no cadastro com o perfil e o login com a senha gerada funciona (depois deslogue). Só então `CONFIGURADO`.
 6. **Grave** uma linha em "Usuários de teste" do `$AMBIENTE_CFG` (via `Edit`, **anexando**; nunca apague nem reescreva linhas existentes): `Login | Senha | Perfil | Ambiente | CRIADO | <US> | <data> | <obs>`.
@@ -255,7 +255,7 @@ Acrescente uma linha ao final da tabela em `~/.claude/docs/projetos/skills-qa/LO
 - **Termo desconhecido (ex.: "usuário publicador") ou perfil que não sabe criar:** consultar o hub (Step 3.5); sem definição lá, sinalizar à usuária e não criar perfil/usuário por palpite.
 - **`$AMBIENTE_CFG` ausente ou com `<preencher>` no que é necessário:** criar a partir do modelo e parar pedindo o campo exato; nunca adivinhar URL/senha.
 - **URL base:** sempre perguntada no início de cada execução (Step 0.3); não reutilizar a de execução anterior sem perguntar.
-- **Caminho da tela de área não confirmado:** o caminho informado para "criar área" repete o de perfil; não navegar nele como se fosse área. Perguntar à usuária ou localizar pelo menu configurações.
+- **Tela de área:** usa o mesmo caminho da tela de perfil (confirmado pela usuária); se a tela não tiver o cadastro de área, localizar pelo menu configurações e perguntar.
 - **Criação de usuário falha por perfil/área/papel inexistente:** criar a dependência pela tela própria (Step 4.5.3); se a definição de permissões não for localizada, Step 3.5.
 - **Plano de configuração não aprovado / sem admin no arquivo / ambiente não `teste`:** rodar só a verificação; ausentes ficam `NAO ATENDIDO` com instrução em "O que preparar no ambiente".
 - **Configuração recusada pelo sistema** (permissão, campo obrigatório, regra de negócio): `NAO ATENDIDO` com a mensagem; não contornar nem alterar outra configuração para "destravar".

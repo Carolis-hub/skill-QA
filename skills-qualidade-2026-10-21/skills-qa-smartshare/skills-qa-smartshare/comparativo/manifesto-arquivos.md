@@ -13,7 +13,7 @@ Gerado em 2026-10-14; atualizado em 2026-10-22 (rodada 8). Hash = SHA-256 (12 pr
 | gerar-mapa-testes-v3.md | 28803 | e39d8766ea3d | 38271 | 7a9a51d43033 | Modificado |
 | homologar-release.md | 10883 | f346c62978a3 | 10813 | 6c45586c8bf2 | Modificado |
 | priorizar-automacao.md | 8023 | 748527c4d4d9 | 8218 | 65ec81166dc1 | Modificado |
-| validar-ambiente.md | — | — | 26005 | 803d84c85277 | Adicionado (rodada 4) |
+| validar-ambiente.md | — | — | 26027 | a30a29b6f551 | Adicionado (rodada 4) |
 
 Fora do escopo (não são skills; não copiados): `analise-riscos-skills-extensas.md`, `analise-skills-bpm-ecm.md`.
 Adicionados no destino (artefatos de controle): `REGISTRO_ALTERACOES.md`, `MAPA_EVIDENCIAS_KB.md`, `BACKLOG_REFATORACAO.md`, `comparativo/*`.

@@ -20,7 +20,7 @@ ambiente_padrao: HMG
 | Menu configurações | workspace/management/configuracoes | ponto de entrada das configurações |
 | Usuário | workspace/management/configuracoes/usuario | criar usuário |
 | Perfil | workspace/management/configuracoes/perfil | criar perfil (dependência do usuário) |
-| Área | <confirmar> | criar área (dependência do usuário) |
+| Área | workspace/management/configuracoes/perfil | criar área (mesma tela do perfil; dependência do usuário) |
 | Papel | workspace/management/configuracoes/papel | criar papel (dependência do usuário) |
 
 ## Administração (usada para configurar o ambiente)
