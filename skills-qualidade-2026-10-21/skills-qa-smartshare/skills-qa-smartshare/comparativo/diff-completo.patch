@@ -189,7 +189,7 @@ index 204a4e3..bfffbda 100644
  - Se `$STORY_RELATIONS` incluir cards filhos do tipo `Análise` ou `Analise Review`, **não os utilize aqui** — eles são insumo da análise técnica, não da análise de negócio.
  - Se durante a extração você perceber uma dúvida que só o código/PR responde (ex.: qual configuração de infraestrutura é usada, como simular uma falha técnica, se um job de backfill já rodou em um ambiente), não a liste em "Informações ausentes" — apenas não invente a resposta; ela será endereçada em `/analise-tecnica`.
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/analise-tecnica.md b/skills-qa-smartshare/skills-qa-smartshare/skills/analise-tecnica.md
-index b32d612..5201798 100644
+index b32d612..abff04c 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/analise-tecnica.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/analise-tecnica.md
 @@ -7,8 +7,8 @@ Analisar o impacto tecnico da historia do Azure DevOps a partir de **$ARGUMENTS*
@@ -225,7 +225,7 @@ index b32d612..5201798 100644
  2. Extraia `$STORY_TITLE`, `$STORY_RELATIONS`.
  3. Filtre `$STORY_RELATIONS` onde `rel == "System.LinkTypes.Hierarchy-Forward"` → lista de IDs filhos.
  4. Se não houver filhos, aplique o bloqueio descrito acima (nenhum card `Análise` possível).
-@@ -89,6 +89,32 @@ Se um arquivo do diff tocar em algo não mencionado em `$ANALISE_PONTOS`, sinali
+@@ -89,6 +89,33 @@ Se um arquivo do diff tocar em algo não mencionado em `$ANALISE_PONTOS`, sinali
  
  ---
  
@@ -250,7 +250,8 @@ index b32d612..5201798 100644
 +
 +- **Localizar o hub:** use a variável de ambiente `SMARTSHARE_HUB`; se ausente, tente `C:\GIT\smartshare-hub`. Se nenhum existir, **pule este passo sem erro** e registre em "Informações ausentes" que o código não foi consultado.
 +- **Se existir:** para os itens de `$ANALISE_PONTOS` (arquivos, classes, endpoints, tabelas citados), confirme no código se existem e se fazem o que o card diz. Cite `repositório, arquivo <path>` como evidência.
-+- Divergência entre card e código vira **discrepância** no relatório (Step 4); não corrija o card nem o código, e não altere nada no hub (nenhum checkout, pull, commit ou escrita).
++- **Regra fixa: não alterar nada no hub.** O hub (`SMARTSHARE_HUB` ou `C:\GIT\smartshare-hub`) é somente leitura: nenhum checkout, pull, fetch com alteração de branch, commit, push, edição, criação ou remoção de arquivo, nem execução de build, script ou comando que escreva no diretório.
++- Divergência entre card e código vira **discrepância** no relatório (Step 4); não corrija o card nem o código.
 +- Não crie item de análise novo a partir do código: só valide o que o card já declara.
 +
 +---
@@ -258,7 +259,7 @@ index b32d612..5201798 100644
  ## Step 3 — Estruturar a análise técnica
  
  Produza, sempre citando a origem (`análise do dev` ou `PR #<n>, arquivo <path>`):
-@@ -143,6 +169,11 @@ Se `$ANALISE_PONTOS` for muito genérico (ex.: "ajustes no back-end"), não crie
+@@ -143,6 +170,11 @@ Se `$ANALISE_PONTOS` for muito genérico (ex.: "ajustes no back-end"), não crie
  ### Fora do escopo da US
  <apenas fato: arquivo + resumo de 1 linha do que mudou + "fora do escopo desta US". Sem análise de risco/recomendação aqui — é matéria da skill de revisão de branch/PR do time de dev (a criar), não desta análise.>
  
@@ -488,7 +489,7 @@ index 3560ac3..1f7a96a 100644
  Capture o `$BUG_ID` retornado. **Antes de declarar sucesso no Step 4, chame `mcp__azure-devops__get_work_item` no `$BUG_ID` e confirme que `Microsoft.VSTS.TCM.ReproSteps` não está `null`/vazio** — não confie só no eco da chamada de criação.
  
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/gerar-mapa-testes-v3.md b/skills-qa-smartshare/skills-qa-smartshare/skills/gerar-mapa-testes-v3.md
-index 773adc8..87fac53 100644
+index 773adc8..ef34587 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/gerar-mapa-testes-v3.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/gerar-mapa-testes-v3.md
 @@ -7,10 +7,10 @@ Generate a test map from Azure DevOps story arguments **$ARGUMENTS**.
@@ -527,7 +528,7 @@ index 773adc8..87fac53 100644
  
  ---
  
-@@ -122,6 +126,16 @@ Se a busca não retornar nada relacionado, **isso não é bloqueante** — pross
+@@ -122,6 +126,17 @@ Se a busca não retornar nada relacionado, **isso não é bloqueante** — pross
  
  ---
  
@@ -536,7 +537,8 @@ index 773adc8..87fac53 100644
 +Consulta **somente leitura** ao código dos repositórios do hub SmartShare, apenas para **precisar Ação e Resultado Esperado** de cenários já justificados.
 +
 +- **Localizar o hub:** variável `SMARTSHARE_HUB`; se ausente, `C:\GIT\smartshare-hub`. Se não existir, **pule sem erro** e siga.
-+- Use o código para detalhar nomes de campos/telas, mensagens, validações e valores reais. Nunca altere nada no hub.
++- Use o código para detalhar nomes de campos/telas, mensagens, validações e valores reais. 
++- **Regra fixa: não alterar nada no hub.** O hub (`SMARTSHARE_HUB` ou `C:\GIT\smartshare-hub`) é somente leitura: nenhum checkout, pull, fetch com alteração de branch, commit, push, edição, criação ou remoção de arquivo, nem execução de build, script ou comando que escreva no diretório.
 +- **Não crie cenário novo a partir do código.** Cenários só nascem das 4 fontes do Step 4.0; o código apenas refina a redação dos já existentes.
 +
 +---
@@ -544,7 +546,7 @@ index 773adc8..87fac53 100644
  ## Step 4 — Generate test map table
  
  ### 4.0 — Escopo de origem (obrigatório, ler antes de 4.1)
-@@ -133,7 +147,7 @@ Todo cenário do mapa final precisa rastrear a **pelo menos uma** destas 4 fonte
+@@ -133,7 +148,7 @@ Todo cenário do mapa final precisa rastrear a **pelo menos uma** destas 4 fonte
  3. **Pontos de Impacto do dev** (`Custom.Pontosdeimpacto` do card `Análise`, ou a seção do relatório `/analise-tecnica` que rastreia diretamente a esse campo).
  4. **Casos de Teste do dev** (`Custom.CasodeTeste` do card `Análise`, ou a seção "Casos de teste sugeridos pelo dev" do relatório `/analise-tecnica`).
  
@@ -553,7 +555,7 @@ index 773adc8..87fac53 100644
  
  Se, ao ler a narrativa, você identificar algo que parece um risco real mas não está em nenhuma das 4 fontes, **não vire cenário** — sinalize como observação de 1 linha na seção "Fonte técnica" do mapa (Step 5) e, se for grave, avise a usuária no chat antes de prosseguir, em vez de inflar a tabela.
  
-@@ -157,10 +171,34 @@ Para **cada** regra condicional identificada, aplique o checklist obrigatório d
+@@ -157,10 +172,34 @@ Para **cada** regra condicional identificada, aplique o checklist obrigatório d
  Para cada linha gerada, atribua uma técnica, escolhida pelo tipo de regra que originou o cenário — não é livre-escolha estética:
  
  - **valor-limite** — regra envolve número, data, tamanho ou contagem com limite (ex.: quantidade mínima/máxima, prazo, faixa de parcelas)
@@ -589,7 +591,7 @@ index 773adc8..87fac53 100644
  ### 4.3 — Categorias fixas (adaptar nomes de domínio, manter a estrutura)
  
  1. `=== FLUXO PRINCIPAL ===`
-@@ -177,6 +215,7 @@ Para cada linha gerada, atribua uma técnica, escolhida pelo tipo de regra que o
+@@ -177,6 +216,7 @@ Para cada linha gerada, atribua uma técnica, escolhida pelo tipo de regra que o
  
  - Não inventar regra além do que está descrito; hipóteses sempre marcadas `HIPOTESE:`.
  - Não repetir cenários.
@@ -597,7 +599,7 @@ index 773adc8..87fac53 100644
  - Todo cenário rastreia a uma das 4 fontes do Step 4.0 (Instruções QA, Critérios de Aceite, Pontos de Impacto do dev, Casos de Teste do dev) — nunca só à narrativa da análise técnica.
  - Considerar: validação de campos, comportamento de UI, consistência de dados, falhas de integração — sempre ancorado numa das 4 fontes acima, não como exploração livre do código/PR.
  
-@@ -185,10 +224,11 @@ Para cada linha gerada, atribua uma técnica, escolhida pelo tipo de regra que o
+@@ -185,10 +225,11 @@ Para cada linha gerada, atribua uma técnica, escolhida pelo tipo de regra que o
  Apresente a tabela completa no chat (markdown):
  
  ```
@@ -611,7 +613,7 @@ index 773adc8..87fac53 100644
  - Tipo: `positivo`, `negativo`, `borda`
  - Técnica: `valor-limite`, `tabela-decisão`, `partição-equivalência`, `exploratório`
  - Dimensão: `positivo`, `negativo`, `permissão`, `dados`, `concorrência`, `regressão`
-@@ -235,22 +275,30 @@ Construa o HTML diretamente (sem PowerShell, sem intermediário XML) para usar c
+@@ -235,22 +276,30 @@ Construa o HTML diretamente (sem PowerShell, sem intermediário XML) para usar c
  <h3>Dimensoes cobertas</h3>
  <p>{lista das dimensoes presentes, e quais ficaram N/A com o motivo}</p>
  
@@ -651,7 +653,7 @@ index 773adc8..87fac53 100644
  <td style="border:1px solid #999;padding:4px;">{acao}</td>
  <td style="border:1px solid #999;padding:4px;">{esperado}</td>
  <td style="border:1px solid #999;padding:4px;">{tipo}</td>
-@@ -262,8 +310,9 @@ Construa o HTML diretamente (sem PowerShell, sem intermediário XML) para usar c
+@@ -262,8 +311,9 @@ Construa o HTML diretamente (sem PowerShell, sem intermediário XML) para usar c
  
  Regras obrigatórias:
  
@@ -663,7 +665,7 @@ index 773adc8..87fac53 100644
  - Sem estilos herdados do Word (sem `font-family:Aptos`, sem `background:silver`) — usar paleta neutra simples (cabeçalho `#e6e6e6`, separador de categoria `#d9e8f5`) para ficar consistente independente de onde o conteúdo foi originado.
  - Texto direto, sem colar de nenhum editor — monte o HTML você mesmo, célula por célula, a partir dos dados já validados no Step 4.
  
-@@ -271,6 +320,29 @@ Se a tabela for muito grande e você quiser revisar antes de publicar, salve o H
+@@ -271,6 +321,29 @@ Se a tabela for muito grande e você quiser revisar antes de publicar, salve o H
  
  ---
  
@@ -693,7 +695,7 @@ index 773adc8..87fac53 100644
  ## Step 6 — Publicar via MCP
  
  - **Se `CARD_EXISTS = false`:** chame `mcp__azure-devops__create_work_item` com `workItemType: "Criar Mapa de Teste"`, `title: "Mapa de teste"`, `description: {HTML do Step 5}`, `parentId: $WI_ID`, `areaPath: $STORY_AREA_PATH`, `iterationPath: $STORY_ITERATION_PATH`, `projectId: $STORY_PROJECT`. Capture o `id` retornado como `$MAPA_CARD_ID`.
-@@ -307,7 +379,9 @@ Reporte ao usuário:
+@@ -307,7 +380,9 @@ Reporte ao usuário:
  
  - Card publicado: `#$MAPA_CARD_ID` (criado ou atualizado), com link (`https://dev.azure.com/selbettidev/{projeto}/_workitems/edit/{id}`).
  - Quantidade de cenários publicados e categorias cobertas.
@@ -703,7 +705,7 @@ index 773adc8..87fac53 100644
  - **Histórico de defeitos considerado:** IDs dos bugs de `$DEFECT_HISTORY` que geraram cenário de regressão, ou "nenhum encontrado / busca indisponível".
  - **Hipóteses em aberto:** se o Step 6.5 rodou, quantas hipóteses foram notificadas via comentário na história (ou, se falhou ao postar, avisar explicitamente que o comentário não saiu e o mapa segue com as hipóteses marcadas, só sem o aviso na história).
  
-@@ -342,4 +416,6 @@ falhou, se for o caso).
+@@ -342,4 +417,6 @@ falhou, se for o caso).
  - Se `/analise-negocio`/`/analise-tecnica` tiverem rodado para uma história **diferente** da informada em `$ARGUMENTS` nesta mesma conversa, não reaproveite — refaça a busca do zero (Step 3) para a história correta.
  - Se `create_work_item`/`update_work_item` falhar (ex.: `"Criar Mapa de Teste"` não é um tipo válido no processo do projeto informado, ou `parentId`/`areaPath` inconsistentes), pare e reporte o erro exato retornado pelo MCP — nunca tente contornar criando um tipo de work item diferente ou publicando em outro lugar sem confirmar com o usuário.
  - O comentário do Step 6.5 vai na **história** (`$WI_ID`), nunca no card "Criar Mapa de Teste" — postar lá misturaria o conteúdo do mapa com discussão, e ninguém olha o histórico de comentários de um card de mapa. Nunca mover os cenários `HIPOTESE:` para fora da tabela do mapa por causa desse comentário — ele é um apontador, não um substituto do mapa.
@@ -784,10 +786,10 @@ index 5aff133..ecc6732 100644
  
 diff --git a/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md b/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md
 new file mode 100644
-index 0000000..9e86137
+index 0000000..1a1f161
 --- /dev/null
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md
-@@ -0,0 +1,250 @@
+@@ -0,0 +1,268 @@
 +---
 +description: Le o mapa de testes publicado no card "Criar Mapa de Teste" filho de uma User Story do Azure DevOps, extrai a coluna Pre-requisitos (formato [CATEGORIA] requisito), valida no ambiente de teste se cada requisito existe e, quando nao existir, CONFIGURA o ambiente (cria usuarios, processos, configuracoes, dados) pela UI. URLs do ambiente, URLs de telas necessarias, admin e usuarios vem de um arquivo de configuracao preenchido pela usuaria (C:\skills-qualidade\config\ambiente-teste.local.md); usuarios criados sao gravados nele. Entrega, por requisito, ATENDIDO / CONFIGURADO / NAO ATENDIDO / NAO VERIFICAVEL e, por cenario, EXECUTAVEL / PARCIAL / BLOQUEADO. Nao executa os cenarios e nunca atua fora de ambiente marcado como teste.
 +---
@@ -802,13 +804,27 @@ index 0000000..9e86137
 +
 +Esta skill fica **entre** `/gerar-mapa-testes-v3` e `/executar-teste`: o primeiro declara, por cenário, o que o ambiente precisa ter (coluna `Pre-requisitos`); esta skill olha o ambiente real, **configura o que faltar** e responde "esse ambiente consegue rodar esses cenários?". Não executa cenário nenhum.
 +
-+**Arquivo de configuração (`$AMBIENTE_CFG`)** = `C:\skills-qualidade\config\ambiente-teste.local.md`, caminho absoluto. É preenchido pela usuária (modelo em `templates\ambiente-teste.template.md`) com: ambientes e URL base, URLs das telas necessárias, login/senha do admin e usuários de teste. Contém senhas: nunca vai para o GitHub nem para relatório/chat/work item.
++**Arquivo de configuração (`$AMBIENTE_CFG`)** = `C:\skills-qualidade\config\ambiente-teste.local.md`, caminho absoluto. É preenchido pela usuária (modelo em `templates\ambiente-teste.template.md`) com: ambientes, caminhos das telas de configuração (relativos à URL base), login/senha do admin e usuários de teste. Contém senhas: nunca vai para o GitHub nem para relatório/chat/work item.
++
++**URL base (`$URL_BASE`)** = perguntada à usuária **a cada execução** (Step 0.3), nunca assumida do arquivo. Ex.: `http://localhost:8080/smartshare/`. Toda URL de tela é `$URL_BASE` + caminho relativo da tabela "Telas de configuração" abaixo.
++
++**Telas de configuração (caminhos relativos à `$URL_BASE`):**
++
++| Tela | Caminho relativo | Uso |
++|---|---|---|
++| Menu configurações | `workspace/management/configuracoes` | ponto de entrada das configurações |
++| Usuário | `workspace/management/configuracoes/usuario` | criar usuário |
++| Perfil | `workspace/management/configuracoes/perfil` | criar perfil |
++| Área | **a confirmar** (a usuária informou o mesmo caminho do perfil, provável engano) | criar área |
++| Papel | `workspace/management/configuracoes/papel` | criar papel |
++
++Perfil, área e papel são **dependências do cadastro de usuário** (Step 4.5). Caminho de área não confirmado: perguntar à usuária (ou, se ela mandar navegar, abrir o menu configurações e localizar a opção); nunca usar a URL de perfil no lugar.
 +
 +---
 +
 +## Regra fundamental (guardrails)
 +
-+- **Só atua em ambiente de teste declarado no `$AMBIENTE_CFG`.** O ambiente precisa estar listado lá com `Tipo = teste` e a URL de navegação precisa pertencer à URL base dele. Qualquer outra URL (ou produção, ou URL que a usuária não confirmar como teste) → parar e perguntar antes de navegar. Nunca inventar URL.
++- **Só atua em ambiente de teste.** A `$URL_BASE` é informada pela usuária a cada execução (Step 0.3) e a skill só navega em URLs que comecem por ela. Host `localhost`/`127.0.0.1` é aceito como teste; qualquer outro host só é aceito se a usuária confirmar na hora que é teste (e, havendo o ambiente no `$AMBIENTE_CFG`, com `Tipo = teste`). Produção ou URL não confirmada → parar e perguntar antes de navegar. Nunca inventar URL.
 +- **Validar primeiro, configurar só o que falta.** Requisito já atendido não é tocado. Só se configura o que um requisito do mapa exige e que a verificação provou ausente.
 +- **Configuração é por UI, com plano confirmado.** Criar/ajustar pela interface (nunca `INSERT`/`UPDATE`/`DELETE` no banco; banco só `SELECT`). O que será configurado é apresentado no Step 3 e só começa com o "sim" explícito da usuária.
 +- **Aditivo e rastreável.** Pode **criar** (usuário, processo, parâmetro, registro) e **ligar/ajustar** configuração exigida pelo requisito. Nunca excluir nem sobrescrever dado/configuração existente que não seja do requisito, nunca redefinir senha de usuário existente, nunca conceder perfil de administrador a usuário de teste. Cada mudança é registrada no relatório com **antes → depois**, para a usuária poder desfazer.
@@ -825,7 +841,7 @@ index 0000000..9e86137
 +
 +1. Se `$ARGUMENTS` estiver vazio, pare e peça o ID da US.
 +2. Verifique que `mcp__azure-devops` está conectado (chamada de teste em `get_work_item`).
-+3. **Leia `$AMBIENTE_CFG`.** Se não existir, crie-o a partir de `templates\ambiente-teste.template.md` (pasta `config` incluída), diga à usuária que ele precisa ser preenchido (URL base, URLs necessárias, admin, usuários) e **pare**. Se existir, resolva `$ambiente` (argumento ou `ambiente_padrao`) e extraia: URL base, URLs necessárias, admin e usuários do ambiente. Campo `<preencher>` necessário ao que será validado = informação ausente: pare e peça exatamente esse campo. Nunca adivinhe URL ou senha.
++3. **Pergunte a URL base (`$URL_BASE`), sempre, antes de qualquer outra coisa**, mesmo que já tenha sido informada em execução anterior ou conste no arquivo (pode sugerir como exemplo `http://localhost:8080/smartshare/`, mas só use após a resposta dela). Normalize para terminar com `/`. Em seguida, **leia `$AMBIENTE_CFG`.** Se não existir, crie-o a partir de `templates\ambiente-teste.template.md` (pasta `config` incluída), diga à usuária que ele precisa ser preenchido (admin, usuários) e **pare**. Se existir, resolva `$ambiente` (argumento ou `ambiente_padrao`) e extraia: admin e usuários do ambiente. As URLs das telas vêm de `$URL_BASE` + caminhos da tabela "Telas de configuração" (acima); a URL base do arquivo não é usada. Campo `<preencher>` necessário ao que será validado (ex.: login/senha do admin) = informação ausente: pare e peça exatamente esse campo. Nunca adivinhe URL ou senha.
 +4. Verifique que `mcp__playwright` está conectado. Se indisponível, **não pare**: tudo que depende da UI vira `NAO VERIFICAVEL` (motivo: browser indisponível) e nada é configurado.
 +5. Verifique se há MCP de banco somente leitura para o ambiente (nome a confirmar). Se não houver, a verificação segue pela UI; senão `NAO VERIFICAVEL` (sem acesso de leitura ao banco).
 +6. **Gate de contexto**, igual ao de `/executar-teste` (Step 0.4): busque na memória e na KB do SmartShare por termos da US (tela, processo, perfil) antes de navegar, para saber onde cada configuração está. Em divergência entre KB e US, prevalece a US e a divergência é sinalizada.
@@ -876,7 +892,7 @@ index 0000000..9e86137
 +
 +Antes de navegar, apresente à usuária:
 +
-+- ambiente, URL base e as URLs do `$AMBIENTE_CFG` que serão usadas;
++- ambiente, `$URL_BASE` informada e as URLs de tela (base + caminho) que serão usadas;
 +- quantidade de cenários e de requisitos distintos, por categoria;
 +- como cada categoria será verificada e **o que será configurado caso falte** (tabela abaixo), com o que ficará `NAO VERIFICAVEL` de antemão.
 +
@@ -897,7 +913,7 @@ index 0000000..9e86137
 +
 +Para cada requisito cujo termo ou configuração a skill não saiba definir (ex.: "usuário publicador", "como criar um perfil", quais permissões formam um perfil, onde fica um parâmetro), antes de verificar ou configurar, nesta ordem:
 +
-+1. **Hub (código, somente leitura).** Localize-o por `SMARTSHARE_HUB`; se ausente, `C:\GIT\smartshare-hub`. Busque o termo e sua configuração: enums/constantes de perfil e permissão, seeds/migrations, telas e serviços de cadastro de perfil/usuário, parâmetros. Cite `repositório, arquivo <path>` como evidência. Nenhum checkout, pull, commit ou escrita no hub.
++1. **Hub (código, somente leitura).** Localize-o por `SMARTSHARE_HUB`; se ausente, `C:\GIT\smartshare-hub`. Busque o termo e sua configuração: enums/constantes de perfil e permissão, seeds/migrations, telas e serviços de cadastro de perfil/usuário, parâmetros. Cite `repositório, arquivo <path>` como evidência. **Regra fixa: não alterar nada no hub.** O hub (`SMARTSHARE_HUB` ou `C:\GIT\smartshare-hub`) é somente leitura: nenhum checkout, pull, fetch com alteração de branch, commit, push, edição, criação ou remoção de arquivo, nem execução de build, script ou comando que escreva no diretório.
 +2. **KB e memória do SmartShare** (Gate de contexto, Step 0.6).
 +3. **Não localizou?** **Sinalize à usuária** e não configure: diga o termo, o que buscou (hub: onde procurou; KB/memória) e a pergunta objetiva (ex.: "o que define o perfil publicador no SmartShare e como é criado?"). Registre em "Dúvidas sinalizadas" do relatório. O requisito fica `NAO VERIFICAVEL (definição não localizada)`; se a usuária responder na hora, siga com a resposta e registre a fonte como "informado pela usuária".
 +
@@ -923,9 +939,10 @@ index 0000000..9e86137
 +
 +1. **Defina o usuário** a partir do texto do requisito (ex.: "usuário com perfil Aprovador"). Vago, sem perfil identificável → `NAO VERIFICAVEL (requisito vago)`. Perfil/grupo inexistente no ambiente → não crie o perfil; `NAO ATENDIDO` com instrução. Um usuário serve a todos os requisitos que ele satisfaz.
 +2. **Reaproveite:** procure em "Usuários de teste" do `$AMBIENTE_CFG` um usuário do ambiente com esse perfil e confirme que existe e entra (login com a credencial do arquivo). Existindo → `ATENDIDO` (evidência: "informado em `$AMBIENTE_CFG`, login confirmado"). Falhou o login → não redefina a senha; trate como ausente e crie outro (observação na linha antiga: "login falhou em <data>").
-+3. **Crie** pelo cadastro de usuários do ambiente (URL do `$AMBIENTE_CFG`; admin do arquivo): login `qa.<perfil-sem-acento-minusculo>.us<ID>`; e-mail, se obrigatório, no domínio de teste do ambiente e nunca de pessoa real; senha aleatória de 16 caracteres gerada na hora (maiúscula, minúscula, número, símbolo), ex.: `-join ((48..57)+(65..90)+(97..122)+(33,35,36,37,42,43,45,63) | Get-Random -Count 16 | % {[char]$_})`; só o perfil/permissão exigido. Se o sistema forçar troca de senha no primeiro acesso, desmarque quando existir; senão faça o primeiro login, troque para a senha gerada e anote na Observação.
-+4. **Reverifique:** o usuário aparece no cadastro com o perfil e o login com a senha gerada funciona (depois deslogue). Só então `CONFIGURADO`.
-+5. **Grave** uma linha em "Usuários de teste" do `$AMBIENTE_CFG` (via `Edit`, **anexando**; nunca apague nem reescreva linhas existentes): `Login | Senha | Perfil | Ambiente | CRIADO | <US> | <data> | <obs>`.
++3. **Prepare as dependências do usuário (perfil, área, papel).** Abra a tela de usuário (`$URL_BASE` + `workspace/management/configuracoes/usuario`) e identifique quais desses itens o cadastro exige. Para cada um que o requisito pede e **não existe**, crie-o antes do usuário pela respectiva tela (perfil: `.../configuracoes/perfil`; papel: `.../configuracoes/papel`; área: caminho a confirmar, ver "Telas de configuração"), sempre de forma aditiva e registrando antes → depois. Se o item já existe, reaproveite (não edite). Não localizou a definição de qual permissão compõe o perfil/papel → Step 3.5, não chute. A ordem de criação segue o que a tela de usuário exigir; não presuma.
++4. **Crie** pelo cadastro de usuários do ambiente (`$URL_BASE` + caminho de usuário; admin do arquivo): login `qa.<perfil-sem-acento-minusculo>.us<ID>`; e-mail, se obrigatório, no domínio de teste do ambiente e nunca de pessoa real; senha aleatória de 16 caracteres gerada na hora (maiúscula, minúscula, número, símbolo), ex.: `-join ((48..57)+(65..90)+(97..122)+(33,35,36,37,42,43,45,63) | Get-Random -Count 16 | % {[char]$_})`; só o perfil/permissão exigido. Se o sistema forçar troca de senha no primeiro acesso, desmarque quando existir; senão faça o primeiro login, troque para a senha gerada e anote na Observação.
++5. **Reverifique:** o usuário aparece no cadastro com o perfil e o login com a senha gerada funciona (depois deslogue). Só então `CONFIGURADO`.
++6. **Grave** uma linha em "Usuários de teste" do `$AMBIENTE_CFG` (via `Edit`, **anexando**; nunca apague nem reescreva linhas existentes): `Login | Senha | Perfil | Ambiente | CRIADO | <US> | <data> | <obs>`.
 +
 +---
 +
@@ -1029,6 +1046,9 @@ index 0000000..9e86137
 +- **Requisito vago** (ex.: "ambiente configurado", sem número): `NAO VERIFICAVEL (requisito vago)`; sugira reescrevê-lo no mapa com `/gerar-mapa-testes-v3` em vez de interpretá-lo.
 +- **Termo desconhecido (ex.: "usuário publicador") ou perfil que não sabe criar:** consultar o hub (Step 3.5); sem definição lá, sinalizar à usuária e não criar perfil/usuário por palpite.
 +- **`$AMBIENTE_CFG` ausente ou com `<preencher>` no que é necessário:** criar a partir do modelo e parar pedindo o campo exato; nunca adivinhar URL/senha.
++- **URL base:** sempre perguntada no início de cada execução (Step 0.3); não reutilizar a de execução anterior sem perguntar.
++- **Caminho da tela de área não confirmado:** o caminho informado para "criar área" repete o de perfil; não navegar nele como se fosse área. Perguntar à usuária ou localizar pelo menu configurações.
++- **Criação de usuário falha por perfil/área/papel inexistente:** criar a dependência pela tela própria (Step 4.5.3); se a definição de permissões não for localizada, Step 3.5.
 +- **Plano de configuração não aprovado / sem admin no arquivo / ambiente não `teste`:** rodar só a verificação; ausentes ficam `NAO ATENDIDO` com instrução em "O que preparar no ambiente".
 +- **Configuração recusada pelo sistema** (permissão, campo obrigatório, regra de negócio): `NAO ATENDIDO` com a mensagem; não contornar nem alterar outra configuração para "destravar".
 +- **Requisito que só se satisfaz com ação irreversível ou efeito externo** (publicar versão definitiva, integração real, notificação): pedir confirmação própria; sem ela, `NAO ATENDIDO`.

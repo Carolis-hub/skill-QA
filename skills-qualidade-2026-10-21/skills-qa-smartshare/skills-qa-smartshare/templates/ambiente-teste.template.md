@@ -7,18 +7,21 @@ ambiente_padrao: HMG
 
 ## Ambientes
 
-| Ambiente | Tipo | URL base | Observação |
-|---|---|---|---|
-| HMG | teste | <preencher> | |
+> A **URL base não é lida deste arquivo**: o `/validar-ambiente` pergunta a URL base a cada execução (ex.: `http://localhost:8080/smartshare/`). A tabela abaixo só identifica o ambiente e seu tipo.
 
-## URLs necessárias
+| Ambiente | Tipo | Observação |
+|---|---|---|
+| HMG | teste | |
 
-| Nome | Ambiente | URL | Para que serve |
-|---|---|---|---|
-| Login | HMG | <preencher> | tela de entrada |
-| Cadastro de usuários | HMG | <preencher> | criar usuários que faltarem |
-| Modelagem de processos | HMG | <preencher> | configurar processo/fluxo que faltar |
-| Parâmetros / configurações | HMG | <preencher> | conferir e ajustar parâmetros |
+## Telas de configuração (caminhos relativos à URL base)
+
+| Nome | Caminho relativo | Para que serve |
+|---|---|---|
+| Menu configurações | workspace/management/configuracoes | ponto de entrada das configurações |
+| Usuário | workspace/management/configuracoes/usuario | criar usuário |
+| Perfil | workspace/management/configuracoes/perfil | criar perfil (dependência do usuário) |
+| Área | <confirmar> | criar área (dependência do usuário) |
+| Papel | workspace/management/configuracoes/papel | criar papel (dependência do usuário) |
 
 ## Administração (usada para configurar o ambiente)
 

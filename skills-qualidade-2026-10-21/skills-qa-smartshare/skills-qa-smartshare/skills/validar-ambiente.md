@@ -12,13 +12,27 @@ Exemplos:
 
 Esta skill fica **entre** `/gerar-mapa-testes-v3` e `/executar-teste`: o primeiro declara, por cenário, o que o ambiente precisa ter (coluna `Pre-requisitos`); esta skill olha o ambiente real, **configura o que faltar** e responde "esse ambiente consegue rodar esses cenários?". Não executa cenário nenhum.
 
-**Arquivo de configuração (`$AMBIENTE_CFG`)** = `C:\skills-qualidade\config\ambiente-teste.local.md`, caminho absoluto. É preenchido pela usuária (modelo em `templates\ambiente-teste.template.md`) com: ambientes e URL base, URLs das telas necessárias, login/senha do admin e usuários de teste. Contém senhas: nunca vai para o GitHub nem para relatório/chat/work item.
+**Arquivo de configuração (`$AMBIENTE_CFG`)** = `C:\skills-qualidade\config\ambiente-teste.local.md`, caminho absoluto. É preenchido pela usuária (modelo em `templates\ambiente-teste.template.md`) com: ambientes, caminhos das telas de configuração (relativos à URL base), login/senha do admin e usuários de teste. Contém senhas: nunca vai para o GitHub nem para relatório/chat/work item.
+
+**URL base (`$URL_BASE`)** = perguntada à usuária **a cada execução** (Step 0.3), nunca assumida do arquivo. Ex.: `http://localhost:8080/smartshare/`. Toda URL de tela é `$URL_BASE` + caminho relativo da tabela "Telas de configuração" abaixo.
+
+**Telas de configuração (caminhos relativos à `$URL_BASE`):**
+
+| Tela | Caminho relativo | Uso |
+|---|---|---|
+| Menu configurações | `workspace/management/configuracoes` | ponto de entrada das configurações |
+| Usuário | `workspace/management/configuracoes/usuario` | criar usuário |
+| Perfil | `workspace/management/configuracoes/perfil` | criar perfil |
+| Área | **a confirmar** (a usuária informou o mesmo caminho do perfil, provável engano) | criar área |
+| Papel | `workspace/management/configuracoes/papel` | criar papel |
+
+Perfil, área e papel são **dependências do cadastro de usuário** (Step 4.5). Caminho de área não confirmado: perguntar à usuária (ou, se ela mandar navegar, abrir o menu configurações e localizar a opção); nunca usar a URL de perfil no lugar.
 
 ---
 
 ## Regra fundamental (guardrails)
 
-- **Só atua em ambiente de teste declarado no `$AMBIENTE_CFG`.** O ambiente precisa estar listado lá com `Tipo = teste` e a URL de navegação precisa pertencer à URL base dele. Qualquer outra URL (ou produção, ou URL que a usuária não confirmar como teste) → parar e perguntar antes de navegar. Nunca inventar URL.
+- **Só atua em ambiente de teste.** A `$URL_BASE` é informada pela usuária a cada execução (Step 0.3) e a skill só navega em URLs que comecem por ela. Host `localhost`/`127.0.0.1` é aceito como teste; qualquer outro host só é aceito se a usuária confirmar na hora que é teste (e, havendo o ambiente no `$AMBIENTE_CFG`, com `Tipo = teste`). Produção ou URL não confirmada → parar e perguntar antes de navegar. Nunca inventar URL.
 - **Validar primeiro, configurar só o que falta.** Requisito já atendido não é tocado. Só se configura o que um requisito do mapa exige e que a verificação provou ausente.
 - **Configuração é por UI, com plano confirmado.** Criar/ajustar pela interface (nunca `INSERT`/`UPDATE`/`DELETE` no banco; banco só `SELECT`). O que será configurado é apresentado no Step 3 e só começa com o "sim" explícito da usuária.
 - **Aditivo e rastreável.** Pode **criar** (usuário, processo, parâmetro, registro) e **ligar/ajustar** configuração exigida pelo requisito. Nunca excluir nem sobrescrever dado/configuração existente que não seja do requisito, nunca redefinir senha de usuário existente, nunca conceder perfil de administrador a usuário de teste. Cada mudança é registrada no relatório com **antes → depois**, para a usuária poder desfazer.
@@ -35,7 +49,7 @@ Esta skill fica **entre** `/gerar-mapa-testes-v3` e `/executar-teste`: o primeir
 
 1. Se `$ARGUMENTS` estiver vazio, pare e peça o ID da US.
 2. Verifique que `mcp__azure-devops` está conectado (chamada de teste em `get_work_item`).
-3. **Leia `$AMBIENTE_CFG`.** Se não existir, crie-o a partir de `templates\ambiente-teste.template.md` (pasta `config` incluída), diga à usuária que ele precisa ser preenchido (URL base, URLs necessárias, admin, usuários) e **pare**. Se existir, resolva `$ambiente` (argumento ou `ambiente_padrao`) e extraia: URL base, URLs necessárias, admin e usuários do ambiente. Campo `<preencher>` necessário ao que será validado = informação ausente: pare e peça exatamente esse campo. Nunca adivinhe URL ou senha.
+3. **Pergunte a URL base (`$URL_BASE`), sempre, antes de qualquer outra coisa**, mesmo que já tenha sido informada em execução anterior ou conste no arquivo (pode sugerir como exemplo `http://localhost:8080/smartshare/`, mas só use após a resposta dela). Normalize para terminar com `/`. Em seguida, **leia `$AMBIENTE_CFG`.** Se não existir, crie-o a partir de `templates\ambiente-teste.template.md` (pasta `config` incluída), diga à usuária que ele precisa ser preenchido (admin, usuários) e **pare**. Se existir, resolva `$ambiente` (argumento ou `ambiente_padrao`) e extraia: admin e usuários do ambiente. As URLs das telas vêm de `$URL_BASE` + caminhos da tabela "Telas de configuração" (acima); a URL base do arquivo não é usada. Campo `<preencher>` necessário ao que será validado (ex.: login/senha do admin) = informação ausente: pare e peça exatamente esse campo. Nunca adivinhe URL ou senha.
 4. Verifique que `mcp__playwright` está conectado. Se indisponível, **não pare**: tudo que depende da UI vira `NAO VERIFICAVEL` (motivo: browser indisponível) e nada é configurado.
 5. Verifique se há MCP de banco somente leitura para o ambiente (nome a confirmar). Se não houver, a verificação segue pela UI; senão `NAO VERIFICAVEL` (sem acesso de leitura ao banco).
 6. **Gate de contexto**, igual ao de `/executar-teste` (Step 0.4): busque na memória e na KB do SmartShare por termos da US (tela, processo, perfil) antes de navegar, para saber onde cada configuração está. Em divergência entre KB e US, prevalece a US e a divergência é sinalizada.
@@ -86,7 +100,7 @@ Para a coluna `Pre-requisitos` de cada cenário:
 
 Antes de navegar, apresente à usuária:
 
-- ambiente, URL base e as URLs do `$AMBIENTE_CFG` que serão usadas;
+- ambiente, `$URL_BASE` informada e as URLs de tela (base + caminho) que serão usadas;
 - quantidade de cenários e de requisitos distintos, por categoria;
 - como cada categoria será verificada e **o que será configurado caso falte** (tabela abaixo), com o que ficará `NAO VERIFICAVEL` de antemão.
 
@@ -133,9 +147,10 @@ Pare e peça ajuda (uma pergunta objetiva) só quando faltar acesso que a usuár
 
 1. **Defina o usuário** a partir do texto do requisito (ex.: "usuário com perfil Aprovador"). Vago, sem perfil identificável → `NAO VERIFICAVEL (requisito vago)`. Perfil/grupo inexistente no ambiente → não crie o perfil; `NAO ATENDIDO` com instrução. Um usuário serve a todos os requisitos que ele satisfaz.
 2. **Reaproveite:** procure em "Usuários de teste" do `$AMBIENTE_CFG` um usuário do ambiente com esse perfil e confirme que existe e entra (login com a credencial do arquivo). Existindo → `ATENDIDO` (evidência: "informado em `$AMBIENTE_CFG`, login confirmado"). Falhou o login → não redefina a senha; trate como ausente e crie outro (observação na linha antiga: "login falhou em <data>").
-3. **Crie** pelo cadastro de usuários do ambiente (URL do `$AMBIENTE_CFG`; admin do arquivo): login `qa.<perfil-sem-acento-minusculo>.us<ID>`; e-mail, se obrigatório, no domínio de teste do ambiente e nunca de pessoa real; senha aleatória de 16 caracteres gerada na hora (maiúscula, minúscula, número, símbolo), ex.: `-join ((48..57)+(65..90)+(97..122)+(33,35,36,37,42,43,45,63) | Get-Random -Count 16 | % {[char]$_})`; só o perfil/permissão exigido. Se o sistema forçar troca de senha no primeiro acesso, desmarque quando existir; senão faça o primeiro login, troque para a senha gerada e anote na Observação.
-4. **Reverifique:** o usuário aparece no cadastro com o perfil e o login com a senha gerada funciona (depois deslogue). Só então `CONFIGURADO`.
-5. **Grave** uma linha em "Usuários de teste" do `$AMBIENTE_CFG` (via `Edit`, **anexando**; nunca apague nem reescreva linhas existentes): `Login | Senha | Perfil | Ambiente | CRIADO | <US> | <data> | <obs>`.
+3. **Prepare as dependências do usuário (perfil, área, papel).** Abra a tela de usuário (`$URL_BASE` + `workspace/management/configuracoes/usuario`) e identifique quais desses itens o cadastro exige. Para cada um que o requisito pede e **não existe**, crie-o antes do usuário pela respectiva tela (perfil: `.../configuracoes/perfil`; papel: `.../configuracoes/papel`; área: caminho a confirmar, ver "Telas de configuração"), sempre de forma aditiva e registrando antes → depois. Se o item já existe, reaproveite (não edite). Não localizou a definição de qual permissão compõe o perfil/papel → Step 3.5, não chute. A ordem de criação segue o que a tela de usuário exigir; não presuma.
+4. **Crie** pelo cadastro de usuários do ambiente (`$URL_BASE` + caminho de usuário; admin do arquivo): login `qa.<perfil-sem-acento-minusculo>.us<ID>`; e-mail, se obrigatório, no domínio de teste do ambiente e nunca de pessoa real; senha aleatória de 16 caracteres gerada na hora (maiúscula, minúscula, número, símbolo), ex.: `-join ((48..57)+(65..90)+(97..122)+(33,35,36,37,42,43,45,63) | Get-Random -Count 16 | % {[char]$_})`; só o perfil/permissão exigido. Se o sistema forçar troca de senha no primeiro acesso, desmarque quando existir; senão faça o primeiro login, troque para a senha gerada e anote na Observação.
+5. **Reverifique:** o usuário aparece no cadastro com o perfil e o login com a senha gerada funciona (depois deslogue). Só então `CONFIGURADO`.
+6. **Grave** uma linha em "Usuários de teste" do `$AMBIENTE_CFG` (via `Edit`, **anexando**; nunca apague nem reescreva linhas existentes): `Login | Senha | Perfil | Ambiente | CRIADO | <US> | <data> | <obs>`.
 
 ---
 
@@ -239,6 +254,9 @@ Acrescente uma linha ao final da tabela em `~/.claude/docs/projetos/skills-qa/LO
 - **Requisito vago** (ex.: "ambiente configurado", sem número): `NAO VERIFICAVEL (requisito vago)`; sugira reescrevê-lo no mapa com `/gerar-mapa-testes-v3` em vez de interpretá-lo.
 - **Termo desconhecido (ex.: "usuário publicador") ou perfil que não sabe criar:** consultar o hub (Step 3.5); sem definição lá, sinalizar à usuária e não criar perfil/usuário por palpite.
 - **`$AMBIENTE_CFG` ausente ou com `<preencher>` no que é necessário:** criar a partir do modelo e parar pedindo o campo exato; nunca adivinhar URL/senha.
+- **URL base:** sempre perguntada no início de cada execução (Step 0.3); não reutilizar a de execução anterior sem perguntar.
+- **Caminho da tela de área não confirmado:** o caminho informado para "criar área" repete o de perfil; não navegar nele como se fosse área. Perguntar à usuária ou localizar pelo menu configurações.
+- **Criação de usuário falha por perfil/área/papel inexistente:** criar a dependência pela tela própria (Step 4.5.3); se a definição de permissões não for localizada, Step 3.5.
 - **Plano de configuração não aprovado / sem admin no arquivo / ambiente não `teste`:** rodar só a verificação; ausentes ficam `NAO ATENDIDO` com instrução em "O que preparar no ambiente".
 - **Configuração recusada pelo sistema** (permissão, campo obrigatório, regra de negócio): `NAO ATENDIDO` com a mensagem; não contornar nem alterar outra configuração para "destravar".
 - **Requisito que só se satisfaz com ação irreversível ou efeito externo** (publicar versão definitiva, integração real, notificação): pedir confirmação própria; sem ela, `NAO ATENDIDO`.
