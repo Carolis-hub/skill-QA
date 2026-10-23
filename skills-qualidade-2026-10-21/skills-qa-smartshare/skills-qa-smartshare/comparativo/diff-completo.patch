@@ -786,7 +786,7 @@ index 5aff133..ecc6732 100644
  
 diff --git a/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md b/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md
 new file mode 100644
-index 0000000..027902b
+index 0000000..930df36
 --- /dev/null
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md
 @@ -0,0 +1,275 @@
@@ -813,12 +813,12 @@ index 0000000..027902b
 +| Tela | Caminho relativo | Uso |
 +|---|---|---|
 +| Menu configurações | `workspace/management/configuracoes` | ponto de entrada das configurações |
-+| Usuário | `workspace/management/configuracoes/usuario` | criar usuário |
++| Usuário | `workspace/management/usuario` (cadastro: `.../usuario/novo`) | listar e criar usuário (rota observada em 2026-10-23; `.../configuracoes/usuario` redireciona para a página inicial) |
 +| Perfil | `workspace/management/configuracoes/perfil` | criar perfil |
-+| Área | `workspace/management/configuracoes/perfil` (mesma tela do perfil, confirmado pela usuária) | criar área |
++| Área | sem tela própria localizada: é um seletor "Área principal" no cadastro de usuário | selecionar área existente |
 +| Papel | `workspace/management/configuracoes/papel` | criar papel |
 +
-+Perfil, área e papel são **dependências do cadastro de usuário** (Step 4.5). A área é cadastrada na mesma tela do perfil (confirmado pela usuária em 2026-10-23); se a tela não oferecer o cadastro de área, localizar a opção pelo menu configurações e perguntar, sem inventar caminho.
++Perfil, área e papel são **dependências do cadastro de usuário** (Step 4.5). Na UI observada em 2026-10-23 a área não tem tela própria: o cadastro de usuário tem os seletores "Área principal" e "Papel principal", que listam as existentes; o tipo de usuário "Administrador" é um campo do cadastro. Os caminhos de perfil e papel acima vieram da usuária e não foram abertos nessa observação: confirmar ao usar.
 +
 +---
 +
@@ -847,7 +847,7 @@ index 0000000..027902b
 +   - **Existe:** faça login com ele (login/senha só do arquivo) e siga. Login falhou → não redefina a senha; trate como ausente e peça o admin de bootstrap abaixo (a linha antiga ganha a observação "login falhou em <data>").
 +   - **Não existe (primeira execução neste ambiente):** peça à usuária **uma única vez** um admin já existente do ambiente (login e senha informados no chat) apenas para criar o `Claude-adm`. Essa credencial de bootstrap é usada nesta execução e **não é gravada** em arquivo, relatório nem log. Com ela, crie o usuário `Claude-adm` pela tela de usuário (`$URL_BASE` + `workspace/management/configuracoes/usuario`), com o perfil de administrador do ambiente (se o perfil não for identificável, Step 3.5; não chute), senha aleatória de 16 caracteres gerada na hora (receita do Step 4.5) e e-mail, se obrigatório, no domínio de teste do ambiente. Reverifique (aparece no cadastro e o login com a senha gerada funciona) e grave no `$AMBIENTE_CFG`, via `Edit` (tabela "Administração": complete a linha `Claude-adm` marcada `A CRIAR`, ou anexe `ambiente | Claude-adm | senha | CRIADO | <data>` se não houver; nunca apague nem reescreva outras linhas).
 +   - Nas execuções seguintes e em `/executar-teste`, o `Claude-adm` é o admin padrão. Ele existe só para configurar o ambiente de teste: nunca o use para executar cenário nem o conceda a outro usuário.
-+   - Se a usuária não tiver admin de bootstrap ou o sistema recusar a criação: rode só a verificação (ausentes ficam `NAO ATENDIDO`) e diga o motivo.
++   - Se a usuária não tiver admin de bootstrap ou o sistema recusar a criação (ex.: "Número de usuários disponíveis já foi alcançado", limite da licença): não tente liberar vaga desativando ou apagando usuários; registre o motivo na linha `Claude-adm` do `$AMBIENTE_CFG`, use o admin informado (ex.: `root`, registrado no arquivo **sem senha**; a senha é pedida no chat a cada execução) e rode só a verificação, sem criar usuários (requisitos [USUARIO] ausentes ficam `NAO ATENDIDO`).
 +4. Verifique que `mcp__playwright` está conectado. Se indisponível, **não pare**: tudo que depende da UI vira `NAO VERIFICAVEL` (motivo: browser indisponível) e nada é configurado.
 +5. Verifique se há MCP de banco somente leitura para o ambiente (nome a confirmar). Se não houver, a verificação segue pela UI; senão `NAO VERIFICAVEL` (sem acesso de leitura ao banco).
 +6. **Gate de contexto**, igual ao de `/executar-teste` (Step 0.4): busque na memória e na KB do SmartShare por termos da US (tela, processo, perfil) antes de navegar, para saber onde cada configuração está. Em divergência entre KB e US, prevalece a US e a divergência é sinalizada.
@@ -945,7 +945,7 @@ index 0000000..027902b
 +
 +1. **Defina o usuário** a partir do texto do requisito (ex.: "usuário com perfil Aprovador"). Vago, sem perfil identificável → `NAO VERIFICAVEL (requisito vago)`. Perfil/grupo inexistente no ambiente → não crie o perfil; `NAO ATENDIDO` com instrução. Um usuário serve a todos os requisitos que ele satisfaz.
 +2. **Reaproveite:** procure em "Usuários de teste" do `$AMBIENTE_CFG` um usuário do ambiente com esse perfil e confirme que existe e entra (login com a credencial do arquivo). Existindo → `ATENDIDO` (evidência: "informado em `$AMBIENTE_CFG`, login confirmado"). Falhou o login → não redefina a senha; trate como ausente e crie outro (observação na linha antiga: "login falhou em <data>").
-+3. **Prepare as dependências do usuário (perfil, área, papel).** Abra a tela de usuário (`$URL_BASE` + `workspace/management/configuracoes/usuario`) e identifique quais desses itens o cadastro exige. Para cada um que o requisito pede e **não existe**, crie-o antes do usuário pela respectiva tela (perfil: `.../configuracoes/perfil`; papel: `.../configuracoes/papel`; área: mesma tela do perfil, ver "Telas de configuração"), sempre de forma aditiva e registrando antes → depois. Se o item já existe, reaproveite (não edite). Não localizou a definição de qual permissão compõe o perfil/papel → Step 3.5, não chute. A ordem de criação segue o que a tela de usuário exigir; não presuma.
++3. **Prepare as dependências do usuário (perfil, área, papel).** Abra a tela de usuário (`$URL_BASE` + `workspace/management/configuracoes/usuario`) e identifique quais desses itens o cadastro exige. Para cada um que o requisito pede e **não existe**, crie-o antes do usuário pela respectiva tela (perfil e papel: telas da tabela "Telas de configuração"; área: sem tela própria, só seleção), sempre de forma aditiva e registrando antes → depois. Se o item já existe, reaproveite (não edite). Não localizou a definição de qual permissão compõe o perfil/papel → Step 3.5, não chute. A ordem de criação segue o que a tela de usuário exigir; não presuma.
 +4. **Crie** pelo cadastro de usuários do ambiente (`$URL_BASE` + caminho de usuário; admin do arquivo): login `qa.<perfil-sem-acento-minusculo>.us<ID>`; e-mail, se obrigatório, no domínio de teste do ambiente e nunca de pessoa real; senha aleatória de 16 caracteres gerada na hora (maiúscula, minúscula, número, símbolo), ex.: `-join ((48..57)+(65..90)+(97..122)+(33,35,36,37,42,43,45,63) | Get-Random -Count 16 | % {[char]$_})`; só o perfil/permissão exigido. Se o sistema forçar troca de senha no primeiro acesso, desmarque quando existir; senão faça o primeiro login, troque para a senha gerada e anote na Observação.
 +5. **Reverifique:** o usuário aparece no cadastro com o perfil e o login com a senha gerada funciona (depois deslogue). Só então `CONFIGURADO`.
 +6. **Grave** uma linha em "Usuários de teste" do `$AMBIENTE_CFG` (via `Edit`, **anexando**; nunca apague nem reescreva linhas existentes): `Login | Senha | Perfil | Ambiente | CRIADO | <US> | <data> | <obs>`.
