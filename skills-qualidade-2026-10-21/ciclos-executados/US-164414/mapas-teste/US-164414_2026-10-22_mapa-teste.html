@@ -1,0 +1,274 @@
+<!doctype html>
+<!--
+TEMPLATE do mapa de testes interativo (gerado por /gerar-mapa-testes-v3, Step 5b).
+Baseado no modelo de US-162122. NAO editar o CSS/JS por US: substitua apenas os placeholders {{...}}.
+
+Placeholders:
+  {{TITULO}}          "Mapa de Testes — US <ID> — <titulo curto da historia>"
+  {{PROJETO}}         System.TeamProject
+  {{SPRINT}}          iteracao da historia (nome final do caminho)
+  {{CARD_MAPA_ID}}    ID do card "Criar Mapa de Teste" (sem o #)
+  {{RESUMO_HTML}}     paragrafos Objetivo / Fonte tecnica / Origem (siglas) / Historico de defeitos / Dimensoes cobertas + <h4>Criterios de aceite</h4><ul>...</ul>
+  {{TOTAL}}           numero de cenarios
+  {{LINHAS_HTML}}     linhas do <tbody> (formato abaixo)
+  {{PREREQ_HTML}}     <li>[CATEGORIA] requisito — cenários: #ids</li> (um por requisito distinto)
+  {{CHAVE_STORAGE}}   mapa-teste-us-<ID>-<slug>-testados-v1
+  {{ARQUIVO_EXPORT}}  mapa-teste-us-<ID>-<slug>.html
+
+Linha de categoria:
+  <tr class="group"><td colspan="10"><span class="gname">NOME COM ACENTOS</span><span class="gcount"></span></td></tr>
+Linha de cenario (ordem das 10 colunas; data-label e classes col-* sao obrigatorios):
+  <tr data-id="N"[ class="row-hipotese"]>
+   <td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="N" disabled aria-label="Marcar o cenário N como testado"></td>
+   <td class="col-id" data-label="#">N</td>
+   <td class="col-cenario" data-label="Cenário">[<span class="hip-badge">hipótese</span>]texto</td>
+   <td class="col-config" data-label="Configurações necessárias">[CATEGORIA] item<br>[CATEGORIA] item</td>
+   <td class="col-acao" data-label="Ação">...</td>
+   <td class="col-resultado" data-label="Resultado Esperado">...</td>
+   <td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo|tag-negativo|tag">tipo</span></td>
+   <td class="col-tecnica" data-label="Técnica">...</td>
+   <td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo|tag-negativo|tag-regressao|tag">dimensão</span></td>
+   <td class="col-origem" data-label="Origem">CA2, CT</td>
+  </tr>
+Todo texto dentro das celulas deve ter &, <, > escapados. Linha N/A: tipo e tecnica = "—".
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa de Testes — US 164414 — Reautenticação no login com informações salvas</title>
+<style>
+:root{--bg:#f5f7f6;--card:#fff;--text:#1d2521;--muted:#5b6b63;--border:#dfe6e2;--accent:#00774b;--accent-d:#005a39;--head:#eef4f1;--code:#eef2ef;
+--done:#eafaf1;--done-b:#bfe8cf;--hip:#fff7e0;--hip-b:#f0d98a;--warn:#c77700;--group:#dcebe4;--track:#e4e9e6;
+--pos:#0f7a3c;--pos-bg:#e4f6ea;--neg:#b3261e;--neg-bg:#fbe9e7;--reg:#8a5a00;--reg-bg:#fff3dc;--neu:#3b4a43;--neu-bg:#e8eeeb}
+:root[data-theme="dark"]{--bg:#121715;--card:#1b2220;--text:#e4ebe7;--muted:#9fb0a7;--border:#2c3733;--accent:#3ecf8e;--accent-d:#7be3b4;--head:#222c28;--code:#26312d;
+--done:#16301f;--done-b:#24503a;--hip:#33290f;--hip-b:#5a4817;--warn:#e8a33d;--group:#1f2e28;--track:#2c3733;
+--pos:#7be3b4;--pos-bg:#173023;--neg:#ff9a92;--neg-bg:#3a1b19;--reg:#f0c36a;--reg-bg:#3a2f12;--neu:#c3d0c9;--neu-bg:#27322e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121715;--card:#1b2220;--text:#e4ebe7;--muted:#9fb0a7;--border:#2c3733;--accent:#3ecf8e;--accent-d:#7be3b4;--head:#222c28;--code:#26312d;
+--done:#16301f;--done-b:#24503a;--hip:#33290f;--hip-b:#5a4817;--warn:#e8a33d;--group:#1f2e28;--track:#2c3733;
+--pos:#7be3b4;--pos-bg:#173023;--neg:#ff9a92;--neg-bg:#3a1b19;--reg:#f0c36a;--reg-bg:#3a2f12;--neu:#c3d0c9;--neu-bg:#27322e}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI","Source Sans 3",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;padding-bottom:4rem}
+header{background:linear-gradient(135deg,#00774b,#005a39);color:#fff;padding:1.6rem 1rem 1.2rem}
+header .inner{max-width:1500px;margin:0 auto;padding:0 .5rem}
+header h1{margin:0 0 .5rem;font-size:1.45rem}
+header p{margin:.2rem 0;font-size:.9rem;opacity:.93}
+header code{background:rgba(255,255,255,.18);color:#fff}
+header a{color:#fff}
+nav.toc{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.8rem}
+nav.toc a{font-size:.78rem;background:rgba(255,255,255,.16);border-radius:999px;padding:.2rem .7rem;text-decoration:none}
+nav.toc a:hover{background:rgba(255,255,255,.3)}
+.wrap{max-width:1500px;margin:0 auto;padding:1rem 1.5rem}
+.bar{position:sticky;top:0;z-index:20;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;margin:0 0 1rem;display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.bar .count{font-weight:700;white-space:nowrap}
+.track{flex:1 1 200px;min-width:140px;height:10px;background:var(--track);border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0;background:var(--accent);transition:width .25s}
+.seg{display:flex;gap:.3rem;flex-wrap:wrap}
+.bar button,.bar label.btn{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:.3rem .8rem;font-size:.82rem;cursor:pointer;font-family:inherit}
+.bar button.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.bar button.warn{border-color:var(--warn);color:var(--warn)}
+.bar input[type=search]{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:.3rem .8rem;font-size:.85rem;min-width:170px;font-family:inherit}
+.bar input[type=file]{display:none}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;color:var(--accent-d);scroll-margin-top:90px}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem;scroll-margin-top:90px}
+h4{font-size:.98rem;margin:1.2rem 0 .4rem}
+hr{border:0;border-top:1px solid var(--border);margin:1.6rem 0}
+blockquote.note{margin:.6rem 0;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;padding:.1rem 1rem;font-size:.9rem;color:var(--muted)}
+p,li{font-size:.92rem}
+code{background:var(--code);padding:.05rem .3rem;border-radius:4px;font-size:.82em;font-family:"Cascadia Code",Consolas,monospace;overflow-wrap:anywhere}
+a{color:var(--accent-d)}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--card);margin:.6rem 0 1rem}
+table{border-collapse:collapse;width:100%}
+th,td{border:1px solid var(--border);padding:.55rem .6rem;vertical-align:top;text-align:left;font-size:.84rem;overflow-wrap:anywhere}
+thead th{background:var(--head);color:var(--accent-d);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;position:sticky;top:0}
+table.main{table-layout:fixed;min-width:1480px}
+table.compact{table-layout:auto}
+.col-check{width:64px;text-align:center}
+th.col-id,td.col-id{width:48px;font-weight:700;color:var(--accent-d)}
+.main .col-cenario{width:13%;font-weight:600}
+.main .col-config{width:19%}
+.main .col-acao{width:15%}
+.main .col-resultado{width:23%}
+.main .col-tipo,.main .col-tecnica,.main .col-dim{width:7%}
+.main .col-origem{width:10%}
+tr.group td{background:var(--group);color:var(--accent-d);font-weight:700;font-size:.82rem;letter-spacing:.03em;text-transform:uppercase;padding:.5rem .7rem}
+.gcount{float:right;font-weight:600;text-transform:none;color:var(--muted);font-size:.78rem}
+tr.row-hipotese{background:var(--hip)}
+tr.row-hipotese td{border-color:var(--hip-b)}
+tr.row-done{background:var(--done)}
+tr.row-done td{border-color:var(--done-b)}
+tr.row-done td.col-cenario,tr.row-done td.col-acao,tr.row-done td.col-resultado{opacity:.7}
+tr.row-done td.col-cenario{text-decoration:line-through;text-decoration-color:#7fbf9a}
+input.chk{width:20px;height:20px;cursor:pointer;accent-color:var(--accent)}
+.tag{display:inline-block;padding:.1rem .55rem;border-radius:999px;font-size:.72rem;font-weight:600;background:var(--neu-bg);color:var(--neu)}
+.tag-positivo{background:var(--pos-bg);color:var(--pos)}
+.tag-negativo{background:var(--neg-bg);color:var(--neg)}
+.tag-regressao{background:var(--reg-bg);color:var(--reg)}
+.hip-badge{display:inline-block;margin-right:.4rem;font-size:.68rem;background:var(--warn);color:#fff;border-radius:999px;padding:.03rem .5rem;vertical-align:1px}
+tr.hidden{display:none}
+.nojs{background:#fff3dc;color:#8a5a00;border-bottom:2px solid #c77700;padding:.7rem 1rem;font-size:.9rem;text-align:center}
+input.chk:disabled{cursor:not-allowed;opacity:.5}
+.empty{display:none;padding:1rem;color:var(--muted);text-align:center}
+footer{max-width:1500px;margin:2rem auto 0;padding:0 1.5rem;color:var(--muted);font-size:.8rem}
+@media (max-width:1000px){
+ .wrap{padding:.8rem 1rem}
+ .bar{position:static}
+ table.main{min-width:0}
+ .tbl-wrap{border:0;background:transparent}
+ table.cases,table.cases tbody,table.cases tr,table.cases td{display:block;width:100%}
+ table.cases thead{display:none}
+ table.cases tr[data-id]{background:var(--card);border:1px solid var(--border);border-radius:10px;margin:0 0 .8rem;padding:.3rem .2rem}
+ table.cases tr.row-hipotese{background:var(--hip)}
+ table.cases tr.row-done{background:var(--done)}
+ table.cases td{border:0;padding:.35rem .7rem;width:100%!important}
+ table.cases td::before{content:attr(data-label);display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+ table.cases td.col-check{text-align:left}
+ table.cases tr.group{margin:1rem 0 .4rem}
+ table.cases tr.group td::before{content:none}
+}
+@media print{.bar,nav.toc{display:none}}
+</style>
+</head>
+<body>
+<header><div class="inner"><h1>Mapa de Testes — US 164414 — Reautenticação no login com informações salvas</h1><p>Projeto: Squad Fênix | Sprint: Melhorias Tela de Login | Card do mapa: <code>#164421</code></p><nav class="toc"><a href="#resumo">Resumo</a><a href="#tabela-completa">Tabela completa</a><a href="#pre-requisitos">Pré-requisitos consolidados</a></nav></div></header>
+<noscript><div class="nojs">JavaScript desativado ou bloqueado nesta visualização: os checkboxes ficam desabilitados. Abra o arquivo diretamente no Chrome ou no Edge (duplo clique no arquivo).</div></noscript>
+<div class="wrap">
+<div class="bar" role="region" aria-label="Progresso e filtros">
+  <span class="count" id="count">Ativando… (se esta mensagem não mudar, o script não está rodando: abra o arquivo em um navegador)</span>
+  <div class="track"><div class="fill" id="fill"></div></div>
+  <div class="seg">
+    <button type="button" class="active" data-filter="all">Todos</button>
+    <button type="button" data-filter="todo">Pendentes</button>
+    <button type="button" data-filter="done">Testados</button>
+  </div>
+  <input type="search" id="q" placeholder="Buscar cenário…" aria-label="Buscar cenário">
+  <button type="button" id="export" title="Baixa um JSON com os cenários marcados">Exportar marcações</button>
+  <label class="btn" title="Carrega um JSON exportado antes">Importar<input type="file" id="import" accept="application/json,.json"></label>
+  <button type="button" class="warn" id="reset">Limpar</button>
+</div>
+<h2 id="resumo">Resumo</h2>
+<h2 id="resumo">Resumo</h2><p><strong>Objetivo:</strong> Quando a biometria (ou, sem biometria, a verificação em duas etapas) não for concluída com sucesso, a senha salva deixa de ser usada: o campo Senha abre vazio e o usuário digita manualmente, seguindo o fluxo normal de login (opção A — limpar a senha preenchida).</p><p><strong>Fonte técnica:</strong> Card Análise #164419 (dev): classes login_controller.dart, login_page.dart e login_repository_impl.dart no repositório mobile-smartshare-flutter, branch feature/164414/2FA-ajuste; caso de teste do dev: &quot;Ao cancelar ou erro da biometria ou 2FA, deve remover a senha do usuario, obrigando a digitar novamente.&quot; O card não tem o campo Pontos de impacto; as classes alteradas foram usadas como PI. Sem PR vinculado, a análise não foi confirmada contra o código.</p><p><strong>Origem (siglas):</strong> CA = critério de aceite; CT = caso de teste do dev; PI = classes alteradas informadas pelo dev no card Análise.</p><p><strong>Histórico de defeitos considerado:</strong> Busca de Bugs no projeto Squad Fênix (login, biometria, senha salva, 2FA) não retornou nenhum resultado; nenhum cenário de regressão foi criado a partir de histórico de defeitos.</p><p><strong>Dimensões cobertas:</strong> Positivo, negativo, dados e regressão cobertas. Permissão: N/A (a regra não depende de perfil; variação com/sem 2FA nos #3 e #4). Concorrência: N/A (fluxo local de um usuário em um dispositivo).</p><h4>Critérios de aceite</h4><ul><li>CA-01 Biometria cancelada: Senha vazia; Entrar não entra sem senha digitada</li><li>CA-02 Biometria falha: Senha vazia; app não usa a senha salva</li><li>CA-03 Usuário sem 2FA, entrada manual: login pelo fluxo normal</li><li>CA-04 Usuário com 2FA, entrada manual: login só conclui após o código correto</li><li>CA-05 Biometria aprovada (regressão): login conforme a US original</li><li>CA-06 Sem biometria, 2FA cancelado: Senha vazia; não entra sem digitar a senha</li><li>CA-07 Sem brecha por fluxo alternativo: senha salva só é usada após biometria/2FA aprovada</li><li>CA-08 Usuário continua preenchido e editável; só a Senha é limpa</li><li>CA-09 Checkbox desmarcado (regressão): nada é salvo; fluxo atual</li><li>CA-10 Informações salvas preservadas: cancelar a biometria não apaga o login salvo</li></ul>
+<h2 id="tabela-completa">Tabela completa (20 cenários)</h2>
+<div class="tbl-wrap"><table class="cases main"><thead><tr><th class="col-check">Testado</th><th class="col-id">#</th><th class="col-cenario">Cenário</th><th class="col-config">Configurações necessárias</th><th class="col-acao">Ação</th><th class="col-resultado">Resultado Esperado</th><th class="col-tipo">Tipo</th><th class="col-tecnica">Técnica</th><th class="col-dim">Dimensão</th><th class="col-origem">Origem</th></tr></thead><tbody><tr class="group"><td colspan="10"><span class="gname">FLUXO PRINCIPAL</span><span class="gcount"></span></td></tr>
+<tr data-id="1"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="1" disabled aria-label="Marcar o cenário 1 como testado"></td><td class="col-id" data-label="#">1</td><td class="col-cenario" data-label="Cenário">Biometria cancelada</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado<br>[CONFIG] dispositivo com biometria cadastrada<br>[DADOS] informações de login salvas no dispositivo</td><td class="col-acao" data-label="Ação">Clicar em &quot;Entrar&quot; e cancelar a biometria</td><td class="col-resultado" data-label="Resultado Esperado">Tela de login com Senha vazia; &quot;Entrar&quot; não entra sem senha digitada</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">CA1, CT</td></tr>
+<tr data-id="2"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="2" disabled aria-label="Marcar o cenário 2 como testado"></td><td class="col-id" data-label="#">2</td><td class="col-cenario" data-label="Cenário">Biometria reprovada</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado<br>[CONFIG] dispositivo com biometria cadastrada<br>[DADOS] informações de login salvas no dispositivo</td><td class="col-acao" data-label="Ação">Reprovar a biometria (digital não reconhecida, repetir até esgotar as tentativas)</td><td class="col-resultado" data-label="Resultado Esperado">Senha vazia; a senha salva nunca é usada</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">CA2, CT</td></tr>
+<tr data-id="3"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="3" disabled aria-label="Marcar o cenário 3 como testado"></td><td class="col-id" data-label="#">3</td><td class="col-cenario" data-label="Cenário">Entrada manual sem 2FA</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado<br>[CONFIG] dispositivo com biometria cadastrada<br>[DADOS] informações de login salvas no dispositivo<br>[USUARIO] usuário sem 2FA</td><td class="col-acao" data-label="Ação">Cancelar a biometria; digitar usuário e senha corretos; clicar em &quot;Entrar&quot;</td><td class="col-resultado" data-label="Resultado Esperado">Login concluído pelo fluxo normal, sem 2FA</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">tabela-decisão</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA3</td></tr>
+<tr data-id="4"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="4" disabled aria-label="Marcar o cenário 4 como testado"></td><td class="col-id" data-label="#">4</td><td class="col-cenario" data-label="Cenário">Entrada manual com 2FA</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado<br>[CONFIG] dispositivo com biometria cadastrada<br>[DADOS] informações de login salvas no dispositivo<br>[USUARIO] usuário com 2FA configurado</td><td class="col-acao" data-label="Ação">Cancelar a biometria; digitar usuário e senha corretos; clicar em &quot;Entrar&quot;</td><td class="col-resultado" data-label="Resultado Esperado">Direciona à verificação em 2 etapas; login só conclui após o código correto</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">tabela-decisão</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA4</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">FLUXO ALTERNATIVO</span><span class="gcount"></span></td></tr>
+<tr data-id="5"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="5" disabled aria-label="Marcar o cenário 5 como testado"></td><td class="col-id" data-label="#">5</td><td class="col-cenario" data-label="Cenário">Sem biometria, 2FA cancelado</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado<br>[CONFIG] dispositivo sem biometria cadastrada<br>[DADOS] informações de login salvas no dispositivo<br>[USUARIO] usuário com 2FA configurado</td><td class="col-acao" data-label="Ação">Clicar em &quot;Entrar&quot; e cancelar a verificação em 2 etapas</td><td class="col-resultado" data-label="Resultado Esperado">Senha vazia; não entra sem digitar a senha</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">CA6, CT</td></tr>
+<tr data-id="6"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="6" disabled aria-label="Marcar o cenário 6 como testado"></td><td class="col-id" data-label="#">6</td><td class="col-cenario" data-label="Cenário">Sem biometria, 2FA com falha</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado<br>[CONFIG] dispositivo sem biometria cadastrada<br>[DADOS] informações de login salvas no dispositivo<br>[USUARIO] usuário com 2FA configurado</td><td class="col-acao" data-label="Ação">Clicar em &quot;Entrar&quot; e informar código 2FA incorreto</td><td class="col-resultado" data-label="Resultado Esperado">Senha vazia; não entra sem digitar a senha</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">CA6, CT</td></tr>
+<tr data-id="7"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="7" disabled aria-label="Marcar o cenário 7 como testado"></td><td class="col-id" data-label="#">7</td><td class="col-cenario" data-label="Cenário">Fechar e reabrir o app após falha</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado<br>[CONFIG] dispositivo com biometria cadastrada<br>[DADOS] informações de login salvas no dispositivo</td><td class="col-acao" data-label="Ação">Falhar/cancelar a biometria; fechar e reabrir o app</td><td class="col-resultado" data-label="Resultado Esperado">A senha salva não é preenchida nem enviada sem reautenticação aprovada</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">CA7</td></tr>
+<tr data-id="8"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="8" disabled aria-label="Marcar o cenário 8 como testado"></td><td class="col-id" data-label="#">8</td><td class="col-cenario" data-label="Cenário">&quot;Entrar&quot; repetido na tela</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado<br>[CONFIG] dispositivo com biometria cadastrada<br>[DADOS] informações de login salvas no dispositivo</td><td class="col-acao" data-label="Ação">Falhar/cancelar a biometria; tocar &quot;Entrar&quot; várias vezes</td><td class="col-resultado" data-label="Resultado Esperado">Em nenhuma tentativa a senha salva é preenchida ou enviada</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">CA7</td></tr>
+<tr data-id="9"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="9" disabled aria-label="Marcar o cenário 9 como testado"></td><td class="col-id" data-label="#">9</td><td class="col-cenario" data-label="Cenário">Sair e entrar novamente</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado<br>[CONFIG] dispositivo com biometria cadastrada<br>[DADOS] informações de login salvas no dispositivo</td><td class="col-acao" data-label="Ação">Falhar a biometria; sair do app; entrar de novo e aprovar a biometria</td><td class="col-resultado" data-label="Resultado Esperado">Senha salva pode ser usada, mas só após biometria/2FA aprovada</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA7</td></tr>
+<tr data-id="10"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="10" disabled aria-label="Marcar o cenário 10 como testado"></td><td class="col-id" data-label="#">10</td><td class="col-cenario" data-label="Cenário">Usuário preservado</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado<br>[CONFIG] dispositivo com biometria cadastrada<br>[DADOS] informações de login salvas no dispositivo</td><td class="col-acao" data-label="Ação">Falhar/cancelar a biometria</td><td class="col-resultado" data-label="Resultado Esperado">Campo Usuário preenchido e editável; só a Senha é limpa</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA8</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">VALIDAÇÕES DE CAMPOS</span><span class="gcount"></span></td></tr>
+<tr data-id="11"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="11" disabled aria-label="Marcar o cenário 11 como testado"></td><td class="col-id" data-label="#">11</td><td class="col-cenario" data-label="Cenário">&quot;Entrar&quot; com Senha vazia</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado<br>[CONFIG] dispositivo com biometria cadastrada<br>[DADOS] informações de login salvas no dispositivo</td><td class="col-acao" data-label="Ação">Após a limpeza, tocar &quot;Entrar&quot; sem digitar a senha</td><td class="col-resultado" data-label="Resultado Esperado">Não entra na conta</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">CA1</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">PERMISSÃO</span><span class="gcount"></span></td></tr>
+<tr data-id="12"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="12" disabled aria-label="Marcar o cenário 12 como testado"></td><td class="col-id" data-label="#">12</td><td class="col-cenario" data-label="Cenário">N/A — a regra não depende de perfil/permissão; a variação com/sem 2FA está nos #3 e #4</td><td class="col-config" data-label="Configurações necessárias">Nenhum específico</td><td class="col-acao" data-label="Ação">—</td><td class="col-resultado" data-label="Resultado Esperado">—</td><td class="col-tipo" data-label="Tipo">—</td><td class="col-tecnica" data-label="Técnica">—</td><td class="col-dim" data-label="Dimensão"><span class="tag">permissão</span></td><td class="col-origem" data-label="Origem">—</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">DADOS E CASOS DE BORDA</span><span class="gcount"></span></td></tr>
+<tr data-id="13"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="13" disabled aria-label="Marcar o cenário 13 como testado"></td><td class="col-id" data-label="#">13</td><td class="col-cenario" data-label="Cenário">Cancelar uma vez e aprovar depois</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado<br>[CONFIG] dispositivo com biometria cadastrada<br>[DADOS] informações de login salvas no dispositivo</td><td class="col-acao" data-label="Ação">Cancelar a biometria; em novo acesso, clicar em &quot;Entrar&quot; e aprovar a biometria</td><td class="col-resultado" data-label="Resultado Esperado">Login concluído; a opção de login salvo não é apagada</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td><td class="col-origem" data-label="Origem">CA10</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">CONCORRÊNCIA</span><span class="gcount"></span></td></tr>
+<tr data-id="14"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="14" disabled aria-label="Marcar o cenário 14 como testado"></td><td class="col-id" data-label="#">14</td><td class="col-cenario" data-label="Cenário">N/A — fluxo local, de um usuário em um dispositivo, sem recurso compartilhado</td><td class="col-config" data-label="Configurações necessárias">Nenhum específico</td><td class="col-acao" data-label="Ação">—</td><td class="col-resultado" data-label="Resultado Esperado">—</td><td class="col-tipo" data-label="Tipo">—</td><td class="col-tecnica" data-label="Técnica">—</td><td class="col-dim" data-label="Dimensão"><span class="tag">concorrência</span></td><td class="col-origem" data-label="Origem">—</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">ERROS DE INTEGRAÇÃO / API</span><span class="gcount"></span></td></tr>
+<tr data-id="15"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="15" disabled aria-label="Marcar o cenário 15 como testado"></td><td class="col-id" data-label="#">15</td><td class="col-cenario" data-label="Cenário">Erro técnico da biometria</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado<br>[CONFIG] dispositivo com biometria cadastrada<br>[DADOS] informações de login salvas no dispositivo<br>[CONFIG] HIPOTESE: mecanismo para simular erro da biometria (ex.: sensor indisponível)</td><td class="col-acao" data-label="Ação">Provocar erro da biometria ao clicar em &quot;Entrar&quot;</td><td class="col-resultado" data-label="Resultado Esperado">Senha vazia; obriga a digitar novamente</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">CT</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">REGRESSÃO</span><span class="gcount"></span></td></tr>
+<tr data-id="16"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="16" disabled aria-label="Marcar o cenário 16 como testado"></td><td class="col-id" data-label="#">16</td><td class="col-cenario" data-label="Cenário">Biometria aprovada</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado<br>[CONFIG] dispositivo com biometria cadastrada<br>[DADOS] informações de login salvas no dispositivo</td><td class="col-acao" data-label="Ação">Clicar em &quot;Entrar&quot; e aprovar a biometria</td><td class="col-resultado" data-label="Resultado Esperado">Login concluído conforme a US original, sem alteração</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">CA5</td></tr>
+<tr data-id="17"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="17" disabled aria-label="Marcar o cenário 17 como testado"></td><td class="col-id" data-label="#">17</td><td class="col-cenario" data-label="Cenário">Checkbox desmarcado</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado<br>[USUARIO] usuário que não marcou &quot;Salvar as informações de login&quot;</td><td class="col-acao" data-label="Ação">Fazer login</td><td class="col-resultado" data-label="Resultado Esperado">Nada é salvo; o fluxo permanece o atual</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">CA9</td></tr>
+<tr data-id="18"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="18" disabled aria-label="Marcar o cenário 18 como testado"></td><td class="col-id" data-label="#">18</td><td class="col-cenario" data-label="Cenário">Login normal sem informações salvas</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado<br>[USUARIO] usuário sem 2FA e sem informações de login salvas</td><td class="col-acao" data-label="Ação">Digitar usuário e senha; clicar em &quot;Entrar&quot;</td><td class="col-resultado" data-label="Resultado Esperado">Login concluído, sem alteração (telas/classes de login alteradas)</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">PI</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">CASOS DE BORDA / HIPÓTESES</span><span class="gcount"></span></td></tr>
+<tr data-id="19" class="row-hipotese"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="19" disabled aria-label="Marcar o cenário 19 como testado"></td><td class="col-id" data-label="#">19</td><td class="col-cenario" data-label="Cenário"><span class="hip-badge">hipótese</span>Mensagem ao esgotar tentativas</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado<br>[CONFIG] dispositivo com biometria cadastrada<br>[DADOS] informações de login salvas no dispositivo</td><td class="col-acao" data-label="Ação">Esgotar as tentativas da biometria</td><td class="col-resultado" data-label="Resultado Esperado">VERIFICAR COM DEV/PO: exibe mensagem ao usuário? Nenhuma definida na US</td><td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">HIPOTESE: hipótese</td></tr>
+<tr data-id="20" class="row-hipotese"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="20" disabled aria-label="Marcar o cenário 20 como testado"></td><td class="col-id" data-label="#">20</td><td class="col-cenario" data-label="Cenário"><span class="hip-badge">hipótese</span>Vários cancelamentos seguidos</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado<br>[CONFIG] dispositivo com biometria cadastrada<br>[DADOS] informações de login salvas no dispositivo</td><td class="col-acao" data-label="Ação">Cancelar a biometria várias vezes seguidas</td><td class="col-resultado" data-label="Resultado Esperado">VERIFICAR COM DEV/PO: o login salvo é mantido? (relacionado ao &quot;ponto a confirmar 1&quot; do CA-10)</td><td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td><td class="col-origem" data-label="Origem">HIPOTESE: hipótese</td></tr></tbody></table></div>
+<h2 id="pre-requisitos">Pré-requisitos de ambiente (consolidado)</h2>
+<ul><li>[AMBIENTE] build do app com a branch feature/164414/2FA-ajuste instalado — cenários: #1, #2, #3, #4, #5, #6, #7, #8, #9, #10, #11, #13, #15, #16, #17, #18, #19, #20</li><li>[CONFIG] dispositivo com biometria cadastrada — cenários: #1, #2, #3, #4, #7, #8, #9, #10, #11, #13, #15, #16, #19, #20</li><li>[DADOS] informações de login salvas no dispositivo — cenários: #1, #2, #3, #4, #5, #6, #7, #8, #9, #10, #11, #13, #15, #16, #19, #20</li><li>[USUARIO] usuário sem 2FA — cenários: #3</li><li>[USUARIO] usuário com 2FA configurado — cenários: #4, #5, #6</li><li>[CONFIG] dispositivo sem biometria cadastrada — cenários: #5, #6</li><li>[CONFIG] HIPOTESE: mecanismo para simular erro da biometria (ex.: sensor indisponível) — cenários: #15</li><li>[USUARIO] usuário que não marcou &quot;Salvar as informações de login&quot; — cenários: #17</li><li>[USUARIO] usuário sem 2FA e sem informações de login salvas — cenários: #18</li></ul>
+</div>
+<footer>As marcações ficam salvas só neste navegador, por cenário. Use Exportar e Importar para levá-las a outra máquina.</footer>
+<script>
+(function(){
+try{
+  var KEY="mapa-teste-us-164414-reautenticacao-login-testados-v1";
+  var state={};
+  try{var raw=localStorage.getItem(KEY);if(raw)state=JSON.parse(raw)||{};}catch(e){}
+  var chks=[].slice.call(document.querySelectorAll('input.chk'));
+  chks.forEach(function(c){c.disabled=false;});
+  var mainRows=[].slice.call(document.querySelectorAll('table.main tbody tr[data-id]'));
+  var ids=mainRows.map(function(r){return r.dataset.id;});
+  var fill=document.getElementById('fill'),count=document.getElementById('count');
+  var filter='all',query='';
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function paint(id){
+    var on=!!state[id];
+    chks.forEach(function(c){if(c.dataset.id===id){c.checked=on;c.closest('tr').classList.toggle('row-done',on);}});
+  }
+  function groups(){
+    [].slice.call(document.querySelectorAll('table.main tbody')).forEach(function(tb){
+      var cur=null,tot=0,done=0;
+      function close(){if(cur)cur.querySelector('.gcount').textContent=done+' de '+tot+' testados';}
+      [].slice.call(tb.rows).forEach(function(r){
+        if(r.classList.contains('group')){close();cur=r;tot=0;done=0;}
+        else if(r.dataset.id){tot++;if(state[r.dataset.id])done++;}
+      });
+      close();
+    });
+  }
+  function progress(){
+    var d=ids.filter(function(i){return state[i];}).length;
+    count.textContent=d+' de '+ids.length+' testados ('+(ids.length?Math.round(d*100/ids.length):0)+'%)';
+    fill.style.width=(ids.length?d*100/ids.length:0)+'%';
+    groups();
+  }
+  function apply(){
+    var q=query.trim().toLowerCase();
+    [].slice.call(document.querySelectorAll('tr[data-id]')).forEach(function(r){
+      var done=!!state[r.dataset.id];
+      var ok=(filter==='all')||(filter==='done'&&done)||(filter==='todo'&&!done);
+      if(ok&&q)ok=r.textContent.toLowerCase().indexOf(q)>-1;
+      r.classList.toggle('hidden',!ok);
+    });
+    [].slice.call(document.querySelectorAll('tr.group')).forEach(function(g){
+      var n=g.nextElementSibling,any=false;
+      while(n&&!n.classList.contains('group')){if(n.dataset.id&&!n.classList.contains('hidden')){any=true;break;}n=n.nextElementSibling;}
+      g.classList.toggle('hidden',!any);
+    });
+  }
+  chks.forEach(function(c){c.addEventListener('change',function(){
+    var id=c.dataset.id;if(c.checked)state[id]=true;else delete state[id];
+    paint(id);progress();save();apply();
+  });});
+  ids.concat(chks.map(function(c){return c.dataset.id;})).forEach(paint);
+  progress();apply();
+  [].slice.call(document.querySelectorAll('[data-filter]')).forEach(function(b){b.addEventListener('click',function(){
+    filter=b.dataset.filter;
+    [].slice.call(document.querySelectorAll('[data-filter]')).forEach(function(x){x.classList.toggle('active',x===b);});
+    apply();
+  });});
+  document.getElementById('q').addEventListener('input',function(e){query=e.target.value;apply();});
+  document.getElementById('reset').addEventListener('click',function(){
+    if(!confirm('Desmarcar todos os cenários testados?'))return;
+    state={};save();chks.forEach(function(c){paint(c.dataset.id);});progress();apply();
+  });
+  document.getElementById('export').addEventListener('click',function(){
+    var data={arquivo:"mapa-teste-us-164414-reautenticacao-login.html",exportado_em:new Date().toISOString(),testados:Object.keys(state).sort(function(a,b){return a-b;})};
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+    a.download='marcacoes-mapa-teste.json';document.body.appendChild(a);a.click();a.remove();
+  });
+  document.getElementById('import').addEventListener('change',function(e){
+    var f=e.target.files[0];if(!f)return;
+    var r=new FileReader();
+    r.onload=function(){
+      try{
+        var d=JSON.parse(r.result);
+        if(!d||!Array.isArray(d.testados))throw new Error('formato');
+        if(!confirm('Substituir as marcações atuais por '+d.testados.length+' cenários testados do arquivo?'))return;
+        state={};d.testados.forEach(function(i){state[String(i)]=true;});
+        save();chks.forEach(function(c){paint(c.dataset.id);});progress();apply();
+      }catch(err){alert('Arquivo inválido: use um JSON exportado por esta página.');}
+      e.target.value='';
+    };
+    r.readAsText(f);
+  });
+}catch(err){var c0=document.getElementById('count');if(c0)c0.textContent='Erro no script: '+err.message;}
+})();
+</script>
+</body>
+</html>

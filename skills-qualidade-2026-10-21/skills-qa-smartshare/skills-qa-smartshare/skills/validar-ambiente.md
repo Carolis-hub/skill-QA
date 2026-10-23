@@ -107,7 +107,7 @@ Liste explicitamente cada item que será criado/alterado (`o quê`, `onde`, `val
 
 Para cada requisito cujo termo ou configuração a skill não saiba definir (ex.: "usuário publicador", "como criar um perfil", quais permissões formam um perfil, onde fica um parâmetro), antes de verificar ou configurar, nesta ordem:
 
-1. **Hub (código, somente leitura).** Localize-o por `SMARTSHARE_HUB`; se ausente, `C:\GIT\smartshare-hub`. Busque o termo e sua configuração: enums/constantes de perfil e permissão, seeds/migrations, telas e serviços de cadastro de perfil/usuário, parâmetros. Cite `repositório, arquivo <path>` como evidência. Nenhum checkout, pull, commit ou escrita no hub.
+1. **Hub (código, somente leitura).** Localize-o por `SMARTSHARE_HUB`; se ausente, `C:\GIT\smartshare-hub`. Busque o termo e sua configuração: enums/constantes de perfil e permissão, seeds/migrations, telas e serviços de cadastro de perfil/usuário, parâmetros. Cite `repositório, arquivo <path>` como evidência. **Regra fixa: não alterar nada no hub.** O hub (`SMARTSHARE_HUB` ou `C:\GIT\smartshare-hub`) é somente leitura: nenhum checkout, pull, fetch com alteração de branch, commit, push, edição, criação ou remoção de arquivo, nem execução de build, script ou comando que escreva no diretório.
 2. **KB e memória do SmartShare** (Gate de contexto, Step 0.6).
 3. **Não localizou?** **Sinalize à usuária** e não configure: diga o termo, o que buscou (hub: onde procurou; KB/memória) e a pergunta objetiva (ex.: "o que define o perfil publicador no SmartShare e como é criado?"). Registre em "Dúvidas sinalizadas" do relatório. O requisito fica `NAO VERIFICAVEL (definição não localizada)`; se a usuária responder na hora, siga com a resposta e registre a fonte como "informado pela usuária".
 

@@ -131,7 +131,8 @@ Se a busca não retornar nada relacionado, **isso não é bloqueante** — pross
 Consulta **somente leitura** ao código dos repositórios do hub SmartShare, apenas para **precisar Ação e Resultado Esperado** de cenários já justificados.
 
 - **Localizar o hub:** variável `SMARTSHARE_HUB`; se ausente, `C:\GIT\smartshare-hub`. Se não existir, **pule sem erro** e siga.
-- Use o código para detalhar nomes de campos/telas, mensagens, validações e valores reais. Nunca altere nada no hub.
+- Use o código para detalhar nomes de campos/telas, mensagens, validações e valores reais. 
+- **Regra fixa: não alterar nada no hub.** O hub (`SMARTSHARE_HUB` ou `C:\GIT\smartshare-hub`) é somente leitura: nenhum checkout, pull, fetch com alteração de branch, commit, push, edição, criação ou remoção de arquivo, nem execução de build, script ou comando que escreva no diretório.
 - **Não crie cenário novo a partir do código.** Cenários só nascem das 4 fontes do Step 4.0; o código apenas refina a redação dos já existentes.
 
 ---

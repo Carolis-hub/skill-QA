@@ -51,6 +51,7 @@ Linhas +/− medidas com `git diff --no-index --numstat` em 2026-10-22.
 - **Rodada 5 (2026-10-20, ALT-087…ALT-089):** diretório único de registro das execuções, `C:\skills-qualidade\ciclos-executados` (`$CICLOS_DIR`), em `analise-negocio.md`, `analise-tecnica.md` e `validar-ambiente.md`. Os caminhos deixam de ser relativos ao diretório de trabalho. O diretório `ciclos-executados` que ficava dentro de `skills-qa-smartshare` foi unificado com o da raiz (arquivos copiados e conferidos byte a byte).
 - **Rodada 6 (2026-10-21, ALT-090…ALT-091):** validação opcional do código via hub em `analise-tecnica.md` (Step 2.7) e `gerar-mapa-testes-v3.md` (Step 3.7).
 - **Rodada 7 (2026-10-21, ALT-092…ALT-093):** HTML interativo local do mapa (`gerar-mapa-testes-v3.md`, Step 5b) e novo `templates\mapa-teste-viewer.template.html`. **Não reconciliadas** com `diff-completo.patch` e `manifesto-arquivos.md` (não regenerados nas rodadas 6 e 7).
+- **Rodada 9 (2026-10-23, ALT-097):** regra fixa "não alterar nada no hub" explícita em `analise-tecnica.md`, `gerar-mapa-testes-v3.md` e `validar-ambiente.md`.
 - A origem (`Skills-QA-Processo_2026-09-28`) **permanece imutável**: hash de `analise-negocio.md` conferido contra o manifesto de 2026-10-14 (`68bf9fc61bc0`). `diff-completo.patch` e `manifesto-arquivos.md` foram regenerados na rodada 5 e refletem o estado atual dos 10 arquivos.
 
 ## Pendências de revisão
