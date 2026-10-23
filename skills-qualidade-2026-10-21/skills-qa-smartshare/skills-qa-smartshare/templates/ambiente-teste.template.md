@@ -25,9 +25,11 @@ ambiente_padrao: HMG
 
 ## Administração (usada para configurar o ambiente)
 
-| Ambiente | Login admin | Senha |
-|---|---|---|
-| HMG | <preencher> | <preencher> |
+> O `/validar-ambiente` cria na primeira execução o admin de automação `Claude-adm` e anexa aqui (Origem = CRIADO). Enquanto não existir, a skill pede um admin de bootstrap no chat (não gravado).
+
+| Ambiente | Login admin | Senha | Origem | Criado em |
+|---|---|---|---|---|
+| HMG | Claude-adm | <preencher> | A CRIAR | |
 
 ## Usuários de teste
 
