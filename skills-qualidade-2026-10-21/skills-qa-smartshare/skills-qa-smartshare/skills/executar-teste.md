@@ -234,6 +234,16 @@ Para cada cenário, na ordem:
    Para todo step `Falhou`, **registrar o caminho local do arquivo de screenshot** retornado por `browser_take_screenshot` (ex.: `.playwright-mcp\page-2026-09-04T18-09-58-660Z.png`) na linha da tabela do Step 5, não só a palavra "screenshot". Esse caminho é o que permite à `/gerar-defeito` anexar a evidência ao Bug depois — sem ele, a evidência visual se perde ao fim da conversa/sessão do navegador.
 8. Se a sessão expirar no meio da execução (indício: redirecionado para tela de login), refazer o login (Step 4.1) e **retomar do mesmo step**, registrando no log que houve reautenticação — isso não conta como falha do cenário.
 
+### 4.2b — Cenário de paridade visual com protótipo (Figma): divergência sempre com dois prints
+
+Quando o cenário compara a tela entregue com o protótipo (ex.: "Paridade visual"), e o conector Figma estiver conectado (ver `/validar-ambiente`, Step 0.5b):
+
+1. Para cada tela do protótipo, capture o **esperado** com `get_screenshot` (arquivo/nó do link da US; `maxDimension` igual à largura da tela do dev) e baixe o PNG (a URL é de curta duração e não deve ser repassada) para `$CICLOS_DIR\US-<ID>\execucoes\evidencias_<AAAA-MM-DD>\ev-<ID>-c<N>-figma-<tela>.png`.
+2. Capture o **dev** com o navegador, **no mesmo tamanho de janela** do quadro do protótipo (use um contexto com `viewport` igual, ex.: 1280×832), no mesmo estado (mesma tela, mesmo dado, modal aberto quando for o caso), em `...-share4-<tela>.png`.
+3. **Toda divergência registrada precisa dos dois prints** (esperado e dev), lado a lado. Divergência sem os dois prints não entra no relatório: capture o que falta ou registre como "não comparado (motivo)". Divergência de comportamento (ex.: campo que deveria ser multilinha, Esc que não fecha) também leva o print do dev mostrando o comportamento e o do protótipo mostrando o esperado.
+4. Gere a página `$CICLOS_DIR\US-<ID>\execucoes\divergencias-prototipo_<AAAA-MM-DD>.html` com um bloco por divergência (id D1, D2..., descrição objetiva do que difere e qual print é de qual lado: "Esperado (protótipo)" e "Dev"), mais a lista do que confere ("Conforme"). Use caminhos relativos às imagens.
+5. Itens do próprio protótipo que a US manda ignorar (ex.: criar/excluir) não são divergência: cite-os numa nota. O resultado do cenário segue o texto do mapa (em geral "divergências registradas para validação da PM"); a decisão de entrar no escopo é da PM.
+
 ### 4.3 — Ações de alto risco sinalizadas no Step 3
 
 Antes de cada uma, pare e pergunte: **"Confirma execução do step `<id>` (`<ação>`), que foi classificado como irreversível/alto risco?"**. Só prossiga com confirmação explícita para aquele step específico.
@@ -286,6 +296,12 @@ Se `$MODO == "B"`, acrescente logo abaixo do cabeçalho:
 
 ## Steps que pararam por ação de alto risco
 ...
+
+## Divergências de protótipo (Step 4.2b)
+- Página com os prints lado a lado (esperado no protótipo × dev): `$CICLOS_DIR\US-<ID>\execucoes\divergencias-prototipo_<AAAA-MM-DD>.html`
+| Id | Tela | O que difere | Print protótipo | Print dev |
+|---|---|---|---|---|
+(ou `Cenário de protótipo não executado` / `Nenhuma divergência`)
 
 ## Valores alterados e restaurados (Step 3.6 / 4.4)
 | Item | Cenários | Sensível | Backup (linha no `$AMBIENTE_CFG`) | Restaurado? | Observação |

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Divergências de protótipo — US 163012</title>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --ink:#1b1f24; --muted:#5b6570; --line:#d9dee4; --ok:#1a7f37; --div:#b54708; --proto:#0b6b8a; --dev:#7a3e9d; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#14171a; --card:#1c2024; --ink:#e8ebee; --muted:#9aa4ae; --line:#2e353c; --ok:#56d364; --div:#f0a35e; --proto:#58b4d1; --dev:#c8a2e8; } }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 system-ui, Segoe UI, Roboto, sans-serif; }
+  main { max-width:1500px; margin:0 auto; padding:24px 16px 64px; }
+  h1 { font-size:22px; margin:0 0 4px; }
+  .sub { color:var(--muted); margin:0 0 24px; }
+  .item { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px; margin:0 0 24px; }
+  .item h2 { font-size:17px; margin:0 0 4px; }
+  .tag { display:inline-block; font-size:12px; padding:1px 8px; border-radius:99px; border:1px solid var(--div); color:var(--div); margin-right:6px; }
+  .tag.ok { border-color:var(--ok); color:var(--ok); }
+  .desc { margin:6px 0 12px; }
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:900px) { .pair { grid-template-columns:1fr; } }
+  figure { margin:0; }
+  figcaption { font-weight:600; margin:0 0 6px; }
+  figcaption.proto { color:var(--proto); }
+  figcaption.dev { color:var(--dev); }
+  img { width:100%; height:auto; border:1px solid var(--line); border-radius:6px; display:block; }
+  .note { color:var(--muted); font-size:13px; margin-top:6px; }
+  table { border-collapse:collapse; width:100%; font-size:14px; }
+  th, td { text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Divergências de protótipo — US #163012 (Gerenciamento de parâmetros, Front-end)</h1>
+  <p class="sub">Cenário #20 · mapa #163275 · execução 2026-10-26 · Protótipo: Figma "Gerenciamento de Parâmetros" (página Handoff) × Share 4 em dev (HMG, localhost) · telas na mesma resolução, 1280×832. Itens aguardam validação da PM (CA 40): os validados entram no escopo.</p>
+
+  <section class="item">
+    <h2><span class="tag">D1</span>Hub: faixa de aviso que não existe no protótipo</h2>
+    <p class="desc">O Share 4 mostra a faixa azul "As telas de gerenciamento estão sendo migradas..." entre o título e a busca; o protótipo não tem.</p>
+    <div class="pair">
+      <figure><figcaption class="proto">Esperado (protótipo)</figcaption><img src="evidencias_2026-10-26/ev-163012-c20-figma-hub.png" alt="Hub no protótipo, sem faixa de aviso"></figure>
+      <figure><figcaption class="dev">Dev (Share 4)</figcaption><img src="evidencias_2026-10-26/ev-163012-c20-share4-hub.png" alt="Hub no Share 4, com faixa de aviso"></figure>
+    </div>
+  </section>
+
+  <section class="item">
+    <h2><span class="tag">D2</span>Hub: cards e ordem diferentes</h2>
+    <p class="desc">O protótipo tem 12 cards (Rotinas do Agent, Mailer, Papel, Perfil, Conexão, Usuário, Notificações, Índices, Tipo de documento, Viewer externo, Parâmetros, Instalador). O Share 4 mostra 7 (Mailer, Papel, Perfil, Conexão, Usuário, Notificação, Parâmetros), em outra ordem. Os cards ausentes são de telas ainda não migradas; a ordem precisa de decisão da PM.</p>
+    <div class="pair">
+      <figure><figcaption class="proto">Esperado (protótipo)</figcaption><img src="evidencias_2026-10-26/ev-163012-c20-figma-hub.png" alt="Hub no protótipo com 12 cards"></figure>
+      <figure><figcaption class="dev">Dev (Share 4)</figcaption><img src="evidencias_2026-10-26/ev-163012-c20-share4-hub.png" alt="Hub no Share 4 com 7 cards"></figure>
+    </div>
+  </section>
+
+  <section class="item">
+    <h2><span class="tag">D3</span>Listagem: cores do breadcrumb atual e dos ícones</h2>
+    <p class="desc">Item atual do breadcrumb: azul-petróleo escuro no protótipo e azul claro (#2196f3) no Share 4. Ícones de pesquisa e lápis: azuis no protótipo (estado destacado) e pretos no Share 4.</p>
+    <div class="pair">
+      <figure><figcaption class="proto">Esperado (protótipo)</figcaption><img src="evidencias_2026-10-26/ev-163012-c20-figma-listagem.png" alt="Listagem no protótipo"></figure>
+      <figure><figcaption class="dev">Dev (Share 4)</figcaption><img src="evidencias_2026-10-26/ev-163012-c20-share4-listagem.png" alt="Listagem no Share 4"></figure>
+    </div>
+    <p class="note">No protótipo também aparecem o "+" da barra, o filtro, os checkboxes, a lixeira e o botão lateral "Novo parâmetro": a US manda ignorar esses frames (sem criar/excluir), então não são divergências.</p>
+  </section>
+
+  <section class="item">
+    <h2><span class="tag">D4</span>Listagem: rolagem interna no card</h2>
+    <p class="desc">No protótipo a tabela mostra suas linhas sem barra de rolagem interna. No Share 4 o card tem altura fixa e rolagem vertical interna (lazy loading, 50 registros por bloco). Provavelmente decorre do lazy loading; PM confirma se o comportamento é aceito.</p>
+    <div class="pair">
+      <figure><figcaption class="proto">Esperado (protótipo)</figcaption><img src="evidencias_2026-10-26/ev-163012-c20-figma-listagem.png" alt="Tabela sem rolagem interna"></figure>
+      <figure><figcaption class="dev">Dev (Share 4)</figcaption><img src="evidencias_2026-10-26/ev-163012-c20-share4-listagem.png" alt="Tabela com rolagem interna"></figure>
+    </div>
+  </section>
+
+  <section class="item">
+    <h2><span class="tag">D5</span>Edição: campo Valor deveria ser multilinha (liga à falha #27)</h2>
+    <p class="desc">O protótipo mostra o Valor como área de texto, com a alça de redimensionar no canto inferior direito. No Share 4 é um campo de linha única (<code>&lt;input type="text"&gt;</code>); o Enter não quebra linha e as quebras de linha se perdem ao salvar.</p>
+    <div class="pair">
+      <figure><figcaption class="proto">Esperado (protótipo)</figcaption><img src="evidencias_2026-10-26/ev-163012-c20-figma-edicao.png" alt="Edição no protótipo, Valor multilinha"></figure>
+      <figure><figcaption class="dev">Dev (Share 4)</figcaption><img src="evidencias_2026-10-26/ev-163012-c20-share4-edicao.png" alt="Edição no Share 4, Valor de linha única"></figure>
+    </div>
+    <p class="note">Evidência adicional do comportamento em dev: <code>evidencias_2026-10-26/ev-163012-c27-campo-linha-unica.png</code>. Os campos Código/Descrição com erro vermelho no protótipo são do fluxo "Novo parâmetro" (fora do escopo).</p>
+  </section>
+
+  <section class="item">
+    <h2><span class="tag">D6</span>Modal "Sair sem salvar": ícone, posição e fundo</h2>
+    <p class="desc">Ícone de aviso: círculo laranja com "!" no protótipo, triângulo laranja no Share 4. Posição: alinhado ao topo (≈28 px) no protótipo, centralizado verticalmente no Share 4. Fundo: overlay cinza escuro e opaco no protótipo, overlay claro e translúcido (a tela de edição aparece) no Share 4. Textos e botões (Voltar / Sair mesmo assim, X) conferem.</p>
+    <div class="pair">
+      <figure><figcaption class="proto">Esperado (protótipo)</figcaption><img src="evidencias_2026-10-26/ev-163012-c20-figma-modal.png" alt="Modal no protótipo"></figure>
+      <figure><figcaption class="dev">Dev (Share 4)</figcaption><img src="evidencias_2026-10-26/ev-163012-c20-share4-modal.png" alt="Modal no Share 4"></figure>
+    </div>
+    <p class="note">Relacionado, mas é falha funcional (não visual): o Esc não fecha o modal (falha #18; evidência <code>ev-163012-c18-esc-nao-fecha.png</code>).</p>
+  </section>
+
+  <section class="item">
+    <h2><span class="tag ok">Conforme</span>Itens que batem com o protótipo</h2>
+    <table>
+      <tr><th>Tela</th><th>Item</th></tr>
+      <tr><td>Hub</td><td>Título, texto de apoio, campo "Buscar configuração" e card "Gerenciamento de parâmetros" com o mesmo texto</td></tr>
+      <tr><td>Listagem</td><td>Colunas Código (ordenável, ícone de ordenação), Descrição e Ações; breadcrumb "Configurações &gt; Gerenciamento de parâmetro"</td></tr>
+      <tr><td>Edição</td><td>Rodapé fixo com Sair (contorno) e Salvar (azul, ícone de disquete); Código e Descrição somente leitura</td></tr>
+      <tr><td>Modal</td><td>Título, texto, botões Voltar / Sair mesmo assim e X</td></tr>
+    </table>
+  </section>
+</main>
+</body>
+</html>

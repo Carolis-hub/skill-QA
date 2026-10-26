@@ -303,7 +303,7 @@ index 02df567..d7348b7 100644
  3. Se a busca não encontrar nenhuma página relacionada, não conclua automaticamente que não existe documentação — chame `mcp__azure-devops__list_wiki_pages` para navegar a árvore e checar manualmente se a funcionalidade está descrita em uma página com nome que a busca de texto não capturou.
  
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/executar-teste.md b/skills-qa-smartshare/skills-qa-smartshare/skills/executar-teste.md
-index a34f35c..58a19ef 100644
+index a34f35c..b91912b 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/executar-teste.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/executar-teste.md
 @@ -7,8 +7,8 @@ Executar os testes da User Story do Azure DevOps a partir de **$ARGUMENTS**.
@@ -401,8 +401,6 @@ index a34f35c..58a19ef 100644
 +---
 +
 +## Step 4.4 — Restaurar os valores originais (ao fim da execução)
-+
-+Depois do último cenário e **antes do Step 4.5/5**, e também quando a execução parar cedo (ambiente indisponível, credencial, decisão da usuária), devolva cada item do backup do Step 3.6:
  
 -1. **Nunca gere o arquivo manualmente e nunca trate isso como "dado de teste ausente"** — chame a skill dedicada via `Skill` tool:
 -   - Remessa CNAB240 → skill `gerar-cnab240`.
@@ -412,14 +410,16 @@ index a34f35c..58a19ef 100644
 -4. Se o cenário pedir explicitamente um teste de **nome de arquivo duplicado** (rejeição por duplicidade), gere o arquivo normalmente e depois copie/renomeie para bater com um arquivo já existente — não peça para a skill desativar o sufixo de nome único.
 -5. Use o caminho de arquivo retornado pela skill como entrada de `mcp__playwright__browser_file_upload` no step correspondente do cenário (Step 4.2).
 -6. No relatório final (Step 5), registre qual arquivo CNAB foi gerado e usado em cada step (nome do arquivo) — é evidência de massa de teste, não só o resultado da ação.
++Depois do último cenário e **antes do Step 4.5/5**, e também quando a execução parar cedo (ambiente indisponível, credencial, decisão da usuária), devolva cada item do backup do Step 3.6:
+ 
+-Essas duas skills já encapsulam layout FEBRABAN, dígitos verificadores e convênio validados (2035/4497, CNPJ `11643817000102`) — nunca reescrever isso manualmente aqui; qualquer ajuste de convênio/ambiente é feito nelas, não duplicado nesta skill.
 +1. **Campo comum:** regrave o valor original pela mesma tela do teste, **reabra e compare** com o backup. Igual → preencha "Restaurado em" com a data/hora. Diferente ou falha → registre o item em "Valores a restaurar manualmente" do relatório.
 +2. **Campo sensível/mascarado (senha, token):** a skill **não digita sozinha** um segredo que ela leu do sistema. Informe à usuária o caminho do backup e a linha, e peça que ela **cole o valor no campo** (ou cole o valor no chat para a skill restaurar, caso ela autorize). Depois da restauração, confirme o que for observável (ex.: a quantidade de caracteres mascarados igual à do original) e preencha "Restaurado em".
 +3. **Não restaurável** (ex.: o valor original nunca foi lido, porque a usuária aceitou perder): registre como "Valor original perdido, aceito pela usuária em <data>".
 +4. Item de backup restaurado e confirmado permanece na tabela (histórico); só o valor do campo sensível é apagado do arquivo depois da confirmação, deixando `<restaurado e apagado>`.
 +
 +---
- 
--Essas duas skills já encapsulam layout FEBRABAN, dígitos verificadores e convênio validados (2035/4497, CNPJ `11643817000102`) — nunca reescrever isso manualmente aqui; qualquer ajuste de convênio/ambiente é feito nelas, não duplicado nesta skill.
++
 +<!-- Seção "Preparação de dados CNAB (Cobrança Integrada)" removida (adaptação SmartShare): era específica de remessas bancárias CNAB240/CNAB400 do produto anterior e não se aplica ao SmartShare (ECM/BPM). Se o SmartShare tiver preparação de massa de dados equivalente (ex.: geração de arquivo de entrada específico), documentar aqui uma seção nova quando surgir o caso. -->
  
  ---
@@ -430,18 +430,41 @@ index a34f35c..58a19ef 100644
  
 -Para o produto Cobrança, resolva URL/usuário/senha lendo `~/.claude/secrets/cobranca-ambientes.md` — ele tem 5 instâncias (Cooperado legado, Cooperativa, Central, Confederação, Cooperado nova plataforma), todas em HMG. Identifique qual instância o cenário precisa pelo domínio da funcionalidade descrita na US/mapa de testes (ex.: login/lembrar-me de cooperado → instância "Cooperado"; se a US não deixar claro se é a plataforma legada ou a nova, confirme com a usuária antes de navegar). Se o rótulo de instância/canal/banco escrito no mapa de testes parecer uma inferência (combina conhecimento genérico do produto com um trecho ambíguo da análise técnica, sem citação direta) em vez de um fato confirmado, não seguir cegamente — confirmar com a usuária antes de navegar. Se o campo relevante nesse arquivo ainda estiver como `<preencher>`, trate como credencial ausente (Step 3). Nunca hardcode URL/credencial diferente do que está registrado nesse arquivo.
 +Resolva URL/usuário/senha a partir do arquivo/cofre de credenciais do ambiente do SmartShare (caminho a confirmar com o usuário; ex.: `~/.claude/secrets/smartshare-ambientes.md`, se existir). Se houver mais de uma instância, identifique qual o cenário precisa pelo domínio da funcionalidade descrita na US/mapa de testes; se a US não deixar claro se é o SmartShare clássico ou o SmartShare 4, confirme com a usuária antes de navegar. Se o rótulo de instância/canal/banco escrito no mapa de testes parecer uma inferência (combina conhecimento genérico do produto com um trecho ambíguo da análise técnica, sem citação direta) em vez de um fato confirmado, não seguir cegamente — confirmar com a usuária antes de navegar. Se o campo relevante nesse arquivo ainda estiver como `<preencher>`, trate como credencial ausente (Step 3). Nunca hardcode URL/credencial diferente do que está registrado nesse arquivo.
++
++**Ambiente e usuários de teste:** se existir `C:\skills-qualidade\config\ambiente-teste.local.md` (preenchido pela usuária e complementado por `/validar-ambiente`), ele é a fonte preferencial de URL base, URLs das telas e usuários, antes do cofre. Para cenários cujo `Pre-requisitos` traga `[USUARIO]`, faça login com o login/senha do perfil correspondente na seção "Usuários de teste" (mesmo ambiente) em vez do usuário padrão, e refaça o login ao trocar de perfil entre cenários. Nunca copie senha para o relatório, o chat, o log ou o work item. Se o arquivo não existir, o campo estiver `<preencher>` ou o login falhar, siga a regra de credencial ausente (Step 3), sem criar usuário nem adivinhar senha.
  
 -Se o comando estiver sendo usado para um sistema fora de Cobrança, pergunte a URL e as credenciais antes de prosseguir — não adivinhe endpoint de outro sistema.
-+**Ambiente e usuários de teste:** se existir `C:\skills-qualidade\config\ambiente-teste.local.md` (preenchido pela usuária e complementado por `/validar-ambiente`), ele é a fonte preferencial de URL base, URLs das telas e usuários, antes do cofre. Para cenários cujo `Pre-requisitos` traga `[USUARIO]`, faça login com o login/senha do perfil correspondente na seção "Usuários de teste" (mesmo ambiente) em vez do usuário padrão, e refaça o login ao trocar de perfil entre cenários. Nunca copie senha para o relatório, o chat, o log ou o work item. Se o arquivo não existir, o campo estiver `<preencher>` ou o login falhar, siga a regra de credencial ausente (Step 3), sem criar usuário nem adivinhar senha.
-+
 +Se o comando estiver sendo usado para um sistema fora do SmartShare, pergunte a URL e as credenciais antes de prosseguir — não adivinhe endpoint de outro sistema.
  
  1. `mcp__playwright__browser_navigate` para a URL de login.
  2. `mcp__playwright__browser_snapshot` para confirmar que a tela carregou.
-@@ -280,12 +287,25 @@ Se `$MODO == "B"`, acrescente logo abaixo do cabeçalho:
+@@ -227,6 +234,16 @@ Para cada cenário, na ordem:
+    Para todo step `Falhou`, **registrar o caminho local do arquivo de screenshot** retornado por `browser_take_screenshot` (ex.: `.playwright-mcp\page-2026-09-04T18-09-58-660Z.png`) na linha da tabela do Step 5, não só a palavra "screenshot". Esse caminho é o que permite à `/gerar-defeito` anexar a evidência ao Bug depois — sem ele, a evidência visual se perde ao fim da conversa/sessão do navegador.
+ 8. Se a sessão expirar no meio da execução (indício: redirecionado para tela de login), refazer o login (Step 4.1) e **retomar do mesmo step**, registrando no log que houve reautenticação — isso não conta como falha do cenário.
+ 
++### 4.2b — Cenário de paridade visual com protótipo (Figma): divergência sempre com dois prints
++
++Quando o cenário compara a tela entregue com o protótipo (ex.: "Paridade visual"), e o conector Figma estiver conectado (ver `/validar-ambiente`, Step 0.5b):
++
++1. Para cada tela do protótipo, capture o **esperado** com `get_screenshot` (arquivo/nó do link da US; `maxDimension` igual à largura da tela do dev) e baixe o PNG (a URL é de curta duração e não deve ser repassada) para `$CICLOS_DIR\US-<ID>\execucoes\evidencias_<AAAA-MM-DD>\ev-<ID>-c<N>-figma-<tela>.png`.
++2. Capture o **dev** com o navegador, **no mesmo tamanho de janela** do quadro do protótipo (use um contexto com `viewport` igual, ex.: 1280×832), no mesmo estado (mesma tela, mesmo dado, modal aberto quando for o caso), em `...-share4-<tela>.png`.
++3. **Toda divergência registrada precisa dos dois prints** (esperado e dev), lado a lado. Divergência sem os dois prints não entra no relatório: capture o que falta ou registre como "não comparado (motivo)". Divergência de comportamento (ex.: campo que deveria ser multilinha, Esc que não fecha) também leva o print do dev mostrando o comportamento e o do protótipo mostrando o esperado.
++4. Gere a página `$CICLOS_DIR\US-<ID>\execucoes\divergencias-prototipo_<AAAA-MM-DD>.html` com um bloco por divergência (id D1, D2..., descrição objetiva do que difere e qual print é de qual lado: "Esperado (protótipo)" e "Dev"), mais a lista do que confere ("Conforme"). Use caminhos relativos às imagens.
++5. Itens do próprio protótipo que a US manda ignorar (ex.: criar/excluir) não são divergência: cite-os numa nota. O resultado do cenário segue o texto do mapa (em geral "divergências registradas para validação da PM"); a decisão de entrar no escopo é da PM.
++
+ ### 4.3 — Ações de alto risco sinalizadas no Step 3
+ 
+ Antes de cada uma, pare e pergunte: **"Confirma execução do step `<id>` (`<ação>`), que foi classificado como irreversível/alto risco?"**. Só prossiga com confirmação explícita para aquele step específico.
+@@ -280,12 +297,31 @@ Se `$MODO == "B"`, acrescente logo abaixo do cabeçalho:
  ## Steps que pararam por ação de alto risco
  ...
  
++## Divergências de protótipo (Step 4.2b)
++- Página com os prints lado a lado (esperado no protótipo × dev): `$CICLOS_DIR\US-<ID>\execucoes\divergencias-prototipo_<AAAA-MM-DD>.html`
++| Id | Tela | O que difere | Print protótipo | Print dev |
++|---|---|---|---|---|
++(ou `Cenário de protótipo não executado` / `Nenhuma divergência`)
++
 +## Valores alterados e restaurados (Step 3.6 / 4.4)
 +| Item | Cenários | Sensível | Backup (linha no `$AMBIENTE_CFG`) | Restaurado? | Observação |
 +|---|---|---|---|---|---|
@@ -464,7 +487,7 @@ index a34f35c..58a19ef 100644
  ```
  
  Se o Step 4.5 não encontrou nenhuma divergência, escreva `Nenhuma divergência encontrada — double-check confirmou todas as classificações.` no lugar da tabela. Se o double-check não pôde rodar (Step 4.5), escreva isso explicitamente aqui em vez de omitir a seção.
-@@ -311,7 +331,7 @@ execução parou cedo por bloqueio de ambiente/credencial) acrescente uma linha
+@@ -311,7 +347,7 @@ execução parou cedo por bloqueio de ambiente/credencial) acrescente uma linha
  em `~/.claude/docs/projetos/skills-qa/LOG-ACOES.md` (via `Edit`, nunca sobrescrevendo o arquivo):
  
  ```
@@ -473,7 +496,7 @@ index a34f35c..58a19ef 100644
  ```
  
  Se `$MODO == "B"` (reteste seletivo pós-bug), use este formato em vez do padrão acima:
-@@ -338,16 +358,16 @@ efeito no ambiente e deve ficar auditável.
+@@ -338,16 +374,16 @@ efeito no ambiente e deve ficar auditável.
  
  ## Troubleshooting
  
