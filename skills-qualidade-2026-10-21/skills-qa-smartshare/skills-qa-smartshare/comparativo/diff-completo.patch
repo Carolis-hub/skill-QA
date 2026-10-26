@@ -519,7 +519,7 @@ index a34f35c..ed81777 100644
 +- **Valor sensível que a tela não mostra (ex.: token do parâmetro 109):** o backup (Step 3.6) vem de uma tela de consulta que o exiba (Detalhar do Clássico) ou de `SELECT` somente leitura. Sem nenhuma dessas fontes, o original não é recuperável: o cenário depende da autorização explícita da usuária (Step 4.3) ou fica `NAO EXECUTADO`. A restauração de segredo é feita pela usuária (Step 4.4, item 2).
  - **Auto-detecção não reabre Bugs reabertos.** Se um Bug marcado com `"Reteste (Modo B)"` for reaberto depois (voltou de `Done` para `Active`/`New` porque o fix não era completo), a auto-detecção do Step 1/passo 4 só olha Bugs em estado "corrigido" — um Bug reaberto não aparece como candidato até ser corrigido de novo e voltar pro estado "Done". O marcador antigo no comentário fica obsoleto (refere-se ao fix anterior), mas isso não trava nada: quando o Bug voltar a "Done", ele reaparece como candidato (o filtro é por estado atual, não por ausência total do marcador em qualquer comentário — releia com atenção o texto de cada comentário se houver mais de um antes de decidir se já foi retestado desta vez).
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/gerar-defeito.md b/skills-qa-smartshare/skills-qa-smartshare/skills/gerar-defeito.md
-index 3560ac3..fb27a14 100644
+index 3560ac3..66824a2 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/gerar-defeito.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/gerar-defeito.md
 @@ -6,7 +6,7 @@ Gerar o defeito a partir de **$ARGUMENTS**.
@@ -531,16 +531,18 @@ index 3560ac3..fb27a14 100644
  
  Este comando é a Skill 6 (Geração de Defeito). Ele **depende de uma análise de falha com veredito `SIM`** — de `/analise-falha`, já rodada nesta conversa, ou de informação equivalente fornecida explicitamente pelo usuário agora. Nunca inventa contexto, e nunca cria o item no Azure DevOps sem confirmação explícita do usuário.
  
-@@ -35,6 +35,8 @@ A partir do relatório de `/analise-falha` (reaproveitar diretamente) ou do que
+@@ -35,6 +35,10 @@ A partir do relatório de `/analise-falha` (reaproveitar diretamente) ou do que
  - **Versão** — build/commit/PR, se conhecido; senão `Informação não encontrada / necessita validação.`
  - **Evidências** — caminho(s) de arquivo local (screenshot) e/ou trecho de evidência de rede (status/headers/corpo), reaproveitados **exatamente como capturados** no relatório de `/executar-teste` (coluna Evidência) ou no que o usuário forneceu. Esta skill nunca recaptura evidência — não abre navegador, não tira screenshot novo. Se não houver caminho de arquivo disponível (ex.: usuário só descreveu o bug em texto), registrar isso e seguir sem anexo (Step 3.5 fica sem o que anexar).
  
++**Cenários com o mesmo comportamento defeituoso = um único Bug.** Quando mais de um cenário falha pela mesma causa ou pelo mesmo comportamento (ex.: acesso negado pelo menu e por URL direta, que redirecionam ao login do mesmo jeito), gere **um Bug só**: cenário de origem com todos os números (`#<N1>, #<N2> do mapa de testes #<MAPA_ID>`), passos que cubram cada cenário, e evidências de todos. Cenários de comportamentos diferentes continuam em Bugs separados.
++
 +**Divergências de protótipo (cenário de paridade visual do `/executar-teste`, Step 4.2b):** gere **um único Bug** com todas as divergências (lista D1, D2..., cada uma com esperado no protótipo × obtido no dev), não um Bug por divergência: muitas são alterações pequenas que não precisam de tasks separadas. Anexe ao Bug o HTML `divergencias-prototipo_<AAAA-MM-DD>.html` e os PNGs dos dois lados. Cenário de origem: o do cenário de paridade (ex.: `#20 do mapa de testes #<MAPA_ID>`). Falha funcional que apareceu junto (comportamento errado, não só visual) segue a análise própria de `/analise-falha`.
 +
  Se qualquer um desses campos não puder ser preenchido com uma fonte real, escreva `Informação não encontrada / necessita validação.` — não complete com suposição para "fechar" o registro.
  
  ---
-@@ -78,7 +80,7 @@ Se qualquer um desses campos não puder ser preenchido com uma fonte real, escre
+@@ -78,7 +82,7 @@ Se qualquer um desses campos não puder ser preenchido com uma fonte real, escre
  ## Step 2 — Criar o Bug via MCP (só após aprovação)
  
  Chame `mcp__azure-devops__create_work_item` com:
@@ -549,7 +551,7 @@ index 3560ac3..fb27a14 100644
  - `workItemType`: `"Bug"`
  - `title` = título aprovado (com o prefixo `BUG -`)
  - `additionalFields`:
-@@ -87,7 +89,7 @@ Chame `mcp__azure-devops__create_work_item` com:
+@@ -87,7 +91,7 @@ Chame `mcp__azure-devops__create_work_item` com:
  
  ⚠️ **O parágrafo "Cenário de origem" precisa de rótulo fixo no HTML**, exatamente `<p><strong>Cenário de origem:</strong> #21 do mapa de testes #161676</p>` (ajustando os números) — é esse rótulo literal, em negrito, que o `/executar-teste` procura depois via regex para montar o reteste seletivo pós-bug. Não reescrever com sinônimos ("Origem do defeito", "Cenário relacionado" etc.) nem mudar a pontuação do formato `#<N> do mapa de testes #<MAPA_ID>`.
  

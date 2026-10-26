@@ -9,7 +9,7 @@ Gerado em 2026-10-14; atualizado em 2026-10-26 (rodada 10, só validar-ambiente.
 | analise-tecnica.md | 10973 | d3369839b6af | 14239 | 16255ce4ce2e | Modificado |
 | atualizar-documentacao.md | 7294 | ef541734fc9c | 7337 | 8b45ed1891e0 | Modificado |
 | executar-teste.md | 45269 | 17e044e558ab | 51689 | 39e91656ae6a | Modificado |
-| gerar-defeito.md | 12905 | d7efb0134f2b | 13565 | 812aca709024 | Modificado |
+| gerar-defeito.md | 12905 | d7efb0134f2b | 14037 | d037ec7dfa42 | Modificado |
 | gerar-mapa-testes-v3.md | 28803 | e39d8766ea3d | 38271 | 7a9a51d43033 | Modificado |
 | homologar-release.md | 10883 | f346c62978a3 | 10813 | 6c45586c8bf2 | Modificado |
 | priorizar-automacao.md | 8023 | 748527c4d4d9 | 8218 | 65ec81166dc1 | Modificado |
