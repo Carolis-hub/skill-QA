@@ -1,0 +1,252 @@
+<!doctype html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa de Testes — US 162265 — Ícone de ajuda e tooltip no formulário</title>
+<style>
+:root{--bg:#f5f7f6;--card:#fff;--text:#1d2521;--muted:#5b6b63;--border:#dfe6e2;--accent:#00774b;--accent-d:#005a39;--head:#eef4f1;--code:#eef2ef;
+--done:#eafaf1;--done-b:#bfe8cf;--hip:#fff7e0;--hip-b:#f0d98a;--warn:#c77700;--group:#dcebe4;--track:#e4e9e6;
+--pos:#0f7a3c;--pos-bg:#e4f6ea;--neg:#b3261e;--neg-bg:#fbe9e7;--reg:#8a5a00;--reg-bg:#fff3dc;--neu:#3b4a43;--neu-bg:#e8eeeb}
+:root[data-theme="dark"]{--bg:#121715;--card:#1b2220;--text:#e4ebe7;--muted:#9fb0a7;--border:#2c3733;--accent:#3ecf8e;--accent-d:#7be3b4;--head:#222c28;--code:#26312d;
+--done:#16301f;--done-b:#24503a;--hip:#33290f;--hip-b:#5a4817;--warn:#e8a33d;--group:#1f2e28;--track:#2c3733;
+--pos:#7be3b4;--pos-bg:#173023;--neg:#ff9a92;--neg-bg:#3a1b19;--reg:#f0c36a;--reg-bg:#3a2f12;--neu:#c3d0c9;--neu-bg:#27322e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121715;--card:#1b2220;--text:#e4ebe7;--muted:#9fb0a7;--border:#2c3733;--accent:#3ecf8e;--accent-d:#7be3b4;--head:#222c28;--code:#26312d;
+--done:#16301f;--done-b:#24503a;--hip:#33290f;--hip-b:#5a4817;--warn:#e8a33d;--group:#1f2e28;--track:#2c3733;
+--pos:#7be3b4;--pos-bg:#173023;--neg:#ff9a92;--neg-bg:#3a1b19;--reg:#f0c36a;--reg-bg:#3a2f12;--neu:#c3d0c9;--neu-bg:#27322e}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI","Source Sans 3",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;padding-bottom:4rem}
+header{background:linear-gradient(135deg,#00774b,#005a39);color:#fff;padding:1.6rem 1rem 1.2rem}
+header .inner{max-width:1500px;margin:0 auto;padding:0 .5rem}
+header h1{margin:0 0 .5rem;font-size:1.45rem}
+header p{margin:.2rem 0;font-size:.9rem;opacity:.93}
+header code{background:rgba(255,255,255,.18);color:#fff}
+header a{color:#fff}
+nav.toc{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.8rem}
+nav.toc a{font-size:.78rem;background:rgba(255,255,255,.16);border-radius:999px;padding:.2rem .7rem;text-decoration:none}
+nav.toc a:hover{background:rgba(255,255,255,.3)}
+.wrap{max-width:1500px;margin:0 auto;padding:1rem 1.5rem}
+.bar{position:sticky;top:0;z-index:20;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;margin:0 0 1rem;display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.bar .count{font-weight:700;white-space:nowrap}
+.track{flex:1 1 200px;min-width:140px;height:10px;background:var(--track);border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0;background:var(--accent);transition:width .25s}
+.seg{display:flex;gap:.3rem;flex-wrap:wrap}
+.bar button,.bar label.btn{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:.3rem .8rem;font-size:.82rem;cursor:pointer;font-family:inherit}
+.bar button.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.bar button.warn{border-color:var(--warn);color:var(--warn)}
+.bar input[type=search]{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:.3rem .8rem;font-size:.85rem;min-width:170px;font-family:inherit}
+.bar input[type=file]{display:none}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;color:var(--accent-d);scroll-margin-top:90px}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem;scroll-margin-top:90px}
+h4{font-size:.98rem;margin:1.2rem 0 .4rem}
+hr{border:0;border-top:1px solid var(--border);margin:1.6rem 0}
+blockquote.note{margin:.6rem 0;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;padding:.1rem 1rem;font-size:.9rem;color:var(--muted)}
+p,li{font-size:.92rem}
+code{background:var(--code);padding:.05rem .3rem;border-radius:4px;font-size:.82em;font-family:"Cascadia Code",Consolas,monospace;overflow-wrap:anywhere}
+a{color:var(--accent-d)}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--card);margin:.6rem 0 1rem}
+table{border-collapse:collapse;width:100%}
+th,td{border:1px solid var(--border);padding:.55rem .6rem;vertical-align:top;text-align:left;font-size:.84rem;overflow-wrap:anywhere}
+thead th{background:var(--head);color:var(--accent-d);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;position:sticky;top:0}
+table.main{table-layout:fixed;min-width:1480px}
+table.compact{table-layout:auto}
+.col-check{width:64px;text-align:center}
+th.col-id,td.col-id{width:48px;font-weight:700;color:var(--accent-d)}
+.main .col-cenario{width:13%;font-weight:600}
+.main .col-config{width:19%}
+.main .col-acao{width:15%}
+.main .col-resultado{width:23%}
+.main .col-tipo,.main .col-tecnica,.main .col-dim{width:7%}
+.main .col-origem{width:10%}
+tr.group td{background:var(--group);color:var(--accent-d);font-weight:700;font-size:.82rem;letter-spacing:.03em;text-transform:uppercase;padding:.5rem .7rem}
+.gcount{float:right;font-weight:600;text-transform:none;color:var(--muted);font-size:.78rem}
+tr.row-hipotese{background:var(--hip)}
+tr.row-hipotese td{border-color:var(--hip-b)}
+tr.row-done{background:var(--done)}
+tr.row-done td{border-color:var(--done-b)}
+tr.row-done td.col-cenario,tr.row-done td.col-acao,tr.row-done td.col-resultado{opacity:.7}
+tr.row-done td.col-cenario{text-decoration:line-through;text-decoration-color:#7fbf9a}
+input.chk{width:20px;height:20px;cursor:pointer;accent-color:var(--accent)}
+.tag{display:inline-block;padding:.1rem .55rem;border-radius:999px;font-size:.72rem;font-weight:600;background:var(--neu-bg);color:var(--neu)}
+.tag-positivo{background:var(--pos-bg);color:var(--pos)}
+.tag-negativo{background:var(--neg-bg);color:var(--neg)}
+.tag-regressao{background:var(--reg-bg);color:var(--reg)}
+.hip-badge{display:inline-block;margin-right:.4rem;font-size:.68rem;background:var(--warn);color:#fff;border-radius:999px;padding:.03rem .5rem;vertical-align:1px}
+tr.hidden{display:none}
+.nojs{background:#fff3dc;color:#8a5a00;border-bottom:2px solid #c77700;padding:.7rem 1rem;font-size:.9rem;text-align:center}
+input.chk:disabled{cursor:not-allowed;opacity:.5}
+.empty{display:none;padding:1rem;color:var(--muted);text-align:center}
+footer{max-width:1500px;margin:2rem auto 0;padding:0 1.5rem;color:var(--muted);font-size:.8rem}
+@media (max-width:1000px){
+ .wrap{padding:.8rem 1rem}
+ .bar{position:static}
+ table.main{min-width:0}
+ .tbl-wrap{border:0;background:transparent}
+ table.cases,table.cases tbody,table.cases tr,table.cases td{display:block;width:100%}
+ table.cases thead{display:none}
+ table.cases tr[data-id]{background:var(--card);border:1px solid var(--border);border-radius:10px;margin:0 0 .8rem;padding:.3rem .2rem}
+ table.cases tr.row-hipotese{background:var(--hip)}
+ table.cases tr.row-done{background:var(--done)}
+ table.cases td{border:0;padding:.35rem .7rem;width:100%!important}
+ table.cases td::before{content:attr(data-label);display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+ table.cases td.col-check{text-align:left}
+ table.cases tr.group{margin:1rem 0 .4rem}
+ table.cases tr.group td::before{content:none}
+}
+@media print{.bar,nav.toc{display:none}}
+</style>
+</head>
+<body>
+<header><div class="inner"><h1>Mapa de Testes — US 162265 — Ícone de ajuda e tooltip no formulário</h1><p>Projeto: SHARE-4 | Sprint: Melhorias Gerais - Smartshare | Card do mapa: <code>#163202</code></p><nav class="toc"><a href="#resumo">Resumo</a><a href="#tabela-completa">Tabela completa</a><a href="#pre-requisitos">Pré-requisitos consolidados</a></nav></div></header>
+<noscript><div class="nojs">JavaScript desativado ou bloqueado nesta visualização: os checkboxes ficam desabilitados. Abra o arquivo diretamente no Chrome ou no Edge (duplo clique no arquivo).</div></noscript>
+<div class="wrap">
+<div class="bar" role="region" aria-label="Progresso e filtros">
+  <span class="count" id="count">Ativando… (se esta mensagem não mudar, o script não está rodando: abra o arquivo em um navegador)</span>
+  <div class="track"><div class="fill" id="fill"></div></div>
+  <div class="seg">
+    <button type="button" class="active" data-filter="all">Todos</button>
+    <button type="button" data-filter="todo">Pendentes</button>
+    <button type="button" data-filter="done">Testados</button>
+  </div>
+  <input type="search" id="q" placeholder="Buscar cenário…" aria-label="Buscar cenário">
+  <button type="button" id="export" title="Baixa um JSON com os cenários marcados">Exportar marcações</button>
+  <label class="btn" title="Carrega um JSON exportado antes">Importar<input type="file" id="import" accept="application/json,.json"></label>
+  <button type="button" class="warn" id="reset">Limpar</button>
+</div>
+<h2 id="resumo">Resumo</h2>
+<h3>Objetivo</h3><p>O usuário final do formulário identifica quais campos têm orientação disponível e consulta a dica a qualquer momento, inclusive depois de começar a digitar, por um ícone de ajuda com tooltip ao lado do label.</p><h3>Fonte técnica</h3><p>Card Análise #163175 (Done, sem PR vinculado; branch feature/162265-dica-formulario-final): DataInputField.cs, WebFormToAspNetParser.cs, 7 classes de campo, FormExecution.js e ssForm-Field-Temp.css. Tooltip Bootstrap com atraso de 600 ms, foco imediato, Esc fecha e no máximo um tooltip por vez. Depende do PBI de configuração da Dica de campo (Story-03). Sem integração e sem banco.</p><h3>Origem (siglas)</h3><p>CA = Critério de Aceite, CT = Casos de Teste do dev, PI = Pontos de Impacto do dev, Bug = histórico de defeitos.</p><h3>Histórico de defeitos considerado</h3><p>Busca de bugs no SHARE-4 sem histórico relevante. O único resultado, #91545 (label de Anexos traduzido em espanhol), é de outra área e não foi usado.</p><h3>Dimensões cobertas</h3><p>Positivo, negativo, permissão, dados, concorrência e regressão cobertos. Integração N/A: o texto vem junto com a definição do campo, sem chamada ao back-end.</p><h4>Critérios de aceite</h4><ul><li>CA1 ícone em campo com Dica de campo preenchida</li><li>CA2 sem ícone em campo sem o toggle</li><li>CA3 tooltip abre por hover após breve atraso</li><li>CA4 tooltip fecha ao tirar o mouse, perder o foco ou pressionar Esc</li><li>CA5 só um tooltip por vez</li><li>CA6 placeholder e tooltip independentes</li><li>CA7 formulário anterior à feature sem regressão visual</li><li>CA8 tooltip reposicionado perto da borda</li><li>CA9 tooltip abre por foco de teclado (Tab)</li></ul>
+<h2 id="tabela-completa">Tabela completa (30 cenários)</h2>
+<div class="tbl-wrap"><table class="cases main"><thead><tr><th class="col-check">Testado</th><th class="col-id">#</th><th class="col-cenario">Cenário</th><th class="col-config">Configurações necessárias</th><th class="col-acao">Ação</th><th class="col-resultado">Resultado Esperado</th><th class="col-tipo">Tipo</th><th class="col-tecnica">Técnica</th><th class="col-dim">Dimensão</th><th class="col-origem">Origem</th></tr></thead><tbody><tr class="group"><td colspan="10"><span class="gname">FLUXO PRINCIPAL</span><span class="gcount"></span></td></tr>
+<tr data-id="1"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="1" disabled aria-label="Marcar o cenário 1 como testado"></td><td class="col-id" data-label="#">1</td><td class="col-cenario" data-label="Cenário">Ícone nos 7 tipos de campo com dica</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] formulário com 1 campo de cada tipo (Caixa de Texto, Área de Texto, Data, Múltipla Escolha, Seleção Única, Caixa de Seleção, Caixa de Opções) com Dica de campo preenchida</td><td class="col-acao" data-label="Ação">Iniciar o processo e abrir a atividade com o formulário</td><td class="col-resultado" data-label="Resultado Esperado">Ícone &quot;?&quot; aparece ao lado do label de cada um dos 7 campos</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA1, CT</td></tr>
+<tr data-id="2"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="2" disabled aria-label="Marcar o cenário 2 como testado"></td><td class="col-id" data-label="#">2</td><td class="col-cenario" data-label="Cenário">Ícone no &quot;Visualizar&quot; do editor</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] formulário com 1 campo de cada tipo (Caixa de Texto, Área de Texto, Data, Múltipla Escolha, Seleção Única, Caixa de Seleção, Caixa de Opções) com Dica de campo preenchida</td><td class="col-acao" data-label="Ação">Abrir o formulário pelo &quot;Visualizar&quot; do editor</td><td class="col-resultado" data-label="Resultado Esperado">Ícone &quot;?&quot; aparece nos 7 campos, igual ao fluxo</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA1, CT, PI</td></tr>
+<tr data-id="3"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="3" disabled aria-label="Marcar o cenário 3 como testado"></td><td class="col-id" data-label="#">3</td><td class="col-cenario" data-label="Cenário">Tooltip abre após o atraso</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] formulário com 1 campo de cada tipo (Caixa de Texto, Área de Texto, Data, Múltipla Escolha, Seleção Única, Caixa de Seleção, Caixa de Opções) com Dica de campo preenchida</td><td class="col-acao" data-label="Ação">Parar o mouse sobre o ícone por mais de 600 ms</td><td class="col-resultado" data-label="Resultado Esperado">Tooltip abre próximo ao campo com o texto cadastrado para aquele campo</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">valor-limite</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA3, CT</td></tr>
+<tr data-id="4"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="4" disabled aria-label="Marcar o cenário 4 como testado"></td><td class="col-id" data-label="#">4</td><td class="col-cenario" data-label="Cenário">Fechar ao tirar o mouse</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] formulário com 1 campo de cada tipo (Caixa de Texto, Área de Texto, Data, Múltipla Escolha, Seleção Única, Caixa de Seleção, Caixa de Opções) com Dica de campo preenchida</td><td class="col-acao" data-label="Ação">Abrir o tooltip e tirar o mouse do ícone</td><td class="col-resultado" data-label="Resultado Esperado">Tooltip fecha na hora</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA4, CT</td></tr>
+<tr data-id="5"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="5" disabled aria-label="Marcar o cenário 5 como testado"></td><td class="col-id" data-label="#">5</td><td class="col-cenario" data-label="Cenário">Abrir por foco de teclado</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] formulário com 1 campo de cada tipo (Caixa de Texto, Área de Texto, Data, Múltipla Escolha, Seleção Única, Caixa de Seleção, Caixa de Opções) com Dica de campo preenchida</td><td class="col-acao" data-label="Ação">Navegar com Tab até o ícone</td><td class="col-resultado" data-label="Resultado Esperado">Ícone recebe foco visível e o tooltip abre imediatamente</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA9, CT</td></tr>
+<tr data-id="6"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="6" disabled aria-label="Marcar o cenário 6 como testado"></td><td class="col-id" data-label="#">6</td><td class="col-cenario" data-label="Cenário">Fechar com Esc</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] formulário com 1 campo de cada tipo (Caixa de Texto, Área de Texto, Data, Múltipla Escolha, Seleção Única, Caixa de Seleção, Caixa de Opções) com Dica de campo preenchida</td><td class="col-acao" data-label="Ação">Abrir o tooltip e pressionar Esc</td><td class="col-resultado" data-label="Resultado Esperado">Tooltip fecha</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA4, CT</td></tr>
+<tr data-id="7"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="7" disabled aria-label="Marcar o cenário 7 como testado"></td><td class="col-id" data-label="#">7</td><td class="col-cenario" data-label="Cenário">Fechar ao perder o foco</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] formulário com 1 campo de cada tipo (Caixa de Texto, Área de Texto, Data, Múltipla Escolha, Seleção Única, Caixa de Seleção, Caixa de Opções) com Dica de campo preenchida</td><td class="col-acao" data-label="Ação">Abrir o tooltip por foco e sair do ícone com Tab</td><td class="col-resultado" data-label="Resultado Esperado">Tooltip fecha</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA4, CT</td></tr>
+<tr data-id="8"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="8" disabled aria-label="Marcar o cenário 8 como testado"></td><td class="col-id" data-label="#">8</td><td class="col-cenario" data-label="Cenário">Reposicionamento perto da borda</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] formulário com campo com dica na borda direita e outro no fim da página, com rolagem no formulário</td><td class="col-acao" data-label="Ação">Abrir o tooltip desses dois campos</td><td class="col-resultado" data-label="Resultado Esperado">Tooltip se reposiciona e fica inteiro visível</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA8, CT</td></tr>
+<tr data-id="9"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="9" disabled aria-label="Marcar o cenário 9 como testado"></td><td class="col-id" data-label="#">9</td><td class="col-cenario" data-label="Cenário">Placeholder e dica juntos</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] Caixa de Texto com Texto de Ajuda e Dica de campo preenchidos</td><td class="col-acao" data-label="Ação">Digitar no campo e depois abrir o tooltip pelo ícone</td><td class="col-resultado" data-label="Resultado Esperado">Placeholder some ao digitar e o tooltip continua abrindo pelo ícone</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA6, CT</td></tr>
+<tr data-id="10"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="10" disabled aria-label="Marcar o cenário 10 como testado"></td><td class="col-id" data-label="#">10</td><td class="col-cenario" data-label="Cenário">Campos com dica dentro de agrupadores</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] campos com dica dentro de Agrupador, Agrupador de Abas (incluindo aba não ativa) e Duas Colunas</td><td class="col-acao" data-label="Ação">Abrir o tooltip de cada um</td><td class="col-resultado" data-label="Resultado Esperado">Ícone e tooltip funcionam normalmente</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CT, PI</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">FLUXO ALTERNATIVO</span><span class="gcount"></span></td></tr>
+<tr data-id="11"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="11" disabled aria-label="Marcar o cenário 11 como testado"></td><td class="col-id" data-label="#">11</td><td class="col-cenario" data-label="Cenário">Passagem rápida do mouse</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] formulário com 1 campo de cada tipo (Caixa de Texto, Área de Texto, Data, Múltipla Escolha, Seleção Única, Caixa de Seleção, Caixa de Opções) com Dica de campo preenchida</td><td class="col-acao" data-label="Ação">Passar o mouse sobre o ícone em menos de 600 ms</td><td class="col-resultado" data-label="Resultado Esperado">Tooltip não abre</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">valor-limite</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">CA3, CT</td></tr>
+<tr data-id="12"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="12" disabled aria-label="Marcar o cenário 12 como testado"></td><td class="col-id" data-label="#">12</td><td class="col-cenario" data-label="Cenário">Mouse sai com o ícone focado</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] formulário com 1 campo de cada tipo (Caixa de Texto, Área de Texto, Data, Múltipla Escolha, Seleção Única, Caixa de Seleção, Caixa de Opções) com Dica de campo preenchida</td><td class="col-acao" data-label="Ação">Focar o ícone por Tab, abrir o tooltip e tirar o mouse</td><td class="col-resultado" data-label="Resultado Esperado">Tooltip não fecha enquanto o ícone tem foco</td><td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CT</td></tr>
+<tr data-id="13"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="13" disabled aria-label="Marcar o cenário 13 como testado"></td><td class="col-id" data-label="#">13</td><td class="col-cenario" data-label="Cenário">Dica multilinha</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] campo com dica de várias linhas</td><td class="col-acao" data-label="Ação">Abrir o tooltip</td><td class="col-resultado" data-label="Resultado Esperado">Quebras de linha preservadas</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CT</td></tr>
+<tr data-id="14"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="14" disabled aria-label="Marcar o cenário 14 como testado"></td><td class="col-id" data-label="#">14</td><td class="col-cenario" data-label="Cenário">Campo Data com ícone de período</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] campo Data com dica preenchida</td><td class="col-acao" data-label="Ação">Observar o label e abrir o tooltip</td><td class="col-resultado" data-label="Resultado Esperado">Ícone da dica aparece depois do ícone de período, sem quebrar o layout</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">PI, CT</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">VALIDAÇÕES DE CAMPOS</span><span class="gcount"></span></td></tr>
+<tr data-id="15"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="15" disabled aria-label="Marcar o cenário 15 como testado"></td><td class="col-id" data-label="#">15</td><td class="col-cenario" data-label="Cenário">Texto com HTML e script</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] campo com dica contendo &lt;b&gt;x&lt;/b&gt; &lt;script&gt;alert(1)&lt;/script&gt; &amp; &quot; &#x27; \ ?</td><td class="col-acao" data-label="Ação">Abrir o tooltip</td><td class="col-resultado" data-label="Resultado Esperado">Texto literal, sem executar script e sem dupla codificação</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">CT</td></tr>
+<tr data-id="16"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="16" disabled aria-label="Marcar o cenário 16 como testado"></td><td class="col-id" data-label="#">16</td><td class="col-cenario" data-label="Cenário">Toggle desligado</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] campo de cada tipo com Dica de campo desabilitada</td><td class="col-acao" data-label="Ação">Renderizar o formulário</td><td class="col-resultado" data-label="Resultado Esperado">Nenhum ícone nesses campos</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">CA2, CT</td></tr>
+<tr data-id="17"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="17" disabled aria-label="Marcar o cenário 17 como testado"></td><td class="col-id" data-label="#">17</td><td class="col-cenario" data-label="Cenário">Dica só com espaços</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] campo com toggle ligado e dica contendo só espaços</td><td class="col-acao" data-label="Ação">Renderizar o formulário</td><td class="col-resultado" data-label="Resultado Esperado">Nenhum ícone</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td><td class="col-origem" data-label="Origem">CT</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">PERMISSÃO</span><span class="gcount"></span></td></tr>
+<tr data-id="18"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="18" disabled aria-label="Marcar o cenário 18 como testado"></td><td class="col-id" data-label="#">18</td><td class="col-cenario" data-label="Cenário">Campo desabilitado ou somente leitura</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[USUARIO] 1 usuário sem permissão de edição da atividade<br>[DADOS] campos com dica</td><td class="col-acao" data-label="Ação">Abrir a atividade e abrir o tooltip por hover (600 ms) e por foco</td><td class="col-resultado" data-label="Resultado Esperado">Ícone aparece e o tooltip abre</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag">permissão</span></td><td class="col-origem" data-label="Origem">CT</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">DADOS E CASOS DE BORDA</span><span class="gcount"></span></td></tr>
+<tr data-id="19"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="19" disabled aria-label="Marcar o cenário 19 como testado"></td><td class="col-id" data-label="#">19</td><td class="col-cenario" data-label="Cenário">Campo em coluna de Tabela</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] campo com dica em coluna de Tabela</td><td class="col-acao" data-label="Ação">Renderizar o formulário</td><td class="col-resultado" data-label="Resultado Esperado">Sem ícone e cabeçalho da coluna inalterado</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td><td class="col-origem" data-label="Origem">CT</td></tr>
+<tr data-id="20"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="20" disabled aria-label="Marcar o cenário 20 como testado"></td><td class="col-id" data-label="#">20</td><td class="col-cenario" data-label="Cenário">Caixa de Texto com título oculto</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] Caixa de Texto com dica e título oculto</td><td class="col-acao" data-label="Ação">Renderizar o formulário</td><td class="col-resultado" data-label="Resultado Esperado">Sem ícone</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td><td class="col-origem" data-label="Origem">CT</td></tr>
+<tr data-id="21"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="21" disabled aria-label="Marcar o cenário 21 como testado"></td><td class="col-id" data-label="#">21</td><td class="col-cenario" data-label="Cenário">Formulário anterior à feature</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] formulário criado antes da Story-03, sem propriedades de dica</td><td class="col-acao" data-label="Ação">Abrir o formulário</td><td class="col-resultado" data-label="Resultado Esperado">Renderiza igual a antes, sem ícone e sem erro de servidor ou de console</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td><td class="col-origem" data-label="Origem">CA7, CT, PI</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">CONCORRÊNCIA</span><span class="gcount"></span></td></tr>
+<tr data-id="22"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="22" disabled aria-label="Marcar o cenário 22 como testado"></td><td class="col-id" data-label="#">22</td><td class="col-cenario" data-label="Cenário">Hover repetido no mesmo ícone</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] formulário com 1 campo de cada tipo (Caixa de Texto, Área de Texto, Data, Múltipla Escolha, Seleção Única, Caixa de Seleção, Caixa de Opções) com Dica de campo preenchida</td><td class="col-acao" data-label="Ação">Hover, sair e hover repetidamente</td><td class="col-resultado" data-label="Resultado Esperado">Apenas um tooltip abre/fecha por vez, nunca dois empilhados</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag">concorrência</span></td><td class="col-origem" data-label="Origem">CA5, CT</td></tr>
+<tr data-id="23"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="23" disabled aria-label="Marcar o cenário 23 como testado"></td><td class="col-id" data-label="#">23</td><td class="col-cenario" data-label="Cenário">Alternar entre dois ícones</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] formulário com pelo menos 2 campos com dica</td><td class="col-acao" data-label="Ação">Abrir o tooltip de um ícone e passar rápido ao outro</td><td class="col-resultado" data-label="Resultado Esperado">Nunca dois tooltips abertos ao mesmo tempo</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag">concorrência</span></td><td class="col-origem" data-label="Origem">CA5, CT</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">ERROS DE INTEGRAÇÃO / API</span><span class="gcount"></span></td></tr>
+<tr data-id="24"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="24" disabled aria-label="Marcar o cenário 24 como testado"></td><td class="col-id" data-label="#">24</td><td class="col-cenario" data-label="Cenário">N/A — integração: a descrição diz que o texto vem junto com a definição do campo, sem chamada ao back-end</td><td class="col-config" data-label="Configurações necessárias">Nenhum específico</td><td class="col-acao" data-label="Ação">—</td><td class="col-resultado" data-label="Resultado Esperado">—</td><td class="col-tipo" data-label="Tipo">—</td><td class="col-tecnica" data-label="Técnica">—</td><td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td><td class="col-origem" data-label="Origem">CA</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">REGRESSÃO</span><span class="gcount"></span></td></tr>
+<tr data-id="25"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="25" disabled aria-label="Marcar o cenário 25 como testado"></td><td class="col-id" data-label="#">25</td><td class="col-cenario" data-label="Cenário">Asterisco de obrigatório com dica</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] campos dos 6 tipos com dica (Caixa de Texto, Área de Texto, Múltipla Escolha, Seleção Única, Caixa de Seleção, Caixa de Opções)<br>[DADOS] regra ou evento que marca e desmarca o campo como obrigatório</td><td class="col-acao" data-label="Ação">Marcar e desmarcar obrigatório e tentar enviar sem preencher</td><td class="col-resultado" data-label="Resultado Esperado">* vermelho aparece e some no label, sem erro de servidor, e o ícone permanece</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">PI, CT</td></tr>
+<tr data-id="26"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="26" disabled aria-label="Marcar o cenário 26 como testado"></td><td class="col-id" data-label="#">26</td><td class="col-cenario" data-label="Cenário">Postback e tabela dinâmica</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] tabela dinâmica com campo que dispara evento</td><td class="col-acao" data-label="Ação">Adicionar linha e disparar evento de campo</td><td class="col-resultado" data-label="Resultado Esperado">Tooltip continua funcionando, sem abrir em dobro e sem erro de JS</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">PI, CT</td></tr>
+<tr data-id="27"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="27" disabled aria-label="Marcar o cenário 27 como testado"></td><td class="col-id" data-label="#">27</td><td class="col-cenario" data-label="Cenário">Cache do navegador</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] formulário com 1 campo de cada tipo (Caixa de Texto, Área de Texto, Data, Múltipla Escolha, Seleção Única, Caixa de Seleção, Caixa de Opções) com Dica de campo preenchida</td><td class="col-acao" data-label="Ação">Abrir com cache antigo e depois com cache limpo</td><td class="col-resultado" data-label="Resultado Esperado">Sem erro de JS; com cache limpo o tooltip funciona</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">CT</td></tr>
+<tr data-id="28"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="28" disabled aria-label="Marcar o cenário 28 como testado"></td><td class="col-id" data-label="#">28</td><td class="col-cenario" data-label="Cenário">Chrome e Edge</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[AMBIENTE] Chrome e Edge disponíveis</td><td class="col-acao" data-label="Ação">Executar os cenários principais nos dois</td><td class="col-resultado" data-label="Resultado Esperado">Console sem erros em todos</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">PI, CT</td></tr>
+<tr data-id="29"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="29" disabled aria-label="Marcar o cenário 29 como testado"></td><td class="col-id" data-label="#">29</td><td class="col-cenario" data-label="Cenário">Campos sem dica em estruturas</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados<br>[DADOS] campos sem dica em Tabela, Agrupador, Abas e Duas Colunas</td><td class="col-acao" data-label="Ação">Renderizar o formulário</td><td class="col-resultado" data-label="Resultado Esperado">Renderizam como antes</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">PI</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">CASOS DE BORDA / HIPÓTESES</span><span class="gcount"></span></td></tr>
+<tr data-id="30" class="row-hipotese"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="30" disabled aria-label="Marcar o cenário 30 como testado"></td><td class="col-id" data-label="#">30</td><td class="col-cenario" data-label="Cenário"><span class="hip-badge">hipótese</span>Dispositivo de toque no navegador</td><td class="col-config" data-label="Configurações necessárias">HIPOTESE: [AMBIENTE] navegador em dispositivo de toque</td><td class="col-acao" data-label="Ação">Tocar o ícone</td><td class="col-resultado" data-label="Resultado Esperado">Comportamento sem definição nas fontes (só hover e foco estão definidos; o click é bloqueado no card)</td><td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">HIPOTESE: CA3, CA9, hipótese</td></tr></tbody></table></div>
+<h2 id="pre-requisitos">Pré-requisitos de ambiente (consolidado)</h2>
+<ul><li>[AMBIENTE] build com a US #162265 e a Story-03 (configuração da Dica de campo) implantados — cenários: #1, #2, #3, #4, #5, #6, #7, #8, #9, #10, #11, #12, #13, #14, #15, #16, #17, #18, #19, #20, #21, #22, #23, #25, #26, #27, #28, #29</li><li>[DADOS] formulário com 1 campo de cada tipo (Caixa de Texto, Área de Texto, Data, Múltipla Escolha, Seleção Única, Caixa de Seleção, Caixa de Opções) com Dica de campo preenchida — cenários: #1, #2, #3, #4, #5, #6, #7, #11, #12, #22, #27</li><li>[DADOS] formulário com campo com dica na borda direita e outro no fim da página, com rolagem no formulário — cenários: #8</li><li>[DADOS] Caixa de Texto com Texto de Ajuda e Dica de campo preenchidos — cenários: #9</li><li>[DADOS] campos com dica dentro de Agrupador, Agrupador de Abas (incluindo aba não ativa) e Duas Colunas — cenários: #10</li><li>[DADOS] campo com dica de várias linhas — cenários: #13</li><li>[DADOS] campo Data com dica preenchida — cenários: #14</li><li>[DADOS] campo com dica contendo &lt;b&gt;x&lt;/b&gt; &lt;script&gt;alert(1)&lt;/script&gt; &amp; &quot; &#x27; \ ? — cenários: #15</li><li>[DADOS] campo de cada tipo com Dica de campo desabilitada — cenários: #16</li><li>[DADOS] campo com toggle ligado e dica contendo só espaços — cenários: #17</li><li>[USUARIO] 1 usuário sem permissão de edição da atividade — cenários: #18</li><li>[DADOS] campos com dica — cenários: #18</li><li>[DADOS] campo com dica em coluna de Tabela — cenários: #19</li><li>[DADOS] Caixa de Texto com dica e título oculto — cenários: #20</li><li>[DADOS] formulário criado antes da Story-03, sem propriedades de dica — cenários: #21</li><li>[DADOS] formulário com pelo menos 2 campos com dica — cenários: #23</li><li>[DADOS] campos dos 6 tipos com dica (Caixa de Texto, Área de Texto, Múltipla Escolha, Seleção Única, Caixa de Seleção, Caixa de Opções) — cenários: #25</li><li>[DADOS] regra ou evento que marca e desmarca o campo como obrigatório — cenários: #25</li><li>[DADOS] tabela dinâmica com campo que dispara evento — cenários: #26</li><li>[AMBIENTE] Chrome e Edge disponíveis — cenários: #28</li><li>[DADOS] campos sem dica em Tabela, Agrupador, Abas e Duas Colunas — cenários: #29</li><li>HIPOTESE: [AMBIENTE] navegador em dispositivo de toque — cenários: #30</li></ul>
+</div>
+<footer>As marcações ficam salvas só neste navegador, por cenário. Use Exportar e Importar para levá-las a outra máquina.</footer>
+<script>
+(function(){
+try{
+  var KEY="mapa-teste-us-162265-dica-campo-testados-v1";
+  var state={};
+  try{var raw=localStorage.getItem(KEY);if(raw)state=JSON.parse(raw)||{};}catch(e){}
+  var chks=[].slice.call(document.querySelectorAll('input.chk'));
+  chks.forEach(function(c){c.disabled=false;});
+  var mainRows=[].slice.call(document.querySelectorAll('table.main tbody tr[data-id]'));
+  var ids=mainRows.map(function(r){return r.dataset.id;});
+  var fill=document.getElementById('fill'),count=document.getElementById('count');
+  var filter='all',query='';
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function paint(id){
+    var on=!!state[id];
+    chks.forEach(function(c){if(c.dataset.id===id){c.checked=on;c.closest('tr').classList.toggle('row-done',on);}});
+  }
+  function groups(){
+    [].slice.call(document.querySelectorAll('table.main tbody')).forEach(function(tb){
+      var cur=null,tot=0,done=0;
+      function close(){if(cur)cur.querySelector('.gcount').textContent=done+' de '+tot+' testados';}
+      [].slice.call(tb.rows).forEach(function(r){
+        if(r.classList.contains('group')){close();cur=r;tot=0;done=0;}
+        else if(r.dataset.id){tot++;if(state[r.dataset.id])done++;}
+      });
+      close();
+    });
+  }
+  function progress(){
+    var d=ids.filter(function(i){return state[i];}).length;
+    count.textContent=d+' de '+ids.length+' testados ('+(ids.length?Math.round(d*100/ids.length):0)+'%)';
+    fill.style.width=(ids.length?d*100/ids.length:0)+'%';
+    groups();
+  }
+  function apply(){
+    var q=query.trim().toLowerCase();
+    [].slice.call(document.querySelectorAll('tr[data-id]')).forEach(function(r){
+      var done=!!state[r.dataset.id];
+      var ok=(filter==='all')||(filter==='done'&&done)||(filter==='todo'&&!done);
+      if(ok&&q)ok=r.textContent.toLowerCase().indexOf(q)>-1;
+      r.classList.toggle('hidden',!ok);
+    });
+    [].slice.call(document.querySelectorAll('tr.group')).forEach(function(g){
+      var n=g.nextElementSibling,any=false;
+      while(n&&!n.classList.contains('group')){if(n.dataset.id&&!n.classList.contains('hidden')){any=true;break;}n=n.nextElementSibling;}
+      g.classList.toggle('hidden',!any);
+    });
+  }
+  chks.forEach(function(c){c.addEventListener('change',function(){
+    var id=c.dataset.id;if(c.checked)state[id]=true;else delete state[id];
+    paint(id);progress();save();apply();
+  });});
+  ids.concat(chks.map(function(c){return c.dataset.id;})).forEach(paint);
+  progress();apply();
+  [].slice.call(document.querySelectorAll('[data-filter]')).forEach(function(b){b.addEventListener('click',function(){
+    filter=b.dataset.filter;
+    [].slice.call(document.querySelectorAll('[data-filter]')).forEach(function(x){x.classList.toggle('active',x===b);});
+    apply();
+  });});
+  document.getElementById('q').addEventListener('input',function(e){query=e.target.value;apply();});
+  document.getElementById('reset').addEventListener('click',function(){
+    if(!confirm('Desmarcar todos os cenários testados?'))return;
+    state={};save();chks.forEach(function(c){paint(c.dataset.id);});progress();apply();
+  });
+  document.getElementById('export').addEventListener('click',function(){
+    var data={arquivo:"mapa-teste-us-162265-dica-campo.html",exportado_em:new Date().toISOString(),testados:Object.keys(state).sort(function(a,b){return a-b;})};
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+    a.download='marcacoes-mapa-teste.json';document.body.appendChild(a);a.click();a.remove();
+  });
+  document.getElementById('import').addEventListener('change',function(e){
+    var f=e.target.files[0];if(!f)return;
+    var r=new FileReader();
+    r.onload=function(){
+      try{
+        var d=JSON.parse(r.result);
+        if(!d||!Array.isArray(d.testados))throw new Error('formato');
+        if(!confirm('Substituir as marcações atuais por '+d.testados.length+' cenários testados do arquivo?'))return;
+        state={};d.testados.forEach(function(i){state[String(i)]=true;});
+        save();chks.forEach(function(c){paint(c.dataset.id);});progress();apply();
+      }catch(err){alert('Arquivo inválido: use um JSON exportado por esta página.');}
+      e.target.value='';
+    };
+    r.readAsText(f);
+  });
+}catch(err){var c0=document.getElementById('count');if(c0)c0.textContent='Erro no script: '+err.message;}
+})();
+</script>
+</body>
+</html>

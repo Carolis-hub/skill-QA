@@ -1,0 +1,1018 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa de Testes — US 164848 — Cadastro do tipo de índice (BE)</title>
+<style>
+:root{--bg:#f5f7f6;--card:#fff;--text:#1d2521;--muted:#5b6b63;--border:#dfe6e2;--accent:#00774b;--accent-d:#005a39;--head:#eef4f1;--code:#eef2ef;
+--done:#eafaf1;--done-b:#bfe8cf;--hip:#fff7e0;--hip-b:#f0d98a;--warn:#c77700;--group:#dcebe4;--track:#e4e9e6;
+--pos:#0f7a3c;--pos-bg:#e4f6ea;--neg:#b3261e;--neg-bg:#fbe9e7;--reg:#8a5a00;--reg-bg:#fff3dc;--neu:#3b4a43;--neu-bg:#e8eeeb}
+:root[data-theme="dark"]{--bg:#121715;--card:#1b2220;--text:#e4ebe7;--muted:#9fb0a7;--border:#2c3733;--accent:#3ecf8e;--accent-d:#7be3b4;--head:#222c28;--code:#26312d;
+--done:#16301f;--done-b:#24503a;--hip:#33290f;--hip-b:#5a4817;--warn:#e8a33d;--group:#1f2e28;--track:#2c3733;
+--pos:#7be3b4;--pos-bg:#173023;--neg:#ff9a92;--neg-bg:#3a1b19;--reg:#f0c36a;--reg-bg:#3a2f12;--neu:#c3d0c9;--neu-bg:#27322e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121715;--card:#1b2220;--text:#e4ebe7;--muted:#9fb0a7;--border:#2c3733;--accent:#3ecf8e;--accent-d:#7be3b4;--head:#222c28;--code:#26312d;
+--done:#16301f;--done-b:#24503a;--hip:#33290f;--hip-b:#5a4817;--warn:#e8a33d;--group:#1f2e28;--track:#2c3733;
+--pos:#7be3b4;--pos-bg:#173023;--neg:#ff9a92;--neg-bg:#3a1b19;--reg:#f0c36a;--reg-bg:#3a2f12;--neu:#c3d0c9;--neu-bg:#27322e}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI","Source Sans 3",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;padding-bottom:4rem}
+header{background:linear-gradient(135deg,#00774b,#005a39);color:#fff;padding:1.6rem 1rem 1.2rem}
+header .inner{max-width:1500px;margin:0 auto;padding:0 .5rem}
+header h1{margin:0 0 .5rem;font-size:1.45rem}
+header p{margin:.2rem 0;font-size:.9rem;opacity:.93}
+header code{background:rgba(255,255,255,.18);color:#fff}
+header a{color:#fff}
+nav.toc{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.8rem}
+nav.toc a{font-size:.78rem;background:rgba(255,255,255,.16);border-radius:999px;padding:.2rem .7rem;text-decoration:none}
+nav.toc a:hover{background:rgba(255,255,255,.3)}
+.wrap{max-width:1500px;margin:0 auto;padding:1rem 1.5rem}
+.bar{position:sticky;top:0;z-index:20;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;margin:0 0 1rem;display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.bar .count{font-weight:700;white-space:nowrap}
+.track{flex:1 1 200px;min-width:140px;height:10px;background:var(--track);border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0;background:var(--accent);transition:width .25s}
+.seg{display:flex;gap:.3rem;flex-wrap:wrap}
+.bar button,.bar label.btn{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:.3rem .8rem;font-size:.82rem;cursor:pointer;font-family:inherit}
+.bar button.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.bar button.warn{border-color:var(--warn);color:var(--warn)}
+.bar input[type=search]{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:.3rem .8rem;font-size:.85rem;min-width:170px;font-family:inherit}
+.bar input[type=file]{display:none}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;color:var(--accent-d);scroll-margin-top:90px}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem;scroll-margin-top:90px}
+h4{font-size:.98rem;margin:1.2rem 0 .4rem}
+hr{border:0;border-top:1px solid var(--border);margin:1.6rem 0}
+blockquote.note{margin:.6rem 0;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;padding:.1rem 1rem;font-size:.9rem;color:var(--muted)}
+p,li{font-size:.92rem}
+code{background:var(--code);padding:.05rem .3rem;border-radius:4px;font-size:.82em;font-family:"Cascadia Code",Consolas,monospace;overflow-wrap:anywhere}
+a{color:var(--accent-d)}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--card);margin:.6rem 0 1rem}
+table{border-collapse:collapse;width:100%}
+th,td{border:1px solid var(--border);padding:.55rem .6rem;vertical-align:top;text-align:left;font-size:.84rem;overflow-wrap:anywhere}
+thead th{background:var(--head);color:var(--accent-d);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;position:sticky;top:0}
+table.main{table-layout:fixed;min-width:1480px}
+table.compact{table-layout:auto}
+.col-check{width:64px;text-align:center}
+th.col-id,td.col-id{width:48px;font-weight:700;color:var(--accent-d)}
+.main .col-cenario{width:13%;font-weight:600}
+.main .col-config{width:19%}
+.main .col-acao{width:15%}
+.main .col-resultado{width:23%}
+.main .col-tipo,.main .col-tecnica,.main .col-dim{width:7%}
+.main .col-origem{width:10%}
+tr.group td{background:var(--group);color:var(--accent-d);font-weight:700;font-size:.82rem;letter-spacing:.03em;text-transform:uppercase;padding:.5rem .7rem}
+.gcount{float:right;font-weight:600;text-transform:none;color:var(--muted);font-size:.78rem}
+tr.row-hipotese{background:var(--hip)}
+tr.row-hipotese td{border-color:var(--hip-b)}
+tr.row-done{background:var(--done)}
+tr.row-done td{border-color:var(--done-b)}
+tr.row-done td.col-cenario,tr.row-done td.col-acao,tr.row-done td.col-resultado{opacity:.7}
+tr.row-done td.col-cenario{text-decoration:line-through;text-decoration-color:#7fbf9a}
+input.chk{width:20px;height:20px;cursor:pointer;accent-color:var(--accent)}
+.tag{display:inline-block;padding:.1rem .55rem;border-radius:999px;font-size:.72rem;font-weight:600;background:var(--neu-bg);color:var(--neu)}
+.tag-positivo{background:var(--pos-bg);color:var(--pos)}
+.tag-negativo{background:var(--neg-bg);color:var(--neg)}
+.tag-regressao{background:var(--reg-bg);color:var(--reg)}
+.hip-badge{display:inline-block;margin-right:.4rem;font-size:.68rem;background:var(--warn);color:#fff;border-radius:999px;padding:.03rem .5rem;vertical-align:1px}
+tr.hidden{display:none}
+.nojs{background:#fff3dc;color:#8a5a00;border-bottom:2px solid #c77700;padding:.7rem 1rem;font-size:.9rem;text-align:center}
+input.chk:disabled{cursor:not-allowed;opacity:.5}
+.empty{display:none;padding:1rem;color:var(--muted);text-align:center}
+footer{max-width:1500px;margin:2rem auto 0;padding:0 1.5rem;color:var(--muted);font-size:.8rem}
+@media (max-width:1000px){
+ .wrap{padding:.8rem 1rem}
+ .bar{position:static}
+ table.main{min-width:0}
+ .tbl-wrap{border:0;background:transparent}
+ table.cases,table.cases tbody,table.cases tr,table.cases td{display:block;width:100%}
+ table.cases thead{display:none}
+ table.cases tr[data-id]{background:var(--card);border:1px solid var(--border);border-radius:10px;margin:0 0 .8rem;padding:.3rem .2rem}
+ table.cases tr.row-hipotese{background:var(--hip)}
+ table.cases tr.row-done{background:var(--done)}
+ table.cases td{border:0;padding:.35rem .7rem;width:100%!important}
+ table.cases td::before{content:attr(data-label);display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+ table.cases td.col-check{text-align:left}
+ table.cases tr.group{margin:1rem 0 .4rem}
+ table.cases tr.group td::before{content:none}
+}
+@media print{.bar,nav.toc{display:none}}
+</style>
+</head>
+<body>
+<header><div class="inner"><h1>Mapa de Testes — US 164848 — Cadastro do tipo de índice (BE)</h1><p>Projeto: SHARE-4 | Sprint: Migração - Telas de Gerenciamento - Fase 3 | Card do mapa: <code>#164883</code></p><nav class="toc"><a href="#resumo">Resumo</a><a href="#tabela-completa">Tabela completa</a><a href="#pre-requisitos">Pré-requisitos consolidados</a></nav></div></header>
+<noscript><div class="nojs">JavaScript desativado ou bloqueado nesta visualização: os checkboxes ficam desabilitados. Abra o arquivo diretamente no Chrome ou no Edge (duplo clique no arquivo).</div></noscript>
+<div class="wrap">
+<div class="bar" role="region" aria-label="Progresso e filtros">
+  <span class="count" id="count">Ativando… (se esta mensagem não mudar, o script não está rodando: abra o arquivo em um navegador)</span>
+  <div class="track"><div class="fill" id="fill"></div></div>
+  <div class="seg">
+    <button type="button" class="active" data-filter="all">Todos</button>
+    <button type="button" data-filter="todo">Pendentes</button>
+    <button type="button" data-filter="done">Testados</button>
+  </div>
+  <input type="search" id="q" placeholder="Buscar cenário…" aria-label="Buscar cenário">
+  <button type="button" id="export" title="Baixa um JSON com os cenários marcados">Exportar marcações</button>
+  <label class="btn" title="Carrega um JSON exportado antes">Importar<input type="file" id="import" accept="application/json,.json"></label>
+  <button type="button" class="warn" id="reset">Limpar</button>
+</div>
+<h2 id="resumo">Resumo</h2>
+<p><strong>Objetivo.</strong> A API grava os campos do tipo de índice aplicando domínios, dependências entre campos e validações do Clássico, para que nenhuma combinação inválida de tipo, valor, identificador, regex, máscara ou exibição seja gravada.</p><p><strong>Fonte técnica.</strong> Card Análise #164861 (Pontos de Impacto e Casos de Teste do dev). Sem PR vinculado: análise não confirmada contra o diff. Observação: a entidade net8 TipoIndice declara id_tipo_comparacao como int não anulável, enquanto o Clássico grava nulo (a confirmar com o dev).</p><p><strong>Origem (siglas).</strong> CA = critério de aceite da US; CT = Casos de Teste do dev; PI = Pontos de Impacto do dev; Bug #id = histórico de defeitos.</p><p><strong>Histórico de defeitos considerado.</strong> Bugs #151450 (Fixo no lançamento impactando outras telas) e #151100 (Data fixa e Desabilitado) viraram regressão (cenário 59). Demais bugs encontrados (busca avançada, viewer externo) são de outras áreas e não foram considerados.</p><p><strong>Dimensões cobertas.</strong> positivo, negativo, permissão, dados, concorrência e regressão cobertas. Exclusão não coberta (escopo da BE 04); CA 30 (tooltip) é do FE.</p><h4>Critérios de aceite</h4><ul><li>CA 1 — Paridade com o Clássico (comparar Clássico × protótipo antes do desenvolvimento)</li><li>CA 2 — Preservar campos não exibidos no Share 4</li><li>CA 3 — Equivalência de dados com o Clássico</li><li>CA 11 — Descrição obrigatória</li><li>CA 12 — Limites de tamanho</li><li>CA 13 a 15 — Domínios de Tipo de índice, Tipo de valor e DI</li><li>CA 16 — Valores padrão da inclusão</li><li>CA 17 — Ordenação de 1 a 255</li><li>CA 18 e 19 — Tipo no DI permitido por tipo e DI fixo</li><li>CA 20 — Troca de Tipo de índice</li><li>CA 21 e 22 — Escolha Única (CA 21 com item A CONFIRMAR)</li><li>CA 23 — Identificador só para Específico</li><li>CA 24 e 25 — Expressão regular e validação da sintaxe</li><li>CA 26 e 27 — Máscara MFP e máscara fora de contexto</li><li>CA 28 — Flags de exibição</li><li>CA 29 e 30 — Portal do cliente por ambiente e tooltip (CA 30 é do FE)</li><li>CA 62 a 65 — Inclusão válida e rejeitada, descrição duplicada (A CONFIRMAR) e cancelar</li><li>CA 95 a 99 — Definição de pronto: sessão, permissão, SQL parametrizado, SQL Server/Oracle e erros padronizados</li></ul>
+<h2 id="tabela-completa">Tabela completa (65 cenários)</h2>
+<div class="tbl-wrap"><table class="cases main"><thead><tr><th class="col-check">Testado</th><th class="col-id">#</th><th class="col-cenario">Cenário</th><th class="col-config">Configurações necessárias</th><th class="col-acao">Ação</th><th class="col-resultado">Resultado Esperado</th><th class="col-tipo">Tipo</th><th class="col-tecnica">Técnica</th><th class="col-dim">Dimensão</th><th class="col-origem">Origem</th></tr></thead><tbody><tr class="group"><td colspan="10"><span class="gname">FLUXO PRINCIPAL</span><span class="gcount"></span></td></tr>
+<tr data-id="1">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="1" disabled aria-label="Marcar o cenário 1 como testado"></td>
+<td class="col-id" data-label="#">1</td>
+<td class="col-cenario" data-label="Cenário">Inclusão válida (Informado)</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Incluir com Descrição, Tipo=Informado, Valor=Letras e Números, DI=Informado</td>
+<td class="col-resultado" data-label="Resultado Esperado">Grava, devolve o novo código e registra log de Inclusão (aplicação 19) na mesma transação</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CA62, CT</td>
+</tr>
+<tr data-id="2">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="2" disabled aria-label="Marcar o cenário 2 como testado"></td>
+<td class="col-id" data-label="#">2</td>
+<td class="col-cenario" data-label="Cenário">Inclusão só com Descrição</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Incluir informando apenas a Descrição</td>
+<td class="col-resultado" data-label="Resultado Esperado">Assume Ativo=sim, Busca=sim, Portal=sim, Portal cliente=não, Ord. alfabética=não, Fixo=não, Desabilitado=não, Ordenação=255, Tipo=Informado, Valor=Letras e Números</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CA16, CT</td>
+</tr>
+<tr data-id="3">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="3" disabled aria-label="Marcar o cenário 3 como testado"></td>
+<td class="col-id" data-label="#">3</td>
+<td class="col-cenario" data-label="Cenário">Inclusão Específico com Identificador</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Incluir Tipo=Específico, Identificador de 50 caracteres, DI=3</td>
+<td class="col-resultado" data-label="Resultado Esperado">Grava Identificador e DI=3</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CA23, CA19</td>
+</tr>
+<tr data-id="4">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="4" disabled aria-label="Marcar o cenário 4 como testado"></td>
+<td class="col-id" data-label="#">4</td>
+<td class="col-cenario" data-label="Cenário">Inclusão Múltipla Seleção</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Incluir Tipo=Múltipla Seleção, DI=4</td>
+<td class="col-resultado" data-label="Resultado Esperado">Grava DI=4</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CA19</td>
+</tr>
+<tr data-id="5">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="5" disabled aria-label="Marcar o cenário 5 como testado"></td>
+<td class="col-id" data-label="#">5</td>
+<td class="col-cenario" data-label="Cenário">Alteração preserva campos não exibidos</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[DADOS] tipo existente com campos que o Share 4 não exibe preenchidos (Conexão, SQL, Valor inicial, Modo de comparação)</td>
+<td class="col-acao" data-label="Ação">Alterar só a Descrição</td>
+<td class="col-resultado" data-label="Resultado Esperado">Conexão, SQL, Valor inicial e Modo de comparação mantêm os valores</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td>
+<td class="col-origem" data-label="Origem">CA2</td>
+</tr>
+<tr data-id="6">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="6" disabled aria-label="Marcar o cenário 6 como testado"></td>
+<td class="col-id" data-label="#">6</td>
+<td class="col-cenario" data-label="Cenário">Criado no Share 4, aberto no Clássico</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[AMBIENTE] Clássico acessível apontando para o mesmo banco</td>
+<td class="col-acao" data-label="Ação">Criar no Share 4; abrir no Clássico (Listar e Detalhar)</td>
+<td class="col-resultado" data-label="Resultado Esperado">Clássico exibe o mesmo registro corretamente</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CA3, CT</td>
+</tr>
+<tr data-id="7">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="7" disabled aria-label="Marcar o cenário 7 como testado"></td>
+<td class="col-id" data-label="#">7</td>
+<td class="col-cenario" data-label="Cenário">Criado no Clássico, aberto no Share 4</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[AMBIENTE] Clássico acessível apontando para o mesmo banco</td>
+<td class="col-acao" data-label="Ação">Criar no Clássico; abrir e alterar no Share 4</td>
+<td class="col-resultado" data-label="Resultado Esperado">Share 4 lê e altera o registro sem erro</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CA3</td>
+</tr>
+<tr data-id="8">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="8" disabled aria-label="Marcar o cenário 8 como testado"></td>
+<td class="col-id" data-label="#">8</td>
+<td class="col-cenario" data-label="Cenário">Lançar documento com o tipo criado</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[USUARIO] usuário de lançamento de documentos<br>[DADOS] tipo de documento associado ao tipo de índice criado</td>
+<td class="col-acao" data-label="Ação">Lançar documento usando o índice criado</td>
+<td class="col-resultado" data-label="Resultado Esperado">Índice aparece com as regras configuradas e o lançamento conclui</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CT</td>
+</tr>
+<tr class="group"><td colspan="10"><span class="gname">FLUXO ALTERNATIVO</span><span class="gcount"></span></td></tr>
+<tr data-id="9">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="9" disabled aria-label="Marcar o cenário 9 como testado"></td>
+<td class="col-id" data-label="#">9</td>
+<td class="col-cenario" data-label="Cenário">Troca Informado→Seleção</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[DADOS] tipo Informado com Identificador, Máscara, Conexão e SQL preenchidos</td>
+<td class="col-acao" data-label="Ação">Alterar Tipo para Seleção</td>
+<td class="col-resultado" data-label="Resultado Esperado">Limpa Identificador; descarta Conexão, SQL, Máscara e Modo de comparação</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">tabela-decisão</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CA20</td>
+</tr>
+<tr data-id="10">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="10" disabled aria-label="Marcar o cenário 10 como testado"></td>
+<td class="col-id" data-label="#">10</td>
+<td class="col-cenario" data-label="Cenário">Troca Seleção→Informado</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Alterar Tipo para Informado</td>
+<td class="col-resultado" data-label="Resultado Esperado">Conexão vazia, SQL vazio, Modo de comparação=0</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">tabela-decisão</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CA20</td>
+</tr>
+<tr data-id="11">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="11" disabled aria-label="Marcar o cenário 11 como testado"></td>
+<td class="col-id" data-label="#">11</td>
+<td class="col-cenario" data-label="Cenário">Troca Informado→Múltipla Seleção</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[DADOS] tipo Informado com Identificador, Máscara, Conexão e SQL preenchidos</td>
+<td class="col-acao" data-label="Ação">Alterar Tipo para Múltipla Seleção</td>
+<td class="col-resultado" data-label="Resultado Esperado">Descarta Conexão, SQL, Máscara e Modo de comparação; limpa Identificador; DI=4</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">tabela-decisão</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CA20, CA19</td>
+</tr>
+<tr data-id="12">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="12" disabled aria-label="Marcar o cenário 12 como testado"></td>
+<td class="col-id" data-label="#">12</td>
+<td class="col-cenario" data-label="Cenário">Alteração de não Seleção com escolha ≠ 0</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[DADOS] tipo legado não Seleção com st_escolha_multipla diferente de 0</td>
+<td class="col-acao" data-label="Ação">Alterar o tipo sem mudar o Tipo de índice</td>
+<td class="col-resultado" data-label="Resultado Esperado">Grava st_escolha_multipla=0</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td>
+<td class="col-origem" data-label="Origem">CA22, PI</td>
+</tr>
+<tr data-id="13">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="13" disabled aria-label="Marcar o cenário 13 como testado"></td>
+<td class="col-id" data-label="#">13</td>
+<td class="col-cenario" data-label="Cenário">Legado com regex inválida</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[DADOS] tipo legado com regex inválida gravada</td>
+<td class="col-acao" data-label="Ação">Abrir o tipo; depois salvar de novo</td>
+<td class="col-resultado" data-label="Resultado Esperado">Abre sem erro; ao salvar rejeita com "Expressão regular inválida."</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td>
+<td class="col-origem" data-label="Origem">CA25, PI</td>
+</tr>
+<tr data-id="14">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="14" disabled aria-label="Marcar o cenário 14 como testado"></td>
+<td class="col-id" data-label="#">14</td>
+<td class="col-cenario" data-label="Cenário">Cancelar o formulário</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Preencher, sair e confirmar "Sair mesmo assim"</td>
+<td class="col-resultado" data-label="Resultado Esperado">Nada gravado e nenhum log</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CA65</td>
+</tr>
+<tr class="group"><td colspan="10"><span class="gname">VALIDAÇÕES DE CAMPOS</span><span class="gcount"></span></td></tr>
+<tr data-id="15">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="15" disabled aria-label="Marcar o cenário 15 como testado"></td>
+<td class="col-id" data-label="#">15</td>
+<td class="col-cenario" data-label="Cenário">Descrição vazia</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Incluir sem Descrição</td>
+<td class="col-resultado" data-label="Resultado Esperado">Rejeita com "Este campo é requerido"; nada gravado</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA11, CT</td>
+</tr>
+<tr data-id="16">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="16" disabled aria-label="Marcar o cenário 16 como testado"></td>
+<td class="col-id" data-label="#">16</td>
+<td class="col-cenario" data-label="Cenário">Limite da Descrição</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Incluir com 50 e com 51 caracteres</td>
+<td class="col-resultado" data-label="Resultado Esperado">50 aceita; 51 rejeita</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td>
+<td class="col-tecnica" data-label="Técnica">valor-limite</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA12, CT</td>
+</tr>
+<tr data-id="17">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="17" disabled aria-label="Marcar o cenário 17 como testado"></td>
+<td class="col-id" data-label="#">17</td>
+<td class="col-cenario" data-label="Cenário">Limite do Identificador</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Específico com 50 e com 51 caracteres</td>
+<td class="col-resultado" data-label="Resultado Esperado">50 aceita; 51 rejeita</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td>
+<td class="col-tecnica" data-label="Técnica">valor-limite</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA12, CA23, CT</td>
+</tr>
+<tr data-id="18">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="18" disabled aria-label="Marcar o cenário 18 como testado"></td>
+<td class="col-id" data-label="#">18</td>
+<td class="col-cenario" data-label="Cenário">Limite da regex</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Regex válida com 500 e com 501 caracteres</td>
+<td class="col-resultado" data-label="Resultado Esperado">500 aceita; 501 rejeita</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td>
+<td class="col-tecnica" data-label="Técnica">valor-limite</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA12, CT</td>
+</tr>
+<tr data-id="19">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="19" disabled aria-label="Marcar o cenário 19 como testado"></td>
+<td class="col-id" data-label="#">19</td>
+<td class="col-cenario" data-label="Cenário">Limite da máscara</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Máscara com 150 e com 151 caracteres</td>
+<td class="col-resultado" data-label="Resultado Esperado">150 aceita; 151 rejeita</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td>
+<td class="col-tecnica" data-label="Técnica">valor-limite</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA12, CA26, CT</td>
+</tr>
+<tr data-id="20">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="20" disabled aria-label="Marcar o cenário 20 como testado"></td>
+<td class="col-id" data-label="#">20</td>
+<td class="col-cenario" data-label="Cenário">Domínio do Tipo de índice</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Enviar id_tipo_local 1, 2, 3, 4, 0 e 5</td>
+<td class="col-resultado" data-label="Resultado Esperado">1–4 aceitos; 0 e 5 rejeitados</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA13, CT</td>
+</tr>
+<tr data-id="21">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="21" disabled aria-label="Marcar o cenário 21 como testado"></td>
+<td class="col-id" data-label="#">21</td>
+<td class="col-cenario" data-label="Cenário">Domínio do Tipo de valor</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Enviar id_tipo_valor 1, 2, 3, 0 e 4</td>
+<td class="col-resultado" data-label="Resultado Esperado">1–3 aceitos; 0 e 4 rejeitados</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA14, CT</td>
+</tr>
+<tr data-id="22">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="22" disabled aria-label="Marcar o cenário 22 como testado"></td>
+<td class="col-id" data-label="#">22</td>
+<td class="col-cenario" data-label="Cenário">Domínio do DI</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Enviar id_tipo_local_di 0 e 6</td>
+<td class="col-resultado" data-label="Resultado Esperado">Rejeitados; 1–5 só nas combinações do CA 18</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA15, CT</td>
+</tr>
+<tr data-id="23">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="23" disabled aria-label="Marcar o cenário 23 como testado"></td>
+<td class="col-id" data-label="#">23</td>
+<td class="col-cenario" data-label="Cenário">Ordenação nos limites</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Ordenação 1 e 255</td>
+<td class="col-resultado" data-label="Resultado Esperado">Ambas aceitas</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td>
+<td class="col-tecnica" data-label="Técnica">valor-limite</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CA17, CT</td>
+</tr>
+<tr data-id="24">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="24" disabled aria-label="Marcar o cenário 24 como testado"></td>
+<td class="col-id" data-label="#">24</td>
+<td class="col-cenario" data-label="Cenário">Ordenação fora da faixa</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Ordenação 0 e 256</td>
+<td class="col-resultado" data-label="Resultado Esperado">Rejeita com "Informe um valor inteiro entre 1 e 255."</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td>
+<td class="col-tecnica" data-label="Técnica">valor-limite</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA17, CT</td>
+</tr>
+<tr data-id="25">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="25" disabled aria-label="Marcar o cenário 25 como testado"></td>
+<td class="col-id" data-label="#">25</td>
+<td class="col-cenario" data-label="Cenário">Ordenação inválida</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Ordenação vazia, 10.5 e "abc"</td>
+<td class="col-resultado" data-label="Resultado Esperado">Rejeita com a mesma mensagem</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA17, CT</td>
+</tr>
+<tr data-id="26">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="26" disabled aria-label="Marcar o cenário 26 como testado"></td>
+<td class="col-id" data-label="#">26</td>
+<td class="col-cenario" data-label="Cenário">Tipo × DI permitidos</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Seleção com DI Informado e com Seleção; Informado com DI Informado e com Consulta; Específico com DI 3; Múltipla com DI 4</td>
+<td class="col-resultado" data-label="Resultado Esperado">Todas aceitas</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">tabela-decisão</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CA18, CT</td>
+</tr>
+<tr data-id="27">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="27" disabled aria-label="Marcar o cenário 27 como testado"></td>
+<td class="col-id" data-label="#">27</td>
+<td class="col-cenario" data-label="Cenário">Tipo × DI proibidos</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Seleção com DI Consulta; Informado com DI Seleção; Seleção com DI Específico; Informado com DI Múltipla</td>
+<td class="col-resultado" data-label="Resultado Esperado">Rejeitadas; nada gravado</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">tabela-decisão</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA18, CT</td>
+</tr>
+<tr data-id="28">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="28" disabled aria-label="Marcar o cenário 28 como testado"></td>
+<td class="col-id" data-label="#">28</td>
+<td class="col-cenario" data-label="Cenário">Escolha Única fora de Seleção</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Incluir Tipo=Informado enviando st_escolha_multipla=1</td>
+<td class="col-resultado" data-label="Resultado Esperado">Grava 0</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td>
+<td class="col-origem" data-label="Origem">CA21, CT</td>
+</tr>
+<tr data-id="29">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="29" disabled aria-label="Marcar o cenário 29 como testado"></td>
+<td class="col-id" data-label="#">29</td>
+<td class="col-cenario" data-label="Cenário">Identificador fora de Específico</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Incluir Informado com Identificador "abc"</td>
+<td class="col-resultado" data-label="Resultado Esperado">Identificador gravado vazio</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA23</td>
+</tr>
+<tr data-id="30">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="30" disabled aria-label="Marcar o cenário 30 como testado"></td>
+<td class="col-id" data-label="#">30</td>
+<td class="col-cenario" data-label="Cenário">Regex válida</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Incluir com regex válida de até 500 caracteres</td>
+<td class="col-resultado" data-label="Resultado Esperado">Grava o texto informado</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CA24, CT</td>
+</tr>
+<tr data-id="31">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="31" disabled aria-label="Marcar o cenário 31 como testado"></td>
+<td class="col-id" data-label="#">31</td>
+<td class="col-cenario" data-label="Cenário">Regex inválida</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Incluir com regex que não compila, como (</td>
+<td class="col-resultado" data-label="Resultado Esperado">Rejeita com "Expressão regular inválida."; não grava; sem log</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA25, CT</td>
+</tr>
+<tr data-id="32">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="32" disabled aria-label="Marcar o cenário 32 como testado"></td>
+<td class="col-id" data-label="#">32</td>
+<td class="col-cenario" data-label="Cenário">Máscara MFP válida</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Informado, Valor diferente de Data, máscara com 0 9 # A S</td>
+<td class="col-resultado" data-label="Resultado Esperado">Grava a máscara</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CA26, CT</td>
+</tr>
+<tr data-id="33">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="33" disabled aria-label="Marcar o cenário 33 como testado"></td>
+<td class="col-id" data-label="#">33</td>
+<td class="col-cenario" data-label="Cenário">Máscara com Tipo de valor Data</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Informado, Valor=Data, máscara preenchida</td>
+<td class="col-resultado" data-label="Resultado Esperado">Máscara gravada vazia</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA27, CT</td>
+</tr>
+<tr data-id="34">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="34" disabled aria-label="Marcar o cenário 34 como testado"></td>
+<td class="col-id" data-label="#">34</td>
+<td class="col-cenario" data-label="Cenário">Máscara com tipo ≠ Informado</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Seleção com máscara preenchida</td>
+<td class="col-resultado" data-label="Resultado Esperado">Máscara gravada vazia</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA27, CT</td>
+</tr>
+<tr data-id="35">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="35" disabled aria-label="Marcar o cenário 35 como testado"></td>
+<td class="col-id" data-label="#">35</td>
+<td class="col-cenario" data-label="Cenário">Flags de exibição</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Combinar 0 e 1 em st_busca, st_portal, st_portal_cliente e st_ordenacao_busca</td>
+<td class="col-resultado" data-label="Resultado Esperado">Cada flag persiste como enviada (0 ou 1)</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">tabela-decisão</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CA28, CT</td>
+</tr>
+<tr data-id="36">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="36" disabled aria-label="Marcar o cenário 36 como testado"></td>
+<td class="col-id" data-label="#">36</td>
+<td class="col-cenario" data-label="Cenário">Portal do cliente com Portal</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[CONFIG] ambiente com o módulo Portal</td>
+<td class="col-acao" data-label="Ação">Incluir com st_portal_cliente=1</td>
+<td class="col-resultado" data-label="Resultado Esperado">Persiste; BE informa que há Portal</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CA29, CT</td>
+</tr>
+<tr data-id="37">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="37" disabled aria-label="Marcar o cenário 37 como testado"></td>
+<td class="col-id" data-label="#">37</td>
+<td class="col-cenario" data-label="Cenário">Portal do cliente sem Portal</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[CONFIG] ambiente sem o módulo Portal</td>
+<td class="col-acao" data-label="Ação">Incluir com st_portal_cliente=1</td>
+<td class="col-resultado" data-label="Resultado Esperado">st_portal gravado; st_portal_cliente permanece 0; BE informa que não há Portal</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA29, CT</td>
+</tr>
+<tr class="group"><td colspan="10"><span class="gname">PERMISSÃO</span><span class="gcount"></span></td></tr>
+<tr data-id="38">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="38" disabled aria-label="Marcar o cenário 38 como testado"></td>
+<td class="col-id" data-label="#">38</td>
+<td class="col-cenario" data-label="Cenário">Sem sessão válida</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado</td>
+<td class="col-acao" data-label="Ação">Chamar incluir e alterar sem sessão</td>
+<td class="col-resultado" data-label="Resultado Esperado">401; nada executado</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag">permissão</span></td>
+<td class="col-origem" data-label="Origem">CA95, CT</td>
+</tr>
+<tr data-id="39">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="39" disabled aria-label="Marcar o cenário 39 como testado"></td>
+<td class="col-id" data-label="#">39</td>
+<td class="col-cenario" data-label="Cenário">Sem permissão no menu Configurações</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado</td>
+<td class="col-acao" data-label="Ação">Chamar incluir e alterar com usuário sem permissão no menu</td>
+<td class="col-resultado" data-label="Resultado Esperado">403; nada executado</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag">permissão</span></td>
+<td class="col-origem" data-label="Origem">CA95, CT</td>
+</tr>
+<tr data-id="40">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="40" disabled aria-label="Marcar o cenário 40 como testado"></td>
+<td class="col-id" data-label="#">40</td>
+<td class="col-cenario" data-label="Cenário">Sem permissão de gerenciar índices: incluir</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida, com acesso à listagem e sem permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Ver a listagem e tentar incluir</td>
+<td class="col-resultado" data-label="Resultado Esperado">Bloqueia; nada gravado</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag">permissão</span></td>
+<td class="col-origem" data-label="Origem">CA96, CT</td>
+</tr>
+<tr data-id="41">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="41" disabled aria-label="Marcar o cenário 41 como testado"></td>
+<td class="col-id" data-label="#">41</td>
+<td class="col-cenario" data-label="Cenário">Sem permissão de gerenciar índices: alterar</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida, com acesso à listagem e sem permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Tentar alterar um tipo</td>
+<td class="col-resultado" data-label="Resultado Esperado">Bloqueia; nada alterado</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag">permissão</span></td>
+<td class="col-origem" data-label="Origem">CA96, CT</td>
+</tr>
+<tr class="group"><td colspan="10"><span class="gname">DADOS E CASOS DE BORDA</span><span class="gcount"></span></td></tr>
+<tr data-id="42">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="42" disabled aria-label="Marcar o cenário 42 como testado"></td>
+<td class="col-id" data-label="#">42</td>
+<td class="col-cenario" data-label="Cenário">id_tipo_comparacao nulo</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[DADOS] tipo legado com id_tipo_comparacao nulo</td>
+<td class="col-acao" data-label="Ação">Abrir e alterar o tipo</td>
+<td class="col-resultado" data-label="Resultado Esperado">Sem erro</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td>
+<td class="col-origem" data-label="Origem">PI</td>
+</tr>
+<tr data-id="43">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="43" disabled aria-label="Marcar o cenário 43 como testado"></td>
+<td class="col-id" data-label="#">43</td>
+<td class="col-cenario" data-label="Cenário">Campos obrigatórios nunca nulos</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[AMBIENTE] Clássico acessível apontando para o mesmo banco</td>
+<td class="col-acao" data-label="Ação">Incluir sem enviar Portal, Portal cliente e DI; conferir no banco e abrir o Detalhe no Clássico</td>
+<td class="col-resultado" data-label="Resultado Esperado">st_portal, st_portal_cliente e id_tipo_local_di gravados não nulos; o Clássico abre</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td>
+<td class="col-origem" data-label="Origem">PI, CA16</td>
+</tr>
+<tr data-id="44">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="44" disabled aria-label="Marcar o cenário 44 como testado"></td>
+<td class="col-id" data-label="#">44</td>
+<td class="col-cenario" data-label="Cenário">Legado com Identificador ou máscara indevidos</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[DADOS] tipo legado com Identificador ou Máscara preenchidos em tipo que não deveria ter</td>
+<td class="col-acao" data-label="Ação">Abrir o tipo</td>
+<td class="col-resultado" data-label="Resultado Esperado">Abre sem erro</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td>
+<td class="col-origem" data-label="Origem">PI</td>
+</tr>
+<tr data-id="45">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="45" disabled aria-label="Marcar o cenário 45 como testado"></td>
+<td class="col-id" data-label="#">45</td>
+<td class="col-cenario" data-label="Cenário">Texto com aspas e SQL</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Descrição O'Brien'; DROP TABLE x--</td>
+<td class="col-resultado" data-label="Resultado Esperado">Grava como texto literal; nada executado</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td>
+<td class="col-origem" data-label="Origem">CA97, CT</td>
+</tr>
+<tr data-id="46">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="46" disabled aria-label="Marcar o cenário 46 como testado"></td>
+<td class="col-id" data-label="#">46</td>
+<td class="col-cenario" data-label="Cenário">Log estruturado</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Incluir tipo válido e conferir LOG_APLICACAO</td>
+<td class="col-resultado" data-label="Resultado Esperado">Registro da aplicação 19, ação Inclusão, com conteúdo estruturado (não HTML)</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">PI, CA62</td>
+</tr>
+<tr class="group"><td colspan="10"><span class="gname">CONCORRÊNCIA</span><span class="gcount"></span></td></tr>
+<tr data-id="47">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="47" disabled aria-label="Marcar o cenário 47 como testado"></td>
+<td class="col-id" data-label="#">47</td>
+<td class="col-cenario" data-label="Cenário">Duas inclusões simultâneas</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Disparar 2 inclusões válidas ao mesmo tempo</td>
+<td class="col-resultado" data-label="Resultado Esperado">2 registros com códigos distintos e 2 logs</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag">concorrência</span></td>
+<td class="col-origem" data-label="Origem">CA62, CA98</td>
+</tr>
+<tr class="group"><td colspan="10"><span class="gname">ERROS DE INTEGRAÇÃO / API</span><span class="gcount"></span></td></tr>
+<tr data-id="48">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="48" disabled aria-label="Marcar o cenário 48 como testado"></td>
+<td class="col-id" data-label="#">48</td>
+<td class="col-cenario" data-label="Cenário">Rejeição não grava nem loga</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Incluir com qualquer validação falhando</td>
+<td class="col-resultado" data-label="Resultado Esperado">Nenhum registro e nenhum log</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA63, CT</td>
+</tr>
+<tr data-id="49">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="49" disabled aria-label="Marcar o cenário 49 como testado"></td>
+<td class="col-id" data-label="#">49</td>
+<td class="col-cenario" data-label="Cenário">Falha técnica na gravação</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>HIPOTESE: [CONFIG] mecanismo para forçar falha técnica na gravação (flag, mock ou credencial inválida)</td>
+<td class="col-acao" data-label="Ação">Forçar erro durante a inclusão</td>
+<td class="col-resultado" data-label="Resultado Esperado">Rollback do tipo e do log; mensagem padronizada</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA63, CA99, CT</td>
+</tr>
+<tr data-id="50">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="50" disabled aria-label="Marcar o cenário 50 como testado"></td>
+<td class="col-id" data-label="#">50</td>
+<td class="col-cenario" data-label="Cenário">Erro sem vazar detalhe técnico</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>HIPOTESE: [CONFIG] mecanismo para forçar falha técnica na gravação (flag, mock ou credencial inválida)</td>
+<td class="col-acao" data-label="Ação">Provocar falha e ler a resposta</td>
+<td class="col-resultado" data-label="Resultado Esperado">Sem SQL, stack trace nem string de conexão; detalhe só no log de aplicação</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">CA99, CT</td>
+</tr>
+<tr data-id="51">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="51" disabled aria-label="Marcar o cenário 51 como testado"></td>
+<td class="col-id" data-label="#">51</td>
+<td class="col-cenario" data-label="Cenário">SQL Server</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[AMBIENTE] banco SQL Server</td>
+<td class="col-acao" data-label="Ação">Incluir e alterar</td>
+<td class="col-resultado" data-label="Resultado Esperado">Chave gerada correta; mesmo resultado do Oracle</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CA98, CT</td>
+</tr>
+<tr data-id="52">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="52" disabled aria-label="Marcar o cenário 52 como testado"></td>
+<td class="col-id" data-label="#">52</td>
+<td class="col-cenario" data-label="Cenário">Oracle</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[AMBIENTE] banco Oracle</td>
+<td class="col-acao" data-label="Ação">Repetir o cenário de SQL Server</td>
+<td class="col-resultado" data-label="Resultado Esperado">Idêntico ao SQL Server</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">CA98, CT</td>
+</tr>
+<tr class="group"><td colspan="10"><span class="gname">REGRESSÃO</span><span class="gcount"></span></td></tr>
+<tr data-id="53">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="53" disabled aria-label="Marcar o cenário 53 como testado"></td>
+<td class="col-id" data-label="#">53</td>
+<td class="col-cenario" data-label="Cenário">Detalhe do Clássico</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[AMBIENTE] Clássico acessível apontando para o mesmo banco</td>
+<td class="col-acao" data-label="Ação">Criar no Share 4 e abrir o Detalhe no Clássico</td>
+<td class="col-resultado" data-label="Resultado Esperado">Abre sem erro, sem nulos em st_portal, st_portal_cliente e id_tipo_local_di</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td>
+<td class="col-origem" data-label="Origem">PI</td>
+</tr>
+<tr data-id="54">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="54" disabled aria-label="Marcar o cenário 54 como testado"></td>
+<td class="col-id" data-label="#">54</td>
+<td class="col-cenario" data-label="Cenário">Indexador DI</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[AMBIENTE] Clássico acessível apontando para o mesmo banco</td>
+<td class="col-acao" data-label="Ação">Criar Informado com DI Consulta, Conexão e SQL; usar no Indexador DI</td>
+<td class="col-resultado" data-label="Resultado Esperado">Lê id_tipo_local_di, ds_sql e cd_conexao corretamente</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td>
+<td class="col-origem" data-label="Origem">PI</td>
+</tr>
+<tr data-id="55">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="55" disabled aria-label="Marcar o cenário 55 como testado"></td>
+<td class="col-id" data-label="#">55</td>
+<td class="col-cenario" data-label="Cenário">Publicação e lançamento</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[USUARIO] usuário de lançamento de documentos<br>[DADOS] tipo de documento associado ao tipo de índice criado</td>
+<td class="col-acao" data-label="Ação">Criar tipo com regex e máscara; lançar documento</td>
+<td class="col-resultado" data-label="Resultado Esperado">Regex e máscara aplicadas no lançamento</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td>
+<td class="col-origem" data-label="Origem">PI, CA24</td>
+</tr>
+<tr data-id="56">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="56" disabled aria-label="Marcar o cenário 56 como testado"></td>
+<td class="col-id" data-label="#">56</td>
+<td class="col-cenario" data-label="Cenário">MFP</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Criar tipo com máscara e usá-lo no MFP</td>
+<td class="col-resultado" data-label="Resultado Esperado">Máscara respeitada</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td>
+<td class="col-origem" data-label="Origem">PI</td>
+</tr>
+<tr data-id="57">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="57" disabled aria-label="Marcar o cenário 57 como testado"></td>
+<td class="col-id" data-label="#">57</td>
+<td class="col-cenario" data-label="Cenário">Portal</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[CONFIG] ambiente com o módulo Portal</td>
+<td class="col-acao" data-label="Ação">Criar tipo com st_portal=1 e st_portal_cliente=1</td>
+<td class="col-resultado" data-label="Resultado Esperado">Aparece no Portal conforme os flags</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td>
+<td class="col-origem" data-label="Origem">PI</td>
+</tr>
+<tr data-id="58">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="58" disabled aria-label="Marcar o cenário 58 como testado"></td>
+<td class="col-id" data-label="#">58</td>
+<td class="col-cenario" data-label="Cenário">Busca</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Criar tipo com st_busca, st_ordenacao_busca e vl_ordenacao definidos</td>
+<td class="col-resultado" data-label="Resultado Esperado">Busca usa os valores gravados</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td>
+<td class="col-origem" data-label="Origem">PI</td>
+</tr>
+<tr data-id="59">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="59" disabled aria-label="Marcar o cenário 59 como testado"></td>
+<td class="col-id" data-label="#">59</td>
+<td class="col-cenario" data-label="Cenário">Fixo e Desabilitado preservados</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices<br>[DADOS] tipo Data com Fixo no lançamento e Desabilitado ativos</td>
+<td class="col-acao" data-label="Ação">Alterar o tipo Data pelo Share 4 e usar fora do Lançamento</td>
+<td class="col-resultado" data-label="Resultado Esperado">Fixo e Desabilitado preservados; só o Lançamento é afetado</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td>
+<td class="col-origem" data-label="Origem">Bug #151450, Bug #151100, CA2</td>
+</tr>
+<tr class="group"><td colspan="10"><span class="gname">CASOS DE BORDA / HIPÓTESES</span><span class="gcount"></span></td></tr>
+<tr data-id="60" class="row-hipotese">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="60" disabled aria-label="Marcar o cenário 60 como testado"></td>
+<td class="col-id" data-label="#">60</td>
+<td class="col-cenario" data-label="Cenário"><span class="hip-badge">hipótese</span>descrição duplicada</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Incluir com Descrição já existente</td>
+<td class="col-resultado" data-label="Resultado Esperado">VERIFICAR COM DEV/PO: bloqueia ou só avisa</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td>
+<td class="col-origem" data-label="Origem">hipótese (CA64)</td>
+</tr>
+<tr data-id="61" class="row-hipotese">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="61" disabled aria-label="Marcar o cenário 61 como testado"></td>
+<td class="col-id" data-label="#">61</td>
+<td class="col-cenario" data-label="Cenário"><span class="hip-badge">hipótese</span>Escolha Única em Seleção</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Incluir Seleção com "Escolha Única" marcada e desmarcada</td>
+<td class="col-resultado" data-label="Resultado Esperado">VERIFICAR COM DEV/PO: qual valor vai para st_escolha_multipla (coluna invertida)</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td>
+<td class="col-origem" data-label="Origem">hipótese (CA21)</td>
+</tr>
+<tr data-id="62" class="row-hipotese">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="62" disabled aria-label="Marcar o cenário 62 como testado"></td>
+<td class="col-id" data-label="#">62</td>
+<td class="col-cenario" data-label="Cenário"><span class="hip-badge">hipótese</span>DI divergente em Específico ou Múltipla</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Específico com DI=1</td>
+<td class="col-resultado" data-label="Resultado Esperado">VERIFICAR COM DEV/PO: rejeita (CA 18) ou grava DI=3 (CA 19)</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td>
+<td class="col-tecnica" data-label="Técnica">tabela-decisão</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">hipótese (CA18, CA19)</td>
+</tr>
+<tr data-id="63" class="row-hipotese">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="63" disabled aria-label="Marcar o cenário 63 como testado"></td>
+<td class="col-id" data-label="#">63</td>
+<td class="col-cenario" data-label="Cenário"><span class="hip-badge">hipótese</span>troca Seleção↔Específico</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Alterar Seleção para Específico e o inverso</td>
+<td class="col-resultado" data-label="Resultado Esperado">VERIFICAR COM DEV/PO: CA 20 só cobre trocas com Informado</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td>
+<td class="col-tecnica" data-label="Técnica">tabela-decisão</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td>
+<td class="col-origem" data-label="Origem">hipótese (CA20)</td>
+</tr>
+<tr data-id="64" class="row-hipotese">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="64" disabled aria-label="Marcar o cenário 64 como testado"></td>
+<td class="col-id" data-label="#">64</td>
+<td class="col-cenario" data-label="Cenário"><span class="hip-badge">hipótese</span>regex com tempo limite</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Regex catastrófica, como (a+)+$</td>
+<td class="col-resultado" data-label="Resultado Esperado">VERIFICAR COM DEV/PO: o timeout não está definido</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td>
+<td class="col-tecnica" data-label="Técnica">exploratório</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">hipótese (CA25)</td>
+</tr>
+<tr data-id="65" class="row-hipotese">
+<td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="65" disabled aria-label="Marcar o cenário 65 como testado"></td>
+<td class="col-id" data-label="#">65</td>
+<td class="col-cenario" data-label="Cenário"><span class="hip-badge">hipótese</span>máscara com símbolo fora do conjunto</td>
+<td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #164848 implantado<br>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices</td>
+<td class="col-acao" data-label="Ação">Informado com máscara contendo X ou @</td>
+<td class="col-resultado" data-label="Resultado Esperado">VERIFICAR COM DEV/PO: aceita ou rejeita</td>
+<td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td>
+<td class="col-tecnica" data-label="Técnica">partição-equivalência</td>
+<td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td>
+<td class="col-origem" data-label="Origem">hipótese (CA26)</td>
+</tr></tbody></table></div>
+<h2 id="pre-requisitos">Pré-requisitos de ambiente (consolidado)</h2>
+<ul><li>[AMBIENTE] build com a US #164848 implantado — cenários: #1, #2, #3, #4, #5, #6, #7, #8, #9, #10, #11, #12, #13, #14, #15, #16, #17, #18, #19, #20, #21, #22, #23, #24, #25, #26, #27, #28, #29, #30, #31, #32, #33, #34, #35, #36, #37, #38, #39, #40, #41, #42, #43, #44, #45, #46, #47, #48, #49, #50, #51, #52, #53, #54, #55, #56, #57, #58, #59, #60, #61, #62, #63, #64, #65</li>
+<li>[USUARIO] 1 usuário com sessão válida e permissão de gerenciar índices — cenários: #1, #2, #3, #4, #5, #6, #7, #8, #9, #10, #11, #12, #13, #14, #15, #16, #17, #18, #19, #20, #21, #22, #23, #24, #25, #26, #27, #28, #29, #30, #31, #32, #33, #34, #35, #36, #37, #42, #43, #44, #45, #46, #47, #48, #49, #50, #51, #52, #53, #54, #55, #56, #57, #58, #59, #60, #61, #62, #63, #64, #65</li>
+<li>[USUARIO] 1 usuário com sessão válida, com acesso à listagem e sem permissão de gerenciar índices — cenários: #40, #41</li>
+<li>[USUARIO] usuário de lançamento de documentos — cenários: #8, #55</li>
+<li>[DADOS] tipo existente com campos que o Share 4 não exibe preenchidos (Conexão, SQL, Valor inicial, Modo de comparação) — cenários: #5</li>
+<li>[DADOS] tipo Informado com Identificador, Máscara, Conexão e SQL preenchidos — cenários: #9, #11</li>
+<li>[DADOS] tipo legado com regex inválida gravada — cenários: #13</li>
+<li>[DADOS] tipo legado não Seleção com st_escolha_multipla diferente de 0 — cenários: #12</li>
+<li>[DADOS] tipo legado com id_tipo_comparacao nulo — cenários: #42</li>
+<li>[DADOS] tipo legado com Identificador ou Máscara preenchidos em tipo que não deveria ter — cenários: #44</li>
+<li>[DADOS] tipo Data com Fixo no lançamento e Desabilitado ativos — cenários: #59</li>
+<li>[DADOS] tipo de documento associado ao tipo de índice criado — cenários: #8, #55</li>
+<li>[CONFIG] ambiente sem o módulo Portal — cenários: #37</li>
+<li>[CONFIG] ambiente com o módulo Portal — cenários: #36, #57</li>
+<li>[AMBIENTE] banco SQL Server — cenários: #51</li>
+<li>[AMBIENTE] banco Oracle — cenários: #52</li>
+<li>[AMBIENTE] Clássico acessível apontando para o mesmo banco — cenários: #6, #7, #43, #53, #54</li>
+<li>HIPOTESE: [CONFIG] mecanismo para forçar falha técnica na gravação (flag, mock ou credencial inválida) — cenários: #49, #50</li></ul>
+</div>
+<footer>As marcações ficam salvas só neste navegador, por cenário. Use Exportar e Importar para levá-las a outra máquina.</footer>
+<script>
+(function(){
+try{
+  var KEY="mapa-teste-us-164848-tipo-indice-be-testados-v1";
+  var state={};
+  try{var raw=localStorage.getItem(KEY);if(raw)state=JSON.parse(raw)||{};}catch(e){}
+  var chks=[].slice.call(document.querySelectorAll('input.chk'));
+  chks.forEach(function(c){c.disabled=false;});
+  var mainRows=[].slice.call(document.querySelectorAll('table.main tbody tr[data-id]'));
+  var ids=mainRows.map(function(r){return r.dataset.id;});
+  var fill=document.getElementById('fill'),count=document.getElementById('count');
+  var filter='all',query='';
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function paint(id){
+    var on=!!state[id];
+    chks.forEach(function(c){if(c.dataset.id===id){c.checked=on;c.closest('tr').classList.toggle('row-done',on);}});
+  }
+  function groups(){
+    [].slice.call(document.querySelectorAll('table.main tbody')).forEach(function(tb){
+      var cur=null,tot=0,done=0;
+      function close(){if(cur)cur.querySelector('.gcount').textContent=done+' de '+tot+' testados';}
+      [].slice.call(tb.rows).forEach(function(r){
+        if(r.classList.contains('group')){close();cur=r;tot=0;done=0;}
+        else if(r.dataset.id){tot++;if(state[r.dataset.id])done++;}
+      });
+      close();
+    });
+  }
+  function progress(){
+    var d=ids.filter(function(i){return state[i];}).length;
+    count.textContent=d+' de '+ids.length+' testados ('+(ids.length?Math.round(d*100/ids.length):0)+'%)';
+    fill.style.width=(ids.length?d*100/ids.length:0)+'%';
+    groups();
+  }
+  function apply(){
+    var q=query.trim().toLowerCase();
+    [].slice.call(document.querySelectorAll('tr[data-id]')).forEach(function(r){
+      var done=!!state[r.dataset.id];
+      var ok=(filter==='all')||(filter==='done'&&done)||(filter==='todo'&&!done);
+      if(ok&&q)ok=r.textContent.toLowerCase().indexOf(q)>-1;
+      r.classList.toggle('hidden',!ok);
+    });
+    [].slice.call(document.querySelectorAll('tr.group')).forEach(function(g){
+      var n=g.nextElementSibling,any=false;
+      while(n&&!n.classList.contains('group')){if(n.dataset.id&&!n.classList.contains('hidden')){any=true;break;}n=n.nextElementSibling;}
+      g.classList.toggle('hidden',!any);
+    });
+  }
+  chks.forEach(function(c){c.addEventListener('change',function(){
+    var id=c.dataset.id;if(c.checked)state[id]=true;else delete state[id];
+    paint(id);progress();save();apply();
+  });});
+  ids.concat(chks.map(function(c){return c.dataset.id;})).forEach(paint);
+  progress();apply();
+  [].slice.call(document.querySelectorAll('[data-filter]')).forEach(function(b){b.addEventListener('click',function(){
+    filter=b.dataset.filter;
+    [].slice.call(document.querySelectorAll('[data-filter]')).forEach(function(x){x.classList.toggle('active',x===b);});
+    apply();
+  });});
+  document.getElementById('q').addEventListener('input',function(e){query=e.target.value;apply();});
+  document.getElementById('reset').addEventListener('click',function(){
+    if(!confirm('Desmarcar todos os cenários testados?'))return;
+    state={};save();chks.forEach(function(c){paint(c.dataset.id);});progress();apply();
+  });
+  document.getElementById('export').addEventListener('click',function(){
+    var data={arquivo:"mapa-teste-us-164848-tipo-indice-be.html",exportado_em:new Date().toISOString(),testados:Object.keys(state).sort(function(a,b){return a-b;})};
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+    a.download='marcacoes-mapa-teste.json';document.body.appendChild(a);a.click();a.remove();
+  });
+  document.getElementById('import').addEventListener('change',function(e){
+    var f=e.target.files[0];if(!f)return;
+    var r=new FileReader();
+    r.onload=function(){
+      try{
+        var d=JSON.parse(r.result);
+        if(!d||!Array.isArray(d.testados))throw new Error('formato');
+        if(!confirm('Substituir as marcações atuais por '+d.testados.length+' cenários testados do arquivo?'))return;
+        state={};d.testados.forEach(function(i){state[String(i)]=true;});
+        save();chks.forEach(function(c){paint(c.dataset.id);});progress();apply();
+      }catch(err){alert('Arquivo inválido: use um JSON exportado por esta página.');}
+      e.target.value='';
+    };
+    r.readAsText(f);
+  });
+}catch(err){var c0=document.getElementById('count');if(c0)c0.textContent='Erro no script: '+err.message;}
+})();
+</script>
+</body>
+</html>

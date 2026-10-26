@@ -786,10 +786,10 @@ index 5aff133..ecc6732 100644
  
 diff --git a/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md b/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md
 new file mode 100644
-index 0000000..930df36
+index 0000000..9908cfb
 --- /dev/null
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md
-@@ -0,0 +1,275 @@
+@@ -0,0 +1,278 @@
 +---
 +description: Le o mapa de testes publicado no card "Criar Mapa de Teste" filho de uma User Story do Azure DevOps, extrai a coluna Pre-requisitos (formato [CATEGORIA] requisito), valida no ambiente de teste se cada requisito existe e, quando nao existir, CONFIGURA o ambiente (cria usuarios, processos, configuracoes, dados) pela UI. URLs do ambiente, URLs de telas necessarias, admin e usuarios vem de um arquivo de configuracao preenchido pela usuaria (C:\skills-qualidade\config\ambiente-teste.local.md); usuarios criados sao gravados nele. Entrega, por requisito, ATENDIDO / CONFIGURADO / NAO ATENDIDO / NAO VERIFICAVEL e, por cenario, EXECUTAVEL / PARCIAL / BLOQUEADO. Nao executa os cenarios e nunca atua fora de ambiente marcado como teste.
 +---
@@ -947,7 +947,9 @@ index 0000000..930df36
 +2. **Reaproveite:** procure em "Usuários de teste" do `$AMBIENTE_CFG` um usuário do ambiente com esse perfil e confirme que existe e entra (login com a credencial do arquivo). Existindo → `ATENDIDO` (evidência: "informado em `$AMBIENTE_CFG`, login confirmado"). Falhou o login → não redefina a senha; trate como ausente e crie outro (observação na linha antiga: "login falhou em <data>").
 +3. **Prepare as dependências do usuário (perfil, área, papel).** Abra a tela de usuário (`$URL_BASE` + `workspace/management/configuracoes/usuario`) e identifique quais desses itens o cadastro exige. Para cada um que o requisito pede e **não existe**, crie-o antes do usuário pela respectiva tela (perfil e papel: telas da tabela "Telas de configuração"; área: sem tela própria, só seleção), sempre de forma aditiva e registrando antes → depois. Se o item já existe, reaproveite (não edite). Não localizou a definição de qual permissão compõe o perfil/papel → Step 3.5, não chute. A ordem de criação segue o que a tela de usuário exigir; não presuma.
 +4. **Crie** pelo cadastro de usuários do ambiente (`$URL_BASE` + caminho de usuário; admin do arquivo): login `qa.<perfil-sem-acento-minusculo>.us<ID>`; e-mail, se obrigatório, no domínio de teste do ambiente e nunca de pessoa real; senha aleatória de 16 caracteres gerada na hora (maiúscula, minúscula, número, símbolo), ex.: `-join ((48..57)+(65..90)+(97..122)+(33,35,36,37,42,43,45,63) | Get-Random -Count 16 | % {[char]$_})`; só o perfil/permissão exigido. Se o sistema forçar troca de senha no primeiro acesso, desmarque quando existir; senão faça o primeiro login, troque para a senha gerada e anote na Observação.
-+5. **Reverifique:** o usuário aparece no cadastro com o perfil e o login com a senha gerada funciona (depois deslogue). Só então `CONFIGURADO`.
++   **4.1 Vincule os perfis "Geral" (obrigatório ao criar qualquer usuário).** Logo depois de criar (o cadastro abre em `.../usuario/editar/<cd_usuario>`), abra a aba **Perfis** e, em **cada** seção da tela, marque o grupo **Geral** (o checkbox "Select Geral" no topo da árvore, que marca também os filhos), depois **Salvar**. Seções: **Grupos que atuam como leitor** e **Grupos para quem podem publicar** (todos os tipos de usuário) e, só para o tipo **Administrador**, também **Grupos que administram** (3 seções). Cada seção é um acordeão: expanda os fechados antes de marcar. Registre antes → depois. Observado em 2026-10-26: o checkbox só muda com clique de mouse real nas coordenadas dele (`mouse.click`), e `check({force:true})` não marca a partir da 2ª seção.
++   **Também no mesmo cadastro, pois sem isso o login do usuário novo não conclui na tela** (a API `autenticar` responde 200, mas o front volta ao login com `You provided 'undefined' where a stream was expected`): escolha uma **Área principal ativa** (a área "TI" estava inativa: salvar com ela falha com "Usuário não pode ser ativado — Área Principal inativa"; use uma área ativa, ex.: "Area Padr?o") e preencha o **Menu inicial** (ex.: "Minhas atividades"). Observado em 2026-10-26 com o conjunto área ativa + perfis Geral + Menu inicial; qual dos três é o mínimo necessário não foi isolado.
++5. **Reverifique:** o usuário aparece no cadastro com o perfil, os perfis "Geral" ficaram marcados ao reabrir a aba Perfis e o login com a senha gerada **conclui na tela** (entra em `/bpm?redirect=my-tasks`; faça em contexto de navegador separado para não derrubar a sessão do admin; depois deslogue). Só então `CONFIGURADO`.
 +6. **Grave** uma linha em "Usuários de teste" do `$AMBIENTE_CFG` (via `Edit`, **anexando**; nunca apague nem reescreva linhas existentes): `Login | Senha | Perfil | Ambiente | CRIADO | <US> | <data> | <obs>`.
 +
 +---
@@ -1059,6 +1061,7 @@ index 0000000..930df36
 +- **Plano de configuração não aprovado / sem admin no arquivo / ambiente não `teste`:** rodar só a verificação; ausentes ficam `NAO ATENDIDO` com instrução em "O que preparar no ambiente".
 +- **Configuração recusada pelo sistema** (permissão, campo obrigatório, regra de negócio): `NAO ATENDIDO` com a mensagem; não contornar nem alterar outra configuração para "destravar".
 +- **Requisito que só se satisfaz com ação irreversível ou efeito externo** (publicar versão definitiva, integração real, notificação): pedir confirmação própria; sem ela, `NAO ATENDIDO`.
++- **Usuário recém-criado autentica (API 200) mas a tela de login não avança:** conferir se os perfis **Geral** foram vinculados nas seções da aba Perfis (3 para Administrador, 2 para os demais), se a área principal está **ativa** e se o **Menu inicial** está preenchido (Step 4.5, item 4.1). Não redefinir senha nem alterar outro cadastro para contornar.
 +- **Usuário do arquivo apagado do ambiente ou com login falho:** não reutilizar nem redefinir senha; criar outro e anotar na linha antiga.
 +- **`$AMBIENTE_CFG` guarda senha em texto:** intencional e restrito a ambiente de teste; o arquivo fica fora do sync com o GitHub.
 +- **Ambiente indisponível ou instável:** veredito `NAO PRONTO`, motivo no relatório; não classifique requisitos individualmente por palpite.
