@@ -303,7 +303,7 @@ index 02df567..d7348b7 100644
  3. Se a busca não encontrar nenhuma página relacionada, não conclua automaticamente que não existe documentação — chame `mcp__azure-devops__list_wiki_pages` para navegar a árvore e checar manualmente se a funcionalidade está descrita em uma página com nome que a busca de texto não capturou.
  
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/executar-teste.md b/skills-qa-smartshare/skills-qa-smartshare/skills/executar-teste.md
-index a34f35c..b91912b 100644
+index a34f35c..e600d26 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/executar-teste.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/executar-teste.md
 @@ -7,8 +7,8 @@ Executar os testes da User Story do Azure DevOps a partir de **$ARGUMENTS**.
@@ -449,7 +449,7 @@ index a34f35c..b91912b 100644
 +1. Para cada tela do protótipo, capture o **esperado** com `get_screenshot` (arquivo/nó do link da US; `maxDimension` igual à largura da tela do dev) e baixe o PNG (a URL é de curta duração e não deve ser repassada) para `$CICLOS_DIR\US-<ID>\execucoes\evidencias_<AAAA-MM-DD>\ev-<ID>-c<N>-figma-<tela>.png`.
 +2. Capture o **dev** com o navegador, **no mesmo tamanho de janela** do quadro do protótipo (use um contexto com `viewport` igual, ex.: 1280×832), no mesmo estado (mesma tela, mesmo dado, modal aberto quando for o caso), em `...-share4-<tela>.png`.
 +3. **Toda divergência registrada precisa dos dois prints** (esperado e dev), lado a lado. Divergência sem os dois prints não entra no relatório: capture o que falta ou registre como "não comparado (motivo)". Divergência de comportamento (ex.: campo que deveria ser multilinha, Esc que não fecha) também leva o print do dev mostrando o comportamento e o do protótipo mostrando o esperado.
-+4. Gere a página `$CICLOS_DIR\US-<ID>\execucoes\divergencias-prototipo_<AAAA-MM-DD>.html` com um bloco por divergência (id D1, D2..., descrição objetiva do que difere e qual print é de qual lado: "Esperado (protótipo)" e "Dev"), mais a lista do que confere ("Conforme"). Use caminhos relativos às imagens.
++4. Gere a página `$CICLOS_DIR\US-<ID>\execucoes\divergencias-prototipo_<AAAA-MM-DD>.html` com um bloco por divergência (id D1, D2..., descrição objetiva do que difere e qual print é de qual lado: "Esperado (protótipo)" e "Dev"), mais a lista do que confere ("Conforme"). A página deve ser **autocontida**: embuta as imagens no próprio HTML (`src="data:image/png;base64,..."`), porque caminho relativo não abre em visualizadores que carregam só o arquivo (observado em 2026-10-26: "não consigo visualizar as imagens"). Mantenha os PNGs na pasta de evidências como cópia.
 +5. Itens do próprio protótipo que a US manda ignorar (ex.: criar/excluir) não são divergência: cite-os numa nota. O resultado do cenário segue o texto do mapa (em geral "divergências registradas para validação da PM"); a decisão de entrar no escopo é da PM.
 +
  ### 4.3 — Ações de alto risco sinalizadas no Step 3
