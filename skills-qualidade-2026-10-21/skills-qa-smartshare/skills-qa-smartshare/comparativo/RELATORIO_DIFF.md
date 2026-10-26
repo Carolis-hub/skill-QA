@@ -19,8 +19,8 @@ Linhas +/− medidas com `git diff --no-index --numstat` em 2026-10-22.
 | analise-negocio.md | +112 / −7 | Alteração esperada (adaptação funcional + endurecimento de regra, rodadas 3 e 5) |
 | analise-tecnica.md | +36 / −5 | Alteração esperada (adaptação funcional + validação das pendências do dev, rodadas 3 e 5) |
 | atualizar-documentacao.md | +3 / −3 | Alteração esperada (adaptação funcional) |
-| executar-teste.md | +69 / −33 | Alteração esperada (adaptação funcional + regras novas, rodadas 3 e 4) |
-| gerar-defeito.md | +3 / −3 | Alteração esperada (adaptação funcional) |
+| executar-teste.md | +71 / −33 | Alteração esperada (adaptação funcional + regras novas, rodadas 3 e 4) |
+| gerar-defeito.md | +5 / −3 | Alteração esperada (adaptação funcional) |
 | gerar-mapa-testes-v3.md | +96 / −20 | Alteração esperada (adaptação funcional + coluna `Pré-requisitos`, rodada 4) |
 | homologar-release.md | +2 / −2 | Alteração esperada (adaptação funcional) |
 | priorizar-automacao.md | +6 / −6 | Alteração esperada (adaptação funcional) |

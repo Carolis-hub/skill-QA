@@ -303,7 +303,7 @@ index 02df567..d7348b7 100644
  3. Se a busca não encontrar nenhuma página relacionada, não conclua automaticamente que não existe documentação — chame `mcp__azure-devops__list_wiki_pages` para navegar a árvore e checar manualmente se a funcionalidade está descrita em uma página com nome que a busca de texto não capturou.
  
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/executar-teste.md b/skills-qa-smartshare/skills-qa-smartshare/skills/executar-teste.md
-index a34f35c..e600d26 100644
+index a34f35c..ed81777 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/executar-teste.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/executar-teste.md
 @@ -7,8 +7,8 @@ Executar os testes da User Story do Azure DevOps a partir de **$ARGUMENTS**.
@@ -438,7 +438,7 @@ index a34f35c..e600d26 100644
  
  1. `mcp__playwright__browser_navigate` para a URL de login.
  2. `mcp__playwright__browser_snapshot` para confirmar que a tela carregou.
-@@ -227,6 +234,16 @@ Para cada cenário, na ordem:
+@@ -227,6 +234,18 @@ Para cada cenário, na ordem:
     Para todo step `Falhou`, **registrar o caminho local do arquivo de screenshot** retornado por `browser_take_screenshot` (ex.: `.playwright-mcp\page-2026-09-04T18-09-58-660Z.png`) na linha da tabela do Step 5, não só a palavra "screenshot". Esse caminho é o que permite à `/gerar-defeito` anexar a evidência ao Bug depois — sem ele, a evidência visual se perde ao fim da conversa/sessão do navegador.
  8. Se a sessão expirar no meio da execução (indício: redirecionado para tela de login), refazer o login (Step 4.1) e **retomar do mesmo step**, registrando no log que houve reautenticação — isso não conta como falha do cenário.
  
@@ -451,11 +451,13 @@ index a34f35c..e600d26 100644
 +3. **Toda divergência registrada precisa dos dois prints** (esperado e dev), lado a lado. Divergência sem os dois prints não entra no relatório: capture o que falta ou registre como "não comparado (motivo)". Divergência de comportamento (ex.: campo que deveria ser multilinha, Esc que não fecha) também leva o print do dev mostrando o comportamento e o do protótipo mostrando o esperado.
 +4. Gere a página `$CICLOS_DIR\US-<ID>\execucoes\divergencias-prototipo_<AAAA-MM-DD>.html` com um bloco por divergência (id D1, D2..., descrição objetiva do que difere e qual print é de qual lado: "Esperado (protótipo)" e "Dev"), mais a lista do que confere ("Conforme"). A página deve ser **autocontida**: embuta as imagens no próprio HTML (`src="data:image/png;base64,..."`), porque caminho relativo não abre em visualizadores que carregam só o arquivo (observado em 2026-10-26: "não consigo visualizar as imagens"). Mantenha os PNGs na pasta de evidências como cópia.
 +5. Itens do próprio protótipo que a US manda ignorar (ex.: criar/excluir) não são divergência: cite-os numa nota. O resultado do cenário segue o texto do mapa (em geral "divergências registradas para validação da PM"); a decisão de entrar no escopo é da PM.
++6. **Toda vez que houver divergência de protótipo, gere o artefato HTML** (item 4), mesmo que haja uma só, e referencie-o na seção "Divergências de protótipo" do relatório. Modelo de referência (estrutura, estilo e blocos D1, D2...): `C:\skills-qualidade\ciclos-executados\US-163012\execucoes\divergencias-prototipo_2026-10-26.html`.
++7. **Defeito: um único Bug com todas as divergências de protótipo**, não um Bug por divergência. Motivo: muitas alterações de protótipo são pequenas e não precisam de tasks separadas. O Bug traz uma lista numerada (D1, D2...) com, para cada item, o esperado (protótipo) e o obtido (dev), e anexa **o HTML do item 4** mais os PNGs dos dois lados de cada divergência. Divergência que também é falha funcional (comportamento errado, não só aparência: ex.: campo que deveria ser multilinha, Esc que não fecha) continua com a análise de `/analise-falha` e, se a usuária preferir, pode ir em Bug próprio; na dúvida, pergunte antes de criar. A severidade sugerida do Bug único é a do item mais grave. A criação segue o `/gerar-defeito` (aprovação explícita antes de escrever).
 +
  ### 4.3 — Ações de alto risco sinalizadas no Step 3
  
  Antes de cada uma, pare e pergunte: **"Confirma execução do step `<id>` (`<ação>`), que foi classificado como irreversível/alto risco?"**. Só prossiga com confirmação explícita para aquele step específico.
-@@ -280,12 +297,31 @@ Se `$MODO == "B"`, acrescente logo abaixo do cabeçalho:
+@@ -280,12 +299,31 @@ Se `$MODO == "B"`, acrescente logo abaixo do cabeçalho:
  ## Steps que pararam por ação de alto risco
  ...
  
@@ -487,7 +489,7 @@ index a34f35c..e600d26 100644
  ```
  
  Se o Step 4.5 não encontrou nenhuma divergência, escreva `Nenhuma divergência encontrada — double-check confirmou todas as classificações.` no lugar da tabela. Se o double-check não pôde rodar (Step 4.5), escreva isso explicitamente aqui em vez de omitir a seção.
-@@ -311,7 +347,7 @@ execução parou cedo por bloqueio de ambiente/credencial) acrescente uma linha
+@@ -311,7 +349,7 @@ execução parou cedo por bloqueio de ambiente/credencial) acrescente uma linha
  em `~/.claude/docs/projetos/skills-qa/LOG-ACOES.md` (via `Edit`, nunca sobrescrevendo o arquivo):
  
  ```
@@ -496,7 +498,7 @@ index a34f35c..e600d26 100644
  ```
  
  Se `$MODO == "B"` (reteste seletivo pós-bug), use este formato em vez do padrão acima:
-@@ -338,16 +374,16 @@ efeito no ambiente e deve ficar auditável.
+@@ -338,16 +376,16 @@ efeito no ambiente e deve ficar auditável.
  
  ## Troubleshooting
  
@@ -517,7 +519,7 @@ index a34f35c..e600d26 100644
 +- **Valor sensível que a tela não mostra (ex.: token do parâmetro 109):** o backup (Step 3.6) vem de uma tela de consulta que o exiba (Detalhar do Clássico) ou de `SELECT` somente leitura. Sem nenhuma dessas fontes, o original não é recuperável: o cenário depende da autorização explícita da usuária (Step 4.3) ou fica `NAO EXECUTADO`. A restauração de segredo é feita pela usuária (Step 4.4, item 2).
  - **Auto-detecção não reabre Bugs reabertos.** Se um Bug marcado com `"Reteste (Modo B)"` for reaberto depois (voltou de `Done` para `Active`/`New` porque o fix não era completo), a auto-detecção do Step 1/passo 4 só olha Bugs em estado "corrigido" — um Bug reaberto não aparece como candidato até ser corrigido de novo e voltar pro estado "Done". O marcador antigo no comentário fica obsoleto (refere-se ao fix anterior), mas isso não trava nada: quando o Bug voltar a "Done", ele reaparece como candidato (o filtro é por estado atual, não por ausência total do marcador em qualquer comentário — releia com atenção o texto de cada comentário se houver mais de um antes de decidir se já foi retestado desta vez).
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/gerar-defeito.md b/skills-qa-smartshare/skills-qa-smartshare/skills/gerar-defeito.md
-index 3560ac3..1f7a96a 100644
+index 3560ac3..fb27a14 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/gerar-defeito.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/gerar-defeito.md
 @@ -6,7 +6,7 @@ Gerar o defeito a partir de **$ARGUMENTS**.
@@ -529,7 +531,16 @@ index 3560ac3..1f7a96a 100644
  
  Este comando é a Skill 6 (Geração de Defeito). Ele **depende de uma análise de falha com veredito `SIM`** — de `/analise-falha`, já rodada nesta conversa, ou de informação equivalente fornecida explicitamente pelo usuário agora. Nunca inventa contexto, e nunca cria o item no Azure DevOps sem confirmação explícita do usuário.
  
-@@ -78,7 +78,7 @@ Se qualquer um desses campos não puder ser preenchido com uma fonte real, escre
+@@ -35,6 +35,8 @@ A partir do relatório de `/analise-falha` (reaproveitar diretamente) ou do que
+ - **Versão** — build/commit/PR, se conhecido; senão `Informação não encontrada / necessita validação.`
+ - **Evidências** — caminho(s) de arquivo local (screenshot) e/ou trecho de evidência de rede (status/headers/corpo), reaproveitados **exatamente como capturados** no relatório de `/executar-teste` (coluna Evidência) ou no que o usuário forneceu. Esta skill nunca recaptura evidência — não abre navegador, não tira screenshot novo. Se não houver caminho de arquivo disponível (ex.: usuário só descreveu o bug em texto), registrar isso e seguir sem anexo (Step 3.5 fica sem o que anexar).
+ 
++**Divergências de protótipo (cenário de paridade visual do `/executar-teste`, Step 4.2b):** gere **um único Bug** com todas as divergências (lista D1, D2..., cada uma com esperado no protótipo × obtido no dev), não um Bug por divergência: muitas são alterações pequenas que não precisam de tasks separadas. Anexe ao Bug o HTML `divergencias-prototipo_<AAAA-MM-DD>.html` e os PNGs dos dois lados. Cenário de origem: o do cenário de paridade (ex.: `#20 do mapa de testes #<MAPA_ID>`). Falha funcional que apareceu junto (comportamento errado, não só visual) segue a análise própria de `/analise-falha`.
++
+ Se qualquer um desses campos não puder ser preenchido com uma fonte real, escreva `Informação não encontrada / necessita validação.` — não complete com suposição para "fechar" o registro.
+ 
+ ---
+@@ -78,7 +80,7 @@ Se qualquer um desses campos não puder ser preenchido com uma fonte real, escre
  ## Step 2 — Criar o Bug via MCP (só após aprovação)
  
  Chame `mcp__azure-devops__create_work_item` com:
@@ -538,7 +549,7 @@ index 3560ac3..1f7a96a 100644
  - `workItemType`: `"Bug"`
  - `title` = título aprovado (com o prefixo `BUG -`)
  - `additionalFields`:
-@@ -87,7 +87,7 @@ Chame `mcp__azure-devops__create_work_item` com:
+@@ -87,7 +89,7 @@ Chame `mcp__azure-devops__create_work_item` com:
  
  ⚠️ **O parágrafo "Cenário de origem" precisa de rótulo fixo no HTML**, exatamente `<p><strong>Cenário de origem:</strong> #21 do mapa de testes #161676</p>` (ajustando os números) — é esse rótulo literal, em negrito, que o `/executar-teste` procura depois via regex para montar o reteste seletivo pós-bug. Não reescrever com sinônimos ("Origem do defeito", "Cenário relacionado" etc.) nem mudar a pontuação do formato `#<N> do mapa de testes #<MAPA_ID>`.
  

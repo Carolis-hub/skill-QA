@@ -35,6 +35,8 @@ A partir do relatório de `/analise-falha` (reaproveitar diretamente) ou do que 
 - **Versão** — build/commit/PR, se conhecido; senão `Informação não encontrada / necessita validação.`
 - **Evidências** — caminho(s) de arquivo local (screenshot) e/ou trecho de evidência de rede (status/headers/corpo), reaproveitados **exatamente como capturados** no relatório de `/executar-teste` (coluna Evidência) ou no que o usuário forneceu. Esta skill nunca recaptura evidência — não abre navegador, não tira screenshot novo. Se não houver caminho de arquivo disponível (ex.: usuário só descreveu o bug em texto), registrar isso e seguir sem anexo (Step 3.5 fica sem o que anexar).
 
+**Divergências de protótipo (cenário de paridade visual do `/executar-teste`, Step 4.2b):** gere **um único Bug** com todas as divergências (lista D1, D2..., cada uma com esperado no protótipo × obtido no dev), não um Bug por divergência: muitas são alterações pequenas que não precisam de tasks separadas. Anexe ao Bug o HTML `divergencias-prototipo_<AAAA-MM-DD>.html` e os PNGs dos dois lados. Cenário de origem: o do cenário de paridade (ex.: `#20 do mapa de testes #<MAPA_ID>`). Falha funcional que apareceu junto (comportamento errado, não só visual) segue a análise própria de `/analise-falha`.
+
 Se qualquer um desses campos não puder ser preenchido com uma fonte real, escreva `Informação não encontrada / necessita validação.` — não complete com suposição para "fechar" o registro.
 
 ---
