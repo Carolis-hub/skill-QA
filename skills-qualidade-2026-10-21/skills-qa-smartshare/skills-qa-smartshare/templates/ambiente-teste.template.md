@@ -31,6 +31,13 @@ ambiente_padrao: HMG
 |---|---|---|---|---|
 | HMG | Claude-adm | <preencher> | A CRIAR | |
 
+## Valores originais (backup)
+
+> O `/executar-teste` (Step 3.6) grava aqui o valor existente de todo campo que o teste vai alterar, e o devolve no Step 4.4. Contém segredos: nunca copiar para relatório, chat, log ou GitHub.
+
+| Ambiente | US | Item (tela/identificador) | Valor original | Sensível (s/n) | Salvo em | Restaurado em |
+|---|---|---|---|---|---|---|
+
 ## Usuários de teste
 
 > Preencha os que já existem. O `/validar-ambiente` acrescenta aqui os que criar (Origem = CRIADO).

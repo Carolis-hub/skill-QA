@@ -165,6 +165,28 @@ Apresente essa triagem ao usuário **antes** de começar a executar, como uma li
 
 ---
 
+## Step 3.6 — Salvar o valor original de todo campo que o teste vai alterar (backup)
+
+Para cada cenário que **grava** sobre um valor que já existe (parâmetro, configuração, campo de cadastro), **antes da primeira escrita** guarde o valor atual, para devolvê-lo ao fim dos testes (Step 4.4). Vale também para cenários que o Step 3 liberou depois de uma confirmação de alto risco.
+
+1. **Liste** no plano da triagem (Step 3) cada item que será alterado: tela/identificador (ex.: parâmetro 109), cenários que o alteram e se o campo é comum ou **sensível/mascarado** (senha, token).
+2. **Leia o valor atual, só leitura, na ordem:** (a) a própria tela ou API quando mostram o valor (campo comum: `GET` de consulta ou o campo preenchido); (b) campo mascarado: outra tela de **consulta** que exiba o valor (ex.: Detalhar no SmartShare Clássico) ou `SELECT` via MCP de banco somente leitura; (c) nenhuma fonte de leitura disponível → o valor não é recuperável: o cenário só segue com autorização explícita da usuária, que aceita perder o original (Step 4.3); sem ela, `NAO EXECUTADO` (categoria "escrita irreversível").
+3. **Grave o backup** na seção "Valores originais (backup)" do `$AMBIENTE_CFG` (`C:\skills-qualidade\config\ambiente-teste.local.md`, fora do sync com o GitHub), via `Edit`, **anexando**: `Ambiente | US | Item (tela/identificador) | Valor original | Sensível (s/n) | Salvo em | Restaurado em`. Confirme o backup relendo a linha gravada **antes** de alterar o campo. **Nunca** copie o valor original (nem o de teste de campo sensível) para o relatório, o chat, o LOG-ACOES, o work item ou o repositório; no relatório vai só "valor original salvo no backup, linha N".
+4. Backup não confirmado → **não altere** o campo.
+
+---
+
+## Step 4.4 — Restaurar os valores originais (ao fim da execução)
+
+Depois do último cenário e **antes do Step 4.5/5**, e também quando a execução parar cedo (ambiente indisponível, credencial, decisão da usuária), devolva cada item do backup do Step 3.6:
+
+1. **Campo comum:** regrave o valor original pela mesma tela do teste, **reabra e compare** com o backup. Igual → preencha "Restaurado em" com a data/hora. Diferente ou falha → registre o item em "Valores a restaurar manualmente" do relatório.
+2. **Campo sensível/mascarado (senha, token):** a skill **não digita sozinha** um segredo que ela leu do sistema. Informe à usuária o caminho do backup e a linha, e peça que ela **cole o valor no campo** (ou cole o valor no chat para a skill restaurar, caso ela autorize). Depois da restauração, confirme o que for observável (ex.: a quantidade de caracteres mascarados igual à do original) e preencha "Restaurado em".
+3. **Não restaurável** (ex.: o valor original nunca foi lido, porque a usuária aceitou perder): registre como "Valor original perdido, aceito pela usuária em <data>".
+4. Item de backup restaurado e confirmado permanece na tabela (histórico); só o valor do campo sensível é apagado do arquivo depois da confirmação, deixando `<restaurado e apagado>`.
+
+---
+
 <!-- Seção "Preparação de dados CNAB (Cobrança Integrada)" removida (adaptação SmartShare): era específica de remessas bancárias CNAB240/CNAB400 do produto anterior e não se aplica ao SmartShare (ECM/BPM). Se o SmartShare tiver preparação de massa de dados equivalente (ex.: geração de arquivo de entrada específico), documentar aqui uma seção nova quando surgir o caso. -->
 
 ---
@@ -265,6 +287,14 @@ Se `$MODO == "B"`, acrescente logo abaixo do cabeçalho:
 ## Steps que pararam por ação de alto risco
 ...
 
+## Valores alterados e restaurados (Step 3.6 / 4.4)
+| Item | Cenários | Sensível | Backup (linha no `$AMBIENTE_CFG`) | Restaurado? | Observação |
+|---|---|---|---|---|---|
+(o valor nunca aparece aqui; ou `Nenhum valor existente foi alterado`)
+
+## Valores a restaurar manualmente
+- <item>: <o que a usuária precisa fazer, com o caminho do backup>
+
 ## Steps não executados (necessitam decisão humana)
 - <step>: <motivo>
 
@@ -339,4 +369,5 @@ efeito no ambiente e deve ficar auditável.
 - **Modo B — heurística por categoria pode errar por falta.** Já aconteceu (US #157195/Bug #161821): a origem era categoria `CONCORRENCIA`, mas o fix mexeu num método de validação compartilhado por `VALIDACOES DE CAMPOS` e pelo happy path. É exatamente por isso que o Step 8 do Modo B nunca executa sem mostrar `$FIX_FILES` e pedir confirmação humana antes — não remover essa checagem para "agilizar".
 - **Auto-detecção (Modo A, passo 4) depende do marcador `"Reteste (Modo B)"` no comentário do Bug.** Bugs retestados manualmente (sem passar pelo Modo B — ex.: alguém confirmou o fix direto na UI, sem rodar esta skill) não têm esse marcador e continuarão sendo oferecidos como candidato a cada nova chamada do Modo A para a mesma US. Isso não é um erro — é o comportamento esperado na ausência do marcador; se a usuária já confirmou manualmente, ela pode simplesmente responder "ignorar" quando a skill oferecer, ou postar o comentário com o marcador manualmente no Bug via UI.
 - **"Não tentei ainda"/"só não fiz por tempo" numa linha de relatório é a mesma falha do 24/09, só disfarçada.** Aconteceu de novo em US #161881 (2026-09-25, cenário #13 "valor já zero não gera registro"): o relatório de pendências dizia literalmente "não tentei ainda — dava pra testar em outra conta... só não fiz por tempo". A usuária corrigiu apontando o print exato. A tentativa (buscar 1-2 contas a mais e conferir o histórico) era trivial e foi feita depois em segundos via leitura no banco. Regra: qualquer frase desse tipo, mesmo em rascunho interno, é o gatilho para tentar na hora — nunca vira uma linha de relatório esperando aprovação pra pular.
+- **Valor sensível que a tela não mostra (ex.: token do parâmetro 109):** o backup (Step 3.6) vem de uma tela de consulta que o exiba (Detalhar do Clássico) ou de `SELECT` somente leitura. Sem nenhuma dessas fontes, o original não é recuperável: o cenário depende da autorização explícita da usuária (Step 4.3) ou fica `NAO EXECUTADO`. A restauração de segredo é feita pela usuária (Step 4.4, item 2).
 - **Auto-detecção não reabre Bugs reabertos.** Se um Bug marcado com `"Reteste (Modo B)"` for reaberto depois (voltou de `Done` para `Active`/`New` porque o fix não era completo), a auto-detecção do Step 1/passo 4 só olha Bugs em estado "corrigido" — um Bug reaberto não aparece como candidato até ser corrigido de novo e voltar pro estado "Done". O marcador antigo no comentário fica obsoleto (refere-se ao fix anterior), mas isso não trava nada: quando o Bug voltar a "Done", ele reaparece como candidato (o filtro é por estado atual, não por ausência total do marcador em qualquer comentário — releia com atenção o texto de cada comentário se houver mais de um antes de decidir se já foi retestado desta vez).
