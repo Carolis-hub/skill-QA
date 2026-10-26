@@ -24,7 +24,7 @@ Linhas +/− medidas com `git diff --no-index --numstat` em 2026-10-22.
 | gerar-mapa-testes-v3.md | +96 / −20 | Alteração esperada (adaptação funcional + coluna `Pré-requisitos`, rodada 4) |
 | homologar-release.md | +2 / −2 | Alteração esperada (adaptação funcional) |
 | priorizar-automacao.md | +6 / −6 | Alteração esperada (adaptação funcional) |
-| validar-ambiente.md | +278 / −0 | Arquivo adicionado (nova skill, rodada 4; ajustada nas rodadas 5, 8, 9 e 10) |
+| validar-ambiente.md | +280 / −0 | Arquivo adicionado (nova skill, rodada 4; ajustada nas rodadas 5, 8, 9 e 10) |
 
 ## Reconciliação com REGISTRO_ALTERACOES.md
 
