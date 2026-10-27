@@ -185,7 +185,53 @@ Se `$ANALISE_PONTOS` for muito genérico (ex.: "ajustes no back-end"), não crie
 - Informação não encontrada / necessita validação: ...
 ```
 
-Finalize perguntando se o usuário quer seguir para `/gerar-mapa-testes-v2 <ID>` — não encadeie automaticamente.
+Antes de finalizar, execute o Step 4.5 (registrar pendências). Finalize perguntando se o usuário quer seguir para `/gerar-mapa-testes-v2 <ID>` — não encadeie automaticamente.
+
+---
+
+## Step 4.5 — Registrar pendências (arquivo separado)
+
+Ao terminar a validação da US, decida se existe pendência a registrar e, se existir, crie ou atualize um arquivo na pasta `pendencias-skills`.
+
+### Quando criar
+- Crie o arquivo somente se a validação encontrar **pelo menos um ponto pendente**. Ponto pendente é qualquer um destes:
+  - incoerência ou divergência entre a análise do dev e o que a US pede;
+  - item em aberto, incompleto, só com título ou seção vazia;
+  - CA da US não coberto pela análise;
+  - item pedido na US (ex.: "investigação técnica sugerida") que a análise não respondeu (itens `Parcial` ou `Não respondida` da validação das pendências do dev);
+  - impacto oculto (outro sistema, Clássico, mensagens, nomes de arquivo, comportamento legado);
+  - erro técnico visível (ex.: sintaxe SQL que difere entre SQL Server e Oracle);
+  - risco de segurança (permissão, ownership em endpoints, exposição de dados);
+  - telas, APIs, regras ou integrações impactadas sem identificação;
+  - campos vazios (Alteração de Classe/Tela, Caso de Teste), Análise Review em "New", tasks de CR ou Mapa ausentes.
+- Dúvidas de CA e de descrição que dependem de resposta do dev ou da PM (CA contraditório, "a confirmar", termo ambíguo) ficam **só no chat**, não entram no arquivo.
+- Se **não houver nenhum ponto pendente**, **não crie** o arquivo.
+
+### Onde e como
+- Caminho: `C:\skills-qualidade\pendencias-skills\US <ID>.txt` (caminho absoluto, nunca relativo ao diretório de trabalho). Crie a pasta se não existir.
+- Um arquivo por US. Se o arquivo da US já existir, **sobrescreva** com a lista atualizada, preservando o bloco "Resolvidos pela resposta do dev" e o bloco "Desconsiderados a pedido" já existentes. Nunca crie um segundo arquivo para a mesma US.
+- Texto puro, UTF-8, sem markdown.
+- Conteúdo **bem resumido**: só título, ID, dev e os itens pendentes, **uma linha por item**. Sem contexto longo, sem descrição da US, sem casos de teste.
+
+Formato:
+
+```
+US <ID>
+Título: <título da US>
+Dev da análise: <nome do dev que fez a análise>
+
+Itens pendentes na análise:
+1. <pendência em uma linha>
+2. <pendência em uma linha>
+```
+
+- Os itens são os mesmos destacados ao usuário no relatório e no aviso ao dev, escritos de forma curta.
+- Se a tarefa não tem ID no Azure DevOps, use `Task <nº> - <assunto>.txt` e escreva "(sem ID no Azure DevOps)" no cabeçalho.
+
+### Ciclo de vida
+- Quando o dev ou a PM responder, atualize o arquivo: tire os itens resolvidos da lista e mova-os para um bloco ao final, "Resolvidos pela resposta do dev (<data>)". Itens que a pessoa pediu para desconsiderar vão no bloco "Desconsiderados a pedido".
+- Se todos os itens forem resolvidos, avise a pessoa e **pergunte se o arquivo pode ser apagado**. Não apague sem confirmação.
+- No resumo final da execução, informe o caminho do arquivo criado ou atualizado. Se não criou arquivo, diga que não houve pendência.
 
 ---
 
