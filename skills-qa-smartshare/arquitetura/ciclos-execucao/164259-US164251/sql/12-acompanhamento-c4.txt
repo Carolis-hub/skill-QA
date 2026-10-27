@@ -1,0 +1,34 @@
+[16:03:03] montagem: 1;40777;2026-10-26 16:03:03.540
+16:03:03 | fila_job18=40777:st3:QA:criado 15:53:03 | dumps_job18_desde_montagem=-
+16:03:09 | fila_job18=40777:st3:QA:criado 15:53:03 | dumps_job18_desde_montagem=-
+16:03:14 | fila_job18=40777:st3:QA:criado 15:53:03 | dumps_job18_desde_montagem=-
+16:03:20 | fila_job18=40777:st3:QA:criado 15:53:03 | dumps_job18_desde_montagem=-
+16:03:25 | fila_job18=40777:st3:QA:criado 15:53:03 | dumps_job18_desde_montagem=-
+16:03:30 | fila_job18=40777:st3:QA:criado 15:53:03 | dumps_job18_desde_montagem=-
+16:03:36 | fila_job18=40777:st3:QA:criado 15:53:03 | dumps_job18_desde_montagem=-
+16:03:41 | fila_job18=40777:st3:QA:criado 15:53:03 | dumps_job18_desde_montagem=-
+16:03:46 | fila_job18=40777:st3:QA:criado 15:53:03 | dumps_job18_desde_montagem=-
+16:03:52 | fila_job18=40777:st3:QA:criado 15:53:03 | dumps_job18_desde_montagem=-
+16:03:57 | fila_job18=40777:st3:QA:criado 15:53:03 | dumps_job18_desde_montagem=-
+16:04:03 | fila_job18=vazia | dumps_job18_desde_montagem=40777:st3:QA:dump 16:04:02
+16:04:08 | fila_job18=40786:st1:real:criado 16:04:04 | dumps_job18_desde_montagem=-
+16:04:13 | fila_job18=40786:st1:real:criado 16:04:04 | dumps_job18_desde_montagem=-
+16:04:19 | fila_job18=40786:st1:real:criado 16:04:04 | dumps_job18_desde_montagem=-
+16:04:24 | fila_job18=40786:st1:real:criado 16:04:04 | dumps_job18_desde_montagem=-
+16:04:29 | fila_job18=40786:st1:real:criado 16:04:04 | dumps_job18_desde_montagem=-
+16:04:35 | fila_job18=40786:st1:real:criado 16:04:04 | dumps_job18_desde_montagem=-
+16:04:40 | fila_job18=40786:st1:real:criado 16:04:04 | dumps_job18_desde_montagem=-
+16:04:46 | fila_job18=40786:st1:real:criado 16:04:04 | dumps_job18_desde_montagem=-
+16:04:51 | fila_job18=40786:st1:real:criado 16:04:04 | dumps_job18_desde_montagem=-
+16:04:56 | fila_job18=40786:st1:real:criado 16:04:04 | dumps_job18_desde_montagem=-
+16:05:02 | fila_job18=40786:st1:real:criado 16:04:04 | dumps_job18_desde_montagem=-
+16:05:07 | fila_job18=vazia | dumps_job18_desde_montagem=-
+16:05:12 | fila_job18=vazia | dumps_job18_desde_montagem=-
+16:05:18 | fila_job18=vazia | dumps_job18_desde_montagem=-
+16:05:23 | fila_job18=vazia | dumps_job18_desde_montagem=-
+16:05:28 | fila_job18=40791:st1:real:criado 16:05:23 | dumps_job18_desde_montagem=-
+16:05:34 | fila_job18=40791:st1:real:criado 16:05:23 | dumps_job18_desde_montagem=-
+16:05:39 | fila_job18=40791:st1:real:criado 16:05:23 | dumps_job18_desde_montagem=-
+16:05:45 | fila_job18=40791:st1:real:criado 16:05:23 | dumps_job18_desde_montagem=-
+16:05:50 | fila_job18=40791:st1:real:criado 16:05:23 | dumps_job18_desde_montagem=-
+fim

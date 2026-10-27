@@ -86,6 +86,16 @@ Se for `NÃO`, explique exatamente o que precisaria ser coletado (ex.: reproduzi
 
 ---
 
+## Step 4 — Registrar a etapa no ciclo de execução
+
+Depois de montar o relatório final e antes da pergunta final de encadeamento, siga o procedimento de
+`D:\Skills QA - Share\skill-QA\skills-qa-smartshare\arquitetura\ciclos-execucao\COMO-REGISTRAR.md` com `<etapa>` = `analise-falha`: grave o `NN-analise-falha.md` com o
+relatório completo, atualize o `README.md` do ciclo da task e o índice `ciclos-execucao\README.md`.
+Inclua o veredito (SIM/NÃO) e, se NÃO, o que falta coletar; registre em Pendências do README do ciclo.
+Isso é escrita **local**, não no Azure DevOps, e não muda o caráter somente leitura desta skill. Se a gravação falhar, avise no chat; isso não bloqueia nem desfaz a skill.
+
+---
+
 ## Troubleshooting
 
 - Se a "falha" reportada for, na verdade, um cenário marcado `HIPOTESE:` no mapa de testes que nunca foi confirmado como regra real, o veredito correto é `NÃO` — a causa é falta de regra definida, não um defeito de implementação.

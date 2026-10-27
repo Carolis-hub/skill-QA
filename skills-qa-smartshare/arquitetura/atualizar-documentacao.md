@@ -82,11 +82,11 @@ Para cada página impactada, mostrar:
 Após publicar, releia a página (`get_wiki_page`) para confirmar que o conteúdo publicado bate com o que foi aprovado — não presumir sucesso só pela ausência de erro na chamada.
 
 Imediatamente após confirmar a publicação **desta página**, acrescente uma linha ao final da
-tabela em `~/.claude/docs/projetos/skills-qa/LOG-ACOES.md` (via `Edit`, nunca sobrescrevendo o
+tabela em `D:\Skills QA - Share\skill-QA\skills-qa-smartshare\arquitetura\log\LOG-ACOES.md` (via `Edit`, nunca sobrescrevendo o
 arquivo) — uma linha por página publicada, não uma linha resumindo todas de uma vez:
 
 ```
-| <data/hora atual, ex.: via `Get-Date -Format "yyyy-MM-dd HH:mm"`> | `/atualizar-documentacao` | Publicação de página de wiki (<criação\|atualização>) | Página `<pagePath>` (wiki `<wikiId>`) → US #<ID> | Sucesso | <nome do usuário que aprovou no chat> | Categoria(s): <...> |
+| <data/hora atual, ex.: via `Get-Date -Format "yyyy-MM-dd HH:mm"`> | `/atualizar-documentacao` | Publicação de página de wiki (<criação\|atualização>) | Página `<pagePath>` (wiki `<wikiId>`) → US #<ID> | Sucesso | <nome do usuário que aprovou no chat> | — | Categoria(s): <...> |
 ```
 
 ---
@@ -105,6 +105,16 @@ arquivo) — uma linha por página publicada, não uma linha resumindo todas de 
 ## Páginas novas sugeridas (não criadas)
 - <pagePath sugerido> — <resumo do que conteria>
 ```
+
+---
+
+## Step 7 — Registrar a etapa no ciclo de execução
+
+Depois de montar o relatório final, siga o procedimento de
+`D:\Skills QA - Share\skill-QA\skills-qa-smartshare\arquitetura\ciclos-execucao\COMO-REGISTRAR.md` com `<etapa>` = `documentacao`: grave o `NN-documentacao.md` com o
+relatório completo, atualize o `README.md` do ciclo da task e o índice `ciclos-execucao\README.md`.
+Liste as páginas publicadas (path + wiki) na tabela de Artefatos do README do ciclo.
+Isso é escrita **local**, além do registro no log de ações. Se a gravação falhar, avise no chat; isso não bloqueia nem desfaz a skill.
 
 ---
 

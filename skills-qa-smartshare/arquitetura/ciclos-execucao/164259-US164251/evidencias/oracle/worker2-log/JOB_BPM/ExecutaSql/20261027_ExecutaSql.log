@@ -1,0 +1,5 @@
+{"timestamp":"2026-10-27 08:56:38.4803","level":"INFO","logger":"Project.Agent.Worker.Bpm.Jobs.BpmExecJob","module":"JOB_BPM","job":"ExecutaSql","message":"Job ExecutaSql não possui itens ativos para execução."}
+{"timestamp":"2026-10-27 08:57:08.0472","level":"INFO","logger":"Project.Agent.Worker.Bpm.Jobs.BpmExecJob","module":"JOB_BPM","job":"ExecutaSql","message":"Job ExecutaSql não possui itens ativos para execução."}
+{"timestamp":"2026-10-27 08:57:38.0583","level":"INFO","logger":"Project.Agent.Worker.Bpm.Jobs.BpmExecJob","module":"JOB_BPM","job":"ExecutaSql","message":"Job ExecutaSql não possui itens ativos para execução."}
+{"timestamp":"2026-10-27 08:58:08.0355","level":"INFO","logger":"Project.Agent.Worker.Bpm.Jobs.BpmExecJob","module":"JOB_BPM","job":"ExecutaSql","message":"Job ExecutaSql não possui itens ativos para execução."}
+{"timestamp":"2026-10-27 08:58:37.9988","level":"INFO","logger":"Project.Agent.Worker.Bpm.Jobs.BpmExecJob","module":"JOB_BPM","job":"ExecutaSql","message":"Job ExecutaSql não possui itens ativos para execução."}

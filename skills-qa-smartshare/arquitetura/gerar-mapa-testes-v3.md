@@ -320,16 +320,26 @@ if (Test-Path $WORK_DIR) { Remove-Item -LiteralPath $WORK_DIR -Recurse -Force -E
 ## Step 8 — Registrar no log de ações (governança)
 
 Depois de reportar o Step 7, acrescente uma linha ao final da tabela em
-`~/.claude/docs/projetos/skills-qa/LOG-ACOES.md` (via `Edit`, nunca sobrescrevendo o arquivo):
+`D:\Skills QA - Share\skill-QA\skills-qa-smartshare\arquitetura\log\LOG-ACOES.md` (via `Edit`, nunca sobrescrevendo o arquivo):
 
 ```
-| <data/hora atual, ex.: via `Get-Date -Format "yyyy-MM-dd HH:mm"`> | `/gerar-mapa-testes-v3` | Publicação de mapa de testes (<criação\|atualização> do card) | Card #<MAPA_CARD_ID> → US #<WI_ID> | Sucesso | <nome do usuário que aprovou no chat> | <nº de cenários publicados> cenários, dimensões: <lista> |
+| <data/hora atual, ex.: via `Get-Date -Format "yyyy-MM-dd HH:mm"`> | `/gerar-mapa-testes-v3` | Publicação de mapa de testes (<criação\|atualização> do card) | Card #<MAPA_CARD_ID> → US #<WI_ID> | Sucesso | <nome do usuário que aprovou no chat> | — | <nº de cenários publicados> cenários, dimensões: <lista> |
 ```
 
 Se o Step 4.5 registrou uma sobrescrita de conteúdo existente, mencione isso explicitamente na
 coluna Observações (ex.: "sobrescreveu mapa anterior do card, com confirmação do usuário"). Se o Step 6.5
 rodou, mencione também quantas hipóteses foram notificadas via comentário na história (ou que o comentário
 falhou, se for o caso).
+
+---
+
+## Step 9 — Registrar a etapa no ciclo de execução
+
+Depois de montar o relatório final, siga o procedimento de
+`D:\Skills QA - Share\skill-QA\skills-qa-smartshare\arquitetura\ciclos-execucao\COMO-REGISTRAR.md` com `<etapa>` = `mapa-testes`: grave o `NN-mapa-testes.md` com o
+relatório completo, atualize o `README.md` do ciclo da task e o índice `ciclos-execucao\README.md`.
+Inclua a tabela de cenários aprovada (em Markdown) e acrescente o card do mapa e o comentário de hipóteses (se houver) na tabela de Artefatos do README do ciclo.
+Isso é escrita **local**, além do registro no log de ações. Se a gravação falhar, avise no chat; isso não bloqueia nem desfaz a skill.
 
 ---
 

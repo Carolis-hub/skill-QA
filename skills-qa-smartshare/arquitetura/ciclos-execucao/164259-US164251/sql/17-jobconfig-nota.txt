@@ -1,0 +1,2 @@
+Nota (2026-10-26 16:53): no momento do backup o JOB_CONFIG ja estava alterado pelo usuario (job 9 Max_Paralelo=2, job 19 Ativo=1).
+Valores originais, lidos as 16:41: job 9 Ativo=1 Max_Paralelo=1; job 19 Ativo=0 Max_Paralelo=2; job 32 Schedule_Type=2 Cron='0 0 0 * * ?' Max_Paralelo=1.

@@ -1,0 +1,5 @@
+Id;Modulo;Job;Max_Tentativas;Politica_Backoff;Max_Paralelo;Lease_Segundos;Schedule_Type;Interval_Ms;TimeZone_Id;Cron_Expression;Misfire_Policy;Params_Json;Ativo;Batch_Size;Calcular_Proxima_Execucao_Timer
+--;------;---;--------------;----------------;------------;--------------;-------------;-----------;-----------;---------------;--------------;-----------;-----;----------;-------------------------------
+8;1;9;5;0;2;60;1;60000;America/Sao_Paulo;NULL;0;{"legacy":{"StStatusNotify":"false","VlTempoNotificacaoWF":"120000","VlTempoRecebimentoNotificacaoWF":"180000"}};1;50;0
+33;1;19;2;0;2;60;1;10000;America/Sao_Paulo;NULL;0;{"qa":"REPRODUCAO_MANUAL_BUG1_EXECUTASQL"};1;10;0
+24;1;32;5;0;1;60;2;0;America/Sao_Paulo;0 0 0 * * ?;0;{"note":"Legado: EnviaAlertaFluxo 1x/dia em hor\u00E1rio configurado (fallback 00:00).","legacy":{"DtEnviaAlerta":"1900-01-01T00:00:00"}};1;50;1

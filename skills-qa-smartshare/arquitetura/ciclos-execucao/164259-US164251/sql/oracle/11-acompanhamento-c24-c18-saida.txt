@@ -1,0 +1,34 @@
+
+ ID_ORIGEM	   ST	    TENT CHAVE_UNICA				       QT_DUMP
+---------- ---------- ---------- ------------------------------------------ ----------
+     30017	    3	       0 qa-us164251-ora-c24-01 			     1
+     30018	    3	       0 qa-us164251-ora-c24-02 			     1
+     30019	    3	       0 qa-us164251-ora-c24-03 			     1
+     30020	    3	       0 qa-us164251-ora-c24-04 			     1
+     30021	    3	       0 qa-us164251-ora-c24-05 			     1
+     30022	    3	       0 qa-us164251-ora-c24-06 			     1
+     30023	    3	       0 qa-us164251-ora-c24-07 			     1
+     30024	    3	       0 qa-us164251-ora-c24-08 			     1
+     30025	    3	       0 qa-us164251-ora-c24-09 			     1
+     30026	    3	       0 qa-us164251-ora-c24-10 			     1
+     30027	    3	       0 qa-us164251-ora-c24-11 			     1
+     30028	    3	       0 qa-us164251-ora-c24-12 			     1
+     30029	    3	       1 qa-us164251-ora-c18-falha-para-repetir 	     1
+
+13 rows selected.
+
+
+	ID	  JOB	      ST       TENT CHAVE_UNICA 			       ATU	    LOCK_ID			     LOCK_EXP
+---------- ---------- ---------- ---------- ------------------------------------------ ------------ -------------------------------- --------
+     29980	   18	       2	  0 qa-us164251-ora-c19-exec		       08:36:39.578 5ED1EE0208C91CABE0630100007F1C6F 08:41:39
+     29986	    9	       3	  0 qa-us164251-ora-c27-null
+     30010	   32	       2	  0 BPM|EnviaAlertaFluxo		       08:53:30.302 60E9516D2C2A014299FEC34500328CDD 08:54:30
+     30030	    8	       1	  3 qa-us164251-ora-c21-fluxo-inexistente      08:52:46.566
+     30031	    9	       1	  0 BPM|NotifyWf|NotificarAlertas	       08:55:32.775
+     30032	    9	       1	  0 BPM|NotifyWf|NotificarMensagemExcecaoAlcad 08:55:32.818
+					    a
+
+     30033	   18	       1	  0 BPM|ExcluiFluxoEmSolicitacao	       08:55:32.945
+
+7 rows selected.
+

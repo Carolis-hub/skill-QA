@@ -1,0 +1,44 @@
+
+	ID	  JOB	      ST CHAVE_UNICA
+---------- ---------- ---------- -------------------------------------------------------
+     16142	   32	       1 BPM|EnviaAlertaFluxo
+
+1 row selected.
+
+
+	ID  ID_ORIGEM	  MODULO	JOB	    ST CHAVE_UNICA					       LOCK_ID				LOCK_EXP DATA_DUMP
+---------- ---------- ---------- ---------- ---------- ------------------------------------------------------- -------------------------------- -------- -----------------------
+     26866	 7663	       1	  7	     6 QA|ORA|IT|MANUAL|441|20260921									 2026-10-27 08:40:13.152
+      4526	 7663	       1	 18	     3 BPM|ExcluiFluxoEmSolicitacao									 2026-09-21 08:53:21.448
+     26867	 9583	       1	 28	     6 QA|ORA|ExecutaWs|HTTP500|fluxo=1643								 2026-10-27 08:40:13.315
+     26868	 9591	       1	 28	     6 QA|ORA|ExecutaWs|CONSULTA_INATIVA|fluxo=1644							 2026-10-27 08:40:13.474
+     26869	29967	       1	  9	     3 BPM|NotifyWf|NotificarAlertas									 2026-10-27 08:40:14.188
+     26871	29968	       1	  9	     3 BPM|NotifyWf|NotificarMensagemExcecaoAlcada							 2026-10-27 08:40:14.862
+     26870	29969	       1	 18	     3 BPM|ExcluiFluxoEmSolicitacao									 2026-10-27 08:40:14.192
+
+7 rows selected.
+
+
+ ID_ORIGEM     MODULO	     JOB	 QT
+---------- ---------- ---------- ----------
+      2941	    1	       9	  2
+      2932	    1	       9	  2
+      2940	    1	       9	  2
+      2937	    1	       9	  2
+      2931	    1	       9	  2
+      2934	    1	       9	  2
+      2938	    1	       9	  2
+      2935	    1	       9	  2
+      2936	    1	       9	  2
+      2939	    1	       9	  2
+      2933	    1	       9	  2
+
+11 rows selected.
+
+
+DUMP_TOTAL DUMP_MAX_ID
+---------- -----------
+     26489	 26871
+
+1 row selected.
+

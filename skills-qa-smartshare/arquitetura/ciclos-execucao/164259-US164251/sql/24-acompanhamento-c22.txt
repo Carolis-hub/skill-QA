@@ -1,0 +1,29 @@
+=== fila e dumps do job 32
+onde;Id;st;tent;Chave_Unica;criado
+----;--;--;----;-----------;------
+JOB_BPM;41064;1;0;BPM|EnviaAlertaFluxo;2026-10-26 17:05:07
+onde;Id_Origem;st;tent;erro;dump
+----;---------;--;----;----;----
+JOB_DUMP;6686;6;0; | Cancelado ap teste autentica嚻o Mailer 2026-08-19;17:02:55:223
+JOB_DUMP;41047;3;0;-;17:02:55:827
+JOB_DUMP;39820;3;0;-;17:03:24:640
+JOB_DUMP;41058;3;0;-;17:04:16:083
+item;total;ultimo_id
+----;-----;---------
+LOG_EMAIL;224;224
+item;qtd
+----;---
+FLUXO_ALERTA_atualizados;9
+item;qtd
+----;---
+FLUXO_ALERTA_ainda_vencidos;13
+=== log EnviaAlertaFluxo desde 17:02
+2026-10-26 17:02:55.3507 | INFO | Job EnviaAlertaFluxo (Id: 6686, ChaveUnica: BPM|EnviaAlertaFluxo|cliente=GuizaoLocal) estava travado com status final 6 e foi movido para JOB_DUMP, por ja ter sido processado anteriormente.
+2026-10-26 17:02:55.9069 | INFO | Job EnviaAlertaFluxo (Id: 41047, ChaveUnica: qa-us164251-c1-enviaalerta-sucesso) estava travado com status final 3 e foi movido para JOB_DUMP, por ja ter sido processado anteriormente.
+2026-10-26 17:02:56.7889 | INFO | Iniciando processamento do Job EnviaAlertaFluxo. Id: 39820, ChaveUnica: BPM|EnviaAlertaFluxo, HashArgumentos: {\
+2026-10-26 17:03:24.6279 | INFO |  ------------------------ INICIO ----------------------\nData: 26/10/2026 17:02\n\nAlerta de Fluxo enviado com sucesso. C贸digo do Fluxo: 130 - C贸digo da Tarefa: 2 - C贸digo do Alerta: 3 - Email: guilherme.borges@selbetti.com.br\nAlerta de Fluxo enviado com s
+2026-10-26 17:03:24.6484 | INFO | Job EnviaAlertaFluxo executado com sucesso. Id: 39820, ChaveUnica: BPM|EnviaAlertaFluxo, HashArgumentos: {\
+2026-10-26 17:03:54.8929 | INFO | Iniciando processamento do Job EnviaAlertaFluxo. Id: 41058, ChaveUnica: BPM|EnviaAlertaFluxo, HashArgumentos: {\
+2026-10-26 17:04:16.0351 | INFO |  ------------------------ INICIO ----------------------\nData: 26/10/2026 17:03\n\nAlerta de Fluxo enviado com sucesso. C贸digo do Fluxo: 130 - C贸digo da Tarefa: 2 - C贸digo do Alerta: 3 - Email: guilherme.borges@selbetti.com.br\nAlerta de Fluxo enviado com s
+2026-10-26 17:04:16.1531 | INFO | Job EnviaAlertaFluxo executado com sucesso. Id: 41058, ChaveUnica: BPM|EnviaAlertaFluxo, HashArgumentos: {\
+2026-10-26 17:04:54.8272 | INFO | Job EnviaAlertaFluxo n茫o possui itens ativos para execu莽茫o.

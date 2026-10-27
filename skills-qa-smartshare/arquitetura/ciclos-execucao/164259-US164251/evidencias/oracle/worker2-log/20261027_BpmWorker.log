@@ -1,0 +1,5 @@
+{"timestamp":"2026-10-27 08:56:34.1123","level":"INFO","logger":"Program","message":"Iniciando aplicação..."}
+{"timestamp":"2026-10-27 08:56:34.2269","level":"DEBUG","logger":"Microsoft.Extensions.Hosting.Internal.Host","message":"Hosting starting"}
+{"timestamp":"2026-10-27 08:56:34.7893","level":"INFO","logger":"Project.Agent.Worker.Bpm.Worker","message":"Iniciando worker/Bpm SHAREGUIZAO"}
+{"timestamp":"2026-10-27 08:56:36.5806","level":"DEBUG","logger":"Microsoft.Extensions.Hosting.Internal.Host","message":"Hosting started"}
+{"timestamp":"2026-10-27 08:56:37.9189","level":"INFO","logger":"Project.Agent.Worker.Bpm.Worker","message":"Finalizado worker/Bpm SHAREGUIZAO"}

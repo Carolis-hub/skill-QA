@@ -1,0 +1,29 @@
+== Acompanhamento #26/#27 — 2026-10-27 07:34:23
+== JOB_BPM/JOB_DUMP antes da limpeza
+t|Id|Job|Job_Status_Id|Chave_Unica|Data_Atualizacao|Lock_Id
+-|--|---|-------------|-----------|----------------|-------
+JOB_BPM|43789|9|3|qa-us164251-c27-data-nula|NULL|NULL
+t|Id_Origem|Job|Job_Status_Id|Chave_Unica|Data_Dump
+-|---------|---|-------------|-----------|---------
+JOB_DUMP|43786|8|3|qa-us164251-c26-sucesso|2026-10-27 07:30:10.897
+JOB_DUMP|43787|8|5|qa-us164251-c26-envenenado|2026-10-27 07:30:10.993
+JOB_DUMP|43788|8|6|qa-us164251-c26-cancelado|2026-10-27 07:30:11.027
+== Log AvancoTemporal (#26)
+2026-10-27 07:30:10.9351 Job AvancoTemporal (Id: 43786, ChaveUnica: qa-us164251-c26-sucesso) estava travado com status final 3 e foi movido para JOB_DUMP, por ja ter sido processado anteriormente.
+2026-10-27 07:30:11.0007 Job AvancoTemporal (Id: 43787, ChaveUnica: qa-us164251-c26-envenenado) estava travado com status final 5 e foi movido para JOB_DUMP, por ja ter sido processado anteriormente.
+2026-10-27 07:30:11.0299 Job AvancoTemporal (Id: 43788, ChaveUnica: qa-us164251-c26-cancelado) estava travado com status final 6 e foi movido para JOB_DUMP, por ja ter sido processado anteriormente.
+== Ciclos do NotifyWf entre 07:29 e 07:34 (linhas 'Iniciando processamento')
+2026-10-27 07:30:11.2229 Id 43781 BPM|NotifyWf|fluxo=139|tarefa=2
+2026-10-27 07:30:12.0113 Id 43782 BPM|NotifyWf|fluxo=165|tarefa=2
+2026-10-27 07:30:12.3966 Id 43783 BPM|NotifyWf|NotificarAlertas
+2026-10-27 07:30:12.6405 Id 43784 BPM|NotifyWf|NotificarMensagemExcecaoAlcada
+2026-10-27 07:31:10.7952 Id 43790 BPM|NotifyWf|fluxo=139|tarefa=2
+2026-10-27 07:31:11.2100 Id 43791 BPM|NotifyWf|fluxo=165|tarefa=2
+2026-10-27 07:31:11.5267 Id 43792 BPM|NotifyWf|NotificarAlertas
+2026-10-27 07:31:11.7425 Id 43793 BPM|NotifyWf|NotificarMensagemExcecaoAlcada
+2026-10-27 07:33:10.5988 Id 43795 BPM|NotifyWf|fluxo=139|tarefa=2
+2026-10-27 07:33:11.0343 Id 43796 BPM|NotifyWf|fluxo=165|tarefa=2
+2026-10-27 07:33:11.4654 Id 43797 BPM|NotifyWf|NotificarAlertas
+2026-10-27 07:33:11.7157 Id 43798 BPM|NotifyWf|NotificarMensagemExcecaoAlcada
+== Ocorrências de 43789 no log do NotifyWf: 0
+== Linhas ERROR (AvancoTemporal, NotifyWf): 0

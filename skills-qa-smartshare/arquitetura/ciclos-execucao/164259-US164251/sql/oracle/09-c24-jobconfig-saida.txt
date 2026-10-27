@@ -1,0 +1,12 @@
+job9 alterado: 1 em 08:53:48.311
+
+PL/SQL procedure successfully completed.
+
+
+       JOB	ATIVO MAX_PARALELO INTERVAL_MS
+---------- ---------- ------------ -----------
+	 9	    1		 2	 60000
+	32	    1		 1	     0
+
+2 rows selected.
+

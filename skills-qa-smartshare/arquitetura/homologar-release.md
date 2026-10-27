@@ -90,7 +90,7 @@ Para cada Test Case selecionado, aplique o mesmo processo do `/executar-teste` (
 
 Esta skill **executa de fato contra HMG** (regressão automatizada + testes de liberação/manual) — mesmo padrão de auditoria do `/executar-teste`, mas aqui a execução representa a **homologação oficial** (Rodada 2), não a validação funcional inicial (Rodada 1, que já foi registrada por `/executar-teste` quando cada história passou por lá individualmente).
 
-Depois do relatório do Step 6, acrescente uma linha por história executada ao final da tabela em `~/.claude/docs/projetos/skills-qa/LOG-ACOES.md` (via `Edit`, nunca sobrescrevendo):
+Depois do relatório do Step 6, acrescente uma linha por história executada ao final da tabela em `D:\Skills QA - Share\skill-QA\skills-qa-smartshare\arquitetura\log\LOG-ACOES.md` (via `Edit`, nunca sobrescrevendo):
 
 ```
 | <data/hora atual> | `/homologar-release` | Execução de regressão/homologação oficial | US #<id> (release: #<id1>, #<id2>, ...) | <resultado desta história: passou/falhou/não executado> | <nome do usuário que aprovou a seleção do Step 3> | 2 (homologação oficial, HOM) | <resumo de 1 linha: falhas críticas encontradas, se houve> |
@@ -148,6 +148,16 @@ Classifique cada falha como:
 - **Aprovada** — todos os testes selecionados foram executados, nenhuma falha crítica, nenhuma ressalva pendente.
 
 Se houver falhas com veredito `SIM` (evidência suficiente) no Step 5, pergunte ao usuário se deseja abrir os defeitos correspondentes via `/gerar-defeito` — não encadear automaticamente, e não fazer isso para todas de uma vez sem revisão individual.
+
+---
+
+## Step 7 — Registrar a etapa no ciclo de execução
+
+Depois de montar o relatório final, siga o procedimento de
+`D:\Skills QA - Share\skill-QA\skills-qa-smartshare\arquitetura\ciclos-execucao\COMO-REGISTRAR.md` com `<etapa>` = `homologacao-release`: grave o `NN-homologacao-release.md` com o
+relatório completo, atualize o `README.md` do ciclo da task e o índice `ciclos-execucao\README.md`.
+A release cobre várias histórias: grave um arquivo `NN-homologacao-release.md` **no ciclo de cada história** executada, com o resultado daquela história e a recomendação geral da release. Se uma história não tiver pasta de ciclo e a sessão não tiver `/task`, pergunte ao usuário o id da task dela.
+Isso é escrita **local**, além do registro no log de ações. Se a gravação falhar, avise no chat; isso não bloqueia nem desfaz a skill.
 
 ---
 

@@ -1,0 +1,52 @@
+
+AGORA_DB
+------------------------------
+2026-10-27 11:39:11.581 +00:00
+
+1 row selected.
+
+
+	ID	  JOB	   ATIVO MAX_PARALELO MAX_TENTATIVAS LEASE_SEGUNDOS SCHEDULE_TYPE INTERVAL_MS CRON_EXPRESSION	 TIMEZONE_ID	      BATCH_SIZE
+---------- ---------- ---------- ------------ -------------- -------------- ------------- ----------- ------------------ -------------------- ----------
+	 5	    7	       1	    1		   5		 60		1      300000						      50
+	 6	    8	       1	    1		   5		 60		1      900000			 America/Sao_Paulo	      50
+	 8	    9	       1	    1		   5		 60		1	60000			 America/Sao_Paulo	      50
+	 9	   16	       1	    1		   5		 60		1	60000			 America/Sao_Paulo	      50
+	28	   18	       1	    1		   5		 60		1	60000			 America/Sao_Paulo	      50
+	29	   19	       1	    1		   5		 60		1	30000			 America/Sao_Paulo	      50
+	 7	   22	       1	    1		   5		 60		1	60000			 America/Sao_Paulo	      50
+	10	   25	       1	    1		   5		 60		1      240000			 America/Sao_Paulo	      50
+	23	   28	       1	    1		   5		 60		1	60000			 America/Sao_Paulo	      50
+	24	   32	       1	    1		   5		 60		2	      0 0 0 * * ?	 America/Sao_Paulo	      50
+	11	   33	       1	    1		   5		 60		1      300000			 America/Sao_Paulo	      50
+	12	   34	       1	    1		   5		 60		1      300000			 America/Sao_Paulo	      50
+
+12 rows selected.
+
+
+	ID	  JOB	      ST       TENT CHAVE_UNICA 						 PROG		     ATU		 LOCK_ID			  LOCK_EXP
+---------- ---------- ---------- ---------- ------------------------------------------------------------ ------------------- ------------------- -------------------------------- -------------------
+      7663	    7	       6	  0 QA|ORA|IT|MANUAL|441|20260921				 2026-09-21 11:54:58 2026-09-21 11:59:55
+      9583	   28	       6	  0 QA|ORA|ExecutaWs|HTTP500|fluxo=1643 			 2026-09-22 14:38:07 2026-09-22 14:40:05
+      9591	   28	       6	  0 QA|ORA|ExecutaWs|CONSULTA_INATIVA|fluxo=1644		 2026-09-22 14:40:32 2026-09-22 14:42:18
+     16142	   32	       1	  0 BPM|EnviaAlertaFluxo					 2026-09-25 12:24:08 2026-09-25 12:24:08
+     29967	    9	       1	  0 BPM|NotifyWf|NotificarAlertas				 2026-10-26 15:17:15 2026-10-26 15:17:15
+     29968	    9	       1	  0 BPM|NotifyWf|NotificarMensagemExcecaoAlcada 		 2026-10-26 15:17:16 2026-10-26 15:17:16
+     29969	   18	       1	  0 BPM|ExcluiFluxoEmSolicitacao				 2026-10-26 15:17:16 2026-10-26 15:17:16
+
+7 rows selected.
+
+
+DUMP_TOTAL DUMP_MAX_ID ULT_DUMP
+---------- ----------- -------------------
+     26483	 26861 2026-10-26 15:17:07
+
+1 row selected.
+
+
+ ID_ORIGEM     MODULO	     JOB   COUNT(*)
+---------- ---------- ---------- ----------
+      7663	    1	      18	  1
+
+1 row selected.
+

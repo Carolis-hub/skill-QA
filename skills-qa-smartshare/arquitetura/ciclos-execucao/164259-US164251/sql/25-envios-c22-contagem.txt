@@ -1,0 +1,5 @@
+=== execucao concluida 17:03:24: enviados=42 erros=0
+      6 fluxo 130 alerta 3;      6 fluxo 131 alerta 3;      6 fluxo 133 alerta 4;      6 fluxo 135 alerta 3;      6 fluxo 900549 alerta 3;      6 fluxo 900550 alerta 7;      6 fluxo 900550 alerta 8;
+=== execucao concluida 17:04:16: enviados=30 erros=0
+      6 fluxo 130 alerta 3;      6 fluxo 133 alerta 4;      6 fluxo 135 alerta 3;      6 fluxo 900549 alerta 3;      6 fluxo 900550 alerta 7;
+=== erros de nivel ERROR (AlertaWF) desde 17:02: 0

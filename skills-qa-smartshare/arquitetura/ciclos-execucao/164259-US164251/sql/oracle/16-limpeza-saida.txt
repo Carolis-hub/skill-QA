@@ -1,0 +1,36 @@
+
+	ID	  JOB	      ST CHAVE_UNICA				       ATU		   LOCK_EXP
+---------- ---------- ---------- --------------------------------------------- ------------------- -------------------
+     29980	   18	       2 qa-us164251-ora-c19-exec		       2026-10-27 08:36:39 2026-10-28 08:41:39
+     29986	    9	       3 qa-us164251-ora-c27-null
+
+2 rows selected.
+
+removidas: 2 em 09:02:45.406
+
+PL/SQL procedure successfully completed.
+
+
+BPM_QA_RESTANTES
+----------------
+	       0
+
+1 row selected.
+
+
+  DUMPS_QA
+----------
+       625
+
+1 row selected.
+
+
+	ID	  JOB	      ST CHAVE_UNICA				       ATU	LOCK_EXP
+---------- ---------- ---------- --------------------------------------------- -------- --------
+     30010	   32	       2 BPM|EnviaAlertaFluxo			       08:53:30 08:54:30
+     30660	    9	       1 BPM|NotifyWf|NotificarAlertas		       09:01:52
+     30661	    9	       1 BPM|NotifyWf|NotificarMensagemExcecaoAlcada   09:01:52
+     30662	   18	       1 BPM|ExcluiFluxoEmSolicitacao		       09:01:53
+
+4 rows selected.
+

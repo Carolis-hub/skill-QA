@@ -1,0 +1,12 @@
+[16:20:11] montagem: 40858;2026-10-26 16:20:11.063
+16:20:12 | JOB_BPM st=1 tent=3 prog=16:19:11 lock=- erro=- | sem dump
+16:21:04 | JOB_BPM st=2 tent=3 prog=16:19:11 lock=16:22:02 erro=- | sem dump
+16:21:28 | JOB_BPM st=4 tent=4 prog=16:25:22 lock=- erro={"occurredAtUtc":"2026-10-26T19:21:22.6892966Z","type":"System.NullReferenceExce | sem dump
+16:25:23 | JOB_BPM st=2 tent=4 prog=16:25:22 lock=16:26:23 erro={"occurredAtUtc":"2026-10-26T19:21:22.6892966Z","type":"System.NullReferenceExce | sem dump
+16:25:40 | fora do JOB_BPM | DUMP st=5 tent=5 dump=16:25:40
+--- log do Worker para o Id 40858
+2026-10-26 16:21:02.6187 | INFO | Iniciando processamento do Job AvancoTemporal. Id: 40858, ChaveUnica: qa-us164251-c21-fluxo-inexistente, HashArgumentos: {\
+2026-10-26 16:21:22.9883 | ERROR | Erro ao executar Job AvancoTemporal. Id: 40858, HashArgumentos: {\
+2026-10-26 16:25:23.1220 | INFO | Iniciando processamento do Job AvancoTemporal. Id: 40858, ChaveUnica: qa-us164251-c21-fluxo-inexistente, HashArgumentos: {\
+2026-10-26 16:25:40.0437 | ERROR | Erro ao executar Job AvancoTemporal. Id: 40858, HashArgumentos: {\
+fim

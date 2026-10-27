@@ -157,6 +157,16 @@ Finalize perguntando se o usuário quer seguir para `/gerar-mapa-testes-v2 <ID>`
 
 ---
 
+## Step 5 — Registrar a etapa no ciclo de execução
+
+Depois de montar o relatório final e antes da pergunta final de encadeamento, siga o procedimento de
+`D:\Skills QA - Share\skill-QA\skills-qa-smartshare\arquitetura\ciclos-execucao\COMO-REGISTRAR.md` com `<etapa>` = `analise-tecnica`: grave o `NN-analise-tecnica.md` com o
+relatório completo, atualize o `README.md` do ciclo da task e o índice `ciclos-execucao\README.md`.
+Quando a skill parar por falta do card `Análise`, registre mesmo assim, com status `Bloqueada — sem card Análise`.
+Isso é escrita **local**, não no Azure DevOps, e não muda o caráter somente leitura desta skill. Se a gravação falhar, avise no chat; isso não bloqueia nem desfaz a skill.
+
+---
+
 ## Troubleshooting
 
 - Card `Análise` existe mas ambos os campos (`Custom.Pontosdeimpacto`, `Custom.CasodeTeste`) vêm vazios → trate como bloqueio (ver seção de pré-requisito), não como "nenhum risco identificado".

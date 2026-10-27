@@ -1,0 +1,9 @@
+
+ ID_ORIGEM	  JOB	      ST       TENT CHAVE_UNICA 				     QT
+---------- ---------- ---------- ---------- ---------------------------------------- ----------
+     29975	    9	       5	  5 qa-us164251-ora-c2-env			      1
+     29979	    9	       3	  0 qa-us164251-ora-c14-dump			      1
+     30006	   32	       3	  0 BPM|EnviaAlertaFluxo			      1
+
+3 rows selected.
+

@@ -1,0 +1,4 @@
+c15: 600 linhas, Ids 30040-30639 montado_em 08:56:54.124
+
+PL/SQL procedure successfully completed.
+

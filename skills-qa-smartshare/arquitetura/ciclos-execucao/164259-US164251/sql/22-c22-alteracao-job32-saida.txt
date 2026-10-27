@@ -1,0 +1,9 @@
+id_c1
+-----
+41047
+job32_alterado
+--------------
+1
+Job;Ativo;Schedule_Type;Interval_Ms;Cron_Expression
+---;-----;-------------;-----------;---------------
+32;1;1;60000;NULL

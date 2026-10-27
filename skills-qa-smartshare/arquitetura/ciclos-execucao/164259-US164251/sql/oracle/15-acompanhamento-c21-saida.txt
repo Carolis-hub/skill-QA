@@ -1,0 +1,15 @@
+
+O	     QT
+---- ----------
+BPM	      0
+DUMP	      1
+
+2 rows selected.
+
+
+ ID_ORIGEM	   ST	    TENT DUMP	      ULTIMO_ERRO
+---------- ---------- ---------- ------------ ------------------------------------------------------------------------------------------------------------------------
+     30030	    5	       5 09:01:49.253 {"occurredAtUtc":"2026-10-27T12:01:49.0356383Z","type":"System.NullReferenceException","message":"Object reference not s
+
+1 row selected.
+

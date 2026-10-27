@@ -1,0 +1,17 @@
+c2-env	     job  9 st 5 Id 29975
+c8-recente   job  9 st 3 Id 29976
+c9-70s	     job 18 st 3 Id 29977
+c10-lock     job  9 st 3 Id 29978
+c14-dump     job  9 st 3 Id 29979
+c14 pre-dump inserido: 1
+c19-exec     job 18 st 2 Id 29980
+c6-sql	     job 19 st 3 Id 29981
+c7-j8	     job  8 st 3 Id 29982
+c26-s3	     job 18 st 3 Id 29983
+c26-s5	     job 18 st 5 Id 29984
+c26-s6	     job 18 st 6 Id 29985
+c27-null     job  9 st 3 Id 29986
+montado_em 2026-10-27 08:41:39.578
+
+PL/SQL procedure successfully completed.
+

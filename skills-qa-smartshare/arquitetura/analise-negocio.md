@@ -132,6 +132,15 @@ Finalize perguntando ao usuário se deseja prosseguir para a análise técnica (
 
 ---
 
+## Step 5 — Registrar a etapa no ciclo de execução
+
+Depois de montar o relatório final e antes da pergunta final de encadeamento, siga o procedimento de
+`D:\Skills QA - Share\skill-QA\skills-qa-smartshare\arquitetura\ciclos-execucao\COMO-REGISTRAR.md` com `<etapa>` = `analise-negocio`: grave o `NN-analise-negocio.md` com o
+relatório completo, atualize o `README.md` do ciclo da task e o índice `ciclos-execucao\README.md`.
+Isso é escrita **local**, não no Azure DevOps, e não muda o caráter somente leitura desta skill. Se a gravação falhar, avise no chat; isso não bloqueia nem desfaz a skill.
+
+---
+
 ## Troubleshooting
 
 - Se a história não tiver critérios de aceite preenchidos, não invente critérios — registre isso na seção "Informações ausentes" e baseie os "Comportamentos esperados" apenas na descrição.

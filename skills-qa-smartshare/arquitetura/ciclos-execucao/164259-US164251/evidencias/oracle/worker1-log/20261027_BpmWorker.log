@@ -1,0 +1,25 @@
+{"timestamp":"2026-10-27 08:40:05.4568","level":"INFO","logger":"Program","message":"Iniciando aplicação..."}
+{"timestamp":"2026-10-27 08:40:05.5516","level":"DEBUG","logger":"Microsoft.Extensions.Hosting.Internal.Host","message":"Hosting starting"}
+{"timestamp":"2026-10-27 08:40:06.2260","level":"INFO","logger":"Project.Agent.Worker.Bpm.Worker","message":"Iniciando worker/Bpm SHAREGUIZAO"}
+{"timestamp":"2026-10-27 08:40:08.8396","level":"DEBUG","logger":"Microsoft.Extensions.Hosting.Internal.Host","message":"Hosting started"}
+{"timestamp":"2026-10-27 08:40:12.2632","level":"INFO","logger":"Project.Agent.Worker.Bpm.Worker","message":"Finalizado worker/Bpm SHAREGUIZAO"}
+{"timestamp":"2026-10-27 08:51:26.1687","level":"INFO","logger":"Program","message":"Iniciando aplicação..."}
+{"timestamp":"2026-10-27 08:51:26.3017","level":"DEBUG","logger":"Microsoft.Extensions.Hosting.Internal.Host","message":"Hosting starting"}
+{"timestamp":"2026-10-27 08:51:27.0430","level":"INFO","logger":"Project.Agent.Worker.Bpm.Worker","message":"Iniciando worker/Bpm SHAREGUIZAO"}
+{"timestamp":"2026-10-27 08:51:28.3424","level":"DEBUG","logger":"Microsoft.Extensions.Hosting.Internal.Host","message":"Hosting started"}
+{"timestamp":"2026-10-27 08:51:30.1927","level":"INFO","logger":"Project.Agent.Worker.Bpm.Worker","message":"Finalizado worker/Bpm SHAREGUIZAO"}
+{"timestamp":"2026-10-27 08:54:24.1077","level":"INFO","logger":"Program","message":"Iniciando aplicação..."}
+{"timestamp":"2026-10-27 08:54:24.2334","level":"DEBUG","logger":"Microsoft.Extensions.Hosting.Internal.Host","message":"Hosting starting"}
+{"timestamp":"2026-10-27 08:54:25.0231","level":"INFO","logger":"Project.Agent.Worker.Bpm.Worker","message":"Iniciando worker/Bpm SHAREGUIZAO"}
+{"timestamp":"2026-10-27 08:54:26.6211","level":"DEBUG","logger":"Microsoft.Extensions.Hosting.Internal.Host","message":"Hosting started"}
+{"timestamp":"2026-10-27 08:54:28.2159","level":"INFO","logger":"Project.Agent.Worker.Bpm.Worker","message":"Finalizado worker/Bpm SHAREGUIZAO"}
+{"timestamp":"2026-10-27 08:59:11.0944","level":"INFO","logger":"Program","message":"Iniciando aplicação..."}
+{"timestamp":"2026-10-27 08:59:11.2139","level":"DEBUG","logger":"Microsoft.Extensions.Hosting.Internal.Host","message":"Hosting starting"}
+{"timestamp":"2026-10-27 08:59:11.7386","level":"INFO","logger":"Project.Agent.Worker.Bpm.Worker","message":"Iniciando worker/Bpm SHAREGUIZAO"}
+{"timestamp":"2026-10-27 08:59:13.1419","level":"DEBUG","logger":"Microsoft.Extensions.Hosting.Internal.Host","message":"Hosting started"}
+{"timestamp":"2026-10-27 08:59:14.4769","level":"INFO","logger":"Project.Agent.Worker.Bpm.Worker","message":"Finalizado worker/Bpm SHAREGUIZAO"}
+{"timestamp":"2026-10-27 09:01:44.0754","level":"INFO","logger":"Program","message":"Iniciando aplicação..."}
+{"timestamp":"2026-10-27 09:01:44.1718","level":"DEBUG","logger":"Microsoft.Extensions.Hosting.Internal.Host","message":"Hosting starting"}
+{"timestamp":"2026-10-27 09:01:44.6944","level":"INFO","logger":"Project.Agent.Worker.Bpm.Worker","message":"Iniciando worker/Bpm SHAREGUIZAO"}
+{"timestamp":"2026-10-27 09:01:46.1621","level":"DEBUG","logger":"Microsoft.Extensions.Hosting.Internal.Host","message":"Hosting started"}
+{"timestamp":"2026-10-27 09:01:47.4651","level":"INFO","logger":"Project.Agent.Worker.Bpm.Worker","message":"Finalizado worker/Bpm SHAREGUIZAO"}

@@ -1,0 +1,35 @@
+
+BPM_RESTANTES
+-------------
+	    0
+
+1 row selected.
+
+
+     DUMPS IDS_DISTINTOS MIN(ID_ORIGEM) MAX(ID_ORIGEM)
+---------- ------------- -------------- --------------
+       600	     600	  30040 	 30639
+
+1 row selected.
+
+
+ID_ORIGEM_DUPLICADO
+-------------------
+		  0
+
+1 row selected.
+
+
+DUMPS_COM_LOCK
+--------------
+	     0
+
+1 row selected.
+
+
+  FALTANDO
+----------
+	 0
+
+1 row selected.
+

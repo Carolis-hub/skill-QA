@@ -1,0 +1,10 @@
+[16:17:31] montagem: 40842;2026-10-26 16:17:31.737
+onde;Id;status;tent;atualizado
+----;--;------;----;----------
+onde;Id_Origem;status;tent;Ultimo_Erro;atualizado;dump
+----;---------;------;----;-----------;----------;----
+JOB_DUMP;40842;3;1;NULL;16:18:02:673;16:18:02:677
+--- log do Worker para o Id 40842
+2026-10-26 16:18:02.6179 | INFO | Iniciando processamento do Job NotifyWf. Id: 40842, ChaveUnica: qa-us164251-c18-falha-para-repetir, HashArgumentos: {\
+2026-10-26 16:18:02.7025 | INFO | Job NotifyWf executado com sucesso. Id: 40842, ChaveUnica: qa-us164251-c18-falha-para-repetir, HashArgumentos: {\
+fim

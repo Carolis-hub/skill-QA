@@ -1,5 +1,5 @@
 ---
-description: Executa de fato, via browser (MCP Playwright), os cenarios do mapa de testes publicado no card "Criar Mapa de Teste" filho de uma User Story do Azure DevOps, comparando resultado obtido vs esperado por cenario e parando para intervencao humana nos casos previstos (credencial, dado ausente, ambiente indisponivel, acao irreversivel). Tambem aceita o ID de um Bug ja corrigido para propor e rodar uma lista seletiva de reteste (regressao proporcional ao fix), em vez de reteste pontual raso ou mapa completo caro — e, quando chamada com o ID da propria US, detecta sozinha Bugs filhos corrigidos ainda sem reteste confirmado e oferece rodar esse reteste seletivo antes do mapa completo.
+description: Executa, no fluxo do time de Arquitetura do Share, os cenarios do mapa de testes publicado no card "Criar Mapa de Teste" filho de uma User Story do Azure DevOps, usando os MCPs conectados e o browser real. Valida obrigatoriamente todos os pre-requisitos do ambiente antes de iniciar qualquer cenario; se faltar um requisito necessario, pausa a execucao e reporta a pendencia. Tambem aceita o ID de um Bug ja corrigido para propor e rodar uma lista seletiva de reteste proporcional ao fix.
 ---
 
 Executar os testes da User Story do Azure DevOps a partir de **$ARGUMENTS**.
@@ -15,6 +15,8 @@ Esta é a Skill 4 (QA Test Executor): recebe o **ID de uma User Story** (Modo A,
 
 Não usamos mais Test Case formal em Test Plan — os mapas de teste vivem sempre no card "Criar Mapa de Teste" anexo à US, e são executados a partir de lá.
 
+Esta versão é a referência da frente **Arquitetura do Share**. Preserve os nomes das variáveis de fluxo e dos MCPs já usados neste arquivo (`$ARGUMENTS`, `$itemId`, `$project`, `$ambiente`, `$MAPA_ITEM`, `$MAPA_ID`, `$STORY_ID`, `$DESCRIPTION_HTML`, `$SCENARIOS`, `$MODO`, `$FIX_FILES` e equivalentes). Não substitua as chamadas MCP por REST, PAT ou acesso alternativo sem orientação explícita do time.
+
 ---
 
 ## Regra fundamental (guardrails)
@@ -22,7 +24,7 @@ Não usamos mais Test Case formal em Test Plan — os mapas de teste vivem sempr
 **As únicas razões válidas para não executar um cenário (`NAO EXECUTADO`) são estas três — nenhuma outra:**
 1. **Dados ou informações insuficientes**, mesmo depois de uma tentativa real de destravar (dado de teste ausente, credencial ausente, resultado esperado indefinido/`HIPOTESE`).
 2. **Problema de ambiente** (indisponível, instável, sessão que não autentica).
-3. **O cenário exige um INSERT/UPDATE/DELETE real no banco de dados** — fora do seu acesso, que é somente leitura.
+3. **O cenário exige `DELETE` direto no banco**, que é proibido, ou outra condição expressamente coberta pela triagem.
 
 Dificuldade de execução, volume de trabalho, tempo gasto, "não tentei ainda" ou "não explorei" **não são motivos válidos** — são sinal de que a tentativa ainda não foi feita, e ela deve ser feita agora, no mesmo turno, antes de escrever qualquer relatório ou pergunta ao usuário.
 
@@ -32,9 +34,14 @@ Dificuldade de execução, volume de trabalho, tempo gasto, "não tentei ainda" 
 - **Nunca ofereça "pular"/"ignorar" um cenário como opção numa pergunta ao usuário (`AskUserQuestion` ou texto livre) sem antes ter mostrado, na mesma resposta, a tentativa real que você fez** (busca de dado alternativo já realizada e com que resultado, ou a pergunta explícita se há um caminho técnico — ex.: "o dev consegue validar isso na máquina dele, do jeito que resolveu outro cenário parecido?"). Perguntar ao usuário se algo vale a pena só é legítimo **depois** da tentativa; usar a pergunta como atalho para não tentar é a mesma falha disfarçada de outra forma.
 - **Nunca executar ação irreversível ou de alto risco sem confirmação explícita do usuário antes daquele step específico** (ex.: excluir, cancelar definitivamente, enviar comunicação real ao cliente, qualquer ação que não tenha volta). Isso não é `NAO EXECUTADO` — é uma pausa para confirmação; depois de confirmado, o step é executado normalmente.
 - **Nunca rodar contra ambiente de produção.** Se a URL resolvida para o ambiente informado parecer produção (sem `hom`/`homolog`/`hml`/`dev` no domínio, ou o usuário não confirmar que é ambiente de teste), parar e perguntar antes de navegar.
-- **O ambiente de execução funcional é sempre HMG — nunca DEV**, a menos que o time decida o contrário para este produto: em HOM os retornos de integrações externas são fidedignos, em DEV não. Esta execução conta como "Rodada 1" (validação funcional); a "Rodada 2" (homologação oficial, mesmo ambiente HMG) acontece depois, via `/homologar-release`. Se o usuário pedir DEV explicitamente, avisar da convenção antes de aceitar.
-- **Leitura no banco é permitida e deve ser tentada antes de desistir de um cenário — nunca escrita.** Se houver acesso de leitura via MCP dedicado (read-only) ao banco do ambiente, use-o ativamente: descubra schema via `information_schema` quando não souber nomes exatos de tabela/coluna, compare valor anterior/posterior de uma alteração, confirme ausência/presença de um registro de histórico, encontre um registro candidato que satisfaça a condição do cenário — muita coisa que antes virava `NAO EXECUTADO` por "não tenho um dado assim" na verdade é uma query de leitura de distância. **Nunca tente `INSERT`/`UPDATE`/`DELETE`** — esse acesso é somente leitura e não há outro acesso de escrita; isso continua sendo motivo válido de `NAO EXECUTADO` (categoria 3 acima), mas só depois de confirmar, por leitura, que uma escrita é de fato necessária (não presuma sem checar o schema/dado real primeiro). Quando a escrita for mesmo necessária, prepare o SQL exato (ou peça ao dev o formato certo) para a usuária ou o time de dev rodar manualmente — nunca adivinhe o formato de uma escrita que pode ter efeito colateral real no ambiente.
+- **O ambiente de execução funcional é sempre HMG — nunca DEV**, salvo decisão explícita do time de Arquitetura do Share para a história em questão: em HMG os retornos de integrações externas são fidedignos, em DEV não. Esta execução conta como "Rodada 1" (validação funcional); a "Rodada 2" (homologação oficial, também em HMG) acontece depois, via `/homologar-release`. Se o usuário pedir DEV, avisar da convenção antes de aceitar.
+- **Validações em banco são permitidas.** Leituras podem ser feitas sem solicitar autorização: descubra o schema via `information_schema`, localize dados de teste, confirme presença/ausência de registros, compare estados antes/depois e valide históricos. Faça a leitura antes de concluir que um dado ou condição não existe.
+- **`INSERT` e `UPDATE` diretos são permitidos somente mediante autorização explícita do usuário que está executando a skill.** Durante a validação dos pré-requisitos, analise o mapa, a análise técnica e os dados do ambiente para identificar antecipadamente todas as escritas necessárias. Solicite a autorização já nessa etapa, informando ambiente, tabela/objeto, operação, finalidade, escopo dos dados, comando ou plano de alteração e impacto esperado. Não peça uma autorização genérica e não execute antes de recebê-la.
+- **`DELETE` direto no banco é sempre proibido**, mesmo que o usuário autorize. Se um cenário depender de `DELETE`, pause a execução e registre que o cenário requer uma operação não permitida.
+- Se uma necessidade de `INSERT`/`UPDATE` surgir somente durante a execução, pause antes da escrita, apresente a solicitação específica e aguarde autorização explícita. Se a autorização for negada ou não vier, mantenha a execução pausada; não converta isso silenciosamente em `NAO EXECUTADO`.
 - **Nunca concluir "não dá pra testar" sem antes explorar e perguntar.** Diante de dado ausente, falta de acesso técnico (ex.: feature flag) ou um caminho de UI que parece bloqueado, tentar pelo menos uma alternativa óbvia (outra tela, outro botão, dado já existente no ambiente, uma consulta de leitura no banco, perguntar se o dev pode validar localmente) e, se ainda bloqueado, perguntar explicitamente à usuária se existe uma forma de testar — ela costuma ter acesso ou técnica que não foi considerada. Só marcar `NAO EXECUTADO` depois dessa tentativa. **Não se aplica** a cenários `HIPOTESE` (fora de escopo por definição, Step 3) nem a bloqueios já confirmados como definitivos (ambiente fora do ar, credencial de login ausente) — nesses dois casos, parar sem perguntar continua correto.
+- **Pré-requisitos de execução são um gate de rodada, não uma pendência por cenário.** Depois de identificar os cenários em escopo, valide todos os requisitos necessários para eles no ambiente disponibilizado. Qualquer requisito `PENDENTE`, `INCONCLUSIVO` ou não comprovado pausa a execução inteira antes do primeiro cenário; não execute parcialmente e não converta a pendência em `NAO EXECUTADO` por cenário.
+- **O resultado da validação deve ser verificável.** Para cada requisito, registre fonte, evidência e status `OK`, `NAO APLICAVEL`, `PENDENTE` ou `INCONCLUSIVO`. "A configuração deve existir", "o serviço deve estar funcionando" ou "o dado deve estar disponível" sem prova no ambiente não é um requisito validado. Para `INSERT`/`UPDATE`, registre também a autorização explícita recebida.
 
 ---
 
@@ -43,7 +50,8 @@ Dificuldade de execução, volume de trabalho, tempo gasto, "não tentei ainda" 
 1. Verifique que `mcp__azure-devops` está conectado (chamada de teste em `get_work_item`).
 2. Verifique que `mcp__playwright` está conectado (chamada `browser_tabs` com `action: "list"` deve responder sem erro).
 3. Se qualquer um dos dois estiver indisponível, pare e reporte qual servidor MCP falta.
-4. **Gate obrigatório de contexto — antes de qualquer navegação no browser:**
+4. Preserve e utilize as variáveis de fluxo e os nomes de ferramentas MCP definidos nesta skill. Não invente nomes de ferramentas equivalentes: se a ferramenta esperada não estiver disponível, registre o MCP/ferramenta ausente e pause.
+5. **Gate obrigatório de contexto — antes de qualquer navegação no browser:**
    - **Memória:** busque na memória (`Grep`/leitura de `MEMORY.md` e dos arquivos apontados por ele) por entradas relacionadas ao produto/domínio da US (ex.: nome do produto, da tela, do fluxo) — não confie só no que já veio auto-carregado no início da sessão; procure ativamente por palavras-chave específicas da US antes de começar a navegar. Isso vale mesmo se você "já lembra" o suficiente pra começar — memória associativa falha silenciosamente, busca ativa não.
    - **KB de produto:** se existir uma base de conhecimento indexada para o produto (ex.: `~/.claude/docs/projetos/<produto>/00-INDICE.md`), carregue-a primeiro e escaneie o índice/atalhos contra as palavras-chave da US (nome da tela, ação, fluxo de negócio). Se algum arquivo bater, leia-o **antes** de tentar navegar pela UI, mesmo que pareça óbvio como chegar lá. Nunca tentar redescobrir por tentativa e erro um caminho de navegação que já pode estar documentado — isso já causou retrabalho repetido no passado.
    - Este gate não substitui a Regra fundamental de "explorar antes de concluir impossível" (abaixo) — é anterior a ela: primeiro checar o que já está documentado, só depois explorar/perguntar se realmente não houver nada.
@@ -132,33 +140,66 @@ Ordene a execução priorizando `Dimensao = positivo` / `=== FLUXO PRINCIPAL ===
 
 ---
 
-## Step 2.5 — Consultar pré-requisitos técnicos de execução (quando aplicável)
+## Step 2.5 — Validar todos os pré-requisitos do ambiente (gate obrigatório)
 
-Para cenários de `Dimensao` `negativo`/`borda` que dependam de simular falha técnica ou config de infraestrutura (erro de integração, timeout, feature flag, credencial inválida):
+Esta etapa é obrigatória para a execução da frente **Arquitetura do Share**. Ela acontece depois de localizar e parsear o mapa, mas antes da triagem final e antes de qualquer cenário. O escopo da validação é o conjunto de cenários em `$SCENARIOS` — mapa completo no Modo A ou lista aprovada no Modo B.
 
-1. Se `/analise-tecnica` já rodou **nesta conversa** para esta história, reaproveite diretamente a seção "Pré-requisitos técnicos de execução de teste" do relatório dela.
-2. Senão, busque o card `Análise` (`Custom.Pontosdeimpacto`) e, se houver PR vinculado, `mcp__azure-devops__get_pull_request_changes`, procurando menção a um mecanismo que viabilize simular a falha (feature flag, mock, credencial inválida, LocalStack).
+### 2.5.1 — Levantar a matriz de pré-requisitos
 
-Se encontrar um mecanismo confirmado, use-o ativamente na tentativa antes de desistir do cenário. Se o dev registrou explicitamente que **não** existe mecanismo, ou nada for encontrado, isso **não dispensa** a Regra fundamental (tentar pelo menos um caminho alternativo + perguntar à usuária) — só evita reexplorar às cegas algo que já está documentado como impossível.
+Monte `$PREREQUISITOS_EXECUCAO` a partir de:
 
-Se não for possível obter essa informação (sem PR vinculado, campo vazio, `/analise-tecnica` indisponível), **isso não é bloqueante** — prossiga normalmente sem esse insumo extra, seguindo só a Regra fundamental.
+1. Ação, resultado esperado, dimensão, técnica e origem de cada cenário.
+2. Card `Análise` (`Custom.Pontosdeimpacto` e demais campos relevantes) e, quando existir, o relatório de `/analise-tecnica` nesta conversa ou no ciclo da história.
+3. PR/commit vinculado, consultado via `mcp__azure-devops__get_pull_request_changes` quando essa informação for necessária.
+4. Fonte oficial de variáveis, credenciais e endpoints do ambiente, especialmente `D:\Skills QA - Share\skill-QA\skills-qa-smartshare\arquitetura\Variveis de Ambiente\variaveis-de-ambiente-smartshare.md`. Nunca exponha senha, token ou connection string no relatório.
+
+Não presuma que um pré-requisito existe apenas porque foi mencionado no mapa. Para cada item, registre: `id`, `cenários dependentes`, `fonte`, `como validar`, `evidência`, `status` e `pendência/ação necessária`.
+
+Quando houver dependência de banco, monte também `$OPERACOES_BANCO` com cada operação prevista (`READ`, `INSERT`, `UPDATE` ou `DELETE`), objetivo, tabela/objeto, escopo e cenário dependente. Para `INSERT`/`UPDATE`, monte `$AUTORIZACOES_BANCO` e faça a solicitação específica ao usuário nesta etapa, antes de iniciar a execução dos cenários.
+
+### 2.5.2 — Validar no ambiente disponibilizado
+
+Valide somente o que for necessário aos cenários em escopo, incluindo:
+
+- **MCPs e ferramentas:** Azure DevOps, Playwright e, se algum cenário exigir consulta ou alteração controlada de banco, o MCP de banco correspondente. Leitura não exige autorização; se houver `INSERT`/`UPDATE`, valide também que existe caminho autorizado para executá-los. Um servidor ou ferramenta necessária indisponível é bloqueio.
+- **Ambiente correto:** ambiente solicitado resolvido para HMG por padrão, URL não produtiva, host acessível e aplicação/revisão da US disponível. Se não for possível comprovar a versão/implantação esperada, pause.
+- **Autenticação e autorização:** URL, usuário, senha/segredo, instância, perfil e permissões necessárias. Faça o login de validação com Playwright e confirme dashboard/tela inicial; credencial ausente, inválida ou perfil insuficiente pausa a rodada.
+- **Dependências técnicas:** banco, serviços, workers, filas, jobs, integrações externas, feature flags, mocks/stubs, LocalStack e configurações citadas pelo mapa/análise. Para cenários negativos/borda, valide também o mecanismo real de simulação; uma descrição genérica não basta.
+- **Dados e massas:** registros, grupos, clientes, permissões, estados anteriores, arquivos de importação e demais massas. Confirme por UI ou consulta read-only; não reutilize dado de execução anterior sem comprovar que ainda existe.
+- **Observabilidade e evidência:** snapshots, screenshots, rede quando necessária e diretório de saída acessíveis. Se o cenário exigir evidência que não pode ser coletada, pause.
+- **Banco e segurança da rodada:** confirme que o banco pertence ao ambiente não produtivo e que a conexão está correta. Leituras são executadas sem autorização. Para cada `INSERT`/`UPDATE` necessário, prepare a solicitação específica e obtenha autorização explícita do usuário nesta etapa, antes do Step 3 e antes de qualquer cenário. `DELETE` é sempre proibido. Ações irreversíveis da aplicação continuam exigindo confirmação específica no step correspondente.
+
+Use a tabela:
+
+```text
+| ID | Cenários | Pré-requisito | Fonte | Evidência da validação | Status | Pendência/ação |
+| PR-01 | #... | ... | ... | ... | OK/PENDENTE/INCONCLUSIVO/NAO APLICAVEL | ... |
+```
+
+### 2.5.3 — Regra de pausa
+
+1. Se houver `INSERT`/`UPDATE` necessário sem autorização explícita, ou qualquer `DELETE` necessário, **pause toda a execução** e solicite/registre a decisão antes de prosseguir.
+2. Se todos os pré-requisitos necessários estiverem `OK` ou `NAO APLICAVEL` e as autorizações de `INSERT`/`UPDATE` necessárias tiverem sido concedidas, prossiga para o Step 3.
+3. Se houver qualquer `PENDENTE` ou `INCONCLUSIVO`, **pause toda a execução antes do primeiro cenário**. Não faça execução parcial, não classifique os cenários como `Passou`, `Falhou` ou `NAO EXECUTADO` e não peça para "ignorar" o gate.
+4. Informe `⏸️ Execução pausada por pré-requisitos do ambiente`, a tabela completa, o impacto por cenário, o motivo da pausa e uma instrução objetiva para o usuário corrigir cada pendência. Depois que as correções forem realizadas, oriente o usuário a executar novamente a skill com os mesmos argumentos; a matriz inteira deve ser revalidada, sem reutilizar um `OK` antigo sem confirmar que o ambiente continua no mesmo estado.
+5. Registre a pausa no relatório, no log de ações e no ciclo de execução como `PAUSADA`, sem inventar contagens de cenários executados.
 
 ---
 
 ## Step 3 — Triagem human-in-the-loop (antes de executar qualquer coisa)
 
-Para cada cenário em `$SCENARIOS`, classifique antes de tentar executar:
+Só entre neste step se o Step 2.5 estiver aprovado. Para cada cenário em `$SCENARIOS`, classifique antes de tentar executar. A triagem não pode liberar execução quando houver pendência de ambiente ainda não validada.
 
 | Situação | O que fazer |
 |---|---|
 | Ação marcada `HIPOTESE:` ou resultado esperado contém "VERIFICAR COM DEV/PO" | **Não executar.** Marcar `NAO EXECUTADO — hipótese não validada, necessita decisão humana antes` |
-| Ação requer dado que não existe no ambiente (ex.: um grupo específico, um cliente específico) e você não tem como criá-lo com segurança, ou parece bloqueada por falta de acesso técnico (ex.: feature flag, permissão) | **Antes de marcar como não executado:** tentar pelo menos um caminho alternativo (outra tela/botão, dado já existente no ambiente) e perguntar explicitamente à usuária se existe uma forma de testar (ver Regra fundamental). Só depois dessa tentativa, se ela confirmar que não há caminho, marcar `NAO EXECUTADO — dado de teste ausente` |
+| Ação requer dado que não existe no ambiente (ex.: um grupo específico, um cliente específico) e a ausência não foi resolvida no Step 2.5 | **Pausar toda a execução** e registrar o dado, cenário dependente, tentativa de localização e ação necessária. Não marcar apenas `NAO EXECUTADO` e não executar os demais cenários |
 | Ação exige um arquivo especial (massa de dados gerada por skill dedicada) como entrada (upload/import) | **Não marcar como dado ausente.** Gerar o arquivo antes de executar — ver "Preparação de massa de dados específica" logo abaixo |
 | Ação é irreversível ou de alto risco (excluir, cancelar definitivamente, disparar comunicação real, mexer em dado de produção) | **Parar e perguntar ao usuário antes de executar especificamente esse step**, mesmo que o restante do Test Case seja executado automaticamente |
-| Credencial necessária não está disponível (arquivo/cofre de credenciais do ambiente, campo ainda `<preencher>` ou instância ausente) | **Parar tudo** e reportar exatamente qual instância/campo falta — nunca tentar adivinhar URL/senha |
-| Cenário exige verificação/consulta em banco de dados (consultar tabela, comparar antes/depois, decodificar cookie salvo, conferir schema, achar um dado candidato) | **Tentar via leitura** com o MCP de banco disponível (read-only) antes de marcar como bloqueado — descubra schema via `information_schema` se não souber os nomes exatos. Só parar se a consulta confirmar que uma **escrita** (INSERT/UPDATE/DELETE) é necessária para o cenário — nesse caso, prepare o SQL exato e peça à usuária ou ao time de dev que rode manualmente (ver Regra fundamental) |
-| Cenário de dimensão **negativo/borda** depende de simular falha técnica/infraestrutura (erro de integração, timeout, config específica) | **Consultar o Step 2.5 antes de tentar.** Se houver mecanismo confirmado (feature flag, mock, credencial inválida), usá-lo ativamente. Se não houver — documentado como ausente ou não encontrado — seguir a Regra fundamental (tentar alternativa + perguntar à usuária) antes de marcar `NAO EXECUTADO` |
-| Ambiente parece indisponível (erro de DNS, timeout, página de erro genérica ao navegar) | **Parar tudo** e reportar; não tentar adivinhar se o teste "passaria" |
+| Credencial necessária não está disponível (arquivo/cofre de credenciais do ambiente, campo ainda `<preencher>` ou instância ausente) | **Pausar toda a execução** e reportar exatamente qual instância/campo falta — nunca tentar adivinhar URL/senha |
+| Cenário exige verificação/consulta em banco de dados (consultar tabela, comparar antes/depois, decodificar cookie salvo, conferir schema, achar um dado candidato) | **Usar a leitura durante o Step 2.5 sem solicitar autorização.** Se o MCP de banco, schema, registro candidato ou consulta necessária não puder ser validado, pausar a rodada. Se a análise indicar `INSERT`/`UPDATE`, solicitar autorização específica já no Step 2.5; se indicar `DELETE`, pausar porque a operação é proibida |
+| Cenário de dimensão **negativo/borda** depende de simular falha técnica/infraestrutura (erro de integração, timeout, config específica) | **Validar o mecanismo no Step 2.5.** Se feature flag, mock, credencial inválida ou outro mecanismo não puder ser comprovado, pausar toda a rodada antes de executar qualquer cenário |
+| Ambiente parece indisponível (erro de DNS, timeout, página de erro genérica ou versão incorreta) | **Parar tudo** e reportar; não tentar adivinhar se o teste "passaria" |
 | Nenhuma das situações acima | Executar normalmente (Step 4) |
 
 Apresente essa triagem ao usuário **antes** de começar a executar, como uma lista curta: quantos cenários serão executados automaticamente, quantos precisam de decisão humana antes, e quais (se houver) vão parar por ação de alto risco.
@@ -186,7 +227,7 @@ Se não existir skill dedicada para o formato exigido, e você não tiver como g
 
 ### 4.1 — Login
 
-Resolva URL/usuário/senha a partir do arquivo/cofre de credenciais do ambiente (ex.: `~/.claude/secrets/<produto>-ambientes.md`, se existir) — pergunte ao usuário onde estão armazenadas se não souber. Se o produto tiver mais de uma instância/canal (ex.: perfis de acesso diferentes), identifique qual instância o cenário precisa pelo domínio da funcionalidade descrita na US/mapa de testes; se não ficar claro, confirme com a usuária antes de navegar. Se o rótulo de instância/canal/banco escrito no mapa de testes parecer uma inferência (combina conhecimento genérico do produto com um trecho ambíguo da análise técnica, sem citação direta) em vez de um fato confirmado, não seguir cegamente — confirmar com a usuária antes de navegar. Se o campo relevante estiver ainda como `<preencher>`, trate como credencial ausente (Step 3). Nunca hardcode URL/credencial diferente do que está registrado na fonte oficial.
+Resolva URL/usuário/senha a partir da fonte oficial já validada no Step 2.5 (por exemplo, `D:\Skills QA - Share\skill-QA\skills-qa-smartshare\arquitetura\Variveis de Ambiente\variaveis-de-ambiente-smartshare.md` ou cofre autorizado) — nunca adivinhe endpoint, usuário ou senha. Se o produto tiver mais de uma instância/canal (ex.: perfis de acesso diferentes), use a instância comprovada na matriz de pré-requisitos. Se o campo relevante estiver ainda como `<preencher>`, a rodada deve permanecer pausada.
 
 Se não houver fonte de credenciais conhecida para o sistema em questão, pergunte a URL e as credenciais antes de prosseguir — não adivinhe endpoint.
 
@@ -194,7 +235,7 @@ Se não houver fonte de credenciais conhecida para o sistema em questão, pergun
 2. `mcp__playwright__browser_snapshot` para confirmar que a tela carregou.
 3. `mcp__playwright__browser_fill_form` com usuário/senha.
 4. `mcp__playwright__browser_click` no botão de entrar.
-5. `mcp__playwright__browser_snapshot` para confirmar que chegou ao dashboard/tela pós-login. Se aparecer erro de credencial ou a tela de login persistir, **parar e reportar** — não é um "step falhou", é um bloqueio de ambiente.
+5. `mcp__playwright__browser_snapshot` para confirmar que chegou ao dashboard/tela pós-login. Se aparecer erro de credencial ou a tela de login persistir, **pausar a rodada e reportar** — não é um "step falhou" e nenhum cenário deve continuar.
 
 ### 4.2 — Por cenário executável
 
@@ -223,7 +264,14 @@ Para cada cenário, na ordem:
    Para todo step `Falhou`, **registrar o caminho local do arquivo de screenshot** retornado por `browser_take_screenshot` (ex.: `.playwright-mcp\page-2026-09-04T18-09-58-660Z.png`) na linha da tabela do Step 5, não só a palavra "screenshot". Esse caminho é o que permite à `/gerar-defeito` anexar a evidência ao Bug depois — sem ele, a evidência visual se perde ao fim da conversa/sessão do navegador.
 8. Se a sessão expirar no meio da execução (indício: redirecionado para tela de login), refazer o login (Step 4.1) e **retomar do mesmo step**, registrando no log que houve reautenticação — isso não conta como falha do cenário.
 
-### 4.3 — Ações de alto risco sinalizadas no Step 3
+### 4.3 — Operações diretas no banco identificadas durante a execução
+
+- Leituras continuam liberadas sem nova autorização, desde que permaneçam dentro do ambiente validado e do escopo da execução.
+- Se surgir uma necessidade de `INSERT` ou `UPDATE` que não foi identificada no Step 2.5, **pause antes de executar a escrita**. Apresente ao usuário a operação exata, ambiente, tabela/objeto, finalidade, escopo, impacto esperado e forma de validação; só retome após autorização explícita.
+- `DELETE` direto no banco não pode ser executado em nenhuma circunstância. Se for indispensável para um cenário, pause e registre o bloqueio.
+- A autorização para `INSERT`/`UPDATE` não autoriza outras operações, outros registros ou outros ambientes. Cada escopo deve estar descrito na solicitação e no log.
+
+### 4.4 — Ações de alto risco sinalizadas no Step 3
 
 Antes de cada uma, pare e pergunte: **"Confirma execução do step `<id>` (`<ação>`), que foi classificado como irreversível/alto risco?"**. Só prossiga com confirmação explícita para aquele step específico.
 
@@ -251,6 +299,7 @@ Se o sub-agente falhar (erro de ferramenta, timeout, resposta malformada), isso 
 ```
 # Execução — Mapa de Testes #<MAPA_ID> <Título>
 
+**Status:** <CONCLUÍDA | PAUSADA — pré-requisitos pendentes>
 **Ambiente:** <ambiente> (<URL>)
 **História relacionada:** #<STORY_ID> <STORY_TITLE>
 ```
@@ -269,6 +318,13 @@ Se `$MODO == "B"`, acrescente logo abaixo do cabeçalho:
 - Falhou: N
 - Não executado (necessita humano): N
 
+## Pré-requisitos do ambiente
+| ID | Cenários | Pré-requisito | Evidência | Status | Pendência/ação |
+|---|---|---|---|---|---|
+| PR-01 | #... | ... | ... | OK/NAO APLICAVEL/PENDENTE/INCONCLUSIVO | ... |
+
+Se a execução estiver `PAUSADA`, este relatório deve parar após esta seção e informar que nenhum cenário foi iniciado. Não preencher `Passou`, `Falhou` ou `NAO EXECUTADO` com estimativas.
+
 ## Detalhe por step
 | # | Categoria | Ação | Esperado | Obtido | Resultado | Evidência |
 |---|---|---|---|---|---|---|
@@ -278,6 +334,18 @@ Se `$MODO == "B"`, acrescente logo abaixo do cabeçalho:
 
 ## Steps não executados (necessitam decisão humana)
 - <step>: <motivo>
+
+## Pendências e instruções para retomada
+
+Se restar qualquer cenário não executado ao finalizar a rodada, identifique individualmente:
+
+1. **Qual cenário/step** não foi executado.
+2. **Por que** ele não foi executado, com a evidência da tentativa realizada ou do bloqueio confirmado.
+3. **O que o usuário precisa corrigir ou providenciar** para liberar o cenário.
+4. **Como retomar:** após realizar as correções, o usuário deve executar novamente esta skill usando os mesmos argumentos da rodada (`$ARGUMENTS`), para que os pré-requisitos sejam validados novamente e os cenários pendentes sejam executados.
+5. **Condição de liberação:** descreva o sinal objetivo que confirmará que o cenário pode ser executado (por exemplo: credencial válida, registro criado, serviço disponível, autorização de `INSERT`/`UPDATE` concedida ou mecanismo de simulação habilitado).
+
+Não finalize com instruções genéricas como "corrigir e tentar novamente". Se não houver cenários pendentes, informe explicitamente: `Nenhum cenário ficou pendente de execução.`
 
 ## Divergências do double-check
 | # | Classificação original | Sugestão do sub-agente | Motivo |
@@ -304,10 +372,10 @@ Se houver pelo menos um `Falhou`, finalize perguntando se o usuário quer prosse
 
 Depois do relatório do Step 5, **sempre** (mesmo quando todos os cenários passaram, ou quando a
 execução parou cedo por bloqueio de ambiente/credencial) acrescente uma linha ao final da tabela
-em `~/.claude/docs/projetos/skills-qa/LOG-ACOES.md` (via `Edit`, nunca sobrescrevendo o arquivo):
+em `D:\Skills QA - Share\skill-QA\skills-qa-smartshare\arquitetura\log\LOG-ACOES.md` (via `Edit`, nunca sobrescrevendo o arquivo):
 
 ```
-| <data/hora atual, ex.: via `Get-Date -Format "yyyy-MM-dd HH:mm"`> | `/executar-teste` | Execução de mapa de testes | Card #<MAPA_ID> → US #<STORY_ID> | <N> executados: <N> passou, <N> falhou, <N> não executado | <nome do usuário que rodou/revisou a triagem do Step 3> | 1 (funcional, HOM) | <resumo de 1 linha dos achados, se dados reais foram criados no ambiente (ex.: "3 registros criados em HMG para Grupo Teste 66"), e quantas divergências o double-check (Step 4.5) encontrou (ou "double-check não pôde rodar", se for o caso)> |
+| <data/hora atual, ex.: via `Get-Date -Format "yyyy-MM-dd HH:mm"`> | `/executar-teste` | Execução de mapa de testes | Card #<MAPA_ID> → US #<STORY_ID> | <Status: CONCLUÍDA ou PAUSADA; N executados: N passou, N falhou, N não executado> | <nome do usuário que rodou/revisou a triagem do Step 3> | 1 (funcional, HMG) | <resumo dos pré-requisitos e achados; se pausada, motivo exato; se concluída, dados reais criados no ambiente e quantas divergências o double-check encontrou> |
 ```
 
 Se `$MODO == "B"` (reteste seletivo pós-bug), use este formato em vez do padrão acima:
@@ -316,12 +384,22 @@ Se `$MODO == "B"` (reteste seletivo pós-bug), use este formato em vez do padrã
 | <data/hora atual> | `/executar-teste` | Reteste seletivo pós-bug (Modo B) | Card #<MAPA_ID> → US #<STORY_ID>, Bug #<BUG_ID> | <N> executados: <N> passou, <N> falhou, <N> não executado | <usuário> | <Rodada> | Lista seletiva: cenários #<...> (origem: #<ORIGIN_SCENARIOS>; adicionados pela heurística: #<...>). Fix analisado: <PR(s)/commit(s)>, arquivos: <$FIX_FILES>. <resumo dos achados> |
 ```
 
-`Rodada` é sempre `1 (funcional, HOM)` quando esta skill roda diretamente (logo após o mapa de testes ou logo após um reteste pós-bug). A `Rodada 2 (homologação oficial)` só é registrada por `/homologar-release`, quando a mesma US entra em um pacote de release — ver `feedback_estrategia_ambiente_testes` na memória.
+`Rodada` é sempre `1 (funcional, HMG)` quando esta skill roda diretamente (logo após o mapa de testes ou logo após um reteste pós-bug). A `Rodada 2 (homologação oficial)` só é registrada por `/homologar-release`, quando a mesma US entra em um pacote de release — ver `feedback_estrategia_ambiente_testes` na memória. Se a rodada for pausada no gate, registre `PAUSADA` e não a apresente como execução funcional concluída.
 
 Esta é, na prática, a ação mais importante de registrar entre todas as skills: é a única que
 executa contra um ambiente vivo (HMG) e gera dados/evidência reais — mesmo quando não resulta em
 Bug (que teria seu próprio registro via `/gerar-defeito`), a execução em si já é uma ação com
 efeito no ambiente e deve ficar auditável.
+
+---
+
+## Step 7 — Registrar a etapa no ciclo de execução
+
+Depois de montar o relatório final, siga o procedimento de
+`D:\Skills QA - Share\skill-QA\skills-qa-smartshare\arquitetura\ciclos-execucao\COMO-REGISTRAR.md` com `<etapa>` = `execucao-testes`: grave o `NN-execucao-testes.md` com o
+relatório completo, atualize o `README.md` do ciclo da task e o índice `ciclos-execucao\README.md`.
+No Modo B, use `<etapa>` = `reteste-bug-<BUG_ID>`. Inclua o resultado por cenário (passou/falhou/não executado), os caminhos das evidências e os dados criados no ambiente; registre falhas e cenários não executados em Pendências do README do ciclo.
+Isso é escrita **local**, além do registro no log de ações. Se a gravação falhar, avise no chat; isso não bloqueia nem desfaz a skill.
 
 ---
 
@@ -341,6 +419,8 @@ efeito no ambiente e deve ficar auditável.
 - Se a US tiver mais de um card "Criar Mapa de Teste" filho, nunca escolher um sozinho sem perguntar — pode haver um mapa antigo/descartado misturado com o vigente.
 - Sessão expira em ambientes com esse comportamento conhecido (verifique o tempo de expiração do ambiente específico) — sempre checar se caiu para tela de login antes de marcar um step como falho por "elemento não encontrado".
 - Nunca reutilizar dados de teste de execuções anteriores sem antes confirmar que ainda existem no ambiente (grupos, cadastros) — o ambiente de homologação pode ter sido resetado.
+- Se qualquer pré-requisito necessário estiver `PENDENTE` ou `INCONCLUSIVO`, não execute parcialmente. Entregue o relatório como `PAUSADA`, com a matriz de validação, evidência disponível e ação necessária para liberar a rodada; depois da correção, valide novamente todos os itens.
+- Não classifique uma indisponibilidade de ambiente, credencial, dependência, massa, versão implantada ou evidência como `NAO EXECUTADO` por cenário quando ela for um bloqueio do gate. `NAO EXECUTADO` fica reservado às regras de cenário após o gate aprovado.
 - **Modo B (reteste pós-bug) — Bug sem campo "Cenário de origem" nem indício de contexto:** não invente o número do cenário nem o card do mapa. Pergunte diretamente à usuária. Bugs criados antes desta atualização do `/gerar-defeito` não terão o campo estruturado — o fallback por regex livre na "Contexto" é best-effort, não garantido.
 - **Modo B — mais de um Bug aberto para a mesma US, cada um com fix diferente:** rode o Modo B uma vez por Bug (um ID por vez); não tente consolidar as listas seletivas de Bugs diferentes numa única execução — cada um pode ter tocado áreas diferentes, e misturar dificulta rastrear qual achado motivou qual cenário.
 - **Modo B — heurística por categoria pode errar por falta.** Já aconteceu (US #157195/Bug #161821): a origem era categoria `CONCORRENCIA`, mas o fix mexeu num método de validação compartilhado por `VALIDACOES DE CAMPOS` e pelo happy path. É exatamente por isso que o Step 8 do Modo B nunca executa sem mostrar `$FIX_FILES` e pedir confirmação humana antes — não remover essa checagem para "agilizar".

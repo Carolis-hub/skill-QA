@@ -1,0 +1,1 @@
+{"timestamp":"2026-10-27 08:56:38.4686","level":"INFO","logger":"Project.Agent.Worker.Bpm.Jobs.BpmExecJob","module":"JOB_BPM","job":"InicioTemporal","message":"Job InicioTemporal não possui itens ativos para execução."}

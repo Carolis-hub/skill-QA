@@ -1,0 +1,25 @@
+
+ MAX_FLUXO EXISTE_999999
+---------- -------------
+      1922	       0
+
+1 row selected.
+
+c24-01 Id 30017
+c24-02 Id 30018
+c24-03 Id 30019
+c24-04 Id 30020
+c24-05 Id 30021
+c24-06 Id 30022
+c24-07 Id 30023
+c24-08 Id 30024
+c24-09 Id 30025
+c24-10 Id 30026
+c24-11 Id 30027
+c24-12 Id 30028
+c18 Id 30029
+c21 Id 30030
+montado_em 08:54:46.566
+
+PL/SQL procedure successfully completed.
+

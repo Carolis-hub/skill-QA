@@ -1,0 +1,11 @@
+
+ORIG	     ID  ID_ORIGEM	   ST CHAVE_UNICA			  CRIADO       ATU	    DUMP
+---- ---------- ---------- ---------- ----------------------------------- ------------ ------------ ------------
+DUMP	  26870      29969	    3 BPM|ExcluiFluxoEmSolicitacao	  15:17:16.532 08:40:14.093 08:40:14.192
+DUMP	  26881      29990	    3 BPM|ExcluiFluxoEmSolicitacao	  08:46:41.266 08:47:13.557 08:47:13.641
+DUMP	  26886      29993	    3 BPM|ExcluiFluxoEmSolicitacao	  08:47:22.924 08:47:52.535 08:49:12.644
+DUMP	  26889      29998	    3 BPM|ExcluiFluxoEmSolicitacao	  08:49:13.630 08:50:12.707 08:50:12.747
+BPM	  30001 		    1 BPM|ExcluiFluxoEmSolicitacao	  08:50:13.490 08:50:13.490
+
+5 rows selected.
+

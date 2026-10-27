@@ -1,0 +1,4 @@
+{"timestamp":"2026-10-26 15:54:12.0593","level":"INFO","logger":"Project.Agent.Worker.Bpm.Jobs.BpmExecJob","module":"JOB_BPM","job":"NotifyWf","message":"Job NotifyWf não possui itens ativos para execução."}
+{"timestamp":"2026-10-26 15:55:11.6728","level":"INFO","logger":"Project.Agent.Worker.Bpm.Jobs.BpmExecJob","module":"JOB_BPM","job":"NotifyWf","message":"Job NotifyWf não possui itens ativos para execução."}
+{"timestamp":"2026-10-26 15:56:11.6365","level":"INFO","logger":"Project.Agent.Worker.Bpm.Jobs.BpmExecJob","module":"JOB_BPM","job":"NotifyWf","message":"Job NotifyWf não possui itens ativos para execução."}
+{"timestamp":"2026-10-26 15:57:11.6688","level":"INFO","logger":"Project.Agent.Worker.Bpm.Jobs.BpmExecJob","module":"JOB_BPM","job":"NotifyWf","message":"Job NotifyWf não possui itens ativos para execução."}

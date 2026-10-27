@@ -119,6 +119,16 @@ Se a história/módulo não tiver nenhum arquivo em `tests/user-stories/`, isso 
 
 ---
 
+## Step 7 — Registrar a etapa no ciclo de execução
+
+Depois de montar o relatório final, siga o procedimento de
+`D:\Skills QA - Share\skill-QA\skills-qa-smartshare\arquitetura\ciclos-execucao\COMO-REGISTRAR.md` com `<etapa>` = `priorizacao-automacao`: grave o `NN-priorizacao-automacao.md` com o
+relatório completo, atualize o `README.md` do ciclo da task e o índice `ciclos-execucao\README.md`.
+Liste os specs promovidos (caminho em `tests/regressao/`) na tabela de Artefatos do README do ciclo.
+Isso é escrita **local**, além do registro no log de ações. Se a gravação falhar, avise no chat; isso não bloqueia nem desfaz a skill.
+
+---
+
 ## Troubleshooting
 
 - Nunca promover um `test()` cujo nome/comentário indique `HIPOTESE` ou "VERIFICAR COM DEV/PO" — isso vem direto do mapa de testes e não deve virar regressão travada.

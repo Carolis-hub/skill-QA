@@ -1,0 +1,12 @@
+
+	ID	   ST CHAVE_UNICA			       ATU
+---------- ---------- ---------------------------------------- ------------
+     29980	    2 qa-us164251-ora-c19-exec		       08:36:39.578
+     29993	    1 BPM|ExcluiFluxoEmSolicitacao	       08:47:22.924
+
+2 rows selected.
+
+ja existe linha com a chave fixa: 1 - nada inserido
+
+PL/SQL procedure successfully completed.
+

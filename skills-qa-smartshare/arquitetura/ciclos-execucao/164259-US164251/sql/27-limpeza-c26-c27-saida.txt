@@ -1,0 +1,6 @@
+linhas_removidas
+----------------
+1
+item|qtd
+----|---
+restante_qa_no_JOB_BPM|0

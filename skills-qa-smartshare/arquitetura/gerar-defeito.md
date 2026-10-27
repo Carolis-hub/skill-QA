@@ -157,16 +157,26 @@ Repita para cada arquivo de evidência distinto. Se `Invoke-RestMethod` falhar (
 ## Step 5 — Registrar no log de ações (governança)
 
 Depois de reportar o sucesso, acrescente uma linha ao final da tabela em
-`~/.claude/docs/projetos/skills-qa/LOG-ACOES.md` (via `Edit`, nunca sobrescrevendo o arquivo):
+`D:\Skills QA - Share\skill-QA\skills-qa-smartshare\arquitetura\log\LOG-ACOES.md` (via `Edit`, nunca sobrescrevendo o arquivo):
 
 ```
-| <data/hora atual, ex.: via `Get-Date -Format "yyyy-MM-dd HH:mm"`> | `/gerar-defeito` | Criação de Bug + vínculo à história | Bug #<BUG_ID> → US #<STORY_ID> | Sucesso | <nome do usuário que aprovou no chat> | <resumo de 1 linha do bug + se evidência foi anexada> |
+| <data/hora atual, ex.: via `Get-Date -Format "yyyy-MM-dd HH:mm"`> | `/gerar-defeito` | Criação de Bug + vínculo à história | Bug #<BUG_ID> → US #<STORY_ID> | Sucesso | <nome do usuário que aprovou no chat> | — | <resumo de 1 linha do bug + se evidência foi anexada> |
 ```
 
 Se o Bug foi criado mas o vínculo ou o anexo de evidência falhou (ver Troubleshooting), registre
 mesmo assim — com `Resultado` descrevendo o que funcionou e o que não (ex.: "Sucesso parcial —
 Bug criado, anexo falhou por falta de PAT"). Nunca pule este passo silenciosamente; se a escrita
 no log falhar, avise no relatório ao usuário, mas isso não desfaz a criação do Bug.
+
+---
+
+## Step 6 — Registrar a etapa no ciclo de execução
+
+Depois de montar o relatório final, siga o procedimento de
+`D:\Skills QA - Share\skill-QA\skills-qa-smartshare\arquitetura\ciclos-execucao\COMO-REGISTRAR.md` com `<etapa>` = `defeito-<BUG_ID>`: grave o `NN-defeito-<BUG_ID>.md` com o
+relatório completo, atualize o `README.md` do ciclo da task e o índice `ciclos-execucao\README.md`.
+Acrescente o Bug criado (id + link) e o vínculo/anexo na tabela de Artefatos do README do ciclo.
+Isso é escrita **local**, além do registro no log de ações. Se a gravação falhar, avise no chat; isso não bloqueia nem desfaz a skill.
 
 ---
 
