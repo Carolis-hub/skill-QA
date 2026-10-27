@@ -1,0 +1,284 @@
+<!doctype html>
+<!--
+TEMPLATE do mapa de testes interativo (gerado por /gerar-mapa-testes-v3, Step 5b).
+Baseado no modelo de US-162122. NAO editar o CSS/JS por US: substitua apenas os placeholders {{...}}.
+
+Placeholders:
+  {{TITULO}}          "Mapa de Testes — US <ID> — <titulo curto da historia>"
+  {{PROJETO}}         System.TeamProject
+  {{SPRINT}}          iteracao da historia (nome final do caminho)
+  {{CARD_MAPA_ID}}    ID do card "Criar Mapa de Teste" (sem o #)
+  {{RESUMO_HTML}}     paragrafos Objetivo / Fonte tecnica / Origem (siglas) / Historico de defeitos / Dimensoes cobertas + <h4>Criterios de aceite</h4><ul>...</ul>
+  {{TOTAL}}           numero de cenarios
+  {{LINHAS_HTML}}     linhas do <tbody> (formato abaixo)
+  {{PREREQ_HTML}}     <li>[CATEGORIA] requisito — cenários: #ids</li> (um por requisito distinto)
+  {{CHAVE_STORAGE}}   mapa-teste-us-<ID>-<slug>-testados-v1
+  {{ARQUIVO_EXPORT}}  mapa-teste-us-<ID>-<slug>.html
+
+Linha de categoria:
+  <tr class="group"><td colspan="10"><span class="gname">NOME COM ACENTOS</span><span class="gcount"></span></td></tr>
+Linha de cenario (ordem das 10 colunas; data-label e classes col-* sao obrigatorios):
+  <tr data-id="N"[ class="row-hipotese"]>
+   <td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="N" disabled aria-label="Marcar o cenário N como testado"></td>
+   <td class="col-id" data-label="#">N</td>
+   <td class="col-cenario" data-label="Cenário">[<span class="hip-badge">hipótese</span>]texto</td>
+   <td class="col-config" data-label="Configurações necessárias">[CATEGORIA] item<br>[CATEGORIA] item</td>
+   <td class="col-acao" data-label="Ação">...</td>
+   <td class="col-resultado" data-label="Resultado Esperado">...</td>
+   <td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo|tag-negativo|tag">tipo</span></td>
+   <td class="col-tecnica" data-label="Técnica">...</td>
+   <td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo|tag-negativo|tag-regressao|tag">dimensão</span></td>
+   <td class="col-origem" data-label="Origem">CA2, CT</td>
+  </tr>
+Todo texto dentro das celulas deve ter &, <, > escapados. Linha N/A: tipo e tecnica = "—".
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa de Testes — US 161357 — Ordenação dos documentos</title>
+<style>
+:root{--bg:#f5f7f6;--card:#fff;--text:#1d2521;--muted:#5b6b63;--border:#dfe6e2;--accent:#00774b;--accent-d:#005a39;--head:#eef4f1;--code:#eef2ef;
+--done:#eafaf1;--done-b:#bfe8cf;--hip:#fff7e0;--hip-b:#f0d98a;--warn:#c77700;--group:#dcebe4;--track:#e4e9e6;
+--pos:#0f7a3c;--pos-bg:#e4f6ea;--neg:#b3261e;--neg-bg:#fbe9e7;--reg:#8a5a00;--reg-bg:#fff3dc;--neu:#3b4a43;--neu-bg:#e8eeeb}
+:root[data-theme="dark"]{--bg:#121715;--card:#1b2220;--text:#e4ebe7;--muted:#9fb0a7;--border:#2c3733;--accent:#3ecf8e;--accent-d:#7be3b4;--head:#222c28;--code:#26312d;
+--done:#16301f;--done-b:#24503a;--hip:#33290f;--hip-b:#5a4817;--warn:#e8a33d;--group:#1f2e28;--track:#2c3733;
+--pos:#7be3b4;--pos-bg:#173023;--neg:#ff9a92;--neg-bg:#3a1b19;--reg:#f0c36a;--reg-bg:#3a2f12;--neu:#c3d0c9;--neu-bg:#27322e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121715;--card:#1b2220;--text:#e4ebe7;--muted:#9fb0a7;--border:#2c3733;--accent:#3ecf8e;--accent-d:#7be3b4;--head:#222c28;--code:#26312d;
+--done:#16301f;--done-b:#24503a;--hip:#33290f;--hip-b:#5a4817;--warn:#e8a33d;--group:#1f2e28;--track:#2c3733;
+--pos:#7be3b4;--pos-bg:#173023;--neg:#ff9a92;--neg-bg:#3a1b19;--reg:#f0c36a;--reg-bg:#3a2f12;--neu:#c3d0c9;--neu-bg:#27322e}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI","Source Sans 3",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;padding-bottom:4rem}
+header{background:linear-gradient(135deg,#00774b,#005a39);color:#fff;padding:1.6rem 1rem 1.2rem}
+header .inner{max-width:1500px;margin:0 auto;padding:0 .5rem}
+header h1{margin:0 0 .5rem;font-size:1.45rem}
+header p{margin:.2rem 0;font-size:.9rem;opacity:.93}
+header code{background:rgba(255,255,255,.18);color:#fff}
+header a{color:#fff}
+nav.toc{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.8rem}
+nav.toc a{font-size:.78rem;background:rgba(255,255,255,.16);border-radius:999px;padding:.2rem .7rem;text-decoration:none}
+nav.toc a:hover{background:rgba(255,255,255,.3)}
+.wrap{max-width:1500px;margin:0 auto;padding:1rem 1.5rem}
+.bar{position:sticky;top:0;z-index:20;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;margin:0 0 1rem;display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.bar .count{font-weight:700;white-space:nowrap}
+.track{flex:1 1 200px;min-width:140px;height:10px;background:var(--track);border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0;background:var(--accent);transition:width .25s}
+.seg{display:flex;gap:.3rem;flex-wrap:wrap}
+.bar button,.bar label.btn{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:.3rem .8rem;font-size:.82rem;cursor:pointer;font-family:inherit}
+.bar button.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.bar button.warn{border-color:var(--warn);color:var(--warn)}
+.bar input[type=search]{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:.3rem .8rem;font-size:.85rem;min-width:170px;font-family:inherit}
+.bar input[type=file]{display:none}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;color:var(--accent-d);scroll-margin-top:90px}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem;scroll-margin-top:90px}
+h4{font-size:.98rem;margin:1.2rem 0 .4rem}
+hr{border:0;border-top:1px solid var(--border);margin:1.6rem 0}
+blockquote.note{margin:.6rem 0;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;padding:.1rem 1rem;font-size:.9rem;color:var(--muted)}
+p,li{font-size:.92rem}
+code{background:var(--code);padding:.05rem .3rem;border-radius:4px;font-size:.82em;font-family:"Cascadia Code",Consolas,monospace;overflow-wrap:anywhere}
+a{color:var(--accent-d)}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--card);margin:.6rem 0 1rem}
+table{border-collapse:collapse;width:100%}
+th,td{border:1px solid var(--border);padding:.55rem .6rem;vertical-align:top;text-align:left;font-size:.84rem;overflow-wrap:anywhere}
+thead th{background:var(--head);color:var(--accent-d);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;position:sticky;top:0}
+table.main{table-layout:fixed;min-width:1480px}
+table.compact{table-layout:auto}
+.col-check{width:64px;text-align:center}
+th.col-id,td.col-id{width:48px;font-weight:700;color:var(--accent-d)}
+.main .col-cenario{width:13%;font-weight:600}
+.main .col-config{width:19%}
+.main .col-acao{width:15%}
+.main .col-resultado{width:23%}
+.main .col-tipo,.main .col-tecnica,.main .col-dim{width:7%}
+.main .col-origem{width:10%}
+tr.group td{background:var(--group);color:var(--accent-d);font-weight:700;font-size:.82rem;letter-spacing:.03em;text-transform:uppercase;padding:.5rem .7rem}
+.gcount{float:right;font-weight:600;text-transform:none;color:var(--muted);font-size:.78rem}
+tr.row-hipotese{background:var(--hip)}
+tr.row-hipotese td{border-color:var(--hip-b)}
+tr.row-done{background:var(--done)}
+tr.row-done td{border-color:var(--done-b)}
+tr.row-done td.col-cenario,tr.row-done td.col-acao,tr.row-done td.col-resultado{opacity:.7}
+tr.row-done td.col-cenario{text-decoration:line-through;text-decoration-color:#7fbf9a}
+input.chk{width:20px;height:20px;cursor:pointer;accent-color:var(--accent)}
+.tag{display:inline-block;padding:.1rem .55rem;border-radius:999px;font-size:.72rem;font-weight:600;background:var(--neu-bg);color:var(--neu)}
+.tag-positivo{background:var(--pos-bg);color:var(--pos)}
+.tag-negativo{background:var(--neg-bg);color:var(--neg)}
+.tag-regressao{background:var(--reg-bg);color:var(--reg)}
+.hip-badge{display:inline-block;margin-right:.4rem;font-size:.68rem;background:var(--warn);color:#fff;border-radius:999px;padding:.03rem .5rem;vertical-align:1px}
+tr.hidden{display:none}
+.nojs{background:#fff3dc;color:#8a5a00;border-bottom:2px solid #c77700;padding:.7rem 1rem;font-size:.9rem;text-align:center}
+input.chk:disabled{cursor:not-allowed;opacity:.5}
+.empty{display:none;padding:1rem;color:var(--muted);text-align:center}
+footer{max-width:1500px;margin:2rem auto 0;padding:0 1.5rem;color:var(--muted);font-size:.8rem}
+@media (max-width:1000px){
+ .wrap{padding:.8rem 1rem}
+ .bar{position:static}
+ table.main{min-width:0}
+ .tbl-wrap{border:0;background:transparent}
+ table.cases,table.cases tbody,table.cases tr,table.cases td{display:block;width:100%}
+ table.cases thead{display:none}
+ table.cases tr[data-id]{background:var(--card);border:1px solid var(--border);border-radius:10px;margin:0 0 .8rem;padding:.3rem .2rem}
+ table.cases tr.row-hipotese{background:var(--hip)}
+ table.cases tr.row-done{background:var(--done)}
+ table.cases td{border:0;padding:.35rem .7rem;width:100%!important}
+ table.cases td::before{content:attr(data-label);display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+ table.cases td.col-check{text-align:left}
+ table.cases tr.group{margin:1rem 0 .4rem}
+ table.cases tr.group td::before{content:none}
+}
+@media print{.bar,nav.toc{display:none}}
+</style>
+</head>
+<body>
+<header><div class="inner"><h1>Mapa de Testes — US 161357 — Ordenação dos documentos</h1><p>Projeto: SHARE-4 | Sprint: Melhorias Gerais - Smartshare | Card do mapa: <code>#163199</code></p><nav class="toc"><a href="#resumo">Resumo</a><a href="#tabela-completa">Tabela completa</a><a href="#pre-requisitos">Pré-requisitos consolidados</a></nav></div></header>
+<noscript><div class="nojs">JavaScript desativado ou bloqueado nesta visualização: os checkboxes ficam desabilitados. Abra o arquivo diretamente no Chrome ou no Edge (duplo clique no arquivo).</div></noscript>
+<div class="wrap">
+<div class="bar" role="region" aria-label="Progresso e filtros">
+  <span class="count" id="count">Ativando… (se esta mensagem não mudar, o script não está rodando: abra o arquivo em um navegador)</span>
+  <div class="track"><div class="fill" id="fill"></div></div>
+  <div class="seg">
+    <button type="button" class="active" data-filter="all">Todos</button>
+    <button type="button" data-filter="todo">Pendentes</button>
+    <button type="button" data-filter="done">Testados</button>
+  </div>
+  <input type="search" id="q" placeholder="Buscar cenário…" aria-label="Buscar cenário">
+  <button type="button" id="export" title="Baixa um JSON com os cenários marcados">Exportar marcações</button>
+  <label class="btn" title="Carrega um JSON exportado antes">Importar<input type="file" id="import" accept="application/json,.json"></label>
+  <button type="button" class="warn" id="reset">Limpar</button>
+</div>
+<h2 id="resumo">Resumo</h2>
+<p><strong>Objetivo:</strong> Permitir ordenação clicável, crescente e decrescente, nas colunas Nome, Tipo de documento, Efetivação e Validade da grid de Documentos do SmartShare ECM, com indicador visual de coluna ativa e direção.</p><p><strong>Fonte técnica:</strong> Card Análise #163177 (dev): impacto na listagem de documentos pela ordenação da coluna e no carregamento de pastas e documentos; casos de teste do dev cobrem Nome, Tipo, Efetivação/Validade com desempate alfabético, performance em base maior e caret na coluna ativa (padrão Nome). Atualizado em 26/10 com as definições da PM (comentário de Carina Junkes na US). Atenção: o ORDER BY do PR 29831 desempata Tipo por Efetivação DESC e não trata acentos, o que diverge da PM nos cenários 25 e 29. Observação (fora do mapa por não estar nas 4 fontes): os PRs 29831 (BE) e 29832 (FE) indicam 400 para orderByColumn/dsDirection inválido, datas nulas no fim e persistência da ordenação ao trocar de pasta.</p><p><strong>Origem (siglas):</strong> CA = Critério de Aceite; CT = Casos de Teste do dev; PI = Pontos de Impacto do dev; Bug #id = histórico de defeitos.</p><p><strong>Histórico de defeitos considerado:</strong> Nenhum bug relacionado encontrado na busca (0 resultados em SHARE-4 para tipo Bug); nenhum cenário de regressão derivado de histórico de defeitos.</p><p><strong>Dimensões cobertas:</strong> Positivo, permissão, dados, regressão cobertos. Cenários 25 a 29 definidos pela PM em 26/10; 30 e 31 seguem como hipótese. Negativo coberto como borda (cenários 17 e 18), pois a US não traz estado inválido. Concorrência N/A (ordenação é de apresentação). Erros de integração/API: N/A (sem integração; contrato de XML/formulários não muda).</p><h4>Critérios de aceite</h4><ul><li>CA1: Nome 1º clique: A→Z com indicador</li><li>CA2: Nome 2º clique: Z→A</li><li>CA3: Tipo de documento: alfabética e inversão</li><li>CA4: Efetivação: cronológica (não textual) e inversão</li><li>CA5: Validade: cronológica e inversão</li><li>CA6: Vazios/&quot;-&quot;: posição consistente em qualquer direção</li><li>CA7: Filtro ativo: ordena só o filtrado, mantém o filtro</li><li>CA8: Paginação: ordenação mantida em todas as páginas</li><li>CA9: Pastas sempre no topo</li><li>CA10: Pastas ordenadas por Nome ao ordenar por Tipo/Efetivação/Validade</li><li>CA11: Datas iguais: desempate por Nome na mesma direção</li></ul>
+<h2 id="tabela-completa">Tabela completa (31 cenários)</h2>
+<div class="tbl-wrap"><table class="cases main"><thead><tr><th class="col-check">Testado</th><th class="col-id">#</th><th class="col-cenario">Cenário</th><th class="col-config">Configurações necessárias</th><th class="col-acao">Ação</th><th class="col-resultado">Resultado Esperado</th><th class="col-tipo">Tipo</th><th class="col-tecnica">Técnica</th><th class="col-dim">Dimensão</th><th class="col-origem">Origem</th></tr></thead><tbody><tr class="group"><td colspan="10"><span class="gname">FLUXO PRINCIPAL</span><span class="gcount"></span></td></tr>
+<tr data-id="1"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="1" disabled aria-label="Marcar o cenário 1 como testado"></td><td class="col-id" data-label="#">1</td><td class="col-cenario" data-label="Cenário">Ordenar por Nome (1º clique)</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais documentos de Nomes distintos, com mistura de maiúsculas e minúsculas</td><td class="col-acao" data-label="Ação">Clicar no cabeçalho &quot;Nome&quot;</td><td class="col-resultado" data-label="Resultado Esperado">Lista A→Z e cabeçalho com indicador ativo</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA1, CT</td></tr>
+<tr data-id="2"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="2" disabled aria-label="Marcar o cenário 2 como testado"></td><td class="col-id" data-label="#">2</td><td class="col-cenario" data-label="Cenário">Inverter Nome (2º clique)</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais documentos de Nomes distintos, com mistura de maiúsculas e minúsculas</td><td class="col-acao" data-label="Ação">Clicar de novo em &quot;Nome&quot;</td><td class="col-resultado" data-label="Resultado Esperado">Lista Z→A e indicador reflete a direção</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA2</td></tr>
+<tr data-id="3"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="3" disabled aria-label="Marcar o cenário 3 como testado"></td><td class="col-id" data-label="#">3</td><td class="col-cenario" data-label="Cenário">Ordenar por Tipo de documento e inverter</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais documentos de Tipos de documento diferentes</td><td class="col-acao" data-label="Ação">Clicar em &quot;Tipo de documento&quot; e depois de novo</td><td class="col-resultado" data-label="Resultado Esperado">Alfabética e invertida no 2º clique, sem diferenciar maiúsculas/minúsculas</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA3, CT</td></tr>
+<tr data-id="4"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="4" disabled aria-label="Marcar o cenário 4 como testado"></td><td class="col-id" data-label="#">4</td><td class="col-cenario" data-label="Cenário">Ordenar por Efetivação e inverter</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais documentos de datas de Efetivação distintas, incluindo datas que invertem ordem textual (ex.: 02/12/2025 e 10/01/2026)</td><td class="col-acao" data-label="Ação">Clicar em &quot;Efetivação&quot; e depois de novo</td><td class="col-resultado" data-label="Resultado Esperado">Ordem cronológica (não textual) e invertida no 2º clique</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">valor-limite</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA4, CT</td></tr>
+<tr data-id="5"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="5" disabled aria-label="Marcar o cenário 5 como testado"></td><td class="col-id" data-label="#">5</td><td class="col-cenario" data-label="Cenário">Ordenar por Validade e inverter</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais documentos de datas de Validade distintas</td><td class="col-acao" data-label="Ação">Clicar em &quot;Validade&quot; e depois de novo</td><td class="col-resultado" data-label="Resultado Esperado">Cronológica e invertida no 2º clique</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">valor-limite</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA5, CT</td></tr>
+<tr data-id="6"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="6" disabled aria-label="Marcar o cenário 6 como testado"></td><td class="col-id" data-label="#">6</td><td class="col-cenario" data-label="Cenário">Indicador visual único</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais documentos de Nomes distintos, com mistura de maiúsculas e minúsculas</td><td class="col-acao" data-label="Ação">Ordenar por Nome e depois por Validade</td><td class="col-resultado" data-label="Resultado Esperado">Seta (caret) só ao lado do cabeçalho ativo, com a direção correta</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CT, CA1</td></tr>
+<tr data-id="7"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="7" disabled aria-label="Marcar o cenário 7 como testado"></td><td class="col-id" data-label="#">7</td><td class="col-cenario" data-label="Cenário">Ordenação padrão ao abrir a tela</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais documentos de Nomes distintos, com mistura de maiúsculas e minúsculas</td><td class="col-acao" data-label="Ação">Abrir a listagem de Documentos</td><td class="col-resultado" data-label="Resultado Esperado">Carrega ordenada por Nome, com o caret em Nome</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CT</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">FLUXO ALTERNATIVO</span><span class="gcount"></span></td></tr>
+<tr data-id="8"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="8" disabled aria-label="Marcar o cenário 8 como testado"></td><td class="col-id" data-label="#">8</td><td class="col-cenario" data-label="Cenário">Ordenar sobre resultado filtrado</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais documentos de Nomes distintos, com mistura de maiúsculas e minúsculas<br>[CONFIG] filtro (ícone Filtro) disponível na grid</td><td class="col-acao" data-label="Ação">Aplicar filtro e clicar em um cabeçalho</td><td class="col-resultado" data-label="Resultado Esperado">Só itens filtrados são ordenados e o filtro permanece ativo</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">tabela-decisão</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA7</td></tr>
+<tr data-id="9"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="9" disabled aria-label="Marcar o cenário 9 como testado"></td><td class="col-id" data-label="#">9</td><td class="col-cenario" data-label="Cenário">Aplicar filtro com ordenação ativa</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais documentos de Nomes distintos, com mistura de maiúsculas e minúsculas<br>[CONFIG] filtro (ícone Filtro) disponível na grid</td><td class="col-acao" data-label="Ação">Ordenar por Nome e aplicar filtro</td><td class="col-resultado" data-label="Resultado Esperado">Resultado filtrado segue a ordenação escolhida</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">tabela-decisão</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA7</td></tr>
+<tr data-id="10"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="10" disabled aria-label="Marcar o cenário 10 como testado"></td><td class="col-id" data-label="#">10</td><td class="col-cenario" data-label="Cenário">Ordenação mantida na paginação</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com itens em 2 ou mais páginas</td><td class="col-acao" data-label="Ação">Ordenar e avançar/voltar de página</td><td class="col-resultado" data-label="Resultado Esperado">Mesma ordenação em todas as páginas, sem repetir nem pular item</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA8</td></tr>
+<tr data-id="11"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="11" disabled aria-label="Marcar o cenário 11 como testado"></td><td class="col-id" data-label="#">11</td><td class="col-cenario" data-label="Cenário">Trocar de coluna de ordenação</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais documentos de Nomes distintos, com mistura de maiúsculas e minúsculas<br>[DADOS] pasta com 3 ou mais documentos de datas de Efetivação distintas, incluindo datas que invertem ordem textual (ex.: 02/12/2025 e 10/01/2026)</td><td class="col-acao" data-label="Ação">Ordenar por Nome e depois por Efetivação</td><td class="col-resultado" data-label="Resultado Esperado">Lista passa a seguir só Efetivação; sem multi-sort</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA4</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">DADOS E CASOS DE BORDA</span><span class="gcount"></span></td></tr>
+<tr data-id="12"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="12" disabled aria-label="Marcar o cenário 12 como testado"></td><td class="col-id" data-label="#">12</td><td class="col-cenario" data-label="Cenário">Pastas no topo ao ordenar por Nome</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais subpastas e 3 ou mais documentos</td><td class="col-acao" data-label="Ação">Ordenar por Nome, crescente e decrescente</td><td class="col-resultado" data-label="Resultado Esperado">Pastas acima de todos os documentos nas duas direções</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA9</td></tr>
+<tr data-id="13"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="13" disabled aria-label="Marcar o cenário 13 como testado"></td><td class="col-id" data-label="#">13</td><td class="col-cenario" data-label="Cenário">Pastas no topo nas demais colunas</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais subpastas e 3 ou mais documentos</td><td class="col-acao" data-label="Ação">Ordenar por Tipo, Efetivação e Validade</td><td class="col-resultado" data-label="Resultado Esperado">Pastas sempre no topo</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA9</td></tr>
+<tr data-id="14"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="14" disabled aria-label="Marcar o cenário 14 como testado"></td><td class="col-id" data-label="#">14</td><td class="col-cenario" data-label="Cenário">Pastas ordenadas por Nome ao ordenar por coluna sem valor para pasta</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais subpastas e 3 ou mais documentos</td><td class="col-acao" data-label="Ação">Ordenar por Tipo, Efetivação ou Validade</td><td class="col-resultado" data-label="Resultado Esperado">Pastas por Nome (alfabética); documentos pela coluna escolhida</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA10</td></tr>
+<tr data-id="15"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="15" disabled aria-label="Marcar o cenário 15 como testado"></td><td class="col-id" data-label="#">15</td><td class="col-cenario" data-label="Cenário">Desempate por Nome em datas iguais (Efetivação)</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] 2 ou mais documentos com a mesma data de Efetivação e Nomes diferentes; idem para Validade</td><td class="col-acao" data-label="Ação">Ordenar por Efetivação</td><td class="col-resultado" data-label="Resultado Esperado">Documentos com a mesma data aparecem por Nome na direção escolhida</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">valor-limite</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA11, CT</td></tr>
+<tr data-id="16"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="16" disabled aria-label="Marcar o cenário 16 como testado"></td><td class="col-id" data-label="#">16</td><td class="col-cenario" data-label="Cenário">Desempate por Nome em datas iguais (Validade)</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] 2 ou mais documentos com a mesma data de Efetivação e Nomes diferentes; idem para Validade</td><td class="col-acao" data-label="Ação">Ordenar por Validade</td><td class="col-resultado" data-label="Resultado Esperado">Documentos com a mesma data aparecem por Nome na direção escolhida</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">valor-limite</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA11, CT</td></tr>
+<tr data-id="17"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="17" disabled aria-label="Marcar o cenário 17 como testado"></td><td class="col-id" data-label="#">17</td><td class="col-cenario" data-label="Cenário">Nome &quot;-&quot; ou vazio</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] 1 documento com Nome &quot;-&quot; e 1 documento sem Validade</td><td class="col-acao" data-label="Ação">Ordenar por Nome</td><td class="col-resultado" data-label="Resultado Esperado">Itens com &quot;-&quot; aparecem sempre no início ou sempre no fim, em qualquer direção, sem quebrar os demais</td><td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td><td class="col-origem" data-label="Origem">CA6</td></tr>
+<tr data-id="18"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="18" disabled aria-label="Marcar o cenário 18 como testado"></td><td class="col-id" data-label="#">18</td><td class="col-cenario" data-label="Cenário">Validade vazia</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] 1 documento com Nome &quot;-&quot; e 1 documento sem Validade</td><td class="col-acao" data-label="Ação">Ordenar por Validade, crescente e decrescente</td><td class="col-resultado" data-label="Resultado Esperado">Sem Validade fica sempre na mesma extremidade nas duas direções</td><td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td><td class="col-origem" data-label="Origem">CA6</td></tr>
+<tr data-id="19"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="19" disabled aria-label="Marcar o cenário 19 como testado"></td><td class="col-id" data-label="#">19</td><td class="col-cenario" data-label="Cenário">Ordenação em base maior (performance)</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>HIPOTESE: [DADOS] base com volume maior que o usual (a US não quantifica)</td><td class="col-acao" data-label="Ação">Ordenar por cada coluna</td><td class="col-resultado" data-label="Resultado Esperado">Tempo de carregamento não é afetado e a ordem fica correta com paginação e filtro</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CT</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">PERMISSÃO</span><span class="gcount"></span></td></tr>
+<tr data-id="20"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="20" disabled aria-label="Marcar o cenário 20 como testado"></td><td class="col-id" data-label="#">20</td><td class="col-cenario" data-label="Cenário">Perfis diferentes veem a ordenação</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais documentos de Nomes distintos, com mistura de maiúsculas e minúsculas<br>[USUARIO] 2 usuários com perfis diferentes com acesso à tela Documentos</td><td class="col-acao" data-label="Ação">Cada usuário ordena por Nome</td><td class="col-resultado" data-label="Resultado Esperado">Ordenação funciona igual; sem mudança de permissão</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag">permissão</span></td><td class="col-origem" data-label="Origem">CA1, História (Impactos)</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">CONCORRÊNCIA</span><span class="gcount"></span></td></tr>
+<tr data-id="21"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="21" disabled aria-label="Marcar o cenário 21 como testado"></td><td class="col-id" data-label="#">21</td><td class="col-cenario" data-label="Cenário">N/A — a ordenação é de apresentação, sem escrita nem disputa de recurso</td><td class="col-config" data-label="Configurações necessárias">Nenhum específico</td><td class="col-acao" data-label="Ação">—</td><td class="col-resultado" data-label="Resultado Esperado">—</td><td class="col-tipo" data-label="Tipo">—</td><td class="col-tecnica" data-label="Técnica">—</td><td class="col-dim" data-label="Dimensão"><span class="tag">concorrência</span></td><td class="col-origem" data-label="Origem">—</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">ERROS DE INTEGRAÇÃO / API</span><span class="gcount"></span></td></tr>
+<tr data-id="22"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="22" disabled aria-label="Marcar o cenário 22 como testado"></td><td class="col-id" data-label="#">22</td><td class="col-cenario" data-label="Cenário">N/A — sem integração externa; a US declara que o contrato de XML/formulários não muda</td><td class="col-config" data-label="Configurações necessárias">Nenhum específico</td><td class="col-acao" data-label="Ação">—</td><td class="col-resultado" data-label="Resultado Esperado">—</td><td class="col-tipo" data-label="Tipo">—</td><td class="col-tecnica" data-label="Técnica">—</td><td class="col-dim" data-label="Dimensão">—</td><td class="col-origem" data-label="Origem">História (Impactos)</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">REGRESSÃO</span><span class="gcount"></span></td></tr>
+<tr data-id="23"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="23" disabled aria-label="Marcar o cenário 23 como testado"></td><td class="col-id" data-label="#">23</td><td class="col-cenario" data-label="Cenário">Carregamento de pastas e documentos sem ordenar</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais subpastas e 3 ou mais documentos</td><td class="col-acao" data-label="Ação">Abrir e navegar pastas sem clicar em cabeçalho</td><td class="col-resultado" data-label="Resultado Esperado">Pastas e documentos carregam normalmente e a navegação segue funcionando</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">PI</td></tr>
+<tr data-id="24"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="24" disabled aria-label="Marcar o cenário 24 como testado"></td><td class="col-id" data-label="#">24</td><td class="col-cenario" data-label="Cenário">Listagem após a mudança</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais documentos de Nomes distintos, com mistura de maiúsculas e minúsculas<br>[DADOS] pasta com itens em 2 ou mais páginas<br>[CONFIG] filtro (ícone Filtro) disponível na grid</td><td class="col-acao" data-label="Ação">Combinar filtro, paginação e navegação em pastas</td><td class="col-resultado" data-label="Resultado Esperado">Comportamento anterior preservado (contagem, paginação, abertura de documento)</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">PI</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">CASOS DE BORDA / DEFINIÇÕES DA PM</span><span class="gcount"></span></td></tr>
+<tr data-id="25"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="25" disabled aria-label="Marcar o cenário 25 como testado"></td><td class="col-id" data-label="#">25</td><td class="col-cenario" data-label="Cenário">Desempate por Nome quando o Tipo de documento é igual</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais documentos de Tipos de documento diferentes<br>[DADOS] pasta com 3 ou mais documentos de datas de Efetivação distintas, incluindo datas que invertem ordem textual (ex.: 02/12/2025 e 10/01/2026)</td><td class="col-acao" data-label="Ação">Ordenar por Tipo, crescente e decrescente, com documentos de mesmo tipo e Efetivações diferentes</td><td class="col-resultado" data-label="Resultado Esperado">Documentos de mesmo Tipo aparecem por Nome, na mesma direção escolhida (não por Efetivação)</td><td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td><td class="col-origem" data-label="Origem">História (comentário PM 26/10), CT</td></tr>
+<tr data-id="26"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="26" disabled aria-label="Marcar o cenário 26 como testado"></td><td class="col-id" data-label="#">26</td><td class="col-cenario" data-label="Cenário">1º clique em Efetivação e Validade é crescente</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais documentos de datas de Efetivação distintas, incluindo datas que invertem ordem textual (ex.: 02/12/2025 e 10/01/2026)<br>[DADOS] pasta com 3 ou mais documentos de datas de Validade distintas</td><td class="col-acao" data-label="Ação">Clicar uma vez em &quot;Efetivação&quot; e uma vez em &quot;Validade&quot;</td><td class="col-resultado" data-label="Resultado Esperado">Cada coluna ordena da mais antiga para a mais recente no 1º clique</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">valor-limite</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">História (comentário PM 26/10), CA4, CA5</td></tr>
+<tr data-id="27"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="27" disabled aria-label="Marcar o cenário 27 como testado"></td><td class="col-id" data-label="#">27</td><td class="col-cenario" data-label="Cenário">3º clique alterna sem limpar a ordenação</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais documentos de Nomes distintos, com mistura de maiúsculas e minúsculas</td><td class="col-acao" data-label="Ação">Clicar 3 vezes em &quot;Nome&quot;</td><td class="col-resultado" data-label="Resultado Esperado">Crescente, decrescente e volta a crescente; a ordenação nunca é limpa</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">História (comentário PM 26/10), CA2</td></tr>
+<tr data-id="28"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="28" disabled aria-label="Marcar o cenário 28 como testado"></td><td class="col-id" data-label="#">28</td><td class="col-cenario" data-label="Cenário">Pastas seguem a direção ao ordenar por Nome</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais subpastas e 3 ou mais documentos</td><td class="col-acao" data-label="Ação">Ordenar por Nome, 1º e 2º clique</td><td class="col-resultado" data-label="Resultado Esperado">Pastas A→Z e depois Z→A, sempre acima dos documentos</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">História (comentário PM 26/10), CA9, CA10</td></tr>
+<tr data-id="29"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="29" disabled aria-label="Marcar o cenário 29 como testado"></td><td class="col-id" data-label="#">29</td><td class="col-cenario" data-label="Cenário">Acentos e maiúsculas/minúsculas ignorados na ordem alfabética</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] nomes de documentos com e sem acento e com maiúsculas e minúsculas (ex.: &quot;Ágata&quot;, &quot;agata&quot;, &quot;Beta&quot;, &quot;álamo&quot;)</td><td class="col-acao" data-label="Ação">Ordenar por Nome com &quot;Ágata&quot;, &quot;agata&quot;, &quot;Beta&quot; e &quot;álamo&quot;</td><td class="col-resultado" data-label="Resultado Esperado">Ordem ignora acentos e caixa (álamo, Ágata/agata, Beta), em Nome e em Tipo</td><td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td><td class="col-origem" data-label="Origem">História (comentário PM 26/10)</td></tr>
+<tr data-id="30" class="row-hipotese"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="30" disabled aria-label="Marcar o cenário 30 como testado"></td><td class="col-id" data-label="#">30</td><td class="col-cenario" data-label="Cenário"><span class="hip-badge">hipótese</span> Ordenação inicial e 1º clique em Nome</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais documentos de Nomes distintos, com mistura de maiúsculas e minúsculas</td><td class="col-acao" data-label="Ação">Abrir a tela (padrão Nome) e clicar uma vez em &quot;Nome&quot;</td><td class="col-resultado" data-label="Resultado Esperado">Esperado a validar: o CT diz que a tela abre por Nome, e o CA1 diz que o 1º clique é crescente. Se já abre crescente, o clique iria para decrescente</td><td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">HIPOTESE: CT, CA1, hipótese</td></tr>
+<tr data-id="31" class="row-hipotese"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="31" disabled aria-label="Marcar o cenário 31 como testado"></td><td class="col-id" data-label="#">31</td><td class="col-cenario" data-label="Cenário"><span class="hip-badge">hipótese</span> Direção das pastas em Tipo, Efetivação e Validade</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832)<br>[DADOS] pasta com 3 ou mais subpastas e 3 ou mais documentos</td><td class="col-acao" data-label="Ação">Ordenar por Tipo, Efetivação ou Validade, 1º e 2º clique</td><td class="col-resultado" data-label="Resultado Esperado">Esperado a validar: o CA10 diz Nome (alfabética) sem direção; a PM só cobriu Nome</td><td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">HIPOTESE: CA10, hipótese</td></tr></tbody></table></div>
+<h2 id="pre-requisitos">Pré-requisitos de ambiente (consolidado)</h2>
+<ul><li>[AMBIENTE] build com a US #161357 implantado (BE PR 29831 e FE PR 29832) — cenários: #1, #2, #3, #4, #5, #6, #7, #8, #9, #10, #11, #12, #13, #14, #15, #16, #17, #18, #19, #20, #23, #24, #25, #26, #27, #28, #29, #30, #31</li><li>[DADOS] pasta com 3 ou mais documentos de Nomes distintos, com mistura de maiúsculas e minúsculas — cenários: #1, #2, #6, #7, #8, #9, #11, #20, #24, #27, #30</li><li>[DADOS] pasta com 3 ou mais documentos de Tipos de documento diferentes — cenários: #3, #25</li><li>[DADOS] pasta com 3 ou mais documentos de datas de Efetivação distintas, incluindo datas que invertem ordem textual (ex.: 02/12/2025 e 10/01/2026) — cenários: #4, #11, #25, #26</li><li>[DADOS] pasta com 3 ou mais documentos de datas de Validade distintas — cenários: #5, #26</li><li>[DADOS] 2 ou mais documentos com a mesma data de Efetivação e Nomes diferentes; idem para Validade — cenários: #15, #16</li><li>[DADOS] 1 documento com Nome &quot;-&quot; e 1 documento sem Validade — cenários: #17, #18</li><li>[DADOS] pasta com 3 ou mais subpastas e 3 ou mais documentos — cenários: #12, #13, #14, #23, #28, #31</li><li>[DADOS] pasta com itens em 2 ou mais páginas — cenários: #10, #24</li><li>[CONFIG] filtro (ícone Filtro) disponível na grid — cenários: #8, #9, #24</li><li>HIPOTESE: [DADOS] base com volume maior que o usual (a US não quantifica) — cenários: #19</li><li>[USUARIO] 2 usuários com perfis diferentes com acesso à tela Documentos — cenários: #20</li><li>[DADOS] nomes de documentos com e sem acento e com maiúsculas e minúsculas (ex.: &quot;Ágata&quot;, &quot;agata&quot;, &quot;Beta&quot;, &quot;álamo&quot;) — cenários: #29</li></ul>
+</div>
+<footer>As marcações ficam salvas só neste navegador, por cenário. Use Exportar e Importar para levá-las a outra máquina.</footer>
+<script>
+(function(){
+try{
+  var KEY="mapa-teste-us-161357-ordenacao-documentos-testados-v1";
+  var state={};
+  try{var raw=localStorage.getItem(KEY);if(raw)state=JSON.parse(raw)||{};}catch(e){}
+  var chks=[].slice.call(document.querySelectorAll('input.chk'));
+  chks.forEach(function(c){c.disabled=false;});
+  var mainRows=[].slice.call(document.querySelectorAll('table.main tbody tr[data-id]'));
+  var ids=mainRows.map(function(r){return r.dataset.id;});
+  var fill=document.getElementById('fill'),count=document.getElementById('count');
+  var filter='all',query='';
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function paint(id){
+    var on=!!state[id];
+    chks.forEach(function(c){if(c.dataset.id===id){c.checked=on;c.closest('tr').classList.toggle('row-done',on);}});
+  }
+  function groups(){
+    [].slice.call(document.querySelectorAll('table.main tbody')).forEach(function(tb){
+      var cur=null,tot=0,done=0;
+      function close(){if(cur)cur.querySelector('.gcount').textContent=done+' de '+tot+' testados';}
+      [].slice.call(tb.rows).forEach(function(r){
+        if(r.classList.contains('group')){close();cur=r;tot=0;done=0;}
+        else if(r.dataset.id){tot++;if(state[r.dataset.id])done++;}
+      });
+      close();
+    });
+  }
+  function progress(){
+    var d=ids.filter(function(i){return state[i];}).length;
+    count.textContent=d+' de '+ids.length+' testados ('+(ids.length?Math.round(d*100/ids.length):0)+'%)';
+    fill.style.width=(ids.length?d*100/ids.length:0)+'%';
+    groups();
+  }
+  function apply(){
+    var q=query.trim().toLowerCase();
+    [].slice.call(document.querySelectorAll('tr[data-id]')).forEach(function(r){
+      var done=!!state[r.dataset.id];
+      var ok=(filter==='all')||(filter==='done'&&done)||(filter==='todo'&&!done);
+      if(ok&&q)ok=r.textContent.toLowerCase().indexOf(q)>-1;
+      r.classList.toggle('hidden',!ok);
+    });
+    [].slice.call(document.querySelectorAll('tr.group')).forEach(function(g){
+      var n=g.nextElementSibling,any=false;
+      while(n&&!n.classList.contains('group')){if(n.dataset.id&&!n.classList.contains('hidden')){any=true;break;}n=n.nextElementSibling;}
+      g.classList.toggle('hidden',!any);
+    });
+  }
+  chks.forEach(function(c){c.addEventListener('change',function(){
+    var id=c.dataset.id;if(c.checked)state[id]=true;else delete state[id];
+    paint(id);progress();save();apply();
+  });});
+  ids.concat(chks.map(function(c){return c.dataset.id;})).forEach(paint);
+  progress();apply();
+  [].slice.call(document.querySelectorAll('[data-filter]')).forEach(function(b){b.addEventListener('click',function(){
+    filter=b.dataset.filter;
+    [].slice.call(document.querySelectorAll('[data-filter]')).forEach(function(x){x.classList.toggle('active',x===b);});
+    apply();
+  });});
+  document.getElementById('q').addEventListener('input',function(e){query=e.target.value;apply();});
+  document.getElementById('reset').addEventListener('click',function(){
+    if(!confirm('Desmarcar todos os cenários testados?'))return;
+    state={};save();chks.forEach(function(c){paint(c.dataset.id);});progress();apply();
+  });
+  document.getElementById('export').addEventListener('click',function(){
+    var data={arquivo:"mapa-teste-us-161357-ordenacao-documentos.html",exportado_em:new Date().toISOString(),testados:Object.keys(state).sort(function(a,b){return a-b;})};
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+    a.download='marcacoes-mapa-teste.json';document.body.appendChild(a);a.click();a.remove();
+  });
+  document.getElementById('import').addEventListener('change',function(e){
+    var f=e.target.files[0];if(!f)return;
+    var r=new FileReader();
+    r.onload=function(){
+      try{
+        var d=JSON.parse(r.result);
+        if(!d||!Array.isArray(d.testados))throw new Error('formato');
+        if(!confirm('Substituir as marcações atuais por '+d.testados.length+' cenários testados do arquivo?'))return;
+        state={};d.testados.forEach(function(i){state[String(i)]=true;});
+        save();chks.forEach(function(c){paint(c.dataset.id);});progress();apply();
+      }catch(err){alert('Arquivo inválido: use um JSON exportado por esta página.');}
+      e.target.value='';
+    };
+    r.readAsText(f);
+  });
+}catch(err){var c0=document.getElementById('count');if(c0)c0.textContent='Erro no script: '+err.message;}
+})();
+</script>
+</body>
+</html>
