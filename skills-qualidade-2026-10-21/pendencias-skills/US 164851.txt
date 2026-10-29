@@ -1,0 +1,9 @@
+US 164851
+Título: Migração tela de gerenciamento | Gerenciamento de índice (BE) | Opções do índice
+Dev da análise: Vinicius Mesquita Junge
+
+Itens pendentes na análise:
+1. CA 94/96 (permissão de gerenciar índices): o middleware só exige papel administrador (role "1") para qualquer rota /TipoIndice; o card não cita o middleware nem permissão específica de índices; confirmar se é isso que a US pede.
+2. Caso de teste 22 do card diz "sem login → 401", mas o middleware devolve 403 quando não há token válido (401 só com token válido e inativo); alinhar card e código.
+3. Os PRs 30117 e 30119 trazem os mesmos arquivos de opções misturados com arquivos de outras US (BE 02 a 04 e 06), ambos ativos e sem revisores; definir qual PR é o oficial.
+4. Alteração/remoção de opção inexistente devolve "Opção não encontrada." (mensagem nova, não prevista nos CA); a PM precisa validar o texto.
