@@ -3,7 +3,10 @@ Título: Migração tela de gerenciamento | Gerenciamento de índice (BE) | Opç
 Dev da análise: Vinicius Mesquita Junge
 
 Itens pendentes na análise:
-1. CA 94/96 (permissão de gerenciar índices): o middleware só exige papel administrador (role "1") para qualquer rota /TipoIndice; o card não cita o middleware nem permissão específica de índices; confirmar se é isso que a US pede.
-2. Caso de teste 22 do card diz "sem login → 401", mas o middleware devolve 403 quando não há token válido (401 só com token válido e inativo); alinhar card e código.
-3. Os PRs 30117 e 30119 trazem os mesmos arquivos de opções misturados com arquivos de outras US (BE 02 a 04 e 06), ambos ativos e sem revisores; definir qual PR é o oficial.
-4. Alteração/remoção de opção inexistente devolve "Opção não encontrada." (mensagem nova, não prevista nos CA); a PM precisa validar o texto.
+(nenhum)
+
+Resolvidos pela resposta do dev (29/10/2026):
+1. CA 94/96: "permissão de gerenciar índices" = ser administrador (mesma regra de todas as telas de gerenciamento, no Share 4 e no Clássico); não administrador é bloqueado (403) em qualquer operação de opções, inclusive consulta; o cenário "vê mas não altera" não existe.
+2. Caso 22: sem login ou token inválido → 403; não administrador → 403; token válido com sessão encerrada → 401 (FE trata 401 e 403 igual; CA 95 aceita os dois). Código mantido; o caso de teste passa a refletir isso.
+3. PRs: oficiais são os da branch da Fase 3 (30019, 30020, 30080, 30092 e 30103); 30113 a 30119 serão abandonados (duplicados abertos contra a branch de Parâmetros); 164850 ganha PR próprio para a Fase 3; merge na ordem das US.
+4. "Opção não encontrada.": mantida; entra como complemento do CA 82 para alteração e remoção de opção.

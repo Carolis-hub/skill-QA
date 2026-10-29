@@ -1,0 +1,11 @@
+US 164850
+Título: Migração tela de gerenciamento | Gerenciamento de índice (BE) | Alteração, inativação e exclusão
+Dev da análise: Vinicius Mesquita Junge (responsável da US e autor do PR 30119; autor do card Análise 164859 não consultado)
+
+Itens pendentes na análise:
+1. CA 67 diz que a API exclui o documento vinculado (cd_documento, log aplicação 18); o card (D-01) diz que o ECM exclui, chamado pelo FE, e a API só devolve cd_documento. Alinhar US e implementação.
+2. O caso 17 do card não cobre o log de aplicação 18, ação 3, do documento excluído (CA 67).
+3. Sem mecanismo informado para simular falha de log (caso 11) e falha técnica (caso 24).
+4. Card traz comportamentos que a US não prevê: Múltipla Seleção travada (D-03) e tipo inativo e vinculado editável (G-02). Confirmar com a PM.
+5. PR 30119 reúne 5 US (164848 a 164852) e 58 arquivos; não constam no card: Share4UserAuthorizationMiddleware, InicioPublicacaoService/Dto, FluxoService e os arquivos de conexão e consulta SQL externa. Confirmar escopo.
+6. Sem caso no card para CA 97 (SQL parametrizado), ordem da lista de processos, texto da inativação bloqueada (CA 72) e precedência entre CA 66 e 68 (REC 02 a 04 aprovadas).
