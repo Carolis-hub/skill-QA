@@ -128,6 +128,8 @@ Produza, sempre citando a origem (`análise do dev` ou `PR #<n>, arquivo <path>`
 6. **Casos de teste sugeridos pelo dev** (`$ANALISE_CASOS`) — reproduza como está, marcado claramente como sugestão do dev, não validada pelo QA ainda.
 7. **Pré-requisitos técnicos de execução de teste** — para cada critério de aceite que dependa de infraestrutura/configuração (ex.: nome de bucket, variável de ambiente, URL) ou de cenário negativo/falha técnica, identifique no card de Análise ou no PR: (a) qual configuração real é usada, (b) se existe mecanismo para reproduzir a falha em ambiente de teste (feature flag, credencial inválida, mock/stub, LocalStack). Quando essa informação não estiver no card nem no PR, registre em "Informações ausentes" e marque explicitamente como **bloqueante para `/executar-teste`** — não apenas como observação técnica.
 
+   **Fora do escopo desta análise (não validar, não listar como pendência nem como bloqueante):** (a) configurações de banco de dados (ex.: `NLS_SORT`, `NLS_COMP`, collation, parâmetros de sessão); (b) se a branch ou o PR está implantado em ambiente dev; (c) o estado dos cards `Analise Review` e `Code Review` (ver Step 4.5). A skill descreve o que o card e o PR dizem; o preparo e a conferência de ambiente pertencem a `/validar-ambiente`.
+
 Se `$ANALISE_PONTOS` for muito genérico (ex.: "ajustes no back-end"), não crie detalhamento fictício para preencher a tabela — registre a limitação em "Informações ausentes".
 
 ---
@@ -203,7 +205,8 @@ Ao terminar a validação da US, decida se existe pendência a registrar e, se e
   - erro técnico visível (ex.: sintaxe SQL que difere entre SQL Server e Oracle);
   - risco de segurança (permissão, ownership em endpoints, exposição de dados);
   - telas, APIs, regras ou integrações impactadas sem identificação;
-  - campos vazios (Alteração de Classe/Tela, Caso de Teste), Análise Review em "New", tasks de CR ou Mapa ausentes.
+  - campos vazios (Alteração de Classe/Tela, Caso de Teste).
+- **Não são ponto pendente** (não entram no arquivo nem no relatório como pendência): estado dos cards `Analise Review` e `Code Review` (ex.: "New"), ausência de task de CR ou de Mapa, configuração de banco de dados e se a branch está implantada em ambiente dev.
 - Dúvidas de CA e de descrição que dependem de resposta do dev ou da PM (CA contraditório, "a confirmar", termo ambíguo) ficam **só no chat**, não entram no arquivo.
 - Se **não houver nenhum ponto pendente**, **não crie** o arquivo.
 

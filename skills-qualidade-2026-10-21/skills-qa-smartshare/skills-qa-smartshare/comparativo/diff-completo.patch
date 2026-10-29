@@ -12,7 +12,7 @@ index e866911..176255a 100644
  
  Este comando é a Skill 5 (QA Failure Analyst). Ele **não cria bug** — só decide, com rastreabilidade, se a falha tem evidência suficiente para justificar um defeito. Quem decide criar de fato é o `/gerar-defeito`, sempre com confirmação humana antes de escrever no Azure DevOps.
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/analise-negocio.md b/skills-qa-smartshare/skills-qa-smartshare/skills/analise-negocio.md
-index 204a4e3..bfffbda 100644
+index 204a4e3..7d2d0fb 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/analise-negocio.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/analise-negocio.md
 @@ -7,10 +7,10 @@ Analisar o negocio da historia do Azure DevOps a partir de **$ARGUMENTS**.
@@ -25,7 +25,7 @@ index 204a4e3..bfffbda 100644
 +- `146157 "Nome do Projeto"` → projeto explicito
  
 -Este comando é **somente leitura** — não cria, edita nem comenta nada no Azure DevOps. É a etapa de Análise de Negócio (equivalente à Skill 1 / QA Business Analyst) que antecede a análise técnica e a criação do mapa de testes.
-+Este comando é **somente leitura no Azure DevOps** — não cria, edita nem comenta nada lá. A única escrita permitida é local, dentro de `$CICLOS_DIR` (`C:\skills-qualidade\ciclos-executados`): o relatório da análise e o arquivo de pendências do dev (ver Step 4.5 e Step 5). É a etapa de Análise de Negócio (equivalente à Skill 1 / QA Business Analyst) que antecede a análise técnica e a criação do mapa de testes.
++Este comando é **somente leitura no Azure DevOps** — não cria, edita nem comenta nada lá. A única escrita permitida é local, dentro de `$CICLOS_DIR` (`C:\skills-qualidade\ciclos-executados`): o relatório da análise, o arquivo de pendências do dev e o arquivo de recomendações (ver Step 4.5, 4.6 e Step 5). É a etapa de Análise de Negócio (equivalente à Skill 1 / QA Business Analyst) que antecede a análise técnica e a criação do mapa de testes.
  
  ---
  
@@ -53,7 +53,7 @@ index 204a4e3..bfffbda 100644
  - `expand`: `"all"`
  
  Capture do resultado:
-@@ -85,14 +87,56 @@ A partir de `$STORY_TITLE`, `$STORY_DESC`, `$STORY_AC` (e comentários, se houve
+@@ -85,14 +87,58 @@ A partir de `$STORY_TITLE`, `$STORY_DESC`, `$STORY_AC` (e comentários, se houve
  7. **Informações ausentes** — perguntas de negócio (regra, escopo, prioridade) que a história não responde e que são necessárias para testar com segurança. **Não liste aqui perguntas técnicas ou de ambiente de execução** (nome de bucket/config específica, mecanismo para simular falha técnica, se um job já rodou em determinado ambiente, política de log) — essas são resolvidas por `/analise-tecnica`, que tem acesso ao PR/código. Se notar uma lacuna desse tipo durante a extração, não a trate como bloqueio de negócio.
  8. **Ambiguidades** — trechos que admitem mais de uma interpretação; explique as interpretações possíveis.
  9. **Riscos** — o que pode dar errado do ponto de vista de negócio se a regra for mal interpretada ou mal implementada.
@@ -62,8 +62,9 @@ index 204a4e3..bfffbda 100644
 +    - **Pendência de outro responsável** (PM, PO, negócio ou "não informado"): listar na tabela; se for remissão ao legado sem comportamento definido, aplica-se o Step 3.5.
 +
 +    **Valor de "nenhuma pendência":** se o campo de pendências a confirmar antes do desenvolvimento trouxer um valor semelhante a "nenhuma pendência", "sem alterações", "nada a confirmar" ou "não há pendências", interprete como **não existem itens a validar antes do desenvolvimento**. Registre `Nenhum item a validar antes do desenvolvimento (descrição: "<frase literal>")` e **não** trate essa frase como item pendente nem como lacuna. Isso vale só para o campo em que a frase aparece: itens atribuídos ao dev em outras partes da descrição continuam sendo listados como pontos de atenção.
- 
--Se qualquer um dos 9 itens não tiver conteúdo aplicável, escreva explicitamente `Nenhum identificado` — não omita a seção.
++
++**Sugestões para o item 7 (Informações ausentes):** para cada informação ausente de negócio, proponha uma **recomendação** (ID `REC-<ID>-NN`) escolhendo o menor desvio do que a própria história já define, com a justificativa citando o CA ou trecho de origem. A recomendação é sempre **sugestão do Claude, não regra de negócio**: nasce com status `Pendente de aprovação`, nunca vira regra explícita e nunca é tratada como definida (ver Step 4.6). Não proponha recomendação para pendência bloqueante do Step 3.5.
++
 +Se qualquer um dos 10 itens não tiver conteúdo aplicável, escreva explicitamente `Nenhum identificado` — não omita a seção.
 +
 +---
@@ -89,7 +90,8 @@ index 204a4e3..bfffbda 100644
 +| # | Trecho da história (origem) | Remissão ao legado | O que precisa ser definido |
 +|---|---|---|---|
 +| 1 | <citação curta + onde está: descrição / CA n> | <ex.: "mesma regra e mensagem do legado"> | <pergunta de negócio específica> |
-+
+ 
+-Se qualquer um dos 9 itens não tiver conteúdo aplicável, escreva explicitamente `Nenhum identificado` — não omita a seção.
 +Itens já definidos de forma verificável (não bloqueiam): <lista ou "Nenhum">.
 +
 +## Pontos de atenção (respondidos pelo dev) — não bloqueiam
@@ -112,7 +114,14 @@ index 204a4e3..bfffbda 100644
  
  ```
  # Análise de Negócio — #<ID> <Título>
-@@ -126,14 +170,75 @@ Apresente em Markdown, nesta estrutura fixa:
+@@ -120,20 +166,111 @@ Apresente em Markdown, nesta estrutura fixa:
+ 
+ ## Informações ausentes
+ - Informação não encontrada / necessita validação: <pergunta específica>
++  - **Sugestão do Claude (REC-<ID>-NN, pendente de aprovação, não é regra da US):** <recomendação e justificativa>
+ 
+ ## Ambiguidades
+ ...
  
  ## Riscos identificados
  ...
@@ -126,12 +135,13 @@ index 204a4e3..bfffbda 100644
 +<itens de PM/PO/negócio/não informado, ou `Nenhum item a validar antes do desenvolvimento (descrição: "<frase literal>")`>
  ```
  
-+Informe no fim do relatório os caminhos dos arquivos gerados nos Steps 4.5 e 5.
+-Finalize perguntando ao usuário se deseja prosseguir para a análise técnica (`/analise-tecnica`, quando existir) ou diretamente para o mapa de testes (`/gerar-mapa-testes-v2 <ID>`) — não encadeie automaticamente.
++Informe no fim do relatório os caminhos dos arquivos gerados nos Steps 4.5, 4.6 e 5.
 +
- Finalize perguntando ao usuário se deseja prosseguir para a análise técnica (`/analise-tecnica`, quando existir) ou diretamente para o mapa de testes (`/gerar-mapa-testes-v2 <ID>`) — não encadeie automaticamente.
- 
- ---
- 
++Se houver recomendações, faça primeiro a pergunta de aprovação do Step 4.6; só depois pergunte sobre o próximo passo. Finalize perguntando ao usuário se deseja prosseguir para a análise técnica (`/analise-tecnica`, quando existir) ou diretamente para o mapa de testes (`/gerar-mapa-testes-v2 <ID>`) — não encadeie automaticamente.
++
++---
++
 +## Step 4.5 — Registrar os pontos de atenção do dev (executar sempre, inclusive quando o Step 3.5 bloqueia)
 +
 +**Regra de registro (diretório único):** todo arquivo gravado por esta skill vai para o diretório fixo `$CICLOS_DIR` = `C:\skills-qualidade\ciclos-executados`, nunca para uma pasta relativa ao diretório de trabalho nem para dentro de `skills-qa-smartshare`. Se a sessão estiver em outro diretório, use mesmo assim o caminho absoluto; crie as subpastas se não existirem.
@@ -160,6 +170,34 @@ index 204a4e3..bfffbda 100644
 +
 +---
 +
++## Step 4.6 — Registrar e submeter as recomendações (somente se o Step 4 gerou alguma `REC`)
++
++Grave as recomendações em `$CICLOS_DIR\US-<ID>\recomendacoes-qa\US-<ID>_<$EXEC>.md` (mesmo `$EXEC` dos Steps 4.5 e 5; **nunca sobrescreva** arquivo de execução anterior). Formato fixo:
++
++```
++---
++us: <ID>
++origem: RECOMENDAÇÃO DO CLAUDE (QA), NÃO DECISÃO DA PM/PO
++execucao: <$EXEC>
++revisao_us: <System.Rev>
++---
++
++# Recomendações — US #<ID> <Título>
++
++| ID | Informação ausente | Recomendação | Justificativa (base na US) | Impacto no mapa | Status | Decisão da usuária |
++|---|---|---|---|---|---|---|
++| REC-<ID>-01 | ... | ... | ... | ... | Pendente de aprovação | — |
++```
++
++**Regra de aprovação (inegociável):**
++- **Nunca aprove, ajuste ou rejeite uma recomendação por conta própria.** Todo item nasce `Pendente de aprovação`. A aprovação só vale com resposta **explícita da usuária, no chat**, item a item ou em lote nomeado ("aprovo todas", "aprovo 01 a 04 e rejeito 05").
++- Depois de apresentar o relatório, **pergunte** quais recomendações a usuária aprova, ajusta ou rejeita (pode usar `AskUserQuestion`). Silêncio, "ok", "prossiga" ou escolha do próximo passo **não são aprovação**: o item continua `Pendente de aprovação`.
++- Resposta explícita → atualize só a linha do item no mesmo arquivo: `Status` = `Aprovada` | `Ajustada` (grave o texto da usuária na recomendação) | `Rejeitada`, e `Decisão da usuária` = `<AAAA-MM-DD>, <resposta em poucas palavras>`.
++- Recomendação aprovada **não é editada na US nem no Azure DevOps** por esta skill; continua sendo identificada como "recomendação aprovada pela usuária", nunca como regra original da história.
++- Não grave nada no Azure DevOps.
++
++---
++
 +## Step 5 — Salvar o relatório da análise (executar sempre)
 +
 +Grave **exatamente o que foi apresentado ao usuário** — o relatório do Step 4 ou o relatório de bloqueio do Step 3.5 — em `$CICLOS_DIR\US-<ID>\analises-negocio\US-<ID>_<$EXEC>.md` (mesmo `$EXEC` do Step 4.5; crie os diretórios se não existirem). **Nunca sobrescreva** execuções anteriores: cada execução gera um arquivo novo.
@@ -174,13 +212,14 @@ index 204a4e3..bfffbda 100644
 +revisao_us: <System.Rev>
 +resultado: Concluída | Bloqueada
 +pendencias_dev: C:\skills-qualidade\ciclos-executados\US-<ID>\pendencias-dev\US-<ID>_<$EXEC>.md
++recomendacoes: C:\skills-qualidade\ciclos-executados\US-<ID>\recomendacoes-qa\US-<ID>_<$EXEC>.md (ou "nenhuma")
 +---
 +```
 +
-+Informe ao usuário, no fim, os caminhos dos dois arquivos gravados (análise e pendências). Não grave nada no Azure DevOps.
-+
-+---
-+
++Informe ao usuário, no fim, os caminhos dos arquivos gravados (análise, pendências e, se houver, recomendações). Não grave nada no Azure DevOps.
+ 
+ ---
+ 
  ## Troubleshooting
  
 +- Se a história depende de "igual ao legado" / "como hoje" sem descrever o comportamento (inclusive quando a própria US manda "comparar com o legado antes de codar"), aplique o Step 3.5: se a descrição não atribuir a verificação ao dev, é pendência de negócio bloqueante (pare), não "Informações ausentes" do relatório final; se atribuir ao dev, é ponto de atenção (não bloqueia) e vai para o arquivo do Step 4.5.
@@ -189,7 +228,7 @@ index 204a4e3..bfffbda 100644
  - Se `$STORY_RELATIONS` incluir cards filhos do tipo `Análise` ou `Analise Review`, **não os utilize aqui** — eles são insumo da análise técnica, não da análise de negócio.
  - Se durante a extração você perceber uma dúvida que só o código/PR responde (ex.: qual configuração de infraestrutura é usada, como simular uma falha técnica, se um job de backfill já rodou em um ambiente), não a liste em "Informações ausentes" — apenas não invente a resposta; ela será endereçada em `/analise-tecnica`.
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/analise-tecnica.md b/skills-qa-smartshare/skills-qa-smartshare/skills/analise-tecnica.md
-index b32d612..abff04c 100644
+index b32d612..f68863c 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/analise-tecnica.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/analise-tecnica.md
 @@ -7,8 +7,8 @@ Analisar o impacto tecnico da historia do Azure DevOps a partir de **$ARGUMENTS*
@@ -259,7 +298,16 @@ index b32d612..abff04c 100644
  ## Step 3 — Estruturar a análise técnica
  
  Produza, sempre citando a origem (`análise do dev` ou `PR #<n>, arquivo <path>`):
-@@ -143,6 +170,11 @@ Se `$ANALISE_PONTOS` for muito genérico (ex.: "ajustes no back-end"), não crie
+@@ -101,6 +128,8 @@ Produza, sempre citando a origem (`análise do dev` ou `PR #<n>, arquivo <path>`
+ 6. **Casos de teste sugeridos pelo dev** (`$ANALISE_CASOS`) — reproduza como está, marcado claramente como sugestão do dev, não validada pelo QA ainda.
+ 7. **Pré-requisitos técnicos de execução de teste** — para cada critério de aceite que dependa de infraestrutura/configuração (ex.: nome de bucket, variável de ambiente, URL) ou de cenário negativo/falha técnica, identifique no card de Análise ou no PR: (a) qual configuração real é usada, (b) se existe mecanismo para reproduzir a falha em ambiente de teste (feature flag, credencial inválida, mock/stub, LocalStack). Quando essa informação não estiver no card nem no PR, registre em "Informações ausentes" e marque explicitamente como **bloqueante para `/executar-teste`** — não apenas como observação técnica.
+ 
++   **Fora do escopo desta análise (não validar, não listar como pendência nem como bloqueante):** (a) configurações de banco de dados (ex.: `NLS_SORT`, `NLS_COMP`, collation, parâmetros de sessão); (b) se a branch ou o PR está implantado em ambiente dev; (c) o estado dos cards `Analise Review` e `Code Review` (ver Step 4.5). A skill descreve o que o card e o PR dizem; o preparo e a conferência de ambiente pertencem a `/validar-ambiente`.
++
+ Se `$ANALISE_PONTOS` for muito genérico (ex.: "ajustes no back-end"), não crie detalhamento fictício para preencher a tabela — registre a limitação em "Informações ausentes".
+ 
+ ---
+@@ -143,6 +172,11 @@ Se `$ANALISE_PONTOS` for muito genérico (ex.: "ajustes no back-end"), não crie
  ### Fora do escopo da US
  <apenas fato: arquivo + resumo de 1 linha do que mudou + "fora do escopo desta US". Sem análise de risco/recomendação aqui — é matéria da skill de revisão de branch/PR do time de dev (a criar), não desta análise.>
  
@@ -270,6 +318,62 @@ index b32d612..abff04c 100644
 +
  ## Casos de teste sugeridos pelo dev
  ...
+ 
+@@ -153,7 +187,54 @@ Se `$ANALISE_PONTOS` for muito genérico (ex.: "ajustes no back-end"), não crie
+ - Informação não encontrada / necessita validação: ...
+ ```
+ 
+-Finalize perguntando se o usuário quer seguir para `/gerar-mapa-testes-v2 <ID>` — não encadeie automaticamente.
++Antes de finalizar, execute o Step 4.5 (registrar pendências). Finalize perguntando se o usuário quer seguir para `/gerar-mapa-testes-v2 <ID>` — não encadeie automaticamente.
++
++---
++
++## Step 4.5 — Registrar pendências (arquivo separado)
++
++Ao terminar a validação da US, decida se existe pendência a registrar e, se existir, crie ou atualize um arquivo na pasta `pendencias-skills`.
++
++### Quando criar
++- Crie o arquivo somente se a validação encontrar **pelo menos um ponto pendente**. Ponto pendente é qualquer um destes:
++  - incoerência ou divergência entre a análise do dev e o que a US pede;
++  - item em aberto, incompleto, só com título ou seção vazia;
++  - CA da US não coberto pela análise;
++  - item pedido na US (ex.: "investigação técnica sugerida") que a análise não respondeu (itens `Parcial` ou `Não respondida` da validação das pendências do dev);
++  - impacto oculto (outro sistema, Clássico, mensagens, nomes de arquivo, comportamento legado);
++  - erro técnico visível (ex.: sintaxe SQL que difere entre SQL Server e Oracle);
++  - risco de segurança (permissão, ownership em endpoints, exposição de dados);
++  - telas, APIs, regras ou integrações impactadas sem identificação;
++  - campos vazios (Alteração de Classe/Tela, Caso de Teste).
++- **Não são ponto pendente** (não entram no arquivo nem no relatório como pendência): estado dos cards `Analise Review` e `Code Review` (ex.: "New"), ausência de task de CR ou de Mapa, configuração de banco de dados e se a branch está implantada em ambiente dev.
++- Dúvidas de CA e de descrição que dependem de resposta do dev ou da PM (CA contraditório, "a confirmar", termo ambíguo) ficam **só no chat**, não entram no arquivo.
++- Se **não houver nenhum ponto pendente**, **não crie** o arquivo.
++
++### Onde e como
++- Caminho: `C:\skills-qualidade\pendencias-skills\US <ID>.txt` (caminho absoluto, nunca relativo ao diretório de trabalho). Crie a pasta se não existir.
++- Um arquivo por US. Se o arquivo da US já existir, **sobrescreva** com a lista atualizada, preservando o bloco "Resolvidos pela resposta do dev" e o bloco "Desconsiderados a pedido" já existentes. Nunca crie um segundo arquivo para a mesma US.
++- Texto puro, UTF-8, sem markdown.
++- Conteúdo **bem resumido**: só título, ID, dev e os itens pendentes, **uma linha por item**. Sem contexto longo, sem descrição da US, sem casos de teste.
++
++Formato:
++
++```
++US <ID>
++Título: <título da US>
++Dev da análise: <nome do dev que fez a análise>
++
++Itens pendentes na análise:
++1. <pendência em uma linha>
++2. <pendência em uma linha>
++```
++
++- Os itens são os mesmos destacados ao usuário no relatório e no aviso ao dev, escritos de forma curta.
++- Se a tarefa não tem ID no Azure DevOps, use `Task <nº> - <assunto>.txt` e escreva "(sem ID no Azure DevOps)" no cabeçalho.
++
++### Ciclo de vida
++- Quando o dev ou a PM responder, atualize o arquivo: tire os itens resolvidos da lista e mova-os para um bloco ao final, "Resolvidos pela resposta do dev (<data>)". Itens que a pessoa pediu para desconsiderar vão no bloco "Desconsiderados a pedido".
++- Se todos os itens forem resolvidos, avise a pessoa e **pergunte se o arquivo pode ser apagado**. Não apague sem confirmação.
++- No resumo final da execução, informe o caminho do arquivo criado ou atualizado. Se não criou arquivo, diga que não houve pendência.
+ 
+ ---
  
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/atualizar-documentacao.md b/skills-qa-smartshare/skills-qa-smartshare/skills/atualizar-documentacao.md
 index 02df567..d7348b7 100644
@@ -561,7 +665,7 @@ index 3560ac3..66824a2 100644
  Capture o `$BUG_ID` retornado. **Antes de declarar sucesso no Step 4, chame `mcp__azure-devops__get_work_item` no `$BUG_ID` e confirme que `Microsoft.VSTS.TCM.ReproSteps` não está `null`/vazio** — não confie só no eco da chamada de criação.
  
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/gerar-mapa-testes-v3.md b/skills-qa-smartshare/skills-qa-smartshare/skills/gerar-mapa-testes-v3.md
-index 773adc8..ef34587 100644
+index 773adc8..bb9d493 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/gerar-mapa-testes-v3.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/gerar-mapa-testes-v3.md
 @@ -7,10 +7,10 @@ Generate a test map from Azure DevOps story arguments **$ARGUMENTS**.
@@ -600,7 +704,7 @@ index 773adc8..ef34587 100644
  
  ---
  
-@@ -122,6 +126,17 @@ Se a busca não retornar nada relacionado, **isso não é bloqueante** — pross
+@@ -122,6 +126,29 @@ Se a busca não retornar nada relacionado, **isso não é bloqueante** — pross
  
  ---
  
@@ -615,10 +719,22 @@ index 773adc8..ef34587 100644
 +
 +---
 +
++## Step 3.8 — Recomendações do Claude (se existirem)
++
++Procure o arquivo mais recente (maior `$EXEC` no nome) em `$CICLOS_DIR\US-<ID>\recomendacoes-qa\`. Se não existir, siga sem erro. Se existir, trate cada `REC-<ID>-NN` conforme o `Status`:
++
++- **Aprovada / Ajustada:** vale como 5ª fonte do Step 4.0, só para a pendência que ela resolve. O cenário derivado (Ação/Resultado Esperado, usando o texto ajustado quando houver) deve trazer, na célula de origem/justificativa, a marca **"Recomendação do Claude (REC-<ID>-NN), aprovada pela usuária em <data>, não definida na US"**.
++- **Pendente de aprovação:** **pergunte à usuária antes de gerar o mapa** se aprova, ajusta ou rejeita (nunca presuma). Sem resposta explícita, **não gere cenário com resultado esperado** a partir dela: liste na seção "Fonte técnica" como "REC-<ID>-NN pendente de aprovação (sem cenário)". Esta skill **não altera** o `Status` do arquivo; quem registra a decisão é a `/analise-negocio` ou a usuária.
++- **Rejeitada:** ignore.
++
++Divergência em cenário marcado como recomendação **não vira defeito automaticamente**: antes, confirmar a regra com PM/PO (registrar isso na marca do cenário).
++
++---
++
  ## Step 4 — Generate test map table
  
  ### 4.0 — Escopo de origem (obrigatório, ler antes de 4.1)
-@@ -133,7 +148,7 @@ Todo cenário do mapa final precisa rastrear a **pelo menos uma** destas 4 fonte
+@@ -133,7 +160,7 @@ Todo cenário do mapa final precisa rastrear a **pelo menos uma** destas 4 fonte
  3. **Pontos de Impacto do dev** (`Custom.Pontosdeimpacto` do card `Análise`, ou a seção do relatório `/analise-tecnica` que rastreia diretamente a esse campo).
  4. **Casos de Teste do dev** (`Custom.CasodeTeste` do card `Análise`, ou a seção "Casos de teste sugeridos pelo dev" do relatório `/analise-tecnica`).
  
@@ -627,7 +743,7 @@ index 773adc8..ef34587 100644
  
  Se, ao ler a narrativa, você identificar algo que parece um risco real mas não está em nenhuma das 4 fontes, **não vire cenário** — sinalize como observação de 1 linha na seção "Fonte técnica" do mapa (Step 5) e, se for grave, avise a usuária no chat antes de prosseguir, em vez de inflar a tabela.
  
-@@ -157,10 +172,34 @@ Para **cada** regra condicional identificada, aplique o checklist obrigatório d
+@@ -157,10 +184,34 @@ Para **cada** regra condicional identificada, aplique o checklist obrigatório d
  Para cada linha gerada, atribua uma técnica, escolhida pelo tipo de regra que originou o cenário — não é livre-escolha estética:
  
  - **valor-limite** — regra envolve número, data, tamanho ou contagem com limite (ex.: quantidade mínima/máxima, prazo, faixa de parcelas)
@@ -663,7 +779,7 @@ index 773adc8..ef34587 100644
  ### 4.3 — Categorias fixas (adaptar nomes de domínio, manter a estrutura)
  
  1. `=== FLUXO PRINCIPAL ===`
-@@ -177,6 +216,7 @@ Para cada linha gerada, atribua uma técnica, escolhida pelo tipo de regra que o
+@@ -177,6 +228,7 @@ Para cada linha gerada, atribua uma técnica, escolhida pelo tipo de regra que o
  
  - Não inventar regra além do que está descrito; hipóteses sempre marcadas `HIPOTESE:`.
  - Não repetir cenários.
@@ -671,7 +787,7 @@ index 773adc8..ef34587 100644
  - Todo cenário rastreia a uma das 4 fontes do Step 4.0 (Instruções QA, Critérios de Aceite, Pontos de Impacto do dev, Casos de Teste do dev) — nunca só à narrativa da análise técnica.
  - Considerar: validação de campos, comportamento de UI, consistência de dados, falhas de integração — sempre ancorado numa das 4 fontes acima, não como exploração livre do código/PR.
  
-@@ -185,10 +225,11 @@ Para cada linha gerada, atribua uma técnica, escolhida pelo tipo de regra que o
+@@ -185,10 +237,11 @@ Para cada linha gerada, atribua uma técnica, escolhida pelo tipo de regra que o
  Apresente a tabela completa no chat (markdown):
  
  ```
@@ -685,7 +801,7 @@ index 773adc8..ef34587 100644
  - Tipo: `positivo`, `negativo`, `borda`
  - Técnica: `valor-limite`, `tabela-decisão`, `partição-equivalência`, `exploratório`
  - Dimensão: `positivo`, `negativo`, `permissão`, `dados`, `concorrência`, `regressão`
-@@ -235,22 +276,30 @@ Construa o HTML diretamente (sem PowerShell, sem intermediário XML) para usar c
+@@ -235,22 +288,30 @@ Construa o HTML diretamente (sem PowerShell, sem intermediário XML) para usar c
  <h3>Dimensoes cobertas</h3>
  <p>{lista das dimensoes presentes, e quais ficaram N/A com o motivo}</p>
  
@@ -725,7 +841,7 @@ index 773adc8..ef34587 100644
  <td style="border:1px solid #999;padding:4px;">{acao}</td>
  <td style="border:1px solid #999;padding:4px;">{esperado}</td>
  <td style="border:1px solid #999;padding:4px;">{tipo}</td>
-@@ -262,8 +311,9 @@ Construa o HTML diretamente (sem PowerShell, sem intermediário XML) para usar c
+@@ -262,8 +323,9 @@ Construa o HTML diretamente (sem PowerShell, sem intermediário XML) para usar c
  
  Regras obrigatórias:
  
@@ -737,7 +853,7 @@ index 773adc8..ef34587 100644
  - Sem estilos herdados do Word (sem `font-family:Aptos`, sem `background:silver`) — usar paleta neutra simples (cabeçalho `#e6e6e6`, separador de categoria `#d9e8f5`) para ficar consistente independente de onde o conteúdo foi originado.
  - Texto direto, sem colar de nenhum editor — monte o HTML você mesmo, célula por célula, a partir dos dados já validados no Step 4.
  
-@@ -271,6 +321,29 @@ Se a tabela for muito grande e você quiser revisar antes de publicar, salve o H
+@@ -271,6 +333,29 @@ Se a tabela for muito grande e você quiser revisar antes de publicar, salve o H
  
  ---
  
@@ -767,7 +883,7 @@ index 773adc8..ef34587 100644
  ## Step 6 — Publicar via MCP
  
  - **Se `CARD_EXISTS = false`:** chame `mcp__azure-devops__create_work_item` com `workItemType: "Criar Mapa de Teste"`, `title: "Mapa de teste"`, `description: {HTML do Step 5}`, `parentId: $WI_ID`, `areaPath: $STORY_AREA_PATH`, `iterationPath: $STORY_ITERATION_PATH`, `projectId: $STORY_PROJECT`. Capture o `id` retornado como `$MAPA_CARD_ID`.
-@@ -307,7 +380,9 @@ Reporte ao usuário:
+@@ -307,7 +392,9 @@ Reporte ao usuário:
  
  - Card publicado: `#$MAPA_CARD_ID` (criado ou atualizado), com link (`https://dev.azure.com/selbettidev/{projeto}/_workitems/edit/{id}`).
  - Quantidade de cenários publicados e categorias cobertas.
@@ -777,7 +893,7 @@ index 773adc8..ef34587 100644
  - **Histórico de defeitos considerado:** IDs dos bugs de `$DEFECT_HISTORY` que geraram cenário de regressão, ou "nenhum encontrado / busca indisponível".
  - **Hipóteses em aberto:** se o Step 6.5 rodou, quantas hipóteses foram notificadas via comentário na história (ou, se falhou ao postar, avisar explicitamente que o comentário não saiu e o mapa segue com as hipóteses marcadas, só sem o aviso na história).
  
-@@ -342,4 +417,6 @@ falhou, se for o caso).
+@@ -342,4 +429,6 @@ falhou, se for o caso).
  - Se `/analise-negocio`/`/analise-tecnica` tiverem rodado para uma história **diferente** da informada em `$ARGUMENTS` nesta mesma conversa, não reaproveite — refaça a busca do zero (Step 3) para a história correta.
  - Se `create_work_item`/`update_work_item` falhar (ex.: `"Criar Mapa de Teste"` não é um tipo válido no processo do projeto informado, ou `parentId`/`areaPath` inconsistentes), pare e reporte o erro exato retornado pelo MCP — nunca tente contornar criando um tipo de work item diferente ou publicando em outro lugar sem confirmar com o usuário.
  - O comentário do Step 6.5 vai na **história** (`$WI_ID`), nunca no card "Criar Mapa de Teste" — postar lá misturaria o conteúdo do mapa com discussão, e ninguém olha o histórico de comentários de um card de mapa. Nunca mover os cenários `HIPOTESE:` para fora da tabela do mapa por causa desse comentário — ele é um apontador, não um substituto do mapa.

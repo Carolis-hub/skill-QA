@@ -137,6 +137,18 @@ Consulta **somente leitura** ao código dos repositórios do hub SmartShare, ape
 
 ---
 
+## Step 3.8 — Recomendações do Claude (se existirem)
+
+Procure o arquivo mais recente (maior `$EXEC` no nome) em `$CICLOS_DIR\US-<ID>\recomendacoes-qa\`. Se não existir, siga sem erro. Se existir, trate cada `REC-<ID>-NN` conforme o `Status`:
+
+- **Aprovada / Ajustada:** vale como 5ª fonte do Step 4.0, só para a pendência que ela resolve. O cenário derivado (Ação/Resultado Esperado, usando o texto ajustado quando houver) deve trazer, na célula de origem/justificativa, a marca **"Recomendação do Claude (REC-<ID>-NN), aprovada pela usuária em <data>, não definida na US"**.
+- **Pendente de aprovação:** **pergunte à usuária antes de gerar o mapa** se aprova, ajusta ou rejeita (nunca presuma). Sem resposta explícita, **não gere cenário com resultado esperado** a partir dela: liste na seção "Fonte técnica" como "REC-<ID>-NN pendente de aprovação (sem cenário)". Esta skill **não altera** o `Status` do arquivo; quem registra a decisão é a `/analise-negocio` ou a usuária.
+- **Rejeitada:** ignore.
+
+Divergência em cenário marcado como recomendação **não vira defeito automaticamente**: antes, confirmar a regra com PM/PO (registrar isso na marca do cenário).
+
+---
+
 ## Step 4 — Generate test map table
 
 ### 4.0 — Escopo de origem (obrigatório, ler antes de 4.1)

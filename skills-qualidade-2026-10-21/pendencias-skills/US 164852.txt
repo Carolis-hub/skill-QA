@@ -1,0 +1,23 @@
+US 164852
+Título: Migração tela de gerenciamento | Gerenciamento de índice (BE) | Consumo pela camada ECM
+Dev da análise: Vinicius Mesquita Junge
+
+Itens pendentes na análise:
+1. CA 99 (erro padronizado sem vazar stack trace) não tratado no card; o log de falha de data do ECM grava StackTrace (Tipo_IndiceBLL.cs:140) e o catch do FluxoService relança Exception com ex.ToString() na mensagem; confirmar que a API não devolve isso ao FE.
+2. Campo "Alteração de Classe/Tela" do card #164860 está desatualizado e com trechos cortados (G-02 a G-05, D-01 a D-06, CA 75 a 77): diz que o FluxoService não muda e que o DTO e o repositório de log não mudam, mas o PR altera os três; revisar o texto.
+3. A mesma branch tem dois PRs ativos (30092 para main-management-screens-phase-3 e 30116 para feature/163010), sem revisores, e os PRs 30116, 30117 e 30119 têm arquivos de outras US (BE 02 a 05) misturados; definir qual PR é o oficial.
+4. D-03 (G-05): decisão da QA é que não deve haver divergência de ordem entre SQL Server e Oracle (CA 98), contrária à recomendação do dev (aceitar a diferença); o dev precisa confirmar/normalizar (ex.: ORDER BY UPPER(ds_valor)) e a PM validar.
+5. Valores excluído (#23), não numérico (#24) e data inválida (caso 7) se criam pela publicação com opções da Seleção (QA, 29/10); confirmar no primeiro teste que esse caminho aceita "abc" em tipo Data (a BE 05 valida a data). Confirmar também a cultura do servidor dev (CA 75; o ECM não define cultura, confirmado no hub).
+6. Lacunas de teste automatizado no PR 30116: sem teste da gravação do log, do caminho de tipo de índice/campo removido e do repasse de cd_usuario no FluxoService.
+
+Resolvidos pela resposta do dev (29/10/2026):
+- Correção de G-01 e testes de InicioPublicacao: presentes no PR 30116 (InicioPublicacaoService.cs e InicioPublicacaoServiceTests.cs).
+- Formato de datas da BE 05 (D-02): confirmado no código do PR 30117 (NormalizeValor grava dd/MM/yyyy).
+- Commit db3b3626 vinculado à US: o InicioPublicacaoService.cs dele tem o mesmo conteúdo do 2aa5cf1 (ponta da branch); provável commit anterior da mesma branch.
+
+Desconsiderados a pedido (27/10/2026) - recomendação do dev assumida como decisão, sem confirmação da PM:
+- D-01: camada ECM continua no smartshare-ecm-be; esta US só valida.
+- D-02: BE 05 grava datas em dd/MM/yyyy (igual à BE 03 e ao Clássico); amarrar como critério na BE 05.
+- D-04: valor de Seleção inválido ou excluído é ignorado, registrado no log de aplicação, e o início do fluxo segue (hoje aborta; FluxoService.cs:2890-2893).
+- D-05: regra de CA 77/78 como método public static no próprio InicioPublicacaoService, sem subpasta nova.
+- D-06: G-03 e G-04 viram item separado no repositório smartshare-4, fora do net8.

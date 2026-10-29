@@ -1,6 +1,6 @@
 # RELATORIO_DIFF
 
-Gerado em 2026-10-14 com `git diff --no-index` e replay determinístico das alterações registradas; atualizado em 2026-10-22 (rodada 8) com `git diff --no-index` sobre o estado atual.
+Gerado em 2026-10-14 com `git diff --no-index` e replay determinístico das alterações registradas; atualizado em 2026-10-29 (rodada 12) com `git diff --no-index` sobre o estado atual.
 
 ## Resumo
 
@@ -11,17 +11,17 @@ Gerado em 2026-10-14 com `git diff --no-index` e replay determinístico das alte
 
 ## Por arquivo
 
-Linhas +/− medidas com `git diff --no-index --numstat` em 2026-10-22.
+Linhas +/− medidas com `git diff --no-index --numstat` em 2026-10-29.
 
 | Arquivo | Linhas +/− | Classificação |
 |---|---|---|
 | analise-falha.md | +1 / −1 | Alteração esperada (adaptação funcional) |
-| analise-negocio.md | +112 / −7 | Alteração esperada (adaptação funcional + endurecimento de regra, rodadas 3 e 5) |
+| analise-negocio.md | +145 / −8 | Alteração esperada (adaptação funcional + endurecimento de regra, rodadas 3 e 5) |
 | analise-tecnica.md | +36 / −5 | Alteração esperada (adaptação funcional + validação das pendências do dev, rodadas 3 e 5) |
 | atualizar-documentacao.md | +3 / −3 | Alteração esperada (adaptação funcional) |
 | executar-teste.md | +71 / −33 | Alteração esperada (adaptação funcional + regras novas, rodadas 3 e 4) |
 | gerar-defeito.md | +7 / −3 | Alteração esperada (adaptação funcional) |
-| gerar-mapa-testes-v3.md | +96 / −20 | Alteração esperada (adaptação funcional + coluna `Pré-requisitos`, rodada 4) |
+| gerar-mapa-testes-v3.md | +109 / −20 | Alteração esperada (adaptação funcional + coluna `Pré-requisitos`, rodada 4) |
 | homologar-release.md | +2 / −2 | Alteração esperada (adaptação funcional) |
 | priorizar-automacao.md | +6 / −6 | Alteração esperada (adaptação funcional) |
 | validar-ambiente.md | +280 / −0 | Arquivo adicionado (nova skill, rodada 4; ajustada nas rodadas 5, 8, 9 e 10) |
@@ -52,6 +52,7 @@ Linhas +/− medidas com `git diff --no-index --numstat` em 2026-10-22.
 - **Rodada 6 (2026-10-21, ALT-090…ALT-091):** validação opcional do código via hub em `analise-tecnica.md` (Step 2.7) e `gerar-mapa-testes-v3.md` (Step 3.7).
 - **Rodada 7 (2026-10-21, ALT-092…ALT-093):** HTML interativo local do mapa (`gerar-mapa-testes-v3.md`, Step 5b) e novo `templates\mapa-teste-viewer.template.html`. **Não reconciliadas** com `diff-completo.patch` e `manifesto-arquivos.md` (não regenerados nas rodadas 6 e 7).
 - **Rodada 9 (2026-10-23, ALT-097…ALT-104):** URL base perguntada a cada execução, telas de configuração e criação de perfil/área/papel antes do usuário e admin de automação `Claude-adm` (com fallback para o admin informado, ALT-104) em `validar-ambiente.md`; template de configuração ajustado; regra fixa "não alterar nada no hub" explícita em `analise-tecnica.md`, `gerar-mapa-testes-v3.md` e `validar-ambiente.md`.
+- **Rodada 12 (2026-10-29, ALT-112…ALT-113):** recomendações para informações ausentes com aprovação explícita da usuária em `analise-negocio.md` (Step 4.6) e identificação dos cenários de recomendação em `gerar-mapa-testes-v3.md` (Step 3.8).
 - A origem (`Skills-QA-Processo_2026-09-28`) **permanece imutável**: hash de `analise-negocio.md` conferido contra o manifesto de 2026-10-14 (`68bf9fc61bc0`). `diff-completo.patch` e `manifesto-arquivos.md` foram regenerados na rodada 5 e refletem o estado atual dos 10 arquivos.
 
 ## Pendências de revisão
