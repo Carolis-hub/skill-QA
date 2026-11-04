@@ -10,7 +10,7 @@ Exemplos:
 - `146157` → projeto resolvido automaticamente a partir do próprio work item
 - `146157 "Nome do Projeto"` → projeto explicito
 
-Este comando é **somente leitura no Azure DevOps** — não cria, edita nem comenta nada lá. A única escrita permitida é local, dentro de `$CICLOS_DIR` (`C:\skills-qualidade\ciclos-executados`): o relatório da análise e o arquivo de pendências do dev (ver Step 4.5 e Step 5). Esta skill **não emite recomendações (`REC-...`)**: elas só são dadas pela `/analise-tecnica`, depois das duas análises e da validação no hub (ver Step 4.6). É a etapa de Análise de Negócio (equivalente à Skill 1 / QA Business Analyst) que antecede a análise técnica e a criação do mapa de testes.
+Este comando é **somente leitura no Azure DevOps**, com uma única exceção autorizada pela usuária (2026-11-04): ao iniciar o ciclo de qualidade, o Step 1.5 move a US para `Committed` (se ainda não estiver) e adiciona a tag `agentqa`. Fora isso, não cria, edita nem comenta nada lá. A única escrita local permitida é, dentro de `$CICLOS_DIR` (`C:\skills-qualidade\ciclos-executados`): o relatório da análise e o arquivo de pendências do dev (ver Step 4.5 e Step 5). Esta skill **não emite recomendações (`REC-...`)**: elas só são dadas pela `/analise-tecnica`, depois das duas análises e da validação no hub (ver Step 4.6). É a etapa de Análise de Negócio (equivalente à Skill 1 / QA Business Analyst) que antecede a análise técnica e a criação do mapa de testes.
 
 ---
 
@@ -71,6 +71,19 @@ Capture do resultado:
 Isso é uma chamada MCP — texto acentuado na resposta é seguro, sem necessidade de sanitização.
 
 Ao renderizar `$STORY_DESC` e `$STORY_AC` no relatório final, remova tags HTML e decodifique entidades (`&nbsp;`, `&amp;`, `&lt;`, `&gt;`) para texto plano legível, preservando quebras de lista/parágrafo como marcadores markdown.
+
+---
+
+## Step 1.5 — Marcar o início do ciclo de qualidade na US (escrita autorizada)
+
+Decisão da usuária (2026-11-04): a `/analise-negocio` é o início do ciclo de qualidade, e é ela que marca a US. Executar logo depois do Step 1, com `$STORY_STATE` e `$STORY_TAGS` já lidos, **uma única chamada** `mcp__azure-devops__wit_work_item_write` (`action: "update"`, `id`: `$wiId`, `project`: `$project`) com só as operações necessárias:
+
+1. **Tag `agentqa`:** se `$STORY_TAGS` ainda não a contém (comparação sem diferenciar maiúsculas), grave `/fields/System.Tags` com as tags existentes **preservadas** mais `agentqa`, separadas por `; ` (ex.: `Tag1; agentqa`). Nunca remova nem reescreva as outras tags.
+2. **Estado `Committed`:** se `$STORY_STATE` for `New` ou `Approved` (ainda antes de `Committed`), grave `/fields/System.State` = `Committed`. Se já estiver em `Committed` ou em estado posterior (`Done`, `Removed` etc.), **não mude o estado** e não retroceda a US.
+3. Se nenhuma das duas operações for necessária (tag já presente e estado já `Committed` ou posterior), **não chame o MCP** e escreva no relatório `US já marcada (agentqa, <estado>)`.
+4. Altere **somente** esses dois campos: nenhum outro campo, comentário, relação nem card filho (inclusive o card "Criar Mapa de Teste", que não é alterado por esta regra).
+5. Se a escrita falhar (permissão, transição de estado inválida), **não bloqueie a análise**: registre a falha em uma linha no relatório (campo e mensagem do MCP) e siga em frente. Não tente contornar.
+6. Reporte no relatório final, em uma linha, o que foi alterado (ex.: `US marcada: tag agentqa adicionada; estado Approved → Committed`).
 
 ---
 
@@ -142,7 +155,7 @@ Itens já definidos de forma verificável (não bloqueiam): <lista ou "Nenhum">.
 <itens atribuídos a PM/PO/negócio/não informado, ou `Nenhum item a validar antes do desenvolvimento (descrição: "<frase literal>")`>
 ```
 
-Mesmo com a análise bloqueada, execute o Step 4.5 para os pontos de atenção do dev. Nada é criado, editado ou comentado no Azure DevOps. Só conclua a análise (Step 4) quando o Step 3.5 não encontrar nenhuma pendência bloqueante.
+Mesmo com a análise bloqueada, execute o Step 4.5 para os pontos de atenção do dev. Nada é criado, editado ou comentado no Azure DevOps (além da marcação do Step 1.5). Só conclua a análise (Step 4) quando o Step 3.5 não encontrar nenhuma pendência bloqueante.
 
 ---
 
@@ -220,7 +233,7 @@ Gerado em: <AAAA-MM-DD> por /analise-negocio | Revisão da US (System.Rev): <rev
 - Inclua no cabeçalho a linha `Execução: <$EXEC>`.
 - `Status` sempre `Aberto` — quem atualiza é a `/analise-tecnica`, nunca esta skill.
 - Se não houver pontos de atenção, grave o arquivo mesmo assim com a linha `Nenhuma pendência atribuída ao dev na descrição da US.` no lugar da tabela, para a `/analise-tecnica` distinguir "sem pendências" de "análise de negócio não executada".
-- Não grave nada no Azure DevOps.
+- Não grave nada no Azure DevOps (além da marcação do Step 1.5).
 
 ---
 
@@ -231,7 +244,7 @@ Esta skill **não gera `REC-...`, não grava a pasta `recomendacoes-qa` e não p
 - Toda lacuna de negócio fica apenas como `Informação não encontrada / necessita validação` no relatório (Step 4).
 - Não proponha solução, "menor desvio" nem texto de regra no lugar da lacuna.
 - Recomendação já existente de execução anterior (`recomendacoes-qa`) não é lida, alterada nem aprovada aqui.
-- Não grave nada no Azure DevOps.
+- Não grave nada no Azure DevOps (além da marcação do Step 1.5).
 
 ---
 
@@ -252,7 +265,7 @@ pendencias_dev: C:\skills-qualidade\ciclos-executados\US-<ID>\pendencias-dev\US-
 ---
 ```
 
-Informe ao usuário, no fim, os caminhos dos arquivos gravados (análise e pendências do dev). Não grave nada no Azure DevOps.
+Informe ao usuário, no fim, os caminhos dos arquivos gravados (análise e pendências do dev). Não grave nada no Azure DevOps (além da marcação do Step 1.5).
 
 ---
 

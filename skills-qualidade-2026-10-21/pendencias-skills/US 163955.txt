@@ -1,0 +1,14 @@
+US 163955
+Título: Dashboard ECM - Totalizadores do repositório na aba Armazenamento
+Dev da análise: Felipe Kuhnen
+
+Itens pendentes na análise:
+1. Tamanho exclui anexos (card) mas a US diz "com anexos"; decisão do dono, diverge da US (CA/Regras: Tamanho). [clássico: não aplicável]
+2. Quantidade/Páginas excluem Reprovado (3) e Aplicação Servidor, e só versão vigente; a US diz "qualquer status" e só exclui excluídos. Confirmar se vale a base da aba Conteúdo.
+3. Tamanho exclui Aplicação Servidor e inclui Reprovado; a US não cita Aplicação Servidor. Confirmar.
+4. Filtro de período fica oculto na aba Armazenamento (card); o CA-02 prevê mudar o período na aba. Confirmar como o CA-02 deve ser testado.
+5. Legenda "Tipo: N tipos" com 2 ou mais tipos não está na US (US só prevê um tipo).
+6. SQL dos três cards não foi executado em Oracle nem SQL Server reais, e a latência do StorageSize não foi medida (pendência "antes do merge" do card).
+7. E2E do dev não cobriu: CA-05, CA-06, CA-07, CA-08 (valores), CA-10 (tipo sem documentos), falha em StorageCards, 1024px, en/es.
+8. Efeito de st_compress no tamanho não verificado; valor pode ficar abaixo do real (aceito pelo dev).
+9. Nenhum PR vinculado à US/card; análise não confirmada contra o diff.

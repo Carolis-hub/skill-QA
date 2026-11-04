@@ -1,0 +1,12 @@
+US 163770
+Título: Dashboard ECM - Documentos por tipo e por área lado a lado (todas as áreas)
+Dev da análise: Felipe Kuhnen
+
+Itens pendentes na análise:
+1. D1 do card: "Documentos por tipo" passa a usar a base do card (sem Reprovado/Excluído, com expirados) e os valores sobem; isso contradiz o CA-14 ("valores idênticos") e a regra "mesmos dados de hoje"; a PM precisa atualizar a PBI e comunicar os usuários. [clássico: lacuna]
+2. CA-10 (Exportar) exigido pela US, mas o card diz que o dashboard ECM não tem export (D4); falta resposta da PM sobre o CA-10. [clássico: lacuna]
+3. CA-09 "Sem área": o dev só validou com resposta simulada (backend 200); o SQL (Oracle e SQL Server) só tem teste unitário, sem acesso ao banco; validar em ambiente real.
+4. Item "Área sem nome" (D9) e título de "por tipo" sem "vigentes" (D8) não estão na US; confirmar com a PM que são aceitos.
+5. Sem PR vinculado e o commit 78235841 não está na cópia do hub (branch ecm-fase2 local ainda sem WithoutArea e com FETCH NEXT 10): análise não confirmada contra o código real.
+6. CA-08 (mudança de filtro), CA-12 (sem dados) e CA-14 (antes x depois) sem caso de teste do dev.
+7. Aviso ao time de dados: novo evento de analytics without_area (consta no card como necessidade, sem confirmação de que foi feito).

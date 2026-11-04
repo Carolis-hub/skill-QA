@@ -1,0 +1,16 @@
+US 163663
+Título: Dashboard ECM - Gráfico Volumetria de publicações (Dia/Semana/Mês)
+Dev da análise: Felipe Kuhnen
+
+Itens pendentes na análise:
+1. CA-13 Exportar não coberto: o Dashboard ECM não tem Exportar (card do dev) [clássico: lacuna; ausência confirmada no hub do ECM novo]
+2. Teto de 731 pontos no Dia é regra assumida pelo dev e contradiz em parte o CA-06; falta confirmar com a PM
+3. Troca de filtro reaplica a regra automática: suposição do dev, falta confirmar com a PM
+4. Fronteira inclusiva dos 9 meses e dos 45 dias sem confirmação da PM
+5. Sem índice conhecido em dt_efetivacao; banco não consultado e latência com histórico longo não medida
+6. SQL só validado por texto: falta conferir em banco real @@DATEFIRST, corte de semana/mês e CAST NUMERIC(18,0) no Oracle
+7. Front verificado só com respostas simuladas; CV-01 (soma = cards) pendente na API real
+8. BPM Fluxos ao longo do tempo sem conferência visual após mover os helpers de data
+9. Cada retry de erro gera novo toast global junto do erro inline do gráfico
+10. Correção de build em bpm-task-list-tab.component.html (appTruncatedCellTooltip) está fora da story e não deve ir no mesmo commit
+11. Nenhum PR vinculado à US (só commits 347e3ed3 e fdac93a6 citados no card)

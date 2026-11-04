@@ -9,7 +9,9 @@ Itens pendentes na análise:
 4. Texto do (i) diz "documentos publicados", mas a soma inclui em aprovação e expirados (exclui só Reprovado e Excluído); redação a alinhar com o PM.
 5. CT-02, CT-03, CT-04 e CT-14 pendentes na API/banco real; SQL Server e Oracle não executados; CT-05 (filtro por tipo) não executado por 404 em DocumentTypes.
 6. Validar em ambiente real, na execução dos testes (decisão da usuária, 04/11): todos os cenários que o dev validou só com mock: CT-01, CT-02, CT-05 (período), CT-06, CT-07, CT-11 e CT-13. CT-09 e CT-12 constam como "Validado" sem informar o ambiente; validar também em ambiente real.
-7. REC-163659-01 aguardando resposta do dev (Felipe Kuhnen): documento com número de páginas nulo/sem linha em VERSAO_DOCUMENTO_INFORMATION soma 0 e continua contado, sem erro?
 
 Desconsiderados a pedido (04/11, caso não testável na prática):
 Achado 1 aberto: PublishedPagesSumSelect soma INT sem CAST; acima de 2,1 bi de páginas o /Cards inteiro falha no SQL Server.
+
+Resolvidos pela resposta do dev (2026-11-04):
+REC-163659-01: o dev confirmou que o documento publicado entra na contagem com 0 páginas, tanto com o campo nulo quanto sem linha em VERSAO_DOCUMENTO_INFORMATION.

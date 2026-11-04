@@ -1,0 +1,10 @@
+US 163648
+Título: Dashboard ECM - Organizar em abas Conteúdo e Armazenamento
+Dev da análise: Felipe Kuhnen
+
+Itens pendentes na análise:
+1. CA-07 (Exportar em Armazenamento) não é atendível: o card diz que o Dashboard ECM não tem a ação Exportar (confirmado na branch via hub); falta resposta do PM sobre o CA-07.
+2. GA4: o evento menu_item_accessed passa a enviar ".../ECM" no lugar de ".../ECM · Conteúdo"; a US diz "Integrações: nenhum impacto esperado" e relatórios/filtros do GA4 com o nome antigo precisam de ajuste.
+3. CA-03 sem cobertura completa: CT-03 ficou Parcial (sem comparação com a master).
+4. CA-12 parcial: Painéis personalizados não foi verificado (não existe no ambiente de teste).
+5. CA-10 e CA-11 parciais: leitor de tela (CT-16) e 768px/dispositivo real (CT-17) não executados pelo dev.

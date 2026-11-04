@@ -1,0 +1,7 @@
+US 163954
+Título: Dashboard ECM - Gráfico Documentos por responsável
+Dev da análise: Felipe Kuhnen
+
+Itens pendentes na análise:
+1. Nenhum PR vinculado à US nem ao card Análise #165855; os commits 08f35fe3 (smartshare-net8) e 732b9553 (smartshare-analytics) estão só no texto do card, sem vínculo no Azure DevOps. [clássico: não se aplica, funcionalidade nova]
+2. Plano de execução do SQL com muitos publicadores não foi medido (sem acesso a banco), e o CA de performance da US depende disso. [clássico: não se aplica]

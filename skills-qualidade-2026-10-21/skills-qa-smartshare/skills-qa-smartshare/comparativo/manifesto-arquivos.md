@@ -1,11 +1,11 @@
 # Manifesto de arquivos
 
-Gerado em 2026-10-14; atualizado em 2026-11-04 (rodada 15, hashes de destino recalculados nas 10 skills). Hash = SHA-256 (12 primeiros caracteres).
+Gerado em 2026-10-14; atualizado em 2026-11-04 (rodada 17, hash de destino de `analise-negocio.md` recalculado). Hash = SHA-256 (12 primeiros caracteres).
 
 | Arquivo | Origem (bytes) | Origem hash | Destino (bytes) | Destino hash | Estado |
 |---|---|---|---|---|---|
 | analise-falha.md | 5455 | 1325ac1d7513 | 6611 | 3debd0c49a01 | Modificado |
-| analise-negocio.md | 7063 | 68bf9fc61bc0 | 20176 | 585d805f6a12 | Modificado |
+| analise-negocio.md | 7063 | 68bf9fc61bc0 | 21241 | 17d93e3b6ba7 | Modificado |
 | analise-tecnica.md | 10973 | d3369839b6af | 22625 | 9d09eccc7374 | Modificado |
 | atualizar-documentacao.md | 7294 | ef541734fc9c | 8476 | 9cf2f775c2c1 | Modificado |
 | executar-teste.md | 45269 | 17e044e558ab | 57840 | f06022955ffb | Modificado |

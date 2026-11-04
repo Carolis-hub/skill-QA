@@ -1,0 +1,10 @@
+US 163665
+Título: Dashboard ECM - Zoom por barra de seleção no gráfico Volumetria de publicações
+Dev da análise: Felipe Kuhnen
+
+Itens pendentes na análise:
+1. Nenhum PR vinculado à US nem ao card Análise (#165659): análise não confirmada contra o diff real. [clássico: não se aplica]
+2. Exportar: a US (CA-02, escopo) cita o Exportar, mas o dev registra que o Dashboard ECM não tem Exportar hoje (lacuna por grep). Confirmar com a PM o que vale para o CA-02.
+3. Código do card não confirmado no hub: a branch feature/melhorias-dashboard/ecm-fase2 existe só como referência remota desatualizada no clone local; buildEcmTimeseriesDataZoom não foi localizado.
+4. Pendências do review (baixa severidade) abertas no card: ponto ativo pode ficar fora do trecho após arrastar a barra (deactivate() em onDataZoom) e getOption() a cada evento de zoom.
+5. Não definido se o zoom é mantido ao sair da tela do Dashboard e voltar (card só cobre troca de idioma e mudança de visualização/filtro).

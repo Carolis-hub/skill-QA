@@ -1,6 +1,6 @@
 # RELATORIO_DIFF
 
-Gerado em 2026-10-14 com `git diff --no-index` e replay determinístico das alterações registradas; atualizado em 2026-11-04 (rodada 15) com `git diff --no-index` sobre o estado atual.
+Gerado em 2026-10-14 com `git diff --no-index` e replay determinístico das alterações registradas; atualizado em 2026-11-04 (rodada 17, linhas de `analise-negocio.md`) com `git diff --no-index` sobre o estado atual.
 
 ## Resumo
 
@@ -16,7 +16,7 @@ Linhas +/− medidas com `git diff --no-index --numstat` em 2026-11-04.
 | Arquivo | Linhas +/− | Classificação |
 |---|---|---|
 | analise-falha.md | +11 / −1 | Alteração esperada (adaptação funcional) |
-| analise-negocio.md | +155 / −8 | Alteração esperada (adaptação funcional + endurecimento de regra, rodadas 3 e 5) |
+| analise-negocio.md | +148 / −9 | Alteração esperada (adaptação funcional + endurecimento de regra, rodadas 3 e 5) |
 | analise-tecnica.md | +121 / −6 | Alteração esperada (adaptação funcional + validação das pendências do dev, rodadas 3 e 5; pendências do dev em arquivo, ALT-111; limite de escopo, ALT-114; validação das pendências no clássico, Step 3.8, ALT-115) |
 | atualizar-documentacao.md | +13 / −3 | Alteração esperada (adaptação funcional) |
 | executar-teste.md | +103 / −33 | Alteração esperada (adaptação funcional + regras novas, rodadas 3 e 4) |

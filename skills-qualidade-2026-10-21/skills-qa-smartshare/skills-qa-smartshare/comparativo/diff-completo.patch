@@ -28,7 +28,7 @@ index e866911..cb6cbc7 100644
  
  Quando faltar evidência ou contexto para concluir algo com segurança, escrever literalmente **"Não tenho evidência suficiente."** na seção correspondente — nunca preencher com suposição. O veredito final também pode ser "evidência insuficiente para abrir defeito", e isso é um resultado válido, não uma falha do comando.
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/analise-negocio.md b/skills-qa-smartshare/skills-qa-smartshare/skills/analise-negocio.md
-index 204a4e3..631d6da 100644
+index 204a4e3..9002d82 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/analise-negocio.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/analise-negocio.md
 @@ -7,13 +7,23 @@ Analisar o negocio da historia do Azure DevOps a partir de **$ARGUMENTS**.
@@ -41,7 +41,7 @@ index 204a4e3..631d6da 100644
 +- `146157 "Nome do Projeto"` → projeto explicito
  
 -Este comando é **somente leitura** — não cria, edita nem comenta nada no Azure DevOps. É a etapa de Análise de Negócio (equivalente à Skill 1 / QA Business Analyst) que antecede a análise técnica e a criação do mapa de testes.
-+Este comando é **somente leitura no Azure DevOps** — não cria, edita nem comenta nada lá. A única escrita permitida é local, dentro de `$CICLOS_DIR` (`C:\skills-qualidade\ciclos-executados`): o relatório da análise, o arquivo de pendências do dev e o arquivo de recomendações (ver Step 4.5, 4.6 e Step 5). É a etapa de Análise de Negócio (equivalente à Skill 1 / QA Business Analyst) que antecede a análise técnica e a criação do mapa de testes.
++Este comando é **somente leitura no Azure DevOps**, com uma única exceção autorizada pela usuária (2026-11-04): ao iniciar o ciclo de qualidade, o Step 1.5 move a US para `Committed` (se ainda não estiver) e adiciona a tag `agentqa`. Fora isso, não cria, edita nem comenta nada lá. A única escrita local permitida é, dentro de `$CICLOS_DIR` (`C:\skills-qualidade\ciclos-executados`): o relatório da análise e o arquivo de pendências do dev (ver Step 4.5 e Step 5). Esta skill **não emite recomendações (`REC-...`)**: elas só são dadas pela `/analise-tecnica`, depois das duas análises e da validação no hub (ver Step 4.6). É a etapa de Análise de Negócio (equivalente à Skill 1 / QA Business Analyst) que antecede a análise técnica e a criação do mapa de testes.
  
  ---
  
@@ -82,25 +82,45 @@ index 204a4e3..631d6da 100644
  - `expand`: `"all"`
  
  Capture do resultado:
-@@ -85,14 +97,58 @@ A partir de `$STORY_TITLE`, `$STORY_DESC`, `$STORY_AC` (e comentários, se houve
+@@ -62,6 +74,19 @@ Ao renderizar `$STORY_DESC` e `$STORY_AC` no relatório final, remova tags HTML
+ 
+ ---
+ 
++## Step 1.5 — Marcar o início do ciclo de qualidade na US (escrita autorizada)
++
++Decisão da usuária (2026-11-04): a `/analise-negocio` é o início do ciclo de qualidade, e é ela que marca a US. Executar logo depois do Step 1, com `$STORY_STATE` e `$STORY_TAGS` já lidos, **uma única chamada** `mcp__azure-devops__wit_work_item_write` (`action: "update"`, `id`: `$wiId`, `project`: `$project`) com só as operações necessárias:
++
++1. **Tag `agentqa`:** se `$STORY_TAGS` ainda não a contém (comparação sem diferenciar maiúsculas), grave `/fields/System.Tags` com as tags existentes **preservadas** mais `agentqa`, separadas por `; ` (ex.: `Tag1; agentqa`). Nunca remova nem reescreva as outras tags.
++2. **Estado `Committed`:** se `$STORY_STATE` for `New` ou `Approved` (ainda antes de `Committed`), grave `/fields/System.State` = `Committed`. Se já estiver em `Committed` ou em estado posterior (`Done`, `Removed` etc.), **não mude o estado** e não retroceda a US.
++3. Se nenhuma das duas operações for necessária (tag já presente e estado já `Committed` ou posterior), **não chame o MCP** e escreva no relatório `US já marcada (agentqa, <estado>)`.
++4. Altere **somente** esses dois campos: nenhum outro campo, comentário, relação nem card filho (inclusive o card "Criar Mapa de Teste", que não é alterado por esta regra).
++5. Se a escrita falhar (permissão, transição de estado inválida), **não bloqueie a análise**: registre a falha em uma linha no relatório (campo e mensagem do MCP) e siga em frente. Não tente contornar.
++6. Reporte no relatório final, em uma linha, o que foi alterado (ex.: `US marcada: tag agentqa adicionada; estado Approved → Committed`).
++
++---
++
+ ## Step 2 — Histórico de comentários (opcional, enriquece contexto)
+ 
+ Se `mcp__azure-devops_wit_get_work_item_comments` estiver disponível, chame-a com `id`: `$wiId`, `project`: `$project`. Use os comentários apenas para:
+@@ -85,14 +110,58 @@ A partir de `$STORY_TITLE`, `$STORY_DESC`, `$STORY_AC` (e comentários, se houve
  7. **Informações ausentes** — perguntas de negócio (regra, escopo, prioridade) que a história não responde e que são necessárias para testar com segurança. **Não liste aqui perguntas técnicas ou de ambiente de execução** (nome de bucket/config específica, mecanismo para simular falha técnica, se um job já rodou em determinado ambiente, política de log) — essas são resolvidas por `/analise-tecnica`, que tem acesso ao PR/código. Se notar uma lacuna desse tipo durante a extração, não a trate como bloqueio de negócio.
  8. **Ambiguidades** — trechos que admitem mais de uma interpretação; explique as interpretações possíveis.
  9. **Riscos** — o que pode dar errado do ponto de vista de negócio se a regra for mal interpretada ou mal implementada.
 +10. **Itens pendentes da descrição da US** — pendências que a **própria descrição** declara como em aberto, transcritas como estão escritas (sem reinterpretar). Procure por seções e expressões como "Pendências", "Confirmar antes de iniciar", "Verificar pelo dev", "O dev verifica/valida", "a confirmar", "a definir", "TBD", "pendente", "registrar o resultado no PBI". Para cada item, informe: o trecho, quem é o responsável declarado (PM, dev/back-end/time, QA — ou "não informado") e se há CA que depende dele. Classifique cada item em:
 +    - **Ponto de atenção (dev):** a descrição atribui expressamente a resposta ao dev/back-end/time de desenvolvimento ("o dev verifica", "o dev valida", "o back-end precisa confirmar", "registrar o resultado no PBI"). **Não bloqueia** a análise; será respondido na análise técnica e **deve ser salvo no arquivo do Step 4.5**.
 +    - **Pendência de outro responsável** (PM, PO, negócio ou "não informado"): listar na tabela; se for remissão ao legado sem comportamento definido, aplica-se o Step 3.5.
- 
--Se qualquer um dos 9 itens não tiver conteúdo aplicável, escreva explicitamente `Nenhum identificado` — não omita a seção.
++
 +    **Valor de "nenhuma pendência":** se o campo de pendências a confirmar antes do desenvolvimento trouxer um valor semelhante a "nenhuma pendência", "sem alterações", "nada a confirmar" ou "não há pendências", interprete como **não existem itens a validar antes do desenvolvimento**. Registre `Nenhum item a validar antes do desenvolvimento (descrição: "<frase literal>")` e **não** trate essa frase como item pendente nem como lacuna. Isso vale só para o campo em que a frase aparece: itens atribuídos ao dev em outras partes da descrição continuam sendo listados como pontos de atenção.
 +
-+**Sugestões para o item 7 (Informações ausentes):** para cada informação ausente de negócio, proponha uma **recomendação** (ID `REC-<ID>-NN`) escolhendo o menor desvio do que a própria história já define, com a justificativa citando o CA ou trecho de origem. A recomendação é sempre **sugestão do Claude, não regra de negócio**: nasce com status `Pendente de aprovação`, nunca vira regra explícita e nunca é tratada como definida (ver Step 4.6). Não proponha recomendação para pendência bloqueante do Step 3.5.
++**Sem recomendações nesta skill (item 7):** liste cada informação ausente de negócio como `Informação não encontrada / necessita validação: <pergunta específica>`, **sem propor `REC-...`, sem sugerir solução e sem pedir aprovação**. A recomendação só pode ser dada depois das duas análises (negócio e técnica) e da validação no hub, e quem a emite é a `/analise-tecnica` (Step 4.6 dela), que pode já encontrar a resposta no PR, no card do dev ou no clássico. Ver Step 4.6.
 +
 +Se qualquer um dos 10 itens não tiver conteúdo aplicável, escreva explicitamente `Nenhum identificado` — não omita a seção.
 +
 +---
 +
 +## Step 3.5 — Gate de conclusão: comportamento esperado indefinido (bloqueante)
-+
+ 
+-Se qualquer um dos 9 itens não tiver conteúdo aplicável, escreva explicitamente `Nenhum identificado` — não omita a seção.
 +Antes de gerar o relatório, varra título, descrição, critérios de aceite e comentários procurando **remissões ao legado/comportamento atual sem comportamento esperado definido**. Padrões típicos (não exaustivo): "manter o comportamento legado", "igual ao legado", "mesma regra/mensagem do legado", "conforme o legado", "como hoje", "como no Clássico", "comportamento atual", "comparar com o legado antes de codar".
 +
 +Para cada ocorrência, verifique se a própria história descreve **de forma verificável** o resultado esperado (regra, valor, mensagem, destino, formato, passo a passo) — ou seja, se um QA conseguiria escrever o resultado esperado de um teste **sem consultar o sistema legado**.
@@ -132,7 +152,7 @@ index 204a4e3..631d6da 100644
 +<itens atribuídos a PM/PO/negócio/não informado, ou `Nenhum item a validar antes do desenvolvimento (descrição: "<frase literal>")`>
 +```
 +
-+Mesmo com a análise bloqueada, execute o Step 4.5 para os pontos de atenção do dev. Nada é criado, editado ou comentado no Azure DevOps. Só conclua a análise (Step 4) quando o Step 3.5 não encontrar nenhuma pendência bloqueante.
++Mesmo com a análise bloqueada, execute o Step 4.5 para os pontos de atenção do dev. Nada é criado, editado ou comentado no Azure DevOps (além da marcação do Step 1.5). Só conclua a análise (Step 4) quando o Step 3.5 não encontrar nenhuma pendência bloqueante.
  
  ---
  
@@ -143,11 +163,12 @@ index 204a4e3..631d6da 100644
  
  ```
  # Análise de Negócio — #<ID> <Título>
-@@ -120,20 +176,111 @@ Apresente em Markdown, nesta estrutura fixa:
+@@ -119,21 +188,91 @@ Apresente em Markdown, nesta estrutura fixa:
+ ...
  
  ## Informações ausentes
- - Informação não encontrada / necessita validação: <pergunta específica>
-+  - **Sugestão do Claude (REC-<ID>-NN, pendente de aprovação, não é regra da US):** <recomendação e justificativa>
+-- Informação não encontrada / necessita validação: <pergunta específica>
++- Informação não encontrada / necessita validação: <pergunta específica> (origem: <CA/trecho>)
  
  ## Ambiguidades
  ...
@@ -162,11 +183,10 @@ index 204a4e3..631d6da 100644
 +
 +## Outras pendências da descrição da US
 +<itens de PM/PO/negócio/não informado, ou `Nenhum item a validar antes do desenvolvimento (descrição: "<frase literal>")`>
-+```
-+
-+Informe no fim do relatório os caminhos dos arquivos gerados nos Steps 4.5, 4.6 e 5.
-+
-+Se houver recomendações, faça primeiro a pergunta de aprovação do Step 4.6; só depois pergunte sobre o próximo passo. Finalize perguntando ao usuário se deseja prosseguir para a análise técnica (`/analise-tecnica`, quando existir) ou diretamente para o mapa de testes (`/gerar-mapa-testes-v2 <ID>`) — não encadeie automaticamente.
+ ```
+ 
+-Finalize perguntando ao usuário se deseja prosseguir para a análise técnica (`/analise-tecnica`, quando existir) ou diretamente para o mapa de testes (`/gerar-mapa-testes-v2 <ID>`) — não encadeie automaticamente.
++Informe no fim do relatório os caminhos dos arquivos gerados nos Steps 4.5 e 5. Se houver informações ausentes, avise em uma linha que as recomendações serão dadas pela `/analise-tecnica`, depois da validação no hub. Finalize perguntando ao usuário se deseja prosseguir para a análise técnica (`/analise-tecnica`, quando existir) ou diretamente para o mapa de testes (`/gerar-mapa-testes-v2 <ID>`) — não encadeie automaticamente.
 +
 +---
 +
@@ -180,7 +200,7 @@ index 204a4e3..631d6da 100644
 +
 +Formato fixo:
 +
- ```
++```
 +# Pendências do dev — US #<ID> <Título>
 +
 +Gerado em: <AAAA-MM-DD> por /analise-negocio | Revisão da US (System.Rev): <rev>
@@ -194,36 +214,18 @@ index 204a4e3..631d6da 100644
 +- Inclua no cabeçalho a linha `Execução: <$EXEC>`.
 +- `Status` sempre `Aberto` — quem atualiza é a `/analise-tecnica`, nunca esta skill.
 +- Se não houver pontos de atenção, grave o arquivo mesmo assim com a linha `Nenhuma pendência atribuída ao dev na descrição da US.` no lugar da tabela, para a `/analise-tecnica` distinguir "sem pendências" de "análise de negócio não executada".
-+- Não grave nada no Azure DevOps.
- 
--Finalize perguntando ao usuário se deseja prosseguir para a análise técnica (`/analise-tecnica`, quando existir) ou diretamente para o mapa de testes (`/gerar-mapa-testes-v2 <ID>`) — não encadeie automaticamente.
++- Não grave nada no Azure DevOps (além da marcação do Step 1.5).
++
 +---
 +
-+## Step 4.6 — Registrar e submeter as recomendações (somente se o Step 4 gerou alguma `REC`)
++## Step 4.6 — Recomendações NÃO são emitidas nesta skill
 +
-+Grave as recomendações em `$CICLOS_DIR\US-<ID>\recomendacoes-qa\US-<ID>_<$EXEC>.md` (mesmo `$EXEC` dos Steps 4.5 e 5; **nunca sobrescreva** arquivo de execução anterior). Formato fixo:
++Esta skill **não gera `REC-...`, não grava a pasta `recomendacoes-qa` e não pergunta aprovação de recomendação.** A recomendação só pode ser dada **depois das duas análises (negócio e técnica) e depois de validar no hub** (comportamento do SmartShare clássico, somente leitura). Quem emite é a `/analise-tecnica` (Step 4.6 dela), que parte das "Informações ausentes" deste relatório e só recomenda o que continuar sem resposta depois do card do dev, do PR e do hub.
 +
-+```
-+---
-+us: <ID>
-+origem: RECOMENDAÇÃO DO CLAUDE (QA), NÃO DECISÃO DA PM/PO
-+execucao: <$EXEC>
-+revisao_us: <System.Rev>
-+---
-+
-+# Recomendações — US #<ID> <Título>
-+
-+| ID | Informação ausente | Recomendação | Justificativa (base na US) | Impacto no mapa | Status | Decisão da usuária |
-+|---|---|---|---|---|---|---|
-+| REC-<ID>-01 | ... | ... | ... | ... | Pendente de aprovação | — |
-+```
-+
-+**Regra de aprovação (inegociável):**
-+- **Nunca aprove, ajuste ou rejeite uma recomendação por conta própria.** Todo item nasce `Pendente de aprovação`. A aprovação só vale com resposta **explícita da usuária, no chat**, item a item ou em lote nomeado ("aprovo todas", "aprovo 01 a 04 e rejeito 05").
-+- Depois de apresentar o relatório, **pergunte** quais recomendações a usuária aprova, ajusta ou rejeita (pode usar `AskUserQuestion`). Silêncio, "ok", "prossiga" ou escolha do próximo passo **não são aprovação**: o item continua `Pendente de aprovação`.
-+- Resposta explícita → atualize só a linha do item no mesmo arquivo: `Status` = `Aprovada` | `Ajustada` (grave o texto da usuária na recomendação) | `Rejeitada`, e `Decisão da usuária` = `<AAAA-MM-DD>, <resposta em poucas palavras>`.
-+- Recomendação aprovada **não é editada na US nem no Azure DevOps** por esta skill; continua sendo identificada como "recomendação aprovada pela usuária", nunca como regra original da história.
-+- Não grave nada no Azure DevOps.
++- Toda lacuna de negócio fica apenas como `Informação não encontrada / necessita validação` no relatório (Step 4).
++- Não proponha solução, "menor desvio" nem texto de regra no lugar da lacuna.
++- Recomendação já existente de execução anterior (`recomendacoes-qa`) não é lida, alterada nem aprovada aqui.
++- Não grave nada no Azure DevOps (além da marcação do Step 1.5).
 +
 +---
 +
@@ -241,11 +243,10 @@ index 204a4e3..631d6da 100644
 +revisao_us: <System.Rev>
 +resultado: Concluída | Bloqueada
 +pendencias_dev: C:\skills-qualidade\ciclos-executados\US-<ID>\pendencias-dev\US-<ID>_<$EXEC>.md
-+recomendacoes: C:\skills-qualidade\ciclos-executados\US-<ID>\recomendacoes-qa\US-<ID>_<$EXEC>.md (ou "nenhuma")
 +---
 +```
 +
-+Informe ao usuário, no fim, os caminhos dos arquivos gravados (análise, pendências e, se houver, recomendações). Não grave nada no Azure DevOps.
++Informe ao usuário, no fim, os caminhos dos arquivos gravados (análise e pendências do dev). Não grave nada no Azure DevOps (além da marcação do Step 1.5).
  
  ---
  
@@ -257,7 +258,7 @@ index 204a4e3..631d6da 100644
  - Se `$STORY_RELATIONS` incluir cards filhos do tipo `Análise` ou `Analise Review`, **não os utilize aqui** — eles são insumo da análise técnica, não da análise de negócio.
  - Se durante a extração você perceber uma dúvida que só o código/PR responde (ex.: qual configuração de infraestrutura é usada, como simular uma falha técnica, se um job de backfill já rodou em um ambiente), não a liste em "Informações ausentes" — apenas não invente a resposta; ela será endereçada em `/analise-tecnica`.
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/analise-tecnica.md b/skills-qa-smartshare/skills-qa-smartshare/skills/analise-tecnica.md
-index b32d612..e40e319 100644
+index b32d612..52921cc 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/analise-tecnica.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/analise-tecnica.md
 @@ -7,13 +7,23 @@ Analisar o impacto tecnico da historia do Azure DevOps a partir de **$ARGUMENTS*
@@ -391,12 +392,12 @@ index b32d612..e40e319 100644
  ## Casos de teste sugeridos pelo dev
  ...
  
-@@ -153,7 +221,54 @@ Se `$ANALISE_PONTOS` for muito genérico (ex.: "ajustes no back-end"), não crie
+@@ -153,7 +221,91 @@ Se `$ANALISE_PONTOS` for muito genérico (ex.: "ajustes no back-end"), não crie
  - Informação não encontrada / necessita validação: ...
  ```
  
 -Finalize perguntando se o usuário quer seguir para `/gerar-mapa-testes-v2 <ID>` — não encadeie automaticamente.
-+Se houver pendência, o Step 3.8 (validação no clássico) roda antes do relatório. Antes de finalizar, execute o Step 4.5 (registrar pendências). Finalize perguntando se o usuário quer seguir para `/gerar-mapa-testes-v2 <ID>` — não encadeie automaticamente.
++Se houver pendência, o Step 3.8 (validação no clássico) roda antes do relatório. Antes de finalizar, execute o Step 4.5 (registrar pendências) e o Step 4.6 (recomendações). Finalize perguntando se o usuário quer seguir para `/gerar-mapa-testes-v2 <ID>` — não encadeie automaticamente.
 +
 +---
 +
@@ -444,6 +445,43 @@ index b32d612..e40e319 100644
 +- Quando o dev ou a PM responder, atualize o arquivo: tire os itens resolvidos da lista e mova-os para um bloco ao final, "Resolvidos pela resposta do dev (<data>)". Itens que a pessoa pediu para desconsiderar vão no bloco "Desconsiderados a pedido".
 +- Se todos os itens forem resolvidos, avise a pessoa e **pergunte se o arquivo pode ser apagado**. Não apague sem confirmação.
 +- No resumo final da execução, informe o caminho do arquivo criado ou atualizado. Se não criou arquivo, diga que não houve pendência.
++
++---
++
++## Step 4.6 — Recomendações (única skill que as emite)
++
++A recomendação (`REC-<ID>-NN`) só é dada **depois das duas análises (negócio e técnica) e depois da validação no hub (Step 3.8)**. Esta skill é a única que as emite; a `/analise-negocio` não gera recomendação.
++
++**Quando emitir:** leia a análise de negócio mais recente (`$CICLOS_DIR\US-<ID>\analises-negocio\US-<ID>_*.md`, maior data/hora no nome) e liste as "Informações ausentes" dela. Para cada uma, verifique, nesta ordem, se já tem resposta: (1) regra escrita na US, (2) protótipo (só front), (3) card `Análise` do dev e PR, (4) clássico via hub (Step 3.8, `lida-no-codigo`). **Só vira recomendação a lacuna que continuar sem resposta depois dessas fontes** (precedência do APR-001). Lacuna respondida por fonte anterior não gera `REC`: registre no relatório a fonte que respondeu. Se a análise de negócio não existir, não emita recomendação e avise a usuária para executá-la antes. Se o hub não foi consultado (Step 3.8 pulado por ausência), avise na linha da recomendação que a validação no hub não ocorreu.
++
++**Como propor:** escolha o menor desvio do que a US já define e justifique citando o CA ou o trecho de origem. A recomendação é sempre **sugestão do Claude, não regra de negócio**; não proponha para pendência bloqueante de negócio (Step 3.5 da `/analise-negocio`).
++
++**Onde gravar:** `$CICLOS_DIR\US-<ID>\recomendacoes-qa\US-<ID>_<$EXEC>.md` (`$CICLOS_DIR` = `C:\skills-qualidade\ciclos-executados`; `$EXEC` = `AAAA-MM-DD_HHmm`; **nunca sobrescreva** arquivo anterior). Formato fixo:
++
++```
++---
++us: <ID>
++origem: RECOMENDAÇÃO DO CLAUDE (QA), NÃO DECISÃO DA PM/PO
++execucao: <$EXEC>
++revisao_us: <System.Rev>
++analise_negocio: <caminho do arquivo usado>
++analise_tecnica: <esta execução>
++validacao_hub: Consultado | Não consultado (<motivo>)
++---
++
++# Recomendações — US #<ID> <Título>
++
++| ID | Informação ausente | Recomendação | Justificativa (base na US) | Impacto no mapa | Status | Decisão da usuária |
++|---|---|---|---|---|---|---|
++| REC-<ID>-01 | ... | ... | ... | ... | Pendente de aprovação | — |
++```
++
++**Regra de aprovação (inegociável):**
++- **Nunca aprove, ajuste ou rejeite uma recomendação por conta própria.** Todo item nasce `Pendente de aprovação`. Só vale resposta **explícita da usuária, no chat**, item a item ou em lote nomeado ("aprovo todas", "aprovo 01 a 04 e rejeito 05").
++- Depois do relatório, **pergunte** quais aprova, ajusta ou rejeita (pode usar `AskUserQuestion`) e só então a pergunta de próximo passo. Silêncio, "ok" ou "prossiga" **não são aprovação**.
++- Resposta explícita → atualize só a linha do item: `Status` = `Aprovada` | `Ajustada` (grave o texto da usuária) | `Rejeitada`, e `Decisão da usuária` = `<AAAA-MM-DD>, <resposta em poucas palavras>`.
++- Recomendação aprovada **não é editada na US nem no Azure DevOps**; segue identificada como "recomendação aprovada pela usuária", nunca como regra original.
++- Sem lacuna a recomendar, não crie o arquivo e diga isso no resumo. Informe o caminho do arquivo gravado. Nada é gravado no Azure DevOps.
  
  ---
  
