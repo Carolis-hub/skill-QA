@@ -1,0 +1,11 @@
+US 163451
+Título: Dashboard ECM - Redimensionar painel de detalhamento arrastando
+Dev da análise: Felipe Kuhnen
+
+Itens pendentes na análise:
+1. CA-07 e CA-10 pedem ordenar coluna e Exportar CSV no painel, mas o card diz que o aside do ECM não tem nenhum dos dois (fora da story); falta decisão da PM. Confirmado no hub (main): o ecm-related-documents-aside não tem ordenação nem CSV. [clássico: não aplicável]
+2. Nenhum PR vinculado à US nem ao card Análise; a análise só foi corroborada contra o branch feature/melhorias-dashboard/ecm-fase2. No hub (main) o aside do ECM ainda não tem alça nem resize.
+3. O branch já inclui os PBIs 163452 (lembra a largura) e 163453 (teclado, duplo clique, a11y), que a US 163451 declara fora de escopo; a reabertura do painel não volta mais à largura padrão (CV-07 do card conflita com o escopo).
+4. Alça aparece em 768px+ (tablet), e a US exclui tablet do escopo; o próprio card marca como pergunta aberta (CV-05 também não está nos CAs).
+5. Cabeçalho em 30% ainda sem confirmação do design (CA-10).
+6. Listeners globais (document/window) ficam ativos com o painel fechado, com custo de change detection (sem zone.js); sem decisão registrada.

@@ -1,0 +1,14 @@
+﻿US 165176
+Título: API de tipo de documento: filtrar por código e retornar stRequerido nos índices
+Dev da análise: Felipe Kuhnen
+
+Itens pendentes na análise:
+(nenhum)
+
+Resolvidos pela resposta da usuária (2026-10-29):
+1. CA 7 e CA 9 fora do card: cenários criados pela QA independente da análise do dev.
+2. Texto da mensagem 404: não é crítico; considerar apenas o código 404.
+3. Visibilidade do tipo por usuário: considerar a REC-165176-03 aprovada.
+4. Trilha Oracle de st_requerido: inserir cenário de teste para validar.
+5. Swagger UI: validar em localhost:{porta}/smartshare/swagger.
+6. 400 para não numérico: incluir no mapa, identificado como recomendação (REC-165176-02), não regra da US.

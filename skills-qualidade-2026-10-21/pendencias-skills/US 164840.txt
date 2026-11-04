@@ -1,0 +1,17 @@
+US 164840
+Título: DI CLIENT | Indexação automática
+Dev da análise: Vitor Cordeiro Gomes
+
+Itens pendentes na análise:
+1. Card Análise (e Desenvolvimento) estão Done, mas o texto diz "A fazer" para RotinaDeIndexacaoAutomatica/CicloDeIndexacaoAutomatica e "parte do código não commitada"; não há PR vinculado.
+2. Rotas da API liberadas à chave do Agente (Politicas.OperadorOuAgente) não estão listadas; o card só diz "vale revisão de segurança".
+3. Telas/endpoints impactados não identificados no card (campos de Alteração de Classe citam só arquivos do Client/Agente).
+4. Pré-requisitos de teste sem informação: como reproduzir falha do título, como ligar o Agente sem instalação (adiada, r45), reserva em CLIENTE_PASTA_INDEXACAO e OCR/LeadTools. [bloqueante para /executar-teste]
+5. US sem critérios de aceite nem seção Escopo (descrição de uma linha); escopo para classificar discrepâncias do PR não disponível.
+6. Valor convertido (numérico/data) do retorno da consulta SQL se perde no clássico (grava item.DsValor); US não diz se o Agente replica ou corrige. [clássico: diverge]
+
+Resolvidos pela leitura do clássico (03/11/2026):
+- Nova tentativa sem limite (r29): confirmada em ManagerIndexacaoAutomatica.cs:423-428 [clássico: confirmado]
+- ConsultaSqlSemRetornoUnico: confirmado em CampoConsulta.cs:92,117 e ManagerIndexacaoAutomatica.cs:627,662 [clássico: confirmado]
+
+Cenários do clássico gravados em C:\skills-qualidade\ciclos-executados\US-164840\cenarios-classico\cenarios-indexacao-automatica-classico.md

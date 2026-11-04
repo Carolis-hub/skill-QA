@@ -44,3 +44,11 @@ ambiente_padrao: HMG
 
 | Login | Senha | Perfil/permissões | Ambiente | Origem | US | Criado em | Observação |
 |---|---|---|---|---|---|---|---|
+
+## Destinatário de e-mail de teste (notificações)
+
+Só o endereço do domínio selbetti da usuária. **Sem senha.** A skill /validar-ambiente pede a confirmação dele a cada execução (Step 4.6); a leitura dos e-mails é feita pelo conector Outlook da usuária.
+
+| Endereço | Observação |
+|---|---|
+| <preencher: e-mail selbetti da usuária> | Usado como e-mail do usuário destinatário das notificações de teste. |

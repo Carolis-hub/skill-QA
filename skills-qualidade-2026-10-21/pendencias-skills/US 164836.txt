@@ -1,0 +1,11 @@
+US 164836
+Título: DI CLIENT | Iniciar Indexação
+Dev da análise: Vitor Cordeiro Gomes
+
+Itens pendentes na análise:
+1. Nenhum PR vinculado à US/card Análise: análise não confirmada contra o diff real (branch feature/164352-f0-di-client).
+2. Decisão P-051 em aberto (acesso do operador à credencial da pasta de rede) e UI com acesso aumentado a essa credencial - risco de segurança.
+3. Itens "Indexados hoje" e "Tempo médio" ainda sem rota na API (card diz "Falta"); caso de teste do controle flutuante cita "indexados hoje".
+4. Botão "Iniciar Serviço" removido por decisão do usuário; US (descrição só "Tela para iniciar a indexação") não registra critérios de aceite nem essa decisão.
+5. Convivência das reservas em CLIENTE_PASTA_INDEXACAO com estações do legado (R-MIG-05): impacto oculto no clássico sem caso de teste correspondente.
+6. Card sem Repositório/Navegador definidos além de "Não se aplica"/"Não"; sem pontos para "Iniciar lote" (_LOTE_) além do caso de teste, e sem pendencias-dev de /analise-negocio.

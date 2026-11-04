@@ -12,6 +12,16 @@ Este comando é a Skill 8 (QA Documentation Agent). Recomendado rodar **depois**
 
 ---
 
+## Regra transversal — Dúvidas viram aprendizados
+
+Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
+
+1. **Antes de perguntar à usuária** qualquer dúvida, pendência ou pedido de retorno, ler `INDICE.md`. Se existir aprendizado `Ativo` aplicável à mesma situação (escopo `Geral`, da skill, ou da própria US), aplicar sem perguntar e escrever no relatório `Aplicado APR-NNN`.
+2. **Ao perguntar**, depois da resposta e **antes de seguir**, gravar `APR-NNN_<slug>.md` (situação, pergunta, resposta, como aplicar, escopo) e a linha no `INDICE.md`. Resposta vaga ou adiada fica `Pendente`, não vira regra.
+3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
+4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
+5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
+
 ## Regra fundamental
 
 **Nunca publicar em página de documentação sem aprovação explícita, página por página.** A ferramenta de escrita (`update_wiki_page`/`create_wiki_page`) substitui o conteúdo inteiro da página — não existe "patch" parcial no Azure DevOps Wiki. Por isso, o rascunho apresentado para aprovação deve ser sempre o **conteúdo final completo da página**, não só o trecho alterado, para o usuário revisar exatamente o que vai substituir o que já existe.

@@ -1,0 +1,10 @@
+US 164835
+Título: DI CLIENT | Tela inicial
+Dev da análise: Vitor Cordeiro Gomes
+
+Itens pendentes na análise:
+1. Campo "Banco de dados" do card Análise está como "SQL", mas a descrição diz que não há acesso a banco nem alteração de esquema (incoerência).
+2. Nenhum PR vinculado à US nem ao card; análise não confirmada contra o diff (só o commit 2b455d5 citado no texto).
+3. A US só tem a descrição "Tela inicial para acesso a todas as funcionalidades", sem critérios de aceite; análise não tem a quais CA responder.
+4. Rota da API de alerta (QuantidadeEmCriticaAsync) e como forçar falha dela em teste não estão descritos (bloqueante para /executar-teste).
+5. Regra de visibilidade Conferência/Crítica (Plimor e Cecred) citada como "mesma do legado" sem apontar onde, no clássico, ela é confirmada.

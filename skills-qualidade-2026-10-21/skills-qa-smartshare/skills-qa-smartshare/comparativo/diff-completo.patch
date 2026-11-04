@@ -1,8 +1,8 @@
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/analise-falha.md b/skills-qa-smartshare/skills-qa-smartshare/skills/analise-falha.md
-index e866911..176255a 100644
+index e866911..cb6cbc7 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/analise-falha.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/analise-falha.md
-@@ -7,7 +7,7 @@ Analisar a falha a partir de **$ARGUMENTS**.
+@@ -7,13 +7,23 @@ Analisar a falha a partir de **$ARGUMENTS**.
  Formato esperado: `[ID da história ou Test Case] [descrição da falha (opcional)]`
  
  Exemplos:
@@ -11,11 +11,27 @@ index e866911..176255a 100644
  - `153287` → sem descrição: reaproveita o resultado de um `/executar-teste 153287` que já rodou nesta conversa
  
  Este comando é a Skill 5 (QA Failure Analyst). Ele **não cria bug** — só decide, com rastreabilidade, se a falha tem evidência suficiente para justificar um defeito. Quem decide criar de fato é o `/gerar-defeito`, sempre com confirmação humana antes de escrever no Azure DevOps.
+ 
+ ---
+ 
++## Regra transversal — Dúvidas viram aprendizados
++
++Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
++
++1. **Antes de perguntar à usuária** qualquer dúvida, pendência ou pedido de retorno, ler `INDICE.md`. Se existir aprendizado `Ativo` aplicável à mesma situação (escopo `Geral`, da skill, ou da própria US), aplicar sem perguntar e escrever no relatório `Aplicado APR-NNN`.
++2. **Ao perguntar**, depois da resposta e **antes de seguir**, gravar `APR-NNN_<slug>.md` (situação, pergunta, resposta, como aplicar, escopo) e a linha no `INDICE.md`. Resposta vaga ou adiada fica `Pendente`, não vira regra.
++3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
++4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
++5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
++
+ ## Regra fundamental
+ 
+ Quando faltar evidência ou contexto para concluir algo com segurança, escrever literalmente **"Não tenho evidência suficiente."** na seção correspondente — nunca preencher com suposição. O veredito final também pode ser "evidência insuficiente para abrir defeito", e isso é um resultado válido, não uma falha do comando.
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/analise-negocio.md b/skills-qa-smartshare/skills-qa-smartshare/skills/analise-negocio.md
-index 204a4e3..7d2d0fb 100644
+index 204a4e3..631d6da 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/analise-negocio.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/analise-negocio.md
-@@ -7,10 +7,10 @@ Analisar o negocio da historia do Azure DevOps a partir de **$ARGUMENTS**.
+@@ -7,13 +7,23 @@ Analisar o negocio da historia do Azure DevOps a partir de **$ARGUMENTS**.
  Formato esperado: `[ID da historia] [nome do projeto (opcional)]`
  
  Exemplos:
@@ -29,7 +45,20 @@ index 204a4e3..7d2d0fb 100644
  
  ---
  
-@@ -22,6 +22,8 @@ Este comando é **somente leitura** — não cria, edita nem comenta nada no Azu
++## Regra transversal — Dúvidas viram aprendizados
++
++Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
++
++1. **Antes de perguntar à usuária** qualquer dúvida, pendência ou pedido de retorno, ler `INDICE.md`. Se existir aprendizado `Ativo` aplicável à mesma situação (escopo `Geral`, da skill, ou da própria US), aplicar sem perguntar e escrever no relatório `Aplicado APR-NNN`.
++2. **Ao perguntar**, depois da resposta e **antes de seguir**, gravar `APR-NNN_<slug>.md` (situação, pergunta, resposta, como aplicar, escopo) e a linha no `INDICE.md`. Resposta vaga ou adiada fica `Pendente`, não vira regra.
++3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
++4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
++5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
++
+ ## Regra fundamental
+ 
+ **Não inventar regra de negócio.** Toda afirmação no relatório final deve ser rastreável a um campo específico da história (título, descrição, critérios de aceite, comentários). Quando uma informação necessária não estiver disponível, escrever literalmente:
+@@ -22,6 +32,8 @@ Este comando é **somente leitura** — não cria, edita nem comenta nada no Azu
  
  Nunca preencher esse vazio com suposição não marcada como tal.
  
@@ -38,7 +67,7 @@ index 204a4e3..7d2d0fb 100644
  ---
  
  ## Step 0 — Validar ambiente
-@@ -39,12 +41,12 @@ Um erro `404 Not Found` (história inexistente) não é falha de ambiente — si
+@@ -39,12 +51,12 @@ Um erro `404 Not Found` (história inexistente) não é falha de ambiente — si
  ```
  $parts = "$ARGUMENTS".Trim() -split '\s+'
  $wiId    = $parts[0]
@@ -53,14 +82,15 @@ index 204a4e3..7d2d0fb 100644
  - `expand`: `"all"`
  
  Capture do resultado:
-@@ -85,14 +87,58 @@ A partir de `$STORY_TITLE`, `$STORY_DESC`, `$STORY_AC` (e comentários, se houve
+@@ -85,14 +97,58 @@ A partir de `$STORY_TITLE`, `$STORY_DESC`, `$STORY_AC` (e comentários, se houve
  7. **Informações ausentes** — perguntas de negócio (regra, escopo, prioridade) que a história não responde e que são necessárias para testar com segurança. **Não liste aqui perguntas técnicas ou de ambiente de execução** (nome de bucket/config específica, mecanismo para simular falha técnica, se um job já rodou em determinado ambiente, política de log) — essas são resolvidas por `/analise-tecnica`, que tem acesso ao PR/código. Se notar uma lacuna desse tipo durante a extração, não a trate como bloqueio de negócio.
  8. **Ambiguidades** — trechos que admitem mais de uma interpretação; explique as interpretações possíveis.
  9. **Riscos** — o que pode dar errado do ponto de vista de negócio se a regra for mal interpretada ou mal implementada.
 +10. **Itens pendentes da descrição da US** — pendências que a **própria descrição** declara como em aberto, transcritas como estão escritas (sem reinterpretar). Procure por seções e expressões como "Pendências", "Confirmar antes de iniciar", "Verificar pelo dev", "O dev verifica/valida", "a confirmar", "a definir", "TBD", "pendente", "registrar o resultado no PBI". Para cada item, informe: o trecho, quem é o responsável declarado (PM, dev/back-end/time, QA — ou "não informado") e se há CA que depende dele. Classifique cada item em:
 +    - **Ponto de atenção (dev):** a descrição atribui expressamente a resposta ao dev/back-end/time de desenvolvimento ("o dev verifica", "o dev valida", "o back-end precisa confirmar", "registrar o resultado no PBI"). **Não bloqueia** a análise; será respondido na análise técnica e **deve ser salvo no arquivo do Step 4.5**.
 +    - **Pendência de outro responsável** (PM, PO, negócio ou "não informado"): listar na tabela; se for remissão ao legado sem comportamento definido, aplica-se o Step 3.5.
-+
+ 
+-Se qualquer um dos 9 itens não tiver conteúdo aplicável, escreva explicitamente `Nenhum identificado` — não omita a seção.
 +    **Valor de "nenhuma pendência":** se o campo de pendências a confirmar antes do desenvolvimento trouxer um valor semelhante a "nenhuma pendência", "sem alterações", "nada a confirmar" ou "não há pendências", interprete como **não existem itens a validar antes do desenvolvimento**. Registre `Nenhum item a validar antes do desenvolvimento (descrição: "<frase literal>")` e **não** trate essa frase como item pendente nem como lacuna. Isso vale só para o campo em que a frase aparece: itens atribuídos ao dev em outras partes da descrição continuam sendo listados como pontos de atenção.
 +
 +**Sugestões para o item 7 (Informações ausentes):** para cada informação ausente de negócio, proponha uma **recomendação** (ID `REC-<ID>-NN`) escolhendo o menor desvio do que a própria história já define, com a justificativa citando o CA ou trecho de origem. A recomendação é sempre **sugestão do Claude, não regra de negócio**: nasce com status `Pendente de aprovação`, nunca vira regra explícita e nunca é tratada como definida (ver Step 4.6). Não proponha recomendação para pendência bloqueante do Step 3.5.
@@ -90,8 +120,7 @@ index 204a4e3..7d2d0fb 100644
 +| # | Trecho da história (origem) | Remissão ao legado | O que precisa ser definido |
 +|---|---|---|---|
 +| 1 | <citação curta + onde está: descrição / CA n> | <ex.: "mesma regra e mensagem do legado"> | <pergunta de negócio específica> |
- 
--Se qualquer um dos 9 itens não tiver conteúdo aplicável, escreva explicitamente `Nenhum identificado` — não omita a seção.
++
 +Itens já definidos de forma verificável (não bloqueiam): <lista ou "Nenhum">.
 +
 +## Pontos de atenção (respondidos pelo dev) — não bloqueiam
@@ -114,7 +143,7 @@ index 204a4e3..7d2d0fb 100644
  
  ```
  # Análise de Negócio — #<ID> <Título>
-@@ -120,20 +166,111 @@ Apresente em Markdown, nesta estrutura fixa:
+@@ -120,20 +176,111 @@ Apresente em Markdown, nesta estrutura fixa:
  
  ## Informações ausentes
  - Informação não encontrada / necessita validação: <pergunta específica>
@@ -133,9 +162,8 @@ index 204a4e3..7d2d0fb 100644
 +
 +## Outras pendências da descrição da US
 +<itens de PM/PO/negócio/não informado, ou `Nenhum item a validar antes do desenvolvimento (descrição: "<frase literal>")`>
- ```
- 
--Finalize perguntando ao usuário se deseja prosseguir para a análise técnica (`/analise-tecnica`, quando existir) ou diretamente para o mapa de testes (`/gerar-mapa-testes-v2 <ID>`) — não encadeie automaticamente.
++```
++
 +Informe no fim do relatório os caminhos dos arquivos gerados nos Steps 4.5, 4.6 e 5.
 +
 +Se houver recomendações, faça primeiro a pergunta de aprovação do Step 4.6; só depois pergunte sobre o próximo passo. Finalize perguntando ao usuário se deseja prosseguir para a análise técnica (`/analise-tecnica`, quando existir) ou diretamente para o mapa de testes (`/gerar-mapa-testes-v2 <ID>`) — não encadeie automaticamente.
@@ -152,7 +180,7 @@ index 204a4e3..7d2d0fb 100644
 +
 +Formato fixo:
 +
-+```
+ ```
 +# Pendências do dev — US #<ID> <Título>
 +
 +Gerado em: <AAAA-MM-DD> por /analise-negocio | Revisão da US (System.Rev): <rev>
@@ -167,7 +195,8 @@ index 204a4e3..7d2d0fb 100644
 +- `Status` sempre `Aberto` — quem atualiza é a `/analise-tecnica`, nunca esta skill.
 +- Se não houver pontos de atenção, grave o arquivo mesmo assim com a linha `Nenhuma pendência atribuída ao dev na descrição da US.` no lugar da tabela, para a `/analise-tecnica` distinguir "sem pendências" de "análise de negócio não executada".
 +- Não grave nada no Azure DevOps.
-+
+ 
+-Finalize perguntando ao usuário se deseja prosseguir para a análise técnica (`/analise-tecnica`, quando existir) ou diretamente para o mapa de testes (`/gerar-mapa-testes-v2 <ID>`) — não encadeie automaticamente.
 +---
 +
 +## Step 4.6 — Registrar e submeter as recomendações (somente se o Step 4 gerou alguma `REC`)
@@ -228,10 +257,10 @@ index 204a4e3..7d2d0fb 100644
  - Se `$STORY_RELATIONS` incluir cards filhos do tipo `Análise` ou `Analise Review`, **não os utilize aqui** — eles são insumo da análise técnica, não da análise de negócio.
  - Se durante a extração você perceber uma dúvida que só o código/PR responde (ex.: qual configuração de infraestrutura é usada, como simular uma falha técnica, se um job de backfill já rodou em um ambiente), não a liste em "Informações ausentes" — apenas não invente a resposta; ela será endereçada em `/analise-tecnica`.
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/analise-tecnica.md b/skills-qa-smartshare/skills-qa-smartshare/skills/analise-tecnica.md
-index b32d612..f68863c 100644
+index b32d612..e40e319 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/analise-tecnica.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/analise-tecnica.md
-@@ -7,8 +7,8 @@ Analisar o impacto tecnico da historia do Azure DevOps a partir de **$ARGUMENTS*
+@@ -7,13 +7,23 @@ Analisar o impacto tecnico da historia do Azure DevOps a partir de **$ARGUMENTS*
  Formato esperado: `[ID da historia] [nome do projeto (opcional)]`
  
  Exemplos:
@@ -242,7 +271,22 @@ index b32d612..f68863c 100644
  
  Este comando é **somente leitura**. É a etapa de Análise Técnica (equivalente à Skill 2 / QA Technical Analyst): responde "se isto mudar, quem depende disso e o que pode mudar de comportamento?". Roda depois de `/analise-negocio` e antes de `/gerar-mapa-testes-v2`.
  
-@@ -22,7 +22,7 @@ Este comando é **somente leitura**. É a etapa de Análise Técnica (equivalent
+ ---
+ 
++## Regra transversal — Dúvidas viram aprendizados
++
++Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
++
++1. **Antes de perguntar à usuária** qualquer dúvida, pendência ou pedido de retorno, ler `INDICE.md`. Se existir aprendizado `Ativo` aplicável à mesma situação (escopo `Geral`, da skill, ou da própria US), aplicar sem perguntar e escrever no relatório `Aplicado APR-NNN`.
++2. **Ao perguntar**, depois da resposta e **antes de seguir**, gravar `APR-NNN_<slug>.md` (situação, pergunta, resposta, como aplicar, escopo) e a linha no `INDICE.md`. Resposta vaga ou adiada fica `Pendente`, não vira regra.
++3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
++4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
++5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
++
+ ## Regra fundamental
+ 
+ **A fonte da verdade técnica é o card `Análise`, preenchido pelo dev — não o LLM.** Este comando não deve inferir classes, métodos ou componentes impactados que não estejam:
+@@ -22,7 +32,7 @@ Este comando é **somente leitura**. É a etapa de Análise Técnica (equivalent
  
  Onde faltar essa base, escrever `Informação não encontrada / necessita validação.` — nunca supor.
  
@@ -251,7 +295,7 @@ index b32d612..f68863c 100644
  e risco (Step 3, itens 3–5) são avaliados **apenas para mudanças dentro do escopo declarado da US**
  (o escopo que `/analise-negocio` já extraiu, ou a seção "Escopo" da própria história). Quando o diff
  do PR tocar arquivos fora desse escopo, esta skill continua **detectando e listando o fato** (é o
-@@ -59,10 +59,10 @@ Igual ao `/analise-negocio`: chame `mcp__azure-devops_wit_get_work_item` com o I
+@@ -59,10 +69,10 @@ Igual ao `/analise-negocio`: chame `mcp__azure-devops_wit_get_work_item` com o I
  ```
  $parts = "$ARGUMENTS".Trim() -split '\s+'
  $wiId    = $parts[0]
@@ -264,7 +308,7 @@ index b32d612..f68863c 100644
  2. Extraia `$STORY_TITLE`, `$STORY_RELATIONS`.
  3. Filtre `$STORY_RELATIONS` onde `rel == "System.LinkTypes.Hierarchy-Forward"` → lista de IDs filhos.
  4. Se não houver filhos, aplique o bloqueio descrito acima (nenhum card `Análise` possível).
-@@ -89,6 +89,33 @@ Se um arquivo do diff tocar em algo não mencionado em `$ANALISE_PONTOS`, sinali
+@@ -89,6 +99,33 @@ Se um arquivo do diff tocar em algo não mencionado em `$ANALISE_PONTOS`, sinali
  
  ---
  
@@ -298,7 +342,7 @@ index b32d612..f68863c 100644
  ## Step 3 — Estruturar a análise técnica
  
  Produza, sempre citando a origem (`análise do dev` ou `PR #<n>, arquivo <path>`):
-@@ -101,6 +128,8 @@ Produza, sempre citando a origem (`análise do dev` ou `PR #<n>, arquivo <path>`
+@@ -101,10 +138,31 @@ Produza, sempre citando a origem (`análise do dev` ou `PR #<n>, arquivo <path>`
  6. **Casos de teste sugeridos pelo dev** (`$ANALISE_CASOS`) — reproduza como está, marcado claramente como sugestão do dev, não validada pelo QA ainda.
  7. **Pré-requisitos técnicos de execução de teste** — para cada critério de aceite que dependa de infraestrutura/configuração (ex.: nome de bucket, variável de ambiente, URL) ou de cenário negativo/falha técnica, identifique no card de Análise ou no PR: (a) qual configuração real é usada, (b) se existe mecanismo para reproduzir a falha em ambiente de teste (feature flag, credencial inválida, mock/stub, LocalStack). Quando essa informação não estiver no card nem no PR, registre em "Informações ausentes" e marque explicitamente como **bloqueante para `/executar-teste`** — não apenas como observação técnica.
  
@@ -307,7 +351,30 @@ index b32d612..f68863c 100644
  Se `$ANALISE_PONTOS` for muito genérico (ex.: "ajustes no back-end"), não crie detalhamento fictício para preencher a tabela — registre a limitação em "Informações ausentes".
  
  ---
-@@ -143,6 +172,11 @@ Se `$ANALISE_PONTOS` for muito genérico (ex.: "ajustes no back-end"), não crie
+ 
++## Step 3.8 — Validar as pendências no clássico (somente se houver pendência)
++
++Antes de montar o relatório, liste os pontos pendentes pelos mesmos critérios do Step 4.5 ("Quando criar"). **Sem nenhum ponto pendente, pule este passo.** Com pelo menos um, confirme no código do SmartShare clássico, via hub, o que cada item de comportamento ou regra diz do legado, antes de pedir resposta ao dev ou à PM.
++
++- **Quais itens entram:** os que dependem de comportamento legado — divergência entre o card e a US sobre regra, mensagem, ordem, bloqueio, log, "igual ao Clássico", impacto oculto no Clássico, regra que a US diz manter. **Não entram:** pendência de ambiente, de infraestrutura, de segurança sem paralelo no legado, de campo vazio no card, nem o que o Step 3 já classificou como fora do escopo desta análise.
++- **Onde ler (somente leitura):** hub = `SMARTSHARE_HUB`; se ausente, `C:\GIT\smartshare-hub`; projeto `SmartShare/`. Nesta ordem:
++  1. `SmartShare/.claude/docs/analises-realizadas/` — se já existe diagnóstico da tela, use-o e não releia o clássico.
++  2. A tela em `SmartShareWeb/` (referência da solution), no `.aspx.cs` do assunto: a regra costuma estar na própria página (SQL na página, `DbConn`). `WebApplication/` é cópia: se divergir de `SmartShareWeb/`, registre o delta, não misture.
++  3. Só então os símbolos que a página chama (BLL, `Log`, helpers), parando quando o helper já não muda a regra.
++- **Hub ausente ou item sem tela correspondente:** pule sem erro e registre em "Informações ausentes" que o clássico não foi consultado. Código de `Library`, `bin`, `obj`, `packages` e `*.designer.cs` não vale como regra; DLL sem fonte não se descreve.
++- **Resultado por item**, com rótulo `lida-no-codigo` e a evidência `arquivo:símbolo` (nunca colar método inteiro):
++  - **Confirmado pelo clássico** — o código faz o que a US ou o card afirma.
++  - **Diverge do clássico** — o código faz outra coisa; descreva em uma linha o que o clássico faz e o que a US/card diz.
++  - **Lacuna** — não foi possível ler (DLL sem fonte, regra só no banco ou em JavaScript não localizado). Não vira critério.
++- **Regras fixas:** o hub é somente leitura (nenhuma edição, checkout, pull, fetch, build ou script que escreva); nada no banco, nem `SELECT` de sonda; não copiar segredo (connection string, chave, licença); não abrir browser — "vista-no-browser" não se obtém nesta skill. O clássico **corrobora ou contesta, não substitui** a resposta do dev nem a decisão da PM: divergência vira achado para eles, não correção do card, da US ou do mapa.
++- A mensagem, o log e a regra que o clássico faz e a US redefine de propósito (regra nova da US) aparecem como **diverge**, para o time decidir; esta skill não decide qual vale.
++
++---
++
+ ## Step 4 — Relatório final
+ 
+ ```
+@@ -143,6 +201,16 @@ Se `$ANALISE_PONTOS` for muito genérico (ex.: "ajustes no back-end"), não crie
  ### Fora do escopo da US
  <apenas fato: arquivo + resumo de 1 linha do que mudou + "fora do escopo desta US". Sem análise de risco/recomendação aqui — é matéria da skill de revisão de branch/PR do time de dev (a criar), não desta análise.>
  
@@ -316,15 +383,20 @@ index b32d612..f68863c 100644
 +|---|---|---|---|
 +(ou "sem pendências do dev a validar" / "arquivo não encontrado — /analise-negocio não registrou pendências")
 +
++## Validação das pendências no clássico (hub)
++| Pendência | Resultado (Confirmado / Diverge / Lacuna) | Evidência (`arquivo:símbolo`, lida-no-codigo) | O que o clássico faz |
++|---|---|---|---|
++(ou "sem pendências a validar" / "hub não consultado: <motivo>")
++
  ## Casos de teste sugeridos pelo dev
  ...
  
-@@ -153,7 +187,54 @@ Se `$ANALISE_PONTOS` for muito genérico (ex.: "ajustes no back-end"), não crie
+@@ -153,7 +221,54 @@ Se `$ANALISE_PONTOS` for muito genérico (ex.: "ajustes no back-end"), não crie
  - Informação não encontrada / necessita validação: ...
  ```
  
 -Finalize perguntando se o usuário quer seguir para `/gerar-mapa-testes-v2 <ID>` — não encadeie automaticamente.
-+Antes de finalizar, execute o Step 4.5 (registrar pendências). Finalize perguntando se o usuário quer seguir para `/gerar-mapa-testes-v2 <ID>` — não encadeie automaticamente.
++Se houver pendência, o Step 3.8 (validação no clássico) roda antes do relatório. Antes de finalizar, execute o Step 4.5 (registrar pendências). Finalize perguntando se o usuário quer seguir para `/gerar-mapa-testes-v2 <ID>` — não encadeie automaticamente.
 +
 +---
 +
@@ -365,7 +437,7 @@ index b32d612..f68863c 100644
 +2. <pendência em uma linha>
 +```
 +
-+- Os itens são os mesmos destacados ao usuário no relatório e no aviso ao dev, escritos de forma curta.
++- Os itens são os mesmos destacados ao usuário no relatório e no aviso ao dev, escritos de forma curta. Quando o Step 3.8 validou o item no clássico, acrescente ao fim da linha `[clássico: confirmado | diverge | lacuna]`.
 +- Se a tarefa não tem ID no Azure DevOps, use `Task <nº> - <assunto>.txt` e escreva "(sem ID no Azure DevOps)" no cabeçalho.
 +
 +### Ciclo de vida
@@ -376,10 +448,10 @@ index b32d612..f68863c 100644
  ---
  
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/atualizar-documentacao.md b/skills-qa-smartshare/skills-qa-smartshare/skills/atualizar-documentacao.md
-index 02df567..d7348b7 100644
+index 02df567..0584a90 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/atualizar-documentacao.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/atualizar-documentacao.md
-@@ -6,7 +6,7 @@ Atualizar a documentação a partir de **$ARGUMENTS**.
+@@ -6,12 +6,22 @@ Atualizar a documentação a partir de **$ARGUMENTS**.
  
  Formato esperado: `[ID da história] [nome do projeto (opcional)] [nome da wiki (opcional)]`
  
@@ -388,7 +460,22 @@ index 02df567..d7348b7 100644
  
  Este comando é a Skill 8 (QA Documentation Agent). Recomendado rodar **depois** de uma alteração já validada (idealmente após `/homologar-release` ter aprovado, ou pelo menos após `/analise-negocio` ter confirmado as regras de negócio) — documentar um comportamento que ainda pode mudar gera trabalho perdido e informação errada publicada.
  
-@@ -22,7 +22,7 @@ Nunca aprovar em lote — se várias páginas forem impactadas, aprovar uma de c
+ ---
+ 
++## Regra transversal — Dúvidas viram aprendizados
++
++Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
++
++1. **Antes de perguntar à usuária** qualquer dúvida, pendência ou pedido de retorno, ler `INDICE.md`. Se existir aprendizado `Ativo` aplicável à mesma situação (escopo `Geral`, da skill, ou da própria US), aplicar sem perguntar e escrever no relatório `Aplicado APR-NNN`.
++2. **Ao perguntar**, depois da resposta e **antes de seguir**, gravar `APR-NNN_<slug>.md` (situação, pergunta, resposta, como aplicar, escopo) e a linha no `INDICE.md`. Resposta vaga ou adiada fica `Pendente`, não vira regra.
++3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
++4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
++5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
++
+ ## Regra fundamental
+ 
+ **Nunca publicar em página de documentação sem aprovação explícita, página por página.** A ferramenta de escrita (`update_wiki_page`/`create_wiki_page`) substitui o conteúdo inteiro da página — não existe "patch" parcial no Azure DevOps Wiki. Por isso, o rascunho apresentado para aprovação deve ser sempre o **conteúdo final completo da página**, não só o trecho alterado, para o usuário revisar exatamente o que vai substituir o que já existe.
+@@ -22,7 +32,7 @@ Nunca aprovar em lote — se várias páginas forem impactadas, aprovar uma de c
  
  ## Step 0 — Validar ambiente e localizar a wiki
  
@@ -397,7 +484,7 @@ index 02df567..d7348b7 100644
  
  ---
  
-@@ -36,7 +36,7 @@ Confirme `mcp__azure-devops` conectado. Chame `mcp__azure-devops__get_wikis` com
+@@ -36,7 +46,7 @@ Confirme `mcp__azure-devops` conectado. Chame `mcp__azure-devops__get_wikis` com
  
  ## Step 2 — Localizar documentação potencialmente impactada
  
@@ -407,7 +494,7 @@ index 02df567..d7348b7 100644
  3. Se a busca não encontrar nenhuma página relacionada, não conclua automaticamente que não existe documentação — chame `mcp__azure-devops__list_wiki_pages` para navegar a árvore e checar manualmente se a funcionalidade está descrita em uma página com nome que a busca de texto não capturou.
  
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/executar-teste.md b/skills-qa-smartshare/skills-qa-smartshare/skills/executar-teste.md
-index a34f35c..ed81777 100644
+index a34f35c..f2ad0cd 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/executar-teste.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/executar-teste.md
 @@ -7,8 +7,8 @@ Executar os testes da User Story do Azure DevOps a partir de **$ARGUMENTS**.
@@ -421,7 +508,24 @@ index a34f35c..ed81777 100644
  - `161821` → ID de um Bug já corrigido, passado diretamente: propõe lista seletiva de reteste (Modo B) para ele, sem passar pela auto-detecção
  
  Esta é a Skill 4 (QA Test Executor): recebe o **ID de uma User Story** (Modo A, rodada normal — com auto-detecção de Bugs pendentes de reteste) ou o **ID de um Bug já corrigido** (Modo B direto, reteste seletivo pós-bug), localiza o card filho **"Criar Mapa de Teste"** com o mapa já publicado (por `/gerar-mapa-testes-v3`) na Description, executa cada cenário no navegador real e reporta Passou/Falhou com evidência — não decide sozinho quando falta base para isso.
-@@ -32,8 +32,8 @@ Dificuldade de execução, volume de trabalho, tempo gasto, "não tentei ainda"
+@@ -17,6 +17,16 @@ Não usamos mais Test Case formal em Test Plan — os mapas de teste vivem sempr
+ 
+ ---
+ 
++## Regra transversal — Dúvidas viram aprendizados
++
++Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
++
++1. **Antes de perguntar à usuária** qualquer dúvida, pendência ou pedido de retorno, ler `INDICE.md`. Se existir aprendizado `Ativo` aplicável à mesma situação (escopo `Geral`, da skill, ou da própria US), aplicar sem perguntar e escrever no relatório `Aplicado APR-NNN`.
++2. **Ao perguntar**, depois da resposta e **antes de seguir**, gravar `APR-NNN_<slug>.md` (situação, pergunta, resposta, como aplicar, escopo) e a linha no `INDICE.md`. Resposta vaga ou adiada fica `Pendente`, não vira regra.
++3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
++4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
++5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
++
+ ## Regra fundamental (guardrails)
+ 
+ **As únicas razões válidas para não executar um cenário (`NAO EXECUTADO`) são estas três — nenhuma outra:**
+@@ -32,10 +42,12 @@ Dificuldade de execução, volume de trabalho, tempo gasto, "não tentei ainda"
  - **Nunca ofereça "pular"/"ignorar" um cenário como opção numa pergunta ao usuário (`AskUserQuestion` ou texto livre) sem antes ter mostrado, na mesma resposta, a tentativa real que você fez** (busca de dado alternativo já realizada e com que resultado, ou a pergunta explícita se há um caminho técnico — ex.: "o dev consegue validar isso na máquina dele, do jeito que resolveu outro cenário parecido?"). Perguntar ao usuário se algo vale a pena só é legítimo **depois** da tentativa; usar a pergunta como atalho para não tentar é a mesma falha disfarçada de outra forma.
  - **Nunca executar ação irreversível ou de alto risco sem confirmação explícita do usuário antes daquele step específico** (ex.: excluir, cancelar definitivamente, enviar comunicação real ao cliente, qualquer ação que não tenha volta). Isso não é `NAO EXECUTADO` — é uma pausa para confirmação; depois de confirmado, o step é executado normalmente.
  - **Nunca rodar contra ambiente de produção.** Se a URL resolvida para o ambiente informado parecer produção (sem `hom`/`homolog`/`hml`/`dev` no domínio, ou o usuário não confirmar que é ambiente de teste), parar e perguntar antes de navegar.
@@ -431,8 +535,12 @@ index a34f35c..ed81777 100644
 +- **Leitura no banco é permitida e deve ser tentada antes de desistir de um cenário — nunca escrita.** Se houver acesso de leitura via MCP de banco (read-only) ao ambiente do SmartShare (nome do MCP a confirmar), use-o ativamente: descubra schema via `information_schema` (ou equivalente do SGBD em uso) quando não souber nomes exatos de tabela/coluna, compare valor anterior/posterior de uma migração, confirme ausência/presença de um registro de histórico, encontre um registro candidato que satisfaça a condição do cenário (ex.: registro inativo com determinado valor, item já processado) — muita coisa que antes virava `NAO EXECUTADO` por "não tenho um registro assim" na verdade é uma query de leitura de distância (US #161881, cenários #7/#12/#13 fechados assim). **Nunca tente `INSERT`/`UPDATE`/`DELETE`** — esse MCP é somente leitura e não há outro acesso de escrita; isso continua sendo motivo válido de `NAO EXECUTADO` (categoria 3 acima), mas só depois de confirmar, por leitura, que uma escrita é de fato necessária (não presuma sem checar o schema/dado real primeiro). Quando a escrita for mesmo necessária, prepare o SQL exato (ou peça ao dev o formato certo, como em US #161881 cenários #5/#8) para a usuária ou o time de dev rodar manualmente — nunca adivinhe o formato de uma escrita que pode ter efeito colateral real no ambiente.
  - **Nunca concluir "não dá pra testar" sem antes explorar e perguntar.** Diante de dado ausente, falta de acesso técnico (ex.: feature flag) ou um caminho de UI que parece bloqueado, tentar pelo menos uma alternativa óbvia (outra tela, outro botão, dado já existente no ambiente, uma consulta de leitura no banco, perguntar se o dev pode validar localmente) e, se ainda bloqueado, perguntar explicitamente à usuária se existe uma forma de testar — ela costuma ter acesso ou técnica que não foi considerada. Só marcar `NAO EXECUTADO` depois dessa tentativa. **Não se aplica** a cenários `HIPOTESE` (fora de escopo por definição, Step 3) nem a bloqueios já confirmados como definitivos (ambiente fora do ar, credencial de login ausente) — nesses dois casos, parar sem perguntar continua correto.
  
++- **Nunca executar em ambiente com dados simulados (mock).** O teste só vale se o ambiente for o mais próximo possível do cenário real: tela ou endpoint que serve dado em memória, fixture ou resposta fixa não valida dado, persistência nem integração. Se o ambiente tem dado mockado, **não execute nenhum cenário** (Step 0.5). Não há exceção por pedido de "rodar mesmo assim": o caminho é corrigir o ambiente (integração com o BE) e revalidar com `/validar-ambiente`. Percebeu mock no meio da execução (registro que some ao recarregar, tela sem chamada de API de dados)? Pare na hora, marque o que falta como `NAO EXECUTADO` (problema de ambiente) e reporte.
++
  ---
-@@ -45,7 +45,8 @@ Dificuldade de execução, volume de trabalho, tempo gasto, "não tentei ainda"
+ 
+ ## Step 0 — Validar ambiente
+@@ -45,21 +57,33 @@ Dificuldade de execução, volume de trabalho, tempo gasto, "não tentei ainda"
  3. Se qualquer um dos dois estiver indisponível, pare e reporte qual servidor MCP falta.
  4. **Gate obrigatório de contexto — antes de qualquer navegação no browser:**
     - **Memória:** busque na memória (`Grep`/leitura de `MEMORY.md` e dos arquivos apontados por ele) por entradas relacionadas ao produto/domínio da US (ex.: nome do produto, da tela, do fluxo) — não confie só no que já veio auto-carregado no início da sessão; procure ativamente por palavras-chave específicas da US antes de começar a navegar. Isso vale mesmo se você "já lembra" o suficiente pra começar — memória associativa falha silenciosamente, busca ativa não.
@@ -442,7 +550,20 @@ index a34f35c..ed81777 100644
     - Este gate não substitui a Regra fundamental de "explorar antes de concluir impossível" (abaixo) — é anterior a ela: primeiro checar o que já está documentado, só depois explorar/perguntar se realmente não houver nada.
  
  ---
-@@ -55,11 +56,11 @@ Dificuldade de execução, volume de trabalho, tempo gasto, "não tentei ainda"
+ 
++## Step 0.5 — Gate de ambiente real: proibido executar com dados simulados (mock)
++
++Roda **antes de qualquer navegação de teste e de qualquer criação de dado**, para o modo A e o modo B.
++
++1. **Relatório de `/validar-ambiente`.** Procure o mais recente em `$CICLOS_DIR\US-<ID>\validacoes-ambiente\` (maior `$EXEC` no nome). Se ele tiver o requisito `[AMBIENTE] dados reais` como `NAO ATENDIDO`, ou a seção "Dados simulados (mock)" com mock confirmado, **pare**: não execute nada.
++2. **Sem relatório, ou relatório anterior ao Step 3.7 do `/validar-ambiente` (sem a seção "Dados simulados").** Faça agora a verificação rápida na tela principal da US: (a) com `browser_network_requests`, abra a listagem e confira se há chamada de API de dados (`/api`, `/be/`; arquivos estáticos, i18n e shell não contam); (b) se o primeiro cenário já cria um registro, recarregue a página (F5) depois de criá-lo e veja se ele persiste. Nenhuma chamada de API de dados **e** registro que some → mock: **pare**. Evidência única ou contraditória → não conclua: peça `/validar-ambiente` antes de executar.
++3. **Ao parar**, reporte em uma resposta curta: tela, evidências (rede, persistência, relatório de validação), Bug aberto pelo `/validar-ambiente` (se houver) e o próximo passo (integrar a tela ao BE e rodar `/validar-ambiente`). **Não** crie dado no mock para "tentar", **não** execute só os cenários de leitura e **não** marque os cenários como `Passou`. Os cenários ficam `NAO EXECUTADO` (problema de ambiente, categoria 2 da regra fundamental); registre a execução no log (Step 6) com o motivo.
++4. **Ambiente com dado real** (chamada de API de dados presente **e** registro persistindo, ou relatório com `[AMBIENTE] dados reais` `ATENDIDO`): siga para o Step 1.
++
++---
++
+ ## Step 1 — Detectar modo e localizar o mapa de testes
+ 
  ```
  $parts = "$ARGUMENTS".Trim() -split '\s+'
  $itemId     = $parts[0]
@@ -456,7 +577,7 @@ index a34f35c..ed81777 100644
  2. Olhe `System.WorkItemType`:
     - **`"Bug"`** → vá para **Modo B — Reteste Seletivo Pós-Bug** (abaixo) e não siga o resto deste Step.
     - **User Story/PBI**, ou `$itemId` já aponta direto para um card `"Criar Mapa de Teste"` → siga o **Modo A** logo abaixo.
-@@ -122,11 +123,11 @@ Acionado quando o ID informado é um Bug. Objetivo: em vez de escolher cegamente
+@@ -122,11 +146,11 @@ Acionado quando o ID informado é um Bug. Objetivo: em vez de escolher cegamente
  
  O `$DESCRIPTION_HTML` contém uma tabela (`<table>...</table>`) sob o cabeçalho "Cenarios de teste". Cada `<tr>` é uma linha:
  
@@ -472,7 +593,7 @@ index a34f35c..ed81777 100644
  
  Ordene a execução priorizando `Dimensao = positivo` / `=== FLUXO PRINCIPAL ===` primeiro, como antes.
  
-@@ -153,10 +154,9 @@ Para cada cenário em `$SCENARIOS`, classifique antes de tentar executar:
+@@ -153,10 +177,9 @@ Para cada cenário em `$SCENARIOS`, classifique antes de tentar executar:
  |---|---|
  | Ação marcada `HIPOTESE:` ou resultado esperado contém "VERIFICAR COM DEV/PO" | **Não executar.** Marcar `NAO EXECUTADO — hipótese não validada, necessita decisão humana antes` |
  | Ação requer dado que não existe no ambiente (ex.: um grupo específico, um cliente específico) e você não tem como criá-lo com segurança, ou parece bloqueada por falta de acesso técnico (ex.: feature flag, permissão) | **Antes de marcar como não executado:** tentar pelo menos um caminho alternativo (outra tela/botão, dado já existente no ambiente) e perguntar explicitamente à usuária se existe uma forma de testar (ver Regra fundamental). Só depois dessa tentativa, se ela confirmar que não há caminho, marcar `NAO EXECUTADO — dado de teste ausente` |
@@ -485,26 +606,33 @@ index a34f35c..ed81777 100644
  | Cenário de dimensão **negativo/borda** depende de simular falha técnica/infraestrutura (erro de integração, timeout, config específica) | **Consultar o Step 2.5 antes de tentar.** Se houver mecanismo confirmado (feature flag, mock, credencial inválida), usá-lo ativamente. Se não houver — documentado como ausente ou não encontrado — seguir a Regra fundamental (tentar alternativa + perguntar à usuária) antes de marcar `NAO EXECUTADO` |
  | Ambiente parece indisponível (erro de DNS, timeout, página de erro genérica ao navegar) | **Parar tudo** e reportar; não tentar adivinhar se o teste "passaria" |
  | Nenhuma das situações acima | Executar normalmente (Step 4) |
-@@ -165,24 +165,29 @@ Apresente essa triagem ao usuário **antes** de começar a executar, como uma li
+@@ -165,24 +188,29 @@ Apresente essa triagem ao usuário **antes** de começar a executar, como uma li
  
  ---
  
 -## Preparação de dados CNAB (Cobrança Integrada)
 +## Step 3.6 — Salvar o valor original de todo campo que o teste vai alterar (backup)
- 
--Aplica-se **somente** quando a US for sobre Cobrança Integrada (Cresol, banco 133, remessa/retorno CNAB) e algum cenário do mapa exigir um arquivo `.rem` CNAB240 ou CNAB400 como entrada (upload/import de remessa). Fora desse domínio, ignore esta seção — ela não se aplica.
++
 +Para cada cenário que **grava** sobre um valor que já existe (parâmetro, configuração, campo de cadastro), **antes da primeira escrita** guarde o valor atual, para devolvê-lo ao fim dos testes (Step 4.4). Vale também para cenários que o Step 3 liberou depois de uma confirmação de alto risco.
- 
--**Como identificar que se aplica:** título/descrição da US, ou a própria "Ação" do cenário no mapa de testes, mencionam "CNAB", "CNAB240", "CNAB400", "remessa" ou "importar remessa" no contexto de Cobrança Integrada.
++
 +1. **Liste** no plano da triagem (Step 3) cada item que será alterado: tela/identificador (ex.: parâmetro 109), cenários que o alteram e se o campo é comum ou **sensível/mascarado** (senha, token).
 +2. **Leia o valor atual, só leitura, na ordem:** (a) a própria tela ou API quando mostram o valor (campo comum: `GET` de consulta ou o campo preenchido); (b) campo mascarado: outra tela de **consulta** que exiba o valor (ex.: Detalhar no SmartShare Clássico) ou `SELECT` via MCP de banco somente leitura; (c) nenhuma fonte de leitura disponível → o valor não é recuperável: o cenário só segue com autorização explícita da usuária, que aceita perder o original (Step 4.3); sem ela, `NAO EXECUTADO` (categoria "escrita irreversível").
 +3. **Grave o backup** na seção "Valores originais (backup)" do `$AMBIENTE_CFG` (`C:\skills-qualidade\config\ambiente-teste.local.md`, fora do sync com o GitHub), via `Edit`, **anexando**: `Ambiente | US | Item (tela/identificador) | Valor original | Sensível (s/n) | Salvo em | Restaurado em`. Confirme o backup relendo a linha gravada **antes** de alterar o campo. **Nunca** copie o valor original (nem o de teste de campo sensível) para o relatório, o chat, o LOG-ACOES, o work item ou o repositório; no relatório vai só "valor original salvo no backup, linha N".
 +4. Backup não confirmado → **não altere** o campo.
++
++---
+ 
+-Aplica-se **somente** quando a US for sobre Cobrança Integrada (Cresol, banco 133, remessa/retorno CNAB) e algum cenário do mapa exigir um arquivo `.rem` CNAB240 ou CNAB400 como entrada (upload/import de remessa). Fora desse domínio, ignore esta seção — ela não se aplica.
++## Step 4.4 — Restaurar os valores originais (ao fim da execução)
+ 
+-**Como identificar que se aplica:** título/descrição da US, ou a própria "Ação" do cenário no mapa de testes, mencionam "CNAB", "CNAB240", "CNAB400", "remessa" ou "importar remessa" no contexto de Cobrança Integrada.
++Depois do último cenário e **antes do Step 4.5/5**, e também quando a execução parar cedo (ambiente indisponível, credencial, decisão da usuária), devolva cada item do backup do Step 3.6:
  
 -Para cada cenário assim identificado, **antes de tentar executar a ação de upload** (ainda na fase de triagem do Step 3, não durante a execução):
-+---
-+
-+## Step 4.4 — Restaurar os valores originais (ao fim da execução)
++1. **Campo comum:** regrave o valor original pela mesma tela do teste, **reabra e compare** com o backup. Igual → preencha "Restaurado em" com a data/hora. Diferente ou falha → registre o item em "Valores a restaurar manualmente" do relatório.
++2. **Campo sensível/mascarado (senha, token):** a skill **não digita sozinha** um segredo que ela leu do sistema. Informe à usuária o caminho do backup e a linha, e peça que ela **cole o valor no campo** (ou cole o valor no chat para a skill restaurar, caso ela autorize). Depois da restauração, confirme o que for observável (ex.: a quantidade de caracteres mascarados igual à do original) e preencha "Restaurado em".
++3. **Não restaurável** (ex.: o valor original nunca foi lido, porque a usuária aceitou perder): registre como "Valor original perdido, aceito pela usuária em <data>".
++4. Item de backup restaurado e confirmado permanece na tabela (histórico); só o valor do campo sensível é apagado do arquivo depois da confirmação, deixando `<restaurado e apagado>`.
  
 -1. **Nunca gere o arquivo manualmente e nunca trate isso como "dado de teste ausente"** — chame a skill dedicada via `Skill` tool:
 -   - Remessa CNAB240 → skill `gerar-cnab240`.
@@ -514,21 +642,14 @@ index a34f35c..ed81777 100644
 -4. Se o cenário pedir explicitamente um teste de **nome de arquivo duplicado** (rejeição por duplicidade), gere o arquivo normalmente e depois copie/renomeie para bater com um arquivo já existente — não peça para a skill desativar o sufixo de nome único.
 -5. Use o caminho de arquivo retornado pela skill como entrada de `mcp__playwright__browser_file_upload` no step correspondente do cenário (Step 4.2).
 -6. No relatório final (Step 5), registre qual arquivo CNAB foi gerado e usado em cada step (nome do arquivo) — é evidência de massa de teste, não só o resultado da ação.
-+Depois do último cenário e **antes do Step 4.5/5**, e também quando a execução parar cedo (ambiente indisponível, credencial, decisão da usuária), devolva cada item do backup do Step 3.6:
++---
  
 -Essas duas skills já encapsulam layout FEBRABAN, dígitos verificadores e convênio validados (2035/4497, CNPJ `11643817000102`) — nunca reescrever isso manualmente aqui; qualquer ajuste de convênio/ambiente é feito nelas, não duplicado nesta skill.
-+1. **Campo comum:** regrave o valor original pela mesma tela do teste, **reabra e compare** com o backup. Igual → preencha "Restaurado em" com a data/hora. Diferente ou falha → registre o item em "Valores a restaurar manualmente" do relatório.
-+2. **Campo sensível/mascarado (senha, token):** a skill **não digita sozinha** um segredo que ela leu do sistema. Informe à usuária o caminho do backup e a linha, e peça que ela **cole o valor no campo** (ou cole o valor no chat para a skill restaurar, caso ela autorize). Depois da restauração, confirme o que for observável (ex.: a quantidade de caracteres mascarados igual à do original) e preencha "Restaurado em".
-+3. **Não restaurável** (ex.: o valor original nunca foi lido, porque a usuária aceitou perder): registre como "Valor original perdido, aceito pela usuária em <data>".
-+4. Item de backup restaurado e confirmado permanece na tabela (histórico); só o valor do campo sensível é apagado do arquivo depois da confirmação, deixando `<restaurado e apagado>`.
-+
-+---
-+
 +<!-- Seção "Preparação de dados CNAB (Cobrança Integrada)" removida (adaptação SmartShare): era específica de remessas bancárias CNAB240/CNAB400 do produto anterior e não se aplica ao SmartShare (ECM/BPM). Se o SmartShare tiver preparação de massa de dados equivalente (ex.: geração de arquivo de entrada específico), documentar aqui uma seção nova quando surgir o caso. -->
  
  ---
  
-@@ -190,9 +195,11 @@ Essas duas skills já encapsulam layout FEBRABAN, dígitos verificadores e conv
+@@ -190,9 +218,11 @@ Essas duas skills já encapsulam layout FEBRABAN, dígitos verificadores e conv
  
  ### 4.1 — Login
  
@@ -542,16 +663,19 @@ index a34f35c..ed81777 100644
  
  1. `mcp__playwright__browser_navigate` para a URL de login.
  2. `mcp__playwright__browser_snapshot` para confirmar que a tela carregou.
-@@ -227,6 +234,18 @@ Para cada cenário, na ordem:
+@@ -227,6 +257,21 @@ Para cada cenário, na ordem:
     Para todo step `Falhou`, **registrar o caminho local do arquivo de screenshot** retornado por `browser_take_screenshot` (ex.: `.playwright-mcp\page-2026-09-04T18-09-58-660Z.png`) na linha da tabela do Step 5, não só a palavra "screenshot". Esse caminho é o que permite à `/gerar-defeito` anexar a evidência ao Bug depois — sem ele, a evidência visual se perde ao fim da conversa/sessão do navegador.
  8. Se a sessão expirar no meio da execução (indício: redirecionado para tela de login), refazer o login (Step 4.1) e **retomar do mesmo step**, registrando no log que houve reautenticação — isso não conta como falha do cenário.
  
-+### 4.2b — Cenário de paridade visual com protótipo (Figma): divergência sempre com dois prints
++### 4.2b — Fidelidade ao protótipo (Figma): validação completa, toda divergência sinalizada, sempre com dois prints
 +
-+Quando o cenário compara a tela entregue com o protótipo (ex.: "Paridade visual"), e o conector Figma estiver conectado (ver `/validar-ambiente`, Step 0.5b):
++Regra da usuária (2026-11-03): **a tela deve ser expressamente fiel ao protótipo e qualquer divergência deve ser sinalizada**, inclusive a pequena. Vale para cada cenário da categoria `=== FIDELIDADE AO PROTOTIPO ===` (um por quadro/estado) e para o cenário de "Paridade visual" de mapas antigos. Tolerância: ±1 px por arredondamento; qualquer outro desvio, de texto, medida, cor, ícone, ordem ou comportamento, é divergência. **`Passou` só com zero divergência e nenhum aspecto não verificado**; com divergência o resultado é `Falhou`; com aspecto que não deu para medir, o cenário **não** é `Passou`: registre `NAO EXECUTADO — verificação incompleta: <aspectos e motivo>`.
++
++Quando o cenário compara a tela entregue com o protótipo e o conector Figma estiver conectado (ver `/validar-ambiente`, Step 0.5b):
 +
 +1. Para cada tela do protótipo, capture o **esperado** com `get_screenshot` (arquivo/nó do link da US; `maxDimension` igual à largura da tela do dev) e baixe o PNG (a URL é de curta duração e não deve ser repassada) para `$CICLOS_DIR\US-<ID>\execucoes\evidencias_<AAAA-MM-DD>\ev-<ID>-c<N>-figma-<tela>.png`.
 +2. Capture o **dev** com o navegador, **no mesmo tamanho de janela** do quadro do protótipo (use um contexto com `viewport` igual, ex.: 1280×832), no mesmo estado (mesma tela, mesmo dado, modal aberto quando for o caso), em `...-share4-<tela>.png`.
++2b. **Medição item a item contra a especificação.** Para cada elemento da especificação do quadro (`$CICLOS_DIR\US-<ID>\mapas-teste\prototipo\especificacao_<AAAA-MM-DD>.md`, gerada pelo `/gerar-mapa-testes-v3`, Step 3.9, item 7; se não existir, gere-a agora com `get_design_context`), meça no dev com `javascript_tool` (`getComputedStyle` e `getBoundingClientRect`): `fontFamily`, `fontSize`, `fontWeight`, `lineHeight`, `color`, `backgroundColor`, `padding*`, `border*`, `borderRadius`, `boxShadow`, largura, altura, `gap`, e a ordem e os rótulos dos elementos. Compare com o esperado (cor em hex exato, medidas ±1 px) e registre **todos** os itens: conforme, divergente (esperado × obtido) ou **não mensurável** (ex.: elemento dentro de Shadow DOM de componente `nyx-*`, ícone, sombra, overlay). Para o não mensurável, faça a comparação visual com `zoom` nos dois prints e peça à usuária/dev a inspeção, e liste em "Não verificados" com o motivo; **não** declare conforme sem evidência. Meça também os estados que o quadro mostra (erro, vazio, edição, confirmação, toasts) e as interações (ordem de foco, Esc, clique fora quando o quadro indica).
 +3. **Toda divergência registrada precisa dos dois prints** (esperado e dev), lado a lado. Divergência sem os dois prints não entra no relatório: capture o que falta ou registre como "não comparado (motivo)". Divergência de comportamento (ex.: campo que deveria ser multilinha, Esc que não fecha) também leva o print do dev mostrando o comportamento e o do protótipo mostrando o esperado.
 +4. Gere a página `$CICLOS_DIR\US-<ID>\execucoes\divergencias-prototipo_<AAAA-MM-DD>.html` com um bloco por divergência (id D1, D2..., descrição objetiva do que difere e qual print é de qual lado: "Esperado (protótipo)" e "Dev"), mais a lista do que confere ("Conforme"). A página deve ser **autocontida**: embuta as imagens no próprio HTML (`src="data:image/png;base64,..."`), porque caminho relativo não abre em visualizadores que carregam só o arquivo (observado em 2026-10-26: "não consigo visualizar as imagens"). Mantenha os PNGs na pasta de evidências como cópia.
 +5. Itens do próprio protótipo que a US manda ignorar (ex.: criar/excluir) não são divergência: cite-os numa nota. O resultado do cenário segue o texto do mapa (em geral "divergências registradas para validação da PM"); a decisão de entrar no escopo é da PM.
@@ -561,10 +685,15 @@ index a34f35c..ed81777 100644
  ### 4.3 — Ações de alto risco sinalizadas no Step 3
  
  Antes de cada uma, pare e pergunte: **"Confirma execução do step `<id>` (`<ação>`), que foi classificado como irreversível/alto risco?"**. Só prossiga com confirmação explícita para aquele step específico.
-@@ -280,12 +299,31 @@ Se `$MODO == "B"`, acrescente logo abaixo do cabeçalho:
+@@ -280,12 +325,36 @@ Se `$MODO == "B"`, acrescente logo abaixo do cabeçalho:
  ## Steps que pararam por ação de alto risco
  ...
  
++## Fidelidade ao protótipo (Step 4.2b)
++| Quadro / estado (nodeId) | Itens conferidos | Conformes | Divergentes | Não verificados (motivo) | Resultado |
++|---|---|---|---|---|---|
++(um bloco por quadro do inventário; sem quadro do escopo sem linha; ou `Mapa sem cenário de fidelidade (mapa anterior ao Step 3.9 item 7)`)
++
 +## Divergências de protótipo (Step 4.2b)
 +- Página com os prints lado a lado (esperado no protótipo × dev): `$CICLOS_DIR\US-<ID>\execucoes\divergencias-prototipo_<AAAA-MM-DD>.html`
 +| Id | Tela | O que difere | Print protótipo | Print dev |
@@ -593,7 +722,7 @@ index a34f35c..ed81777 100644
  ```
  
  Se o Step 4.5 não encontrou nenhuma divergência, escreva `Nenhuma divergência encontrada — double-check confirmou todas as classificações.` no lugar da tabela. Se o double-check não pôde rodar (Step 4.5), escreva isso explicitamente aqui em vez de omitir a seção.
-@@ -311,7 +349,7 @@ execução parou cedo por bloqueio de ambiente/credencial) acrescente uma linha
+@@ -311,7 +380,7 @@ execução parou cedo por bloqueio de ambiente/credencial) acrescente uma linha
  em `~/.claude/docs/projetos/skills-qa/LOG-ACOES.md` (via `Edit`, nunca sobrescrevendo o arquivo):
  
  ```
@@ -602,7 +731,7 @@ index a34f35c..ed81777 100644
  ```
  
  Se `$MODO == "B"` (reteste seletivo pós-bug), use este formato em vez do padrão acima:
-@@ -338,16 +376,16 @@ efeito no ambiente e deve ficar auditável.
+@@ -338,16 +407,17 @@ efeito no ambiente e deve ficar auditável.
  
  ## Troubleshooting
  
@@ -622,11 +751,12 @@ index a34f35c..ed81777 100644
  - **"Não tentei ainda"/"só não fiz por tempo" numa linha de relatório é a mesma falha do 24/09, só disfarçada.** Aconteceu de novo em US #161881 (2026-09-25, cenário #13 "valor já zero não gera registro"): o relatório de pendências dizia literalmente "não tentei ainda — dava pra testar em outra conta... só não fiz por tempo". A usuária corrigiu apontando o print exato. A tentativa (buscar 1-2 contas a mais e conferir o histórico) era trivial e foi feita depois em segundos via leitura no banco. Regra: qualquer frase desse tipo, mesmo em rascunho interno, é o gatilho para tentar na hora — nunca vira uma linha de relatório esperando aprovação pra pular.
 +- **Valor sensível que a tela não mostra (ex.: token do parâmetro 109):** o backup (Step 3.6) vem de uma tela de consulta que o exiba (Detalhar do Clássico) ou de `SELECT` somente leitura. Sem nenhuma dessas fontes, o original não é recuperável: o cenário depende da autorização explícita da usuária (Step 4.3) ou fica `NAO EXECUTADO`. A restauração de segredo é feita pela usuária (Step 4.4, item 2).
  - **Auto-detecção não reabre Bugs reabertos.** Se um Bug marcado com `"Reteste (Modo B)"` for reaberto depois (voltou de `Done` para `Active`/`New` porque o fix não era completo), a auto-detecção do Step 1/passo 4 só olha Bugs em estado "corrigido" — um Bug reaberto não aparece como candidato até ser corrigido de novo e voltar pro estado "Done". O marcador antigo no comentário fica obsoleto (refere-se ao fix anterior), mas isso não trava nada: quando o Bug voltar a "Done", ele reaparece como candidato (o filtro é por estado atual, não por ausência total do marcador em qualquer comentário — releia com atenção o texto de cada comentário se houver mais de um antes de decidir se já foi retestado desta vez).
++- **Tela sem chamada de API de dados ou dado que some ao recarregar:** é mock (ver Step 0.5). Não execute o mapa contra o mock, nem "só a parte que dá": o resultado não reflete o cenário real e induz aprovação falsa. Reporte, aponte o Bug de ambiente (aberto pelo `/validar-ambiente`) e aguarde a integração com o BE.
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/gerar-defeito.md b/skills-qa-smartshare/skills-qa-smartshare/skills/gerar-defeito.md
-index 3560ac3..66824a2 100644
+index 3560ac3..dc75288 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/gerar-defeito.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/gerar-defeito.md
-@@ -6,7 +6,7 @@ Gerar o defeito a partir de **$ARGUMENTS**.
+@@ -6,12 +6,22 @@ Gerar o defeito a partir de **$ARGUMENTS**.
  
  Formato esperado: `[ID da história ou Test Case] [nome do projeto (opcional)]`
  
@@ -635,7 +765,22 @@ index 3560ac3..66824a2 100644
  
  Este comando é a Skill 6 (Geração de Defeito). Ele **depende de uma análise de falha com veredito `SIM`** — de `/analise-falha`, já rodada nesta conversa, ou de informação equivalente fornecida explicitamente pelo usuário agora. Nunca inventa contexto, e nunca cria o item no Azure DevOps sem confirmação explícita do usuário.
  
-@@ -35,6 +35,10 @@ A partir do relatório de `/analise-falha` (reaproveitar diretamente) ou do que
+ ---
+ 
++## Regra transversal — Dúvidas viram aprendizados
++
++Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
++
++1. **Antes de perguntar à usuária** qualquer dúvida, pendência ou pedido de retorno, ler `INDICE.md`. Se existir aprendizado `Ativo` aplicável à mesma situação (escopo `Geral`, da skill, ou da própria US), aplicar sem perguntar e escrever no relatório `Aplicado APR-NNN`.
++2. **Ao perguntar**, depois da resposta e **antes de seguir**, gravar `APR-NNN_<slug>.md` (situação, pergunta, resposta, como aplicar, escopo) e a linha no `INDICE.md`. Resposta vaga ou adiada fica `Pendente`, não vira regra.
++3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
++4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
++5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
++
+ ## Pré-requisito bloqueante
+ 
+ 1. Se `/analise-falha` rodou nesta conversa para o mesmo ID e o veredito foi `NÃO`, **pare** e informe que a evidência ainda não é suficiente — não gere o defeito mesmo que o usuário peça, a menos que ele forneça agora informação nova que mude o veredito (nesse caso, rode o Step 2 do `/analise-falha` de novo mentalmente antes de prosseguir).
+@@ -35,6 +45,10 @@ A partir do relatório de `/analise-falha` (reaproveitar diretamente) ou do que
  - **Versão** — build/commit/PR, se conhecido; senão `Informação não encontrada / necessita validação.`
  - **Evidências** — caminho(s) de arquivo local (screenshot) e/ou trecho de evidência de rede (status/headers/corpo), reaproveitados **exatamente como capturados** no relatório de `/executar-teste` (coluna Evidência) ou no que o usuário forneceu. Esta skill nunca recaptura evidência — não abre navegador, não tira screenshot novo. Se não houver caminho de arquivo disponível (ex.: usuário só descreveu o bug em texto), registrar isso e seguir sem anexo (Step 3.5 fica sem o que anexar).
  
@@ -646,7 +791,7 @@ index 3560ac3..66824a2 100644
  Se qualquer um desses campos não puder ser preenchido com uma fonte real, escreva `Informação não encontrada / necessita validação.` — não complete com suposição para "fechar" o registro.
  
  ---
-@@ -78,7 +82,7 @@ Se qualquer um desses campos não puder ser preenchido com uma fonte real, escre
+@@ -78,7 +92,7 @@ Se qualquer um desses campos não puder ser preenchido com uma fonte real, escre
  ## Step 2 — Criar o Bug via MCP (só após aprovação)
  
  Chame `mcp__azure-devops__create_work_item` com:
@@ -655,7 +800,7 @@ index 3560ac3..66824a2 100644
  - `workItemType`: `"Bug"`
  - `title` = título aprovado (com o prefixo `BUG -`)
  - `additionalFields`:
-@@ -87,7 +91,7 @@ Chame `mcp__azure-devops__create_work_item` com:
+@@ -87,7 +101,7 @@ Chame `mcp__azure-devops__create_work_item` com:
  
  ⚠️ **O parágrafo "Cenário de origem" precisa de rótulo fixo no HTML**, exatamente `<p><strong>Cenário de origem:</strong> #21 do mapa de testes #161676</p>` (ajustando os números) — é esse rótulo literal, em negrito, que o `/executar-teste` procura depois via regex para montar o reteste seletivo pós-bug. Não reescrever com sinônimos ("Origem do defeito", "Cenário relacionado" etc.) nem mudar a pontuação do formato `#<N> do mapa de testes #<MAPA_ID>`.
  
@@ -665,10 +810,10 @@ index 3560ac3..66824a2 100644
  Capture o `$BUG_ID` retornado. **Antes de declarar sucesso no Step 4, chame `mcp__azure-devops__get_work_item` no `$BUG_ID` e confirme que `Microsoft.VSTS.TCM.ReproSteps` não está `null`/vazio** — não confie só no eco da chamada de criação.
  
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/gerar-mapa-testes-v3.md b/skills-qa-smartshare/skills-qa-smartshare/skills/gerar-mapa-testes-v3.md
-index 773adc8..bb9d493 100644
+index 773adc8..b6a6985 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/gerar-mapa-testes-v3.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/gerar-mapa-testes-v3.md
-@@ -7,10 +7,10 @@ Generate a test map from Azure DevOps story arguments **$ARGUMENTS**.
+@@ -7,13 +7,23 @@ Generate a test map from Azure DevOps story arguments **$ARGUMENTS**.
  Expected format: `[ID da história] [nome do projeto (opcional)]`
  
  Examples:
@@ -682,7 +827,20 @@ index 773adc8..bb9d493 100644
  
  ---
  
-@@ -25,7 +25,11 @@ Examples:
++## Regra transversal — Dúvidas viram aprendizados
++
++Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
++
++1. **Antes de perguntar à usuária** qualquer dúvida, pendência ou pedido de retorno, ler `INDICE.md`. Se existir aprendizado `Ativo` aplicável à mesma situação (escopo `Geral`, da skill, ou da própria US), aplicar sem perguntar e escrever no relatório `Aplicado APR-NNN`.
++2. **Ao perguntar**, depois da resposta e **antes de seguir**, gravar `APR-NNN_<slug>.md` (situação, pergunta, resposta, como aplicar, escopo) e a linha no `INDICE.md`. Resposta vaga ou adiada fica `Pendente`, não vira regra.
++3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
++4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
++5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
++
+ ## O que muda em relação ao v2
+ 
+ 1. **Alvo de publicação diferente**: o mapa vai para a Descrição (HTML) do card "Criar Mapa de Teste" filho da história, não para um Test Case dentro de um Test Plan. Sem Test Plan, sem suíte, sem REST, sem PAT.
+@@ -25,7 +35,15 @@ Examples:
  7. **Verificação do card "Criar Mapa de Teste" antes de publicar** (Step 2): localiza o card existente, cria um novo se não existir, e nunca sobrescreve um card com conteúdo sem confirmação explícita.
  8. **Tabela HTML com larguras de coluna proporcionais e categoria em linha separadora própria** (Step 5) — corrige o problema visual observado quando uma tabela colada do Word (colunas todas iguais, ~70px) foi publicada manualmente no card 160129: frases longas quebravam no meio, inclusive dentro do próprio rótulo da categoria.
  9. **Notificação de hipóteses em aberto** (Step 6.5, 2026-09-15) — se o mapa aprovado tiver algum cenário `HIPOTESE:`, a skill posta um comentário na história (não no card do mapa) listando cada uma e pedindo confirmação de dev/PO. Não bloqueia a publicação nem a execução — é só visibilidade, para essas perguntas não ficarem "perdidas" dentro da tabela do card. As hipóteses continuam normalmente dentro do mapa (não saem de lá); o comentário aponta para o mapa, não o substitui.
@@ -692,10 +850,14 @@ index 773adc8..bb9d493 100644
 +11. **Coluna `Pré-requisitos` por cenário** (Step 4.2b, 2026-10-20) — cada linha da tabela passa a declarar o que o **ambiente** precisa ter para o teste ser executável (ex.: processo configurado com 2 atividades de usuário, perfil de usuário específico, massa de dados, feature flag). A coluna é escrita em formato padronizado (`[CATEGORIA] requisito verificável`) para que uma skill posterior leia o mapa, inspecione o ambiente e valide se ele suporta a execução de cada cenário antes de `/executar-teste`. Esta skill apenas **declara** os pré-requisitos — não consulta nem valida o ambiente.
 +
 +12. **HTML interativo local do mapa** (Step 5b, 2026-10-21) — além do HTML publicado no card, a skill grava em `$CICLOS_DIR\US-<ID>\mapas-teste\` uma versão interativa (checkbox "Testado" com progresso, filtros, busca, exportar/importar marcações, tema claro/escuro, layout para celular), montada a partir do template versionado `$TEMPLATES_DIR\mapa-teste-viewer.template.html`. O conteúdo é o mesmo do mapa aprovado; só muda a apresentação. Não é publicado no Azure DevOps.
++
++13. **Consulta ao protótipo (Figma) em US de FE** (Step 3.9, novo) — quando a história é de front-end e a descrição traz link de protótipo Figma, a skill lê o protótipo (somente leitura) para validar **mensagens/textos** e **paridade** (colunas, ações, botões, estados). Os textos literais entram no Resultado Esperado dos cenários já justificados pelas fontes do Step 4.0, e o mapa ganha **cenários de fidelidade ao protótipo, um por quadro e estado** (item 14), que `/executar-teste` (Step 4.2b) executa por completo.
++
++14. **Fidelidade expressa ao protótipo (Figma) em US de FE** (Step 3.9 e categoria 10 do Step 4.3, 2026-11-03, pedido da usuária) — a tela deve ser **expressamente fiel ao protótipo** e **qualquer divergência deve ser sinalizada**, inclusive a pequena. Em vez de um único cenário de paridade, o mapa traz **um cenário de fidelidade por quadro e estado do protótipo que a US cobre** (inventário de quadros), com uma especificação de design extraída do Figma (textos, tipografia, cores, espaçamentos, bordas, raios, tamanhos, ícones, estados). A execução compara tudo isso (Step 4.2b do `/executar-teste`) e só dá `Passou` com zero divergência.
  
  ---
  
-@@ -85,7 +89,7 @@ Chame `mcp__azure-devops__get_work_item` com `workItemId`: $WI_ID, `expand`: `"a
+@@ -85,7 +103,7 @@ Chame `mcp__azure-devops__get_work_item` com `workItemId`: $WI_ID, `expand`: `"a
  - `$STORY_RELATIONS` (para achar filhos no Step 2 e o card `Análise` no Step 3)
  - `$STORY_AREA_PATH` (`System.AreaPath`), `$STORY_ITERATION_PATH` (`System.IterationPath`), `$STORY_PROJECT` (`System.TeamProject`) — necessários no Step 6 caso seja preciso criar o card "Criar Mapa de Teste" do zero, para que ele herde o mesmo Area Path/Iteration da história.
  
@@ -704,7 +866,7 @@ index 773adc8..bb9d493 100644
  
  ---
  
-@@ -122,6 +126,29 @@ Se a busca não retornar nada relacionado, **isso não é bloqueante** — pross
+@@ -122,6 +140,50 @@ Se a busca não retornar nada relacionado, **isso não é bloqueante** — pross
  
  ---
  
@@ -731,19 +893,42 @@ index 773adc8..bb9d493 100644
 +
 +---
 +
++## Step 3.9 — Protótipo (Figma) em US de FE (somente leitura)
++
++**Quando roda:** a história é de front-end **e** `$STORY_DESC` ou `$STORY_AC` traz link de protótipo `figma.com/design/...`. É de FE quando o título tem `FE` (ex.: `(FE)`), a descrição se declara de FE/front-end ou o módulo é um front do Share 4. Em dúvida se é FE, pergunte à usuária. Sem link, ou US que não é de FE: **pule sem erro** e registre em "Fonte técnica" `Protótipo não consultado: <motivo>`.
++
++**Procedimento:**
++1. Do link, extraia `fileKey` e `node-id` (`14246-2550` → `14246:2550`). Chame `create_session` do conector Figma com a `fileKey` e use o `sessionId` nas demais chamadas.
++2. `get_metadata` no nó do link para listar os quadros. A resposta costuma ser grande: salve e liste só os nomes dos quadros (ex.: com `python -I`/`jq`), em vez de lê-la inteira. O metadata **não traz os textos**.
++3. Escolha os quadros que mostram o que a US trata: a tela principal, os estados (vazio, busca sem resultado, carregando/scroll, erro), os modais de confirmação e bloqueio e os toasts de sucesso. Ignore os quadros de telas que a US declara fora do escopo.
++4. `get_screenshot` de cada quadro escolhido (`maxDimension` suficiente para ler o texto). Baixe o PNG (a URL é de curta duração e não deve ser repassada) para `$CICLOS_DIR\US-<ID>\mapas-teste\prototipo\` e leia a imagem. Transcreva **literalmente**: mensagens, títulos, botões, rótulos de coluna, tooltips, textos de estado vazio e de toast.
++5. Compare com a US e registre, em "Fonte técnica", só o que diverge ou que a US não define (ex.: elemento que o protótipo mostra e o CA manda não exibir; valor de coluna que só o protótipo mostra).
++6. **Inventário de quadros.** Liste **todos** os quadros e estados do protótipo que a US cobre (tela principal, cada estado: vazio, erro de validação por tipo de campo, duplicidade, edição, confirmação, bloqueio, carregando, toasts, modais) e marque os que a US declara fora do escopo. **Nenhum quadro do escopo pode ficar sem cenário de fidelidade.** Grave o inventário na especificação do item 7.
++7. **Especificação de design por quadro.** Para cada quadro do inventário chame `get_design_context` (somente leitura) e extraia, usando o valor padrão que aparece depois da vírgula em cada `var(--...)` do código retornado: textos literais; família, peso, tamanho e altura de linha; cor do texto, do fundo e da borda (hex); padding, gap, largura e altura fixas; largura e cor da borda; raio; sombra; tamanho e nome dos ícones; estados (hover, desabilitado, inativo, erro, foco quando o quadro mostra). Grave em `$CICLOS_DIR\US-<ID>\mapas-teste\prototipo\especificacao_<AAAA-MM-DD>.md`, uma tabela por quadro. É essa especificação que o `/executar-teste` mede contra a tela. O que não puder ser lido do quadro vai para uma lista "não especificado no protótipo" (não vira cenário).
++
++**Regras fixas:**
++- O Figma é **somente leitura**: nada é criado, editado ou comentado nele.
++- **A US vence o protótipo** só quando a US declara um comportamento ou texto diferente do protótipo (o protótipo pode estar desatualizado nesse ponto): o resultado esperado do cenário segue a US e, se mudar o esperado, pergunte à usuária antes de fechar o mapa. **Mesmo assim a divergência entre protótipo e US é sinalizada**: registre-a em "Fonte técnica" e no relatório da execução como "divergência declarada pela US". Fora disso, **o protótipo é a referência de fidelidade e não admite desvio**.
++- **Conector Figma não conectado**, ou arquivo sem acesso (página de login do Figma): **não autentique pelo navegador**. Pule o passo, registre `Protótipo não consultado: conector Figma não conectado` e marque os textos que a US remete ao Figma como `texto do Figma (não verificado)`. Isso não bloqueia o mapa.
++- O protótipo vale só para o que o Step 4.0 permite abaixo (6ª fonte); não cria regra de negócio.
++
++---
++
  ## Step 4 — Generate test map table
  
  ### 4.0 — Escopo de origem (obrigatório, ler antes de 4.1)
-@@ -133,7 +160,7 @@ Todo cenário do mapa final precisa rastrear a **pelo menos uma** destas 4 fonte
+@@ -133,7 +195,9 @@ Todo cenário do mapa final precisa rastrear a **pelo menos uma** destas 4 fonte
  3. **Pontos de Impacto do dev** (`Custom.Pontosdeimpacto` do card `Análise`, ou a seção do relatório `/analise-tecnica` que rastreia diretamente a esse campo).
  4. **Casos de Teste do dev** (`Custom.CasodeTeste` do card `Análise`, ou a seção "Casos de teste sugeridos pelo dev" do relatório `/analise-tecnica`).
  
 -**Não é fonte suficiente, sozinha:** a narrativa investigativa da análise técnica (revalidações de infraestrutura, achados de performance em outro repositório/caminho de código, notas de "pontos de atenção" do dev que não viraram item explícito em Pontos de Impacto, discrepâncias entre análise e PR, dependências indiretas). Esse material serve para enriquecer a *Ação*/*Resultado Esperado* de um cenário já justificado pelas 4 fontes acima — nunca para, sozinho, criar um cenário novo. Motivo: mapas que puxavam cenário dessa narrativa vinham ficando difíceis/impossíveis de executar por irem além do que a própria história pede (decisão de Cintia, 2026-09-22, US #138559).
++**6ª fonte restrita, só quando o Step 3.9 rodou — Protótipo Figma:** serve (a) para redigir, dentro de um cenário já justificado pelas fontes acima, as mensagens, títulos, botões, rótulos e estados **literais** do protótipo e (b) para o **cenário único de paridade visual** do Step 4.4. Elemento que existe só no protótipo, sem Critério de Aceite, Ponto de Impacto ou Caso de Teste que o sustente, **não gera cenário**: vira observação em "Fonte técnica". A US prevalece sobre o protótipo quando divergem (Step 3.9).
++
 +**Não é fonte suficiente, sozinha:** a narrativa investigativa da análise técnica (revalidações de infraestrutura, achados de performance em outro repositório/caminho de código, notas de "pontos de atenção" do dev que não viraram item explícito em Pontos de Impacto, discrepâncias entre análise e PR, dependências indiretas). Esse material serve para enriquecer a *Ação*/*Resultado Esperado* de um cenário já justificado pelas 4 fontes acima — nunca para, sozinho, criar um cenário novo. Motivo: mapas que puxavam cenário dessa narrativa vinham ficando difíceis/impossíveis de executar por irem além do que a própria história pede (decisão do time, 2026-09-22, herdada do produto anterior, US #138559).
  
  Se, ao ler a narrativa, você identificar algo que parece um risco real mas não está em nenhuma das 4 fontes, **não vire cenário** — sinalize como observação de 1 linha na seção "Fonte técnica" do mapa (Step 5) e, se for grave, avise a usuária no chat antes de prosseguir, em vez de inflar a tabela.
  
-@@ -157,10 +184,34 @@ Para **cada** regra condicional identificada, aplique o checklist obrigatório d
+@@ -157,10 +221,34 @@ Para **cada** regra condicional identificada, aplique o checklist obrigatório d
  Para cada linha gerada, atribua uma técnica, escolhida pelo tipo de regra que originou o cenário — não é livre-escolha estética:
  
  - **valor-limite** — regra envolve número, data, tamanho ou contagem com limite (ex.: quantidade mínima/máxima, prazo, faixa de parcelas)
@@ -779,15 +964,23 @@ index 773adc8..bb9d493 100644
  ### 4.3 — Categorias fixas (adaptar nomes de domínio, manter a estrutura)
  
  1. `=== FLUXO PRINCIPAL ===`
-@@ -177,6 +228,7 @@ Para cada linha gerada, atribua uma técnica, escolhida pelo tipo de regra que o
+@@ -172,27 +260,31 @@ Para cada linha gerada, atribua uma técnica, escolhida pelo tipo de regra que o
+ 7. `=== ERROS DE INTEGRACAO / API ===`
+ 8. `=== REGRESSAO ===` — alimentada por: (a) `Custom.Pontosdeimpacto` do card `Análise` (arquivos/componentes que o dev listou como alterados — não a lista mais ampla de "dependências indiretas" ou "integrações potencialmente impactadas" que só aparecem na narrativa); (b) `$DEFECT_HISTORY` do Step 3.5 — todo defeito histórico relevante vira pelo menos um cenário de regressão aqui
+ 9. `=== CASOS DE BORDA / HIPOTESES ===` (hipóteses não confirmadas — marcar `HIPOTESE:` e nunca inventar sem marcar)
++10. `=== FIDELIDADE AO PROTOTIPO ===` — só em US de FE com protótipo (Step 3.9): **um cenário por quadro/estado do inventário**; nunca um cenário único para a tela inteira.
+ 
+ ### 4.4 — Regras de geração
  
  - Não inventar regra além do que está descrito; hipóteses sempre marcadas `HIPOTESE:`.
  - Não repetir cenários.
 +- Todo cenário tem a coluna Pré-requisitos preenchida (Step 4.2b) — `Nenhum específico` quando não houver exigência, nunca vazia.
  - Todo cenário rastreia a uma das 4 fontes do Step 4.0 (Instruções QA, Critérios de Aceite, Pontos de Impacto do dev, Casos de Teste do dev) — nunca só à narrativa da análise técnica.
  - Considerar: validação de campos, comportamento de UI, consistência de dados, falhas de integração — sempre ancorado numa das 4 fontes acima, não como exploração livre do código/PR.
++- **Quando o Step 3.9 consultou o protótipo**, o Resultado Esperado dos cenários de mensagem, modal, toast e estado (vazio, sem resultado, carregando) leva o texto literal lido no Figma, não "texto do Figma". Crie, na categoria `=== FIDELIDADE AO PROTOTIPO ===`, **um cenário por quadro/estado do inventário** (Step 3.9, item 6), todos com técnica `exploratório`, tipo `positivo`, dimensão `regressão` e origem `história + protótipo`, pré-requisitos `[CONFIG] conector Figma conectado ao chat`, `[AMBIENTE]` com a US implantada e `[DADOS]` equivalentes aos do quadro. **Ação (padrão):** abrir o estado do quadro `<nome> (nodeId)` no mesmo tamanho de janela do quadro e comparar, item a item, com a especificação do Step 3.9 (item 7): (a) textos literais; (b) estrutura e elementos (ordem, rótulos, ícones, botões, campos); (c) medidas de design (tipografia, cores, espaçamentos, bordas, raios, tamanhos de controles e ícones); (d) estados e interações que o quadro mostra; (e) prints lado a lado. **Resultado Esperado (padrão):** zero divergência (tolerância apenas de ±1 px por arredondamento); toda divergência registrada com os dois prints e os valores esperado × obtido, e **o cenário só é `Passou` com zero divergência e nenhum aspecto não verificado**. Itens que a US manda ignorar (ex.: botão que o protótipo mostra e o CA manda não exibir) não contam como divergência, mas são citados. É esse conjunto que `/executar-teste` (Step 4.2b) executa por completo.
  
-@@ -185,10 +237,11 @@ Para cada linha gerada, atribua uma técnica, escolhida pelo tipo de regra que o
+ ### 4.5 — Apresentar a tabela e pedir aprovação
+ 
  Apresente a tabela completa no chat (markdown):
  
  ```
@@ -801,7 +994,12 @@ index 773adc8..bb9d493 100644
  - Tipo: `positivo`, `negativo`, `borda`
  - Técnica: `valor-limite`, `tabela-decisão`, `partição-equivalência`, `exploratório`
  - Dimensão: `positivo`, `negativo`, `permissão`, `dados`, `concorrência`, `regressão`
-@@ -235,22 +288,30 @@ Construa o HTML diretamente (sem PowerShell, sem intermediário XML) para usar c
+-- Origem: `história` (Instruções QA ou Critérios de Aceite), `análise técnica` (especificamente `Custom.Pontosdeimpacto` ou `Custom.CasodeTeste` — nunca a narrativa investigativa isolada, ver Step 4.0), `histórico de defeitos`, `hipótese`
++- Origem: `história` (Instruções QA ou Critérios de Aceite; quando o texto vem do protótipo, acrescente `+ protótipo`), `análise técnica` (especificamente `Custom.Pontosdeimpacto` ou `Custom.CasodeTeste` — nunca a narrativa investigativa isolada, ver Step 4.0), `histórico de defeitos`, `hipótese`
+ 
+ **STOP HERE. Do NOT proceed to Step 5 until the user explicitly confirms.**
+ 
+@@ -235,22 +327,30 @@ Construa o HTML diretamente (sem PowerShell, sem intermediário XML) para usar c
  <h3>Dimensoes cobertas</h3>
  <p>{lista das dimensoes presentes, e quais ficaram N/A com o motivo}</p>
  
@@ -841,7 +1039,7 @@ index 773adc8..bb9d493 100644
  <td style="border:1px solid #999;padding:4px;">{acao}</td>
  <td style="border:1px solid #999;padding:4px;">{esperado}</td>
  <td style="border:1px solid #999;padding:4px;">{tipo}</td>
-@@ -262,8 +323,9 @@ Construa o HTML diretamente (sem PowerShell, sem intermediário XML) para usar c
+@@ -262,8 +362,9 @@ Construa o HTML diretamente (sem PowerShell, sem intermediário XML) para usar c
  
  Regras obrigatórias:
  
@@ -853,7 +1051,7 @@ index 773adc8..bb9d493 100644
  - Sem estilos herdados do Word (sem `font-family:Aptos`, sem `background:silver`) — usar paleta neutra simples (cabeçalho `#e6e6e6`, separador de categoria `#d9e8f5`) para ficar consistente independente de onde o conteúdo foi originado.
  - Texto direto, sem colar de nenhum editor — monte o HTML você mesmo, célula por célula, a partir dos dados já validados no Step 4.
  
-@@ -271,6 +333,29 @@ Se a tabela for muito grande e você quiser revisar antes de publicar, salve o H
+@@ -271,6 +372,29 @@ Se a tabela for muito grande e você quiser revisar antes de publicar, salve o H
  
  ---
  
@@ -871,7 +1069,7 @@ index 773adc8..bb9d493 100644
 +   - `{{PREREQ_HTML}}`: o mesmo consolidado do Step 5, em `<li>`.
 +   - `{{CHAVE_STORAGE}}` = `mapa-teste-us-<ID>-<slug>-testados-v1`; `{{ARQUIVO_EXPORT}}` = `mapa-teste-us-<ID>-<slug>.html` (`<slug>` curto, minúsculo, sem acentos).
 +3. **Regras de apresentação (as mesmas do modelo de referência):**
-+   - Coluna **Origem** em siglas: `CA<n>` (Critério de Aceite), `CT` (Casos de Teste do dev), `PI` (Pontos de Impacto do dev), `Bug #<id>` (histórico de defeitos). Cenário `HIPOTESE:` leva `HIPOTESE: <siglas>, hipótese` e a linha recebe `class="row-hipotese"` e o selo `<span class="hip-badge">hipótese</span>` antes do nome (sem repetir o prefixo `HIPOTESE:` no texto).
++   - Coluna **Origem** em siglas: `CA<n>` (Critério de Aceite), `CT` (Casos de Teste do dev), `PI` (Pontos de Impacto do dev), `Bug #<id>` (histórico de defeitos), `+ protótipo` quando o texto literal veio do Figma (Step 3.9). Cenário `HIPOTESE:` leva `HIPOTESE: <siglas>, hipótese` e a linha recebe `class="row-hipotese"` e o selo `<span class="hip-badge">hipótese</span>` antes do nome (sem repetir o prefixo `HIPOTESE:` no texto).
 +   - Tags: `tag-positivo` / `tag-negativo` em Tipo e Dimensão, `tag-regressao` em Dimensão `regressão`, `tag` simples nos demais.
 +   - Linha `N/A` (ex.: Concorrência): Configurações = `Nenhum específico`; Ação, Resultado, Tipo e Técnica = `—`.
 +   - Pré-requisitos no formato `[CATEGORIA] requisito` separados por `<br>`, texto idêntico ao do Step 5. Escape de `&`, `<` e `>` em todo texto de célula.
@@ -883,7 +1081,7 @@ index 773adc8..bb9d493 100644
  ## Step 6 — Publicar via MCP
  
  - **Se `CARD_EXISTS = false`:** chame `mcp__azure-devops__create_work_item` com `workItemType: "Criar Mapa de Teste"`, `title: "Mapa de teste"`, `description: {HTML do Step 5}`, `parentId: $WI_ID`, `areaPath: $STORY_AREA_PATH`, `iterationPath: $STORY_ITERATION_PATH`, `projectId: $STORY_PROJECT`. Capture o `id` retornado como `$MAPA_CARD_ID`.
-@@ -307,7 +392,9 @@ Reporte ao usuário:
+@@ -307,8 +431,11 @@ Reporte ao usuário:
  
  - Card publicado: `#$MAPA_CARD_ID` (criado ou atualizado), com link (`https://dev.azure.com/selbettidev/{projeto}/_workitems/edit/{id}`).
  - Quantidade de cenários publicados e categorias cobertas.
@@ -891,17 +1089,20 @@ index 773adc8..bb9d493 100644
  - **Dimensões cobertas:** lista das dimensões (positivo/negativo/permissão/dados/concorrência/regressão) efetivamente presentes na tabela aprovada, e quais ficaram `N/A` com o motivo.
 +- **Pré-requisitos de ambiente:** lista consolidada dos requisitos distintos (por categoria) e quantos cenários dependem de cada um — é o que a skill de validação de ambiente vai consumir.
  - **Histórico de defeitos considerado:** IDs dos bugs de `$DEFECT_HISTORY` que geraram cenário de regressão, ou "nenhum encontrado / busca indisponível".
++- **Protótipo (Figma):** se o Step 3.9 rodou, quais quadros foram lidos, onde ficaram os prints (`$CICLOS_DIR\US-<ID>\mapas-teste\prototipo\`) e as divergências entre protótipo e US (a US prevalece); ou o motivo de `Protótipo não consultado`.
  - **Hipóteses em aberto:** se o Step 6.5 rodou, quantas hipóteses foram notificadas via comentário na história (ou, se falhou ao postar, avisar explicitamente que o comentário não saiu e o mapa segue com as hipóteses marcadas, só sem o aviso na história).
  
-@@ -342,4 +429,6 @@ falhou, se for o caso).
+ ```powershell
+@@ -342,4 +469,7 @@ falhou, se for o caso).
  - Se `/analise-negocio`/`/analise-tecnica` tiverem rodado para uma história **diferente** da informada em `$ARGUMENTS` nesta mesma conversa, não reaproveite — refaça a busca do zero (Step 3) para a história correta.
  - Se `create_work_item`/`update_work_item` falhar (ex.: `"Criar Mapa de Teste"` não é um tipo válido no processo do projeto informado, ou `parentId`/`areaPath` inconsistentes), pare e reporte o erro exato retornado pelo MCP — nunca tente contornar criando um tipo de work item diferente ou publicando em outro lugar sem confirmar com o usuário.
  - O comentário do Step 6.5 vai na **história** (`$WI_ID`), nunca no card "Criar Mapa de Teste" — postar lá misturaria o conteúdo do mapa com discussão, e ninguém olha o histórico de comentários de um card de mapa. Nunca mover os cenários `HIPOTESE:` para fora da tabela do mapa por causa desse comentário — ele é um apontador, não um substituto do mapa.
 +- Se não for possível determinar o pré-requisito de um cenário a partir das 4 fontes, não deixe a célula vazia nem invente: registre o item com prefixo `HIPOTESE:` (Step 4.2b), para que a skill de validação de ambiente o trate como não verificável.
 +- O HTML interativo do Step 5b é só um arquivo local de apoio à execução manual: o que vale como mapa é o conteúdo publicado no card. Se os dois divergirem, refaça o Step 5b a partir da tabela aprovada — nunca edite o mapa só no arquivo local.
++- Se o protótipo (Step 3.9) mostra algo que a US não pede ou manda não exibir (ex.: botão de filtro), **não crie cenário** nem trate como defeito: a US prevalece, e a diferença vai como observação em "Fonte técnica" e como nota no cenário de paridade visual.
  - Se, ao montar um cenário, a única justificativa que você consegue escrever na coluna Origem é "achei isso interessante na análise técnica" sem apontar para Instruções QA/Critérios de Aceite/Pontos de Impacto/Casos de Teste (Step 4.0), **não crie o cenário** — é sinal de que ele está fora do escopo da história, mesmo que pareça um risco técnico legítimo.
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/homologar-release.md b/skills-qa-smartshare/skills-qa-smartshare/skills/homologar-release.md
-index d77144c..44f63bf 100644
+index d77144c..376a35c 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/homologar-release.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/homologar-release.md
 @@ -8,7 +8,7 @@ Formato esperado: `[ID1 ID2 ID3 ...]` (lista de IDs de história/PBI que compõe
@@ -913,7 +1114,24 @@ index d77144c..44f63bf 100644
  
  Este comando é a Skill 7 (QA Release Validator). Ele **recomenda**, não decide — a liberação para produção continua sendo uma decisão humana. Reaproveita `/analise-tecnica`, `/executar-teste` e `/analise-falha` como sub-rotinas em vez de reimplementar a lógica delas.
  
-@@ -66,7 +66,7 @@ Para cada história, localize o(s) Test Case(s) vinculado(s) (`relations` com `T
+@@ -16,6 +16,16 @@ Este comando é a Skill 7 (QA Release Validator). Ele **recomenda**, não decide
+ 
+ ---
+ 
++## Regra transversal — Dúvidas viram aprendizados
++
++Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
++
++1. **Antes de perguntar à usuária** qualquer dúvida, pendência ou pedido de retorno, ler `INDICE.md`. Se existir aprendizado `Ativo` aplicável à mesma situação (escopo `Geral`, da skill, ou da própria US), aplicar sem perguntar e escrever no relatório `Aplicado APR-NNN`.
++2. **Ao perguntar**, depois da resposta e **antes de seguir**, gravar `APR-NNN_<slug>.md` (situação, pergunta, resposta, como aplicar, escopo) e a linha no `INDICE.md`. Resposta vaga ou adiada fica `Pendente`, não vira regra.
++3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
++4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
++5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
++
+ ## Regra fundamental
+ 
+ A recomendação final (`Aprovada` / `Aprovada com ressalvas` / `Reprovada`) é uma **sugestão para decisão humana**, nunca uma aprovação automática de deploy. Nunca marcar um teste como aprovado sem tê-lo executado de fato (nada de "presumir que deve passar"). Nunca reprovar ou aprovar com base em suposição quando a execução real não foi possível — nesse caso, o status correto é `Aprovada com ressalvas` com a ressalva sendo justamente "não foi possível executar X".
+@@ -66,7 +76,7 @@ Para cada história, localize o(s) Test Case(s) vinculado(s) (`relations` com `T
  
  ### 3.2 — Regressão automatizada (Playwright)
  
@@ -923,10 +1141,10 @@ index d77144c..44f63bf 100644
  ### 3.3 — Regressão manual (sem automação ou automação quebrada)
  
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/priorizar-automacao.md b/skills-qa-smartshare/skills-qa-smartshare/skills/priorizar-automacao.md
-index 5aff133..ecc6732 100644
+index 5aff133..4eefb54 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/priorizar-automacao.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/priorizar-automacao.md
-@@ -8,9 +8,9 @@ Formato esperado: `[ID da história ou módulo em tests/user-stories/]`
+@@ -8,14 +8,24 @@ Formato esperado: `[ID da história ou módulo em tests/user-stories/]`
  
  Exemplos:
  - `157538` → localiza o spec correspondente por ID de história
@@ -938,7 +1156,22 @@ index 5aff133..ecc6732 100644
  - `tests/user-stories/<módulo>/<categoria>.spec.ts` — testes específicos de uma história (categorias herdadas do `gerar-mapa-testes`: fluxo-principal, fluxo-alternativo, validacoes-campos, comportamento-modal, busca-vinculos, cancelamento, erros-integracao, consistencia-persistencia, casos-borda)
  - `tests/regressao/<módulo>/<cenário>.spec.ts` — regressão promovida, estável, executada a cada release (consumida por `/homologar-release`)
  
-@@ -26,13 +26,13 @@ Este comando é a Skill 9 (QA Automation Engineer). Projeto alvo: `C:\Users\cint
+ ---
+ 
++## Regra transversal — Dúvidas viram aprendizados
++
++Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
++
++1. **Antes de perguntar à usuária** qualquer dúvida, pendência ou pedido de retorno, ler `INDICE.md`. Se existir aprendizado `Ativo` aplicável à mesma situação (escopo `Geral`, da skill, ou da própria US), aplicar sem perguntar e escrever no relatório `Aplicado APR-NNN`.
++2. **Ao perguntar**, depois da resposta e **antes de seguir**, gravar `APR-NNN_<slug>.md` (situação, pergunta, resposta, como aplicar, escopo) e a linha no `INDICE.md`. Resposta vaga ou adiada fica `Pendente`, não vira regra.
++3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
++4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
++5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
++
+ ## Regra fundamental
+ 
+ **Nunca promover um cenário construído a partir de uma hipótese não confirmada** (`HIPOTESE:` no mapa de testes de origem, ou lógica de negócio ainda marcada como ambígua em `/analise-negocio`). Instabilidade de regra de negócio é o oposto de "estável" — promover isso quebra a regressão assim que a regra for esclarecida/mudar.
+@@ -26,13 +36,13 @@ Este comando é a Skill 9 (QA Automation Engineer). Projeto alvo: `C:\Users\cint
  
  ## Step 0 — Validar ambiente
  
@@ -954,7 +1187,7 @@ index 5aff133..ecc6732 100644
  - Se for um nome de módulo: listar todos os `.spec.ts` em `tests/user-stories/<módulo>/`.
  
  Se nada for encontrado, isso é um **gap de automação**, não uma promoção — pule para o Step 5 (Gap de automação).
-@@ -70,7 +70,7 @@ Para cada cenário de prioridade Alta:
+@@ -70,7 +80,7 @@ Para cada cenário de prioridade Alta:
  1. Definir o caminho de destino em `tests/regressao/<módulo>/<nome-do-cenário>.spec.ts`.
  2. Se o arquivo de destino já existir, ler o conteúdo atual e propor um **merge** (adicionar o(s) `test()` novo(s) preservando os existentes) — nunca sobrescrever o arquivo inteiro sem necessidade.
  3. Se não existir, propor criação, reaproveitando o Page Object já existente em `pages/` (não criar um novo Page Object se um equivalente já cobre a tela).
@@ -963,7 +1196,7 @@ index 5aff133..ecc6732 100644
  
  Apresentar o diff completo (arquivo de teste + linha do `package.json`) e **parar para aprovação** antes de escrever qualquer coisa.
  
-@@ -91,7 +91,7 @@ Apresentar o diff completo (arquivo de teste + linha do `package.json`) e **para
+@@ -91,7 +101,7 @@ Apresentar o diff completo (arquivo de teste + linha do `package.json`) e **para
  Se a história/módulo não tiver nenhum arquivo em `tests/user-stories/`, isso não é uma promoção — é ausência total de automação. Nesse caso:
  
  1. Verificar se a história já tem um Test Case publicado no Azure DevOps (via `/gerar-mapa-testes-v2`/`v3`) — usar os cenários de lá como base, nunca inventar cenário novo aqui.
@@ -974,10 +1207,10 @@ index 5aff133..ecc6732 100644
  
 diff --git a/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md b/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md
 new file mode 100644
-index 0000000..8968fc4
+index 0000000..34f70ae
 --- /dev/null
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md
-@@ -0,0 +1,280 @@
+@@ -0,0 +1,350 @@
 +---
 +description: Le o mapa de testes publicado no card "Criar Mapa de Teste" filho de uma User Story do Azure DevOps, extrai a coluna Pre-requisitos (formato [CATEGORIA] requisito), valida no ambiente de teste se cada requisito existe e, quando nao existir, CONFIGURA o ambiente (cria usuarios, processos, configuracoes, dados) pela UI. URLs do ambiente, URLs de telas necessarias, admin e usuarios vem de um arquivo de configuracao preenchido pela usuaria (C:\skills-qualidade\config\ambiente-teste.local.md); usuarios criados sao gravados nele. Entrega, por requisito, ATENDIDO / CONFIGURADO / NAO ATENDIDO / NAO VERIFICAVEL e, por cenario, EXECUTAVEL / PARCIAL / BLOQUEADO. Nao executa os cenarios e nunca atua fora de ambiente marcado como teste.
 +---
@@ -992,7 +1225,7 @@ index 0000000..8968fc4
 +
 +Esta skill fica **entre** `/gerar-mapa-testes-v3` e `/executar-teste`: o primeiro declara, por cenário, o que o ambiente precisa ter (coluna `Pre-requisitos`); esta skill olha o ambiente real, **configura o que faltar** e responde "esse ambiente consegue rodar esses cenários?". Não executa cenário nenhum.
 +
-+**Arquivo de configuração (`$AMBIENTE_CFG`)** = `C:\skills-qualidade\config\ambiente-teste.local.md`, caminho absoluto. É preenchido pela usuária (modelo em `templates\ambiente-teste.template.md`) com: ambientes, caminhos das telas de configuração (relativos à URL base), login/senha do admin e usuários de teste. Contém senhas: nunca vai para o GitHub nem para relatório/chat/work item.
++**Arquivo de configuração (`$AMBIENTE_CFG`)** = `C:\skills-qualidade\config\ambiente-teste.local.md`, caminho absoluto. É preenchido pela usuária (modelo em `templates\ambiente-teste.template.md`) com: ambientes, caminhos das telas de configuração (relativos à URL base), login/senha do admin e usuários de teste. Contém senhas: nunca vai para o GitHub nem para relatório/chat/work item. Tem também a seção **"Destinatário de e-mail de teste"** (só o endereço do domínio selbetti da usuária, sem senha), usada pela regra de notificação por e-mail (Step 4.6).
 +
 +**URL base (`$URL_BASE`)** = perguntada à usuária **a cada execução** (Step 0.3), nunca assumida do arquivo. Ex.: `http://localhost:8080/smartshare/`. Toda URL de tela é `$URL_BASE` + caminho relativo da tabela "Telas de configuração" abaixo.
 +
@@ -1010,6 +1243,16 @@ index 0000000..8968fc4
 +
 +---
 +
++## Regra transversal — Dúvidas viram aprendizados
++
++Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
++
++1. **Antes de perguntar à usuária** qualquer dúvida, pendência ou pedido de retorno, ler `INDICE.md`. Se existir aprendizado `Ativo` aplicável à mesma situação (escopo `Geral`, da skill, ou da própria US), aplicar sem perguntar e escrever no relatório `Aplicado APR-NNN`.
++2. **Ao perguntar**, depois da resposta e **antes de seguir**, gravar `APR-NNN_<slug>.md` (situação, pergunta, resposta, como aplicar, escopo) e a linha no `INDICE.md`. Resposta vaga ou adiada fica `Pendente`, não vira regra.
++3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
++4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
++5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
++
 +## Regra fundamental (guardrails)
 +
 +- **Só atua em ambiente de teste.** A `$URL_BASE` é informada pela usuária a cada execução (Step 0.3) e a skill só navega em URLs que comecem por ela. Host `localhost`/`127.0.0.1` é aceito como teste; qualquer outro host só é aceito se a usuária confirmar na hora que é teste (e, havendo o ambiente no `$AMBIENTE_CFG`, com `Tipo = teste`). Produção ou URL não confirmada → parar e perguntar antes de navegar. Nunca inventar URL.
@@ -1017,11 +1260,14 @@ index 0000000..8968fc4
 +- **Configuração é por UI, com plano confirmado.** Criar/ajustar pela interface (nunca `INSERT`/`UPDATE`/`DELETE` no banco; banco só `SELECT`). O que será configurado é apresentado no Step 3 e só começa com o "sim" explícito da usuária.
 +- **Aditivo e rastreável.** Pode **criar** (usuário, processo, parâmetro, registro) e **ligar/ajustar** configuração exigida pelo requisito. Nunca excluir nem sobrescrever dado/configuração existente que não seja do requisito, nunca redefinir senha de usuário existente, nunca conceder perfil de administrador a usuário de teste. **Única exceção:** o administrador de automação `Claude-adm` do Step 0.3b, criado uma única vez, a pedido da usuária, para uso exclusivo desta skill. Cada mudança é registrada no relatório com **antes → depois**, para a usuária poder desfazer.
 +- **Ação irreversível ou de efeito fora do ambiente pede confirmação própria**, mesmo com o plano aprovado: publicar/ativar versão que não pode ser revertida, disparar integração real, enviar e-mail/notificação real, apagar algo. Se o requisito só se satisfaz assim e a usuária não autorizar → `NAO ATENDIDO`.
++- **Notificação por e-mail segue a regra do Step 4.6.** Sempre que um requisito ou cenário (de qualquer categoria) depender de e-mail de notificação enviado ou recebido, o destinatário só pode ser o e-mail do domínio selbetti da usuária, **confirmado por ela a cada execução**, e valem as regras de validade do Step 4.6. Nunca outro endereço, nunca webmail nem senha de caixa.
 +- **Nunca marcar `ATENDIDO` ou `CONFIGURADO` sem evidência.** Cada um precisa apontar a observação que o comprova (tela/consulta e valor encontrado). Depois de configurar, **reverifique** o requisito pela UI; sem confirmação → não vale.
 +- **Tentar antes de declarar `NAO VERIFICAVEL`/`NAO ATENDIDO`.** Razões válidas para `NAO VERIFICAVEL`: (1) falta de acesso (credencial, permissão, URL, MCP) depois de uma tentativa real; (2) requisito vago, sem número, `HIPOTESE:`; (3) só verificável por ação proibida acima. "Não tentei" não é motivo.
 +- **Credenciais só no `$AMBIENTE_CFG`.** Senha de admin e de usuário (informado ou criado) nunca vai ao relatório, ao chat, ao LOG-ACOES ou ao work item. Connection string e token idem.
 +- **Dúvida de conceito ou de como configurar: consultar o hub, senão sinalizar. Nunca inventar.** Termos do mapa que a skill não saiba definir (ex.: "o que é um usuário publicador?", "como crio um perfil?", qual permissão compõe um perfil, onde fica um parâmetro) seguem o Step 3.5. Sem definição no hub, KB ou memória, a skill **não chuta** perfil, permissão ou configuração: sinaliza à usuária e deixa o requisito `NAO VERIFICAVEL`/`NAO ATENDIDO`.
 +- **Não reinterpretar o mapa.** Esta skill não cria, remove nem edita cenários ou pré-requisitos; se um pré-requisito parecer errado ou faltar, sinalize e deixe a correção para `/gerar-mapa-testes-v3`.
++
++- **Dado simulado (mock) invalida a validação.** O ambiente de teste deve ser o mais próximo possível do cenário real: tela ou endpoint que serve dado simulado (data service em memória, fixture, resposta fixa) não valida dado nem integração. A skill **sempre** verifica isso (Step 3.7) antes de configurar qualquer dado. Mock confirmado → **gera defeito imediatamente** (Step 3.7), por instrução da usuária de 2026-11-03, e o veredito nunca é `PRONTO`. Não "contorna" criando dado no mock.
 +
 +---
 +
@@ -1100,6 +1346,8 @@ index 0000000..8968fc4
 +| `INTEGRACAO` | Acessibilidade do serviço (URL/tela de status, conector configurado) | Só configurar o conector no ambiente de teste. Nunca disparar operação real com efeito colateral |
 +| `AMBIENTE` | Versão/build, URL, disponibilidade. **Protótipo Figma:** pelo conector (Step 0.5b), extraia `fileKey` e `node-id` do link da US (`figma.com/design/<fileKey>/...?node-id=<a>-<b>` → nó `<a>:<b>`) e chame `get_metadata` nesse nó (somente leitura). Respondeu com os frames → `ATENDIDO` (evidência: nome do arquivo/página e frames encontrados, ex.: "Handoff", "Fluxo completo"); link sem `node-id` → liste as páginas (`get_metadata` sem nó) e peça um link do nó; erro de permissão/arquivo → `NAO ATENDIDO` com a mensagem; sem conector → `NAO VERIFICAVEL` | Nada a configurar: divergência vira `NAO ATENDIDO` com instrução |
 +
++**Notificação por e-mail:** se algum requisito depender dela (Step 4.6), mostre também aqui o endereço selbetti lido de "Destinatário de e-mail de teste" no `$AMBIENTE_CFG` e **peça à usuária para confirmá-lo** (e para confirmar que o Agent está em execução) antes de configurar qualquer coisa. A confirmação é **obrigatória em toda execução, mesmo com o endereço preenchido no arquivo**: mostre o endereço escrito por extenso, peça para conferir a grafia (um erro de digitação manda o e-mail a outra pessoa) e só siga com o "confirmo" dela; se ela corrigir, use o endereço corrigido nesta execução e avise que o arquivo precisa ser ajustado (não o reescreva sem pedido). Endereço ausente ou `<preencher>` → peça o campo. Sem a confirmação, os requisitos de e-mail ficam `NAO VERIFICAVEL (destinatário não confirmado)`.
++
 +Liste explicitamente cada item que será criado/alterado (`o quê`, `onde`, `valor`). **A configuração só começa com o "sim" da usuária neste plano**; sem ele, a skill roda só a verificação e os ausentes ficam `NAO ATENDIDO`. Se `$ambiente` parecer produção ou não for `teste` no arquivo, pare aqui (guardrail). Com muitos requisitos, diga a ordem planejada — comece pelos que bloqueiam mais cenários — e prossiga; não pede nova confirmação por requisito, salvo ação irreversível.
 +
 +---
@@ -1113,6 +1361,33 @@ index 0000000..8968fc4
 +3. **Não localizou?** **Sinalize à usuária** e não configure: diga o termo, o que buscou (hub: onde procurou; KB/memória) e a pergunta objetiva (ex.: "o que define o perfil publicador no SmartShare e como é criado?"). Registre em "Dúvidas sinalizadas" do relatório. O requisito fica `NAO VERIFICAVEL (definição não localizada)`; se a usuária responder na hora, siga com a resposta e registre a fonte como "informado pela usuária".
 +
 +Hub ausente (nenhum caminho existe) não é erro: pula o item 1 e registra que o código não foi consultado. O que o hub revelar entra como evidência, mas **não substitui** o texto do mapa: divergência entre hub e mapa vai para "Observações".
++
++---
++
++## Step 3.7 — Verificar se a tela e os dados são reais ou simulados (mock) — e gerar defeito se forem simulados
++
++Roda **antes** de configurar qualquer dado (Step 4): criar dado em tela que usa mock não prova nada. Aplica-se a cada tela sob teste que o mapa usa (a da US e as que ela alimenta). É verificação de **leitura**: só usa dado que o plano do Step 3 já previa criar ou que já existe.
++
++**Como verificar (registre cada evidência no relatório):**
++1. **Rede.** Com a tela aberta, faça uma leitura (abrir a listagem) e, se o plano já previa gravar algo, uma gravação, e consulte `browser_network_requests` (ou `read_network_requests`). A tela não fez nenhuma chamada de API de dados (`/api`, `/be/`, serviço do BE) → indício de mock. Chamada só de arquivos estáticos, i18n e shell da aplicação não conta como dado.
++2. **Persistência.** Depois de criar **um** registro mínimo (só se o plano do Step 3 já previa criá-lo), recarregue a página (F5). Registro sumiu → dado em memória (mock).
++3. **Fonte real.** Se o mesmo ambiente tem outra tela com dado real do mesmo domínio (ex.: o Clássico) e a listagem nova abre vazia ou diferente dela → indício de que não lê a mesma base.
++4. **Código (somente leitura).** Se o caminho do código da tela é conhecido (hub ou clone local do projeto), procure `mock`, `simulad`, `INITIAL_`, `of(` no serviço de dados da tela e cite `arquivo:linha`. Não altere nada.
++
++**Conclusão:** novo requisito implícito `[AMBIENTE] dados reais (não simulados) em <tela>`:
++- `ATENDIDO` quando há chamada de API de dados **e** o registro persiste ao recarregar;
++- `NAO ATENDIDO` (**mock confirmado**) com **duas ou mais** evidências concordando (rede + persistência, ou código + uma delas);
++- `NAO VERIFICAVEL` quando não deu para observar (browser indisponível, evidência única ou contraditória).
++
++**Se o mock for confirmado, gere o defeito agora, sem esperar o fim da validação e sem pedir nova aprovação** (instrução explícita da usuária, 2026-11-03: "para que seja possível realizar os testes o ambiente deve estar o mais próximo possível do cenário real"). Siga o formato do `/gerar-defeito` e crie via MCP (nunca REST para criar):
++- **Título:** `BUG - [Ambiente de teste usa dados simulados (mock) em <tela>]`;
++- **ReproSteps** (campo `Microsoft.VSTS.TCM.ReproSteps`, em HTML): contexto (US, mapa, ambiente e URL base), **cenário de origem** no rótulo fixo `<p><strong>Cenário de origem:</strong> N/A — validação de ambiente do mapa de testes #<MAPA_ID></p>`, passos para reproduzir cada evidência, resultado esperado (dado real vindo do BE/banco, persistente, igual ao cenário de produção), resultado atual com as evidências (chamadas de rede ausentes, registro que some, trecho do código com `arquivo:linha`), impacto (resultado de teste de dado e de integração não reflete o cenário real; cenários que dependem de dado persistente ou legado ficam sem valor de aceite), ambiente e versão;
++- **Severidade sugerida:** Alta, "a confirmar com o time" (impede validar dado e integração);
++- **Vínculo:** filho da US (`wit_work_item_link_write`, `type: "parent"`), conferindo `Hierarchy-Reverse`; anexe as evidências pelo mesmo procedimento do Step 3.5 do `/gerar-defeito`;
++- se a US ou a análise técnica **já declara** que a simulação é provisória (ex.: "sem integração com o BE: simulado no data service mock"), diga isso no Bug e mesmo assim gere: a decisão de aceitar o risco é do time, não da skill;
++- antes de criar, busque Bug aberto do mesmo problema (`search_work_items`) e, se existir, **comente nele** em vez de duplicar.
++
++**Efeitos na validação:** o `[AMBIENTE] dados reais` fica `NAO ATENDIDO`; requisitos `[DADOS]` e `[INTEGRACAO]` que dependem da tela com mock viram `NAO ATENDIDO` com o motivo "dado simulado (ver Bug #<id>)" — **não** se tenta configurá-los (nada de dado criado em mock) —, e o veredito geral nunca é `PRONTO`: o máximo é `PARCIALMENTE PRONTO`, e os cenários que dependem da tela com mock ficam `BLOQUEADO` (motivo: dado simulado). O `/executar-teste` **recusa executar** em ambiente com mock (guardrail do Step 0.5 dele): o caminho é integrar a tela ao BE e revalidar.
 +
 +---
 +
@@ -1135,11 +1410,26 @@ index 0000000..8968fc4
 +1. **Defina o usuário** a partir do texto do requisito (ex.: "usuário com perfil Aprovador"). Vago, sem perfil identificável → `NAO VERIFICAVEL (requisito vago)`. Perfil/grupo inexistente no ambiente → não crie o perfil; `NAO ATENDIDO` com instrução. Um usuário serve a todos os requisitos que ele satisfaz.
 +2. **Reaproveite:** procure em "Usuários de teste" do `$AMBIENTE_CFG` um usuário do ambiente com esse perfil e confirme que existe e entra (login com a credencial do arquivo). Existindo → `ATENDIDO` (evidência: "informado em `$AMBIENTE_CFG`, login confirmado"). Falhou o login → não redefina a senha; trate como ausente e crie outro (observação na linha antiga: "login falhou em <data>").
 +3. **Prepare as dependências do usuário (perfil, área, papel).** Abra a tela de usuário (`$URL_BASE` + `workspace/management/configuracoes/usuario`) e identifique quais desses itens o cadastro exige. Para cada um que o requisito pede e **não existe**, crie-o antes do usuário pela respectiva tela (perfil e papel: telas da tabela "Telas de configuração"; área: sem tela própria, só seleção), sempre de forma aditiva e registrando antes → depois. Se o item já existe, reaproveite (não edite). Não localizou a definição de qual permissão compõe o perfil/papel → Step 3.5, não chute. A ordem de criação segue o que a tela de usuário exigir; não presuma.
-+4. **Crie** pelo cadastro de usuários do ambiente (`$URL_BASE` + caminho de usuário; admin do arquivo): login `qa.<perfil-sem-acento-minusculo>.us<ID>`; e-mail, se obrigatório, no domínio de teste do ambiente e nunca de pessoa real; senha aleatória de 16 caracteres gerada na hora (maiúscula, minúscula, número, símbolo), ex.: `-join ((48..57)+(65..90)+(97..122)+(33,35,36,37,42,43,45,63) | Get-Random -Count 16 | % {[char]$_})`; só o perfil/permissão exigido. Se o sistema forçar troca de senha no primeiro acesso, desmarque quando existir; senão faça o primeiro login, troque para a senha gerada e anote na Observação.
++4. **Crie** pelo cadastro de usuários do ambiente (`$URL_BASE` + caminho de usuário; admin do arquivo): login `qa.<perfil-sem-acento-minusculo>.us<ID>`; e-mail, se obrigatório, no domínio de teste do ambiente e nunca de pessoa real (**exceção:** usuário destinatário de notificação por e-mail usa o endereço selbetti confirmado da usuária, Step 4.6); senha aleatória de 16 caracteres gerada na hora (maiúscula, minúscula, número, símbolo), ex.: `-join ((48..57)+(65..90)+(97..122)+(33,35,36,37,42,43,45,63) | Get-Random -Count 16 | % {[char]$_})`; só o perfil/permissão exigido. Se o sistema forçar troca de senha no primeiro acesso, desmarque quando existir; senão faça o primeiro login, troque para a senha gerada e anote na Observação.
 +   **4.1 Vincule os perfis "Geral" (obrigatório ao criar qualquer usuário).** Logo depois de criar (o cadastro abre em `.../usuario/editar/<cd_usuario>`), abra a aba **Perfis** e, em **cada** seção da tela, marque o grupo **Geral** (o checkbox "Select Geral" no topo da árvore, que marca também os filhos), depois **Salvar**. Seções: **Grupos que atuam como leitor** e **Grupos para quem podem publicar** (todos os tipos de usuário) e, só para o tipo **Administrador**, também **Grupos que administram** (3 seções). Cada seção é um acordeão: expanda os fechados antes de marcar. Registre antes → depois. Observado em 2026-10-26: o checkbox só muda com clique de mouse real nas coordenadas dele (`mouse.click`), e `check({force:true})` não marca a partir da 2ª seção.
 +   **Também no mesmo cadastro, pois sem isso o login do usuário novo não conclui na tela** (a API `autenticar` responde 200, mas o front volta ao login com `You provided 'undefined' where a stream was expected`): escolha uma **Área principal ativa** (a área "TI" estava inativa: salvar com ela falha com "Usuário não pode ser ativado — Área Principal inativa"; use uma área ativa, ex.: "Area Padr?o") e preencha o **Menu inicial** (ex.: "Minhas atividades"). Observado em 2026-10-26 com o conjunto área ativa + perfis Geral + Menu inicial; qual dos três é o mínimo necessário não foi isolado.
 +5. **Reverifique:** o usuário aparece no cadastro com o perfil, os perfis "Geral" ficaram marcados ao reabrir a aba Perfis e o login com a senha gerada **conclui na tela** (entra em `/bpm?redirect=my-tasks`; faça em contexto de navegador separado para não derrubar a sessão do admin; depois deslogue). Só então `CONFIGURADO`.
 +6. **Grave** uma linha em "Usuários de teste" do `$AMBIENTE_CFG` (via `Edit`, **anexando**; nunca apague nem reescreva linhas existentes): `Login | Senha | Perfil | Ambiente | CRIADO | <US> | <data> | <obs>`.
++
++### 4.6 — Notificação por e-mail (regra transversal)
++
++Aplica-se **sempre** que um requisito ou cenário, de qualquer categoria, depender de notificação por e-mail enviada ou recebida (ex.: e-mail do BPM, aviso de documento, alerta de tarefa).
++
++1. **Destinatário único.** Só o e-mail do domínio selbetti da usuária, lido de "Destinatário de e-mail de teste" no `$AMBIENTE_CFG` e **confirmado por ela a cada execução** (Step 3). Nunca outro endereço (pessoa real, domínio externo, Gmail), nunca login em webmail, nunca senha de caixa de e-mail.
++2. **Agent.** O envio é feito pelo `SmartShareAgent`, serviço do Windows que a usuária mantém em execução. A skill não consegue verificá-lo pela UI: peça a confirmação (Step 3) e **nunca tente iniciar ou parar o serviço**. Sem confirmação → o envio fica `NAO VERIFICAVEL (Agent não confirmado)`.
++3. **Regras de validade para receber** (lidas no código do clássico, `SmartShareAgent/Notify.cs`; no caminho novo do net8 são hipótese até o dev confirmar):
++   - existe notificação **ativa** (`st_ativo = 1`) para o par aplicação/ação do evento; o par é único e o sistema recusa duplicado. Existindo, reaproveite sem editar; não existindo, crie pela tela;
++   - o destinatário da notificação é um **perfil**, e os **perfis filhos** (por perfil pai) também recebem;
++   - o usuário que recebe pertence a esse perfil (ou a um filho), está **ativo**, **não está ausente** e tem o e-mail igual ao endereço selbetti confirmado.
++4. **Usuário destinatário.** Reaproveite um usuário de teste que cumpra o item 3; senão crie conforme o 4.5, com o e-mail selbetti confirmado. **Nunca altere o e-mail de um usuário existente** (regra aditiva).
++5. **Todos os destinatários do perfil.** Antes de qualquer disparo, liste os usuários do perfil destinatário (e dos filhos) com o e-mail de cada um. Se algum tiver e-mail que não seja o selbetti confirmado ou um endereço de teste, **não dispare**: sinalize em "Dúvidas sinalizadas" e deixe o requisito `NAO ATENDIDO`. Disparar o envio é efeito fora do ambiente e segue a confirmação própria da regra fundamental.
++6. **Par aplicação/ação.** Pela tela de Gerenciamento de Notificação, para **cada aplicação selecionada**, liste as ações disponíveis (somente leitura, sem salvar) e registre os pares no relatório, na seção "Pares aplicação/ação". Se o dev informou o par exato, use-o; senão é **hipótese** e fica marcada como tal. Sem URL confirmada da tela, peça-a (nunca invente).
++7. **Acesso à caixa.** A leitura dos e-mails recebidos é feita pelo conector Outlook da usuária (somente busca e leitura), na execução dos cenários. Aqui basta confirmar que o conector está conectado; se não estiver, `NAO VERIFICAVEL (conector de e-mail não conectado)`. Nunca clicar em links do e-mail, responder, encaminhar ou apagar.
 +
 +---
 +
@@ -1209,8 +1499,18 @@ index 0000000..8968fc4
 +
 +Credenciais em `$AMBIENTE_CFG` — a senha **não** aparece neste relatório.
 +
++## Notificação por e-mail (só se aplicável, Step 4.6)
++- Destinatário confirmado pela usuária: <sim/não> · Agent confirmado em execução: <sim/não> · Conector de e-mail: <conectado/não>
++| Aplicação | Ações disponíveis na tela | Par usado | Origem (informado pelo dev / hipótese) |
++|---|---|---|---|
++
 +## Dúvidas sinalizadas
 +- <termo/configuração>: <onde buscou (hub: repositório/arquivo, KB, memória)> — <pergunta objetiva à usuária>
++
++## Dados simulados (mock) — Step 3.7
++| Tela | Rede (chamadas de API de dados) | Persiste ao recarregar? | Fonte real comparada | Código | Conclusão | Bug |
++|---|---|---|---|---|---|---|
++(ou `Dados reais confirmados` / `NAO VERIFICAVEL: <motivo>`)
 +
 +## Não verificados (e por quê)
 +- <requisito NAO VERIFICAVEL>: <razão válida>
@@ -1252,9 +1552,12 @@ index 0000000..8968fc4
 +- **Requisito que só se satisfaz com ação irreversível ou efeito externo** (publicar versão definitiva, integração real, notificação): pedir confirmação própria; sem ela, `NAO ATENDIDO`.
 +- **Protótipo Figma sem acesso** (página de login do Figma no navegador, "Cadastre-se ou faça login"): não autenticar pelo navegador. Usar o conector Figma (Step 0.5b); se a usuária ainda não o conectou, requisito `NAO VERIFICAVEL (conector Figma não conectado)` e a pendência "conectar o Figma ao chat" em "O que preparar no ambiente". Com o conector, o cenário de paridade visual (`/executar-teste`) lê o protótipo por `get_screenshot`/`get_metadata`.
 +- **Usuário recém-criado autentica (API 200) mas a tela de login não avança:** conferir se os perfis **Geral** foram vinculados nas seções da aba Perfis (3 para Administrador, 2 para os demais), se a área principal está **ativa** e se o **Menu inicial** está preenchido (Step 4.5, item 4.1). Não redefinir senha nem alterar outro cadastro para contornar.
++- **E-mail de notificação não chega:** conferir, nesta ordem, Agent em execução (pedir à usuária), notificação ativa para o par, perfil destinatário (e filhos), usuário ativo, não ausente e com o e-mail selbetti. Não alterar a configuração de e-mail do ambiente para "destravar".
 +- **Usuário do arquivo apagado do ambiente ou com login falho:** não reutilizar nem redefinir senha; criar outro e anotar na linha antiga.
 +- **`$AMBIENTE_CFG` guarda senha em texto:** intencional e restrito a ambiente de teste; o arquivo fica fora do sync com o GitHub.
 +- **Ambiente indisponível ou instável:** veredito `NAO PRONTO`, motivo no relatório; não classifique requisitos individualmente por palpite.
 +- **Resultado muda entre execuções** (ambiente mutável): por isso cada validação é gravada com `$EXEC` e nunca sobrescrita; o relatório vale para o momento em que foi feito. Recomende revalidar logo antes de `/executar-teste` se houve mudança no ambiente.
 +- **Divergência entre a tabela e a seção consolidada do mapa:** a tabela de cenários prevalece; sinalize em "Observações".
 +- **Mapa com mais de um card "Criar Mapa de Teste":** sempre perguntar qual usar; nunca escolher sozinho sem confirmação.
++- **Tela só carrega shell, i18n e arquivos estáticos e nenhuma chamada de dado:** é o indício mais forte de mock (Step 3.7). Confirme com a persistência (F5) antes de gerar o defeito; uma única evidência não basta.
++- **Mock confirmado numa US que já avisa "simulado até a integração":** o defeito sai do mesmo jeito (decisão da usuária, 2026-11-03), citando o aviso; a decisão de aceitar é do time.

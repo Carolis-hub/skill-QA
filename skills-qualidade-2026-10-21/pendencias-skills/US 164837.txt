@@ -1,0 +1,11 @@
+US 164837
+Título: DI CLIENT | Tela de Indexação
+Dev da análise: Vitor Cordeiro Gomes
+
+Itens pendentes na análise:
+1. US sem descrição nem critérios de aceite; o card Análise não tem como ser confrontado com o pedido da US.
+2. Nenhum PR vinculado à US nem ao card Análise (branch feature/164352-f0-di-client); análise não confirmada contra o diff real.
+3. Descrição do card diz que faltam quebra manual, exclusão, unidade das regiões do template, posição de inserção, Ctrl+I (D-ZM-03) e medição de P-043/P-045, mas o card Desenvolvimento está Done; confirmar se estão dentro ou fora do escopo desta US.
+4. Pontos de impacto citam rotas da API (Documentos.Inserir, Configuracao.*, Consultas.*, DocumentosGed) sem dizer se houve alteração de contrato na API ou só consumo; sem repositório informado (campo "Não se aplica").
+5. Pré-requisitos de teste não informados: OCR depende da pasta tessdata junto ao executável; consulta por web service sem endpoint/mecanismo de teste indicado; "esquema de teste" da API citado sem detalhe. [bloqueante para /executar-teste]
+6. Validação "como o legado (ValidacaoIndexador)": símbolo não localizado nos fontes do clássico no hub. [clássico: lacuna]

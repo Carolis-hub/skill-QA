@@ -1,6 +1,6 @@
 # RELATORIO_DIFF
 
-Gerado em 2026-10-14 com `git diff --no-index` e replay determinístico das alterações registradas; atualizado em 2026-10-29 (rodada 12) com `git diff --no-index` sobre o estado atual.
+Gerado em 2026-10-14 com `git diff --no-index` e replay determinístico das alterações registradas; atualizado em 2026-11-04 (rodada 15) com `git diff --no-index` sobre o estado atual.
 
 ## Resumo
 
@@ -11,24 +11,24 @@ Gerado em 2026-10-14 com `git diff --no-index` e replay determinístico das alte
 
 ## Por arquivo
 
-Linhas +/− medidas com `git diff --no-index --numstat` em 2026-10-29.
+Linhas +/− medidas com `git diff --no-index --numstat` em 2026-11-04.
 
 | Arquivo | Linhas +/− | Classificação |
 |---|---|---|
-| analise-falha.md | +1 / −1 | Alteração esperada (adaptação funcional) |
-| analise-negocio.md | +145 / −8 | Alteração esperada (adaptação funcional + endurecimento de regra, rodadas 3 e 5) |
-| analise-tecnica.md | +36 / −5 | Alteração esperada (adaptação funcional + validação das pendências do dev, rodadas 3 e 5) |
-| atualizar-documentacao.md | +3 / −3 | Alteração esperada (adaptação funcional) |
-| executar-teste.md | +71 / −33 | Alteração esperada (adaptação funcional + regras novas, rodadas 3 e 4) |
-| gerar-defeito.md | +7 / −3 | Alteração esperada (adaptação funcional) |
-| gerar-mapa-testes-v3.md | +109 / −20 | Alteração esperada (adaptação funcional + coluna `Pré-requisitos`, rodada 4) |
-| homologar-release.md | +2 / −2 | Alteração esperada (adaptação funcional) |
-| priorizar-automacao.md | +6 / −6 | Alteração esperada (adaptação funcional) |
-| validar-ambiente.md | +280 / −0 | Arquivo adicionado (nova skill, rodada 4; ajustada nas rodadas 5, 8, 9 e 10) |
+| analise-falha.md | +11 / −1 | Alteração esperada (adaptação funcional) |
+| analise-negocio.md | +155 / −8 | Alteração esperada (adaptação funcional + endurecimento de regra, rodadas 3 e 5) |
+| analise-tecnica.md | +121 / −6 | Alteração esperada (adaptação funcional + validação das pendências do dev, rodadas 3 e 5; pendências do dev em arquivo, ALT-111; limite de escopo, ALT-114; validação das pendências no clássico, Step 3.8, ALT-115) |
+| atualizar-documentacao.md | +13 / −3 | Alteração esperada (adaptação funcional) |
+| executar-teste.md | +103 / −33 | Alteração esperada (adaptação funcional + regras novas, rodadas 3 e 4) |
+| gerar-defeito.md | +17 / −3 | Alteração esperada (adaptação funcional) |
+| gerar-mapa-testes-v3.md | +151 / −21 | Alteração esperada (adaptação funcional + coluna `Pré-requisitos`, rodada 4) |
+| homologar-release.md | +12 / −2 | Alteração esperada (adaptação funcional) |
+| priorizar-automacao.md | +16 / −6 | Alteração esperada (adaptação funcional) |
+| validar-ambiente.md | +350 / −0 | Arquivo adicionado (nova skill, rodada 4; ajustada nas rodadas 5, 8, 9 e 10) |
 
 ## Reconciliação com REGISTRO_ALTERACOES.md
 
-- Registradas: 89 alterações (ALT-001…ALT-089), por rodada: 1 → 50, 2 → 13, 3 → 20, 4 → 3, 5 → 3.
+- Registradas: 89 alterações (ALT-001…ALT-089) até a rodada 5, por rodada: 1 → 50, 2 → 13, 3 → 20, 4 → 3, 5 → 3. Rodadas 6 a 15 (ALT-090…ALT-120) registradas em `REGISTRO_ALTERACOES.md`; a rodada 15 (ALT-120) adiciona o bloco `Regra transversal — Dúvidas viram aprendizados` às 10 skills.
 - Rodadas 1 e 2 (ALT-001…ALT-063): o destino foi produzido exclusivamente pelas operações registradas (script de replay sobre a origem), sem edição manual. Resultado na época: **0 alterações não documentadas**. Limitação: o replay confirma que nada além do registrado foi aplicado, mas não prova que cada troca é semanticamente correta (revisão humana pendente).
 - Rodadas 3 a 5 (ALT-064…ALT-089): edições feitas diretamente nas skills e registradas depois, sem replay. Reconciliadas em 2026-10-20 contra `diff-completo.patch`, que foi regenerado e confere com o estado atual das 10 skills (diff vazio):
   - **Rodada 3, ALT-064…ALT-083:** todas presentes no patch. ALT-064 a ALT-074 em `analise-negocio.md` (Step 3.5, item 10 do Step 3, Step 4.5, relatórios, Troubleshooting); ALT-075, ALT-076, ALT-079 e ALT-081 em `analise-tecnica.md` (Step 2.5 e seção de validação); ALT-077, ALT-078 e ALT-080 (persistência, Steps 4.5 e 5); ALT-082 e ALT-083 em `executar-teste.md` (prevalência da US sobre a KB e seção `Divergências da KB`).
@@ -71,3 +71,4 @@ Comparação concluída para todos os arquivos de skill. As skills não foram ex
 - **Rodada 8 (2026-10-22, ALT-094…ALT-096):** `validar-ambiente.md` valida todos os pré-requisitos e configura o ambiente de teste a partir de `config\ambiente-teste.local.md` (URLs, admin, usuários; novo status CONFIGURADO); `executar-teste.md` Step 4.1 lê esse arquivo. Novo `templates\ambiente-teste.template.md`. Manifesto atualizado só para essas duas skills; patch regenerado.
 - **Rodada 10 (2026-10-26, ALT-105):** alidar-ambiente.md vincula o perfil "Geral" na aba Perfis ao criar usuário (3 seções para Administrador, 2 para os demais), exige área ativa e Menu inicial e reverifica o login na tela. diff-completo.patch regenerado com git diff --no-index (estado atual das 10 skills); manifesto atualizado só para alidar-ambiente.md.
 - **Rodada 12 (2026-10-29, ALT-112…ALT-114):** `analise-negocio.md` e `gerar-mapa-testes-v3.md` (recomendações aprovadas pela usuária, ALT-112/113) e `analise-tecnica.md` (não valida cards de revisão, configuração de banco nem implantação da branch, ALT-114). diff-completo.patch regenerado com `git diff --no-index` (estado atual das 10 skills); manifesto atualizado para essas três skills.
+- **Rodada 12 (2026-10-29, ALT-115):** `analise-tecnica.md` valida, quando há pendência, os itens de comportamento legado no código do SmartShare clássico via hub (Step 3.8, somente leitura; resultado Confirmado / Diverge / Lacuna). diff-completo.patch regenerado com `git diff --no-index` (estado atual das 10 skills); manifesto atualizado só para `analise-tecnica.md`. As linhas +/− de `analise-tecnica.md` acima foram remedidas nesta data (os valores anteriores, +36 / −5, estavam desatualizados).

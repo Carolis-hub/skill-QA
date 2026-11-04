@@ -1,0 +1,15 @@
+US 164998
+Título: Migração tela de gerenciamento | Gerenciamento de índice (FE) | Ajustes da listagem, inativação e exclusão
+Dev da análise: Vinicius Mesquita Junge (responsável da US; autor do card Análise #165640 não consultado)
+
+Itens pendentes na análise:
+1. PD-164998-01: a US pede registrar "sem alteração" por critério no PBI; o card Análise não traz esse registro CA a CA e a US não tem comentários (Parcial).
+2. Card e CA 10 colocam a recusa de inativação no Formulário, mas o escopo da US exclui o Formulário (FE 01); confirmar onde fica essa mudança.
+3. Casos de teste do dev não cobrem: CA 3 (fim da lista, manter posição), CA 4 (limpar busca volta à lista completa), CA 10 (interruptor volta a Ativo) nem o texto do modal de CA 8.
+4. Card testa inativação só com "índice usado em processo"; CA 10 distingue etiqueta e Início com Publicação [clássico: confirmado, as duas vias usam VerificarVinculoEtiquetaeInicioPublicacao].
+5. Card cita "tipos de índice legados fora da nova lista devem ser exibidos sem quebrar", sem dizer como aparecem nas colunas Tipo de índice e Tipo de valor.
+6. Mensagem de inativação: clássico diz "tornar inativo este registro"; US/Figma diz "inativar esse registro" [clássico: diverge, redefinida pela US].
+7. Clássico permite exclusão em lote; US remove [clássico: diverge, decisão da PM].
+8. Pré-requisito de teste sem mecanismo no card nem em PR: como simular falha no carregamento da listagem (CA 3). Bloqueante para /executar-teste.
+9. Pré-requisito de teste sem dado definido: índice em etiqueta, índice em Início com Publicação e índice usado só em documentos. Bloqueante para /executar-teste.
+10. Nenhum PR vinculado à US (só um commit "Fixed in Commit"); análise do dev não confirmada contra o diff.

@@ -1,0 +1,31 @@
+US 165177
+Título: Migração | Gerenciamento de Notificação: aceitar estilização HTML no campo de conteúdo
+Dev da análise: não informado no card #165183 (US atribuída a Leonardo Oliva Neves)
+
+Itens pendentes na análise:
+1. Nenhum PR vinculado à US (só 2 commits, não localizados no hub): análise do card não confirmada contra o diff.
+2. Card não lista as tags/atributos/estilos da allowlist (PD-165177-01 parcial); a PM leu o CA 1 como "manter sem perda o HTML que o Clássico já gera e aceita", mas o card ainda precisa listar a allowlist concreta [clássico: diverge, editor tem só 12 ferramentas básicas, sem tabela, imagem, link, lista ou alinhamento].
+3. Log de alteração grava HTML bruto no "registro atual" e o de inclusão grava sanitizado; volume de log não avaliado (PD-165177-02 parcial) [clássico: confirmado, o log grava sempre o HTML bruto do formulário na inclusão, alteração e exclusão].
+4. Consumidores finais de GetConteudoNotificacaoObservacao/BuscarTemplateNotificaTarefaPadrao não mapeados; Mobile/Embedded não verificados [clássico: parcial, leem NOTIFICACAO o Agent (Notify.cs) e WsEcm.RetConteudoNotificacao; Mobile/Embedded lacuna].
+5. Limite de 4000 validado após sanitização, que converte cores (#fff vira rgba) e infla o HTML; template real não medido [clássico: confirmado o mesmo limite, coluna ds_conteudo varchar(4000); sem validação de tamanho no código lido].
+6. Sem mecanismo informado para disparar e capturar o e-mail do BPM em ambiente de teste (CA 10) [bloqueante para /executar-teste]. Respondido pela usuária (2026-10-29): quem envia o e-mail é o Agent, um serviço do Windows que cabe a quem testa manter em execução (pré-requisito de ambiente, não pendência do dev). Respondido pela usuária (2026-10-29): o par aplicação/ação se valida pela tela, configurando a notificação e conferindo as ações disponíveis para cada aplicação escolhida (vai para o mapa e o /validar-ambiente); a captura será por uma caixa de e-mail de teste fornecida pela usuária (a criar no /validar-ambiente). Falta só o dev dizer qual ação dispara o envio e qual par cada método do card usa [clássico: o envio é feito pelo SmartShareAgent a partir da tabela NOTIFICACAO; AgentBpmService e os 2 métodos do card não existem no hub].
+
+Hipótese para o mapa de testes (pedido da usuária, 2026-10-29; pendência 7, não validada):
+- H-01: o par aplicação/ação usado pelo e-mail do BPM é um dos pares hoje disponíveis na tela de Gerenciamento de Notificação. O cenário do mapa seleciona cada aplicação, lista as ações oferecidas e documenta os pares (aplicação x ação) no próprio resultado do teste, até o dev informar o par exato dos 2 métodos do card.
+- Fonte da lista no Clássico: TIPO_APLICACAO_TIPO_ACAO filtra as ações por aplicação; sem vínculo, aparecem as ações com st_padrao = 1 (lida-no-codigo). Os scripts de carga trazem vínculos iniciais, mas variam por versão e o ambiente pode ter outros: vale o que a tela mostrar.
+- Cada notificação é única por par aplicação/ação (recusa duplicado) e o destinatário é um perfil, com perfis filhos incluídos; recebe quem tem ds_email e está ativo e não ausente.
+- Ao ter o par exato do dev, a hipótese vira cenário definitivo ou é descartada.
+
+Criado na skill /validar-ambiente em 2026-10-29 (Step 4.6, regra fundamental, Step 3, relatório e template do config):
+- Pré-requisito do CA 10: Agent (serviço do Windows) em execução no ambiente de teste.
+- Configurar a notificação pela tela e, para cada aplicação escolhida, listar as ações disponíveis (a lista vem de TIPO_APLICACAO_TIPO_ACAO; sem vínculo, aparecem as ações com st_padrao = 1) e registrar o par aplicação/ação.
+- Acessar a caixa de e-mail de teste e conferir os e-mails recebidos das notificações. Endereço e credencial vão no arquivo de configuração local da skill, nunca neste arquivo nem no chat.
+
+- Método de acesso à caixa (decidido pela usuária, 2026-10-29): usar como destinatário dos testes o e-mail do domínio selbetti da usuária, que a skill já lê pelo Outlook, sem senha. O Gmail com encaminhamento ficou como alternativa descartada (encaminhamento chegou a ser configurado, não é usado).
+- O usuário/perfil destinatário da notificação deve ter ds_email igual a esse endereço no ambiente de teste (o destinatário no Clássico é um perfil, cd_destinatario).
+
+Resolvidos pela resposta da PM (2026-10-29):
+- Conflito data:image do CA 6 x caso negativo do card: imagem só em https; data:image e imagem em http são removidos; links seguem aceitando http, https e mailto; limite de 4000 segue para todo o HTML. Alinhado ao caso do dev (#165183). Observação da PM: a US no Azure DevOps não foi alterada (texto atualizado só no documento de referência .md).
+
+Desconsiderados a pedido (2026-10-29):
+- Casos do dev não cobrem CA 7 (HTML malformado), CA 8 (permissão) nem CA 10 (e-mail entregue): será coberto pelo mapa de testes.

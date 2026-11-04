@@ -14,6 +14,16 @@ Examples:
 
 ---
 
+## Regra transversal — Dúvidas viram aprendizados
+
+Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
+
+1. **Antes de perguntar à usuária** qualquer dúvida, pendência ou pedido de retorno, ler `INDICE.md`. Se existir aprendizado `Ativo` aplicável à mesma situação (escopo `Geral`, da skill, ou da própria US), aplicar sem perguntar e escrever no relatório `Aplicado APR-NNN`.
+2. **Ao perguntar**, depois da resposta e **antes de seguir**, gravar `APR-NNN_<slug>.md` (situação, pergunta, resposta, como aplicar, escopo) e a linha no `INDICE.md`. Resposta vaga ou adiada fica `Pendente`, não vira regra.
+3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
+4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
+5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
+
 ## O que muda em relação ao v2
 
 1. **Alvo de publicação diferente**: o mapa vai para a Descrição (HTML) do card "Criar Mapa de Teste" filho da história, não para um Test Case dentro de um Test Plan. Sem Test Plan, sem suíte, sem REST, sem PAT.
@@ -30,6 +40,10 @@ Examples:
 11. **Coluna `Pré-requisitos` por cenário** (Step 4.2b, 2026-10-20) — cada linha da tabela passa a declarar o que o **ambiente** precisa ter para o teste ser executável (ex.: processo configurado com 2 atividades de usuário, perfil de usuário específico, massa de dados, feature flag). A coluna é escrita em formato padronizado (`[CATEGORIA] requisito verificável`) para que uma skill posterior leia o mapa, inspecione o ambiente e valide se ele suporta a execução de cada cenário antes de `/executar-teste`. Esta skill apenas **declara** os pré-requisitos — não consulta nem valida o ambiente.
 
 12. **HTML interativo local do mapa** (Step 5b, 2026-10-21) — além do HTML publicado no card, a skill grava em `$CICLOS_DIR\US-<ID>\mapas-teste\` uma versão interativa (checkbox "Testado" com progresso, filtros, busca, exportar/importar marcações, tema claro/escuro, layout para celular), montada a partir do template versionado `$TEMPLATES_DIR\mapa-teste-viewer.template.html`. O conteúdo é o mesmo do mapa aprovado; só muda a apresentação. Não é publicado no Azure DevOps.
+
+13. **Consulta ao protótipo (Figma) em US de FE** (Step 3.9, novo) — quando a história é de front-end e a descrição traz link de protótipo Figma, a skill lê o protótipo (somente leitura) para validar **mensagens/textos** e **paridade** (colunas, ações, botões, estados). Os textos literais entram no Resultado Esperado dos cenários já justificados pelas fontes do Step 4.0, e o mapa ganha **cenários de fidelidade ao protótipo, um por quadro e estado** (item 14), que `/executar-teste` (Step 4.2b) executa por completo.
+
+14. **Fidelidade expressa ao protótipo (Figma) em US de FE** (Step 3.9 e categoria 10 do Step 4.3, 2026-11-03, pedido da usuária) — a tela deve ser **expressamente fiel ao protótipo** e **qualquer divergência deve ser sinalizada**, inclusive a pequena. Em vez de um único cenário de paridade, o mapa traz **um cenário de fidelidade por quadro e estado do protótipo que a US cobre** (inventário de quadros), com uma especificação de design extraída do Figma (textos, tipografia, cores, espaçamentos, bordas, raios, tamanhos, ícones, estados). A execução compara tudo isso (Step 4.2b do `/executar-teste`) e só dá `Passou` com zero divergência.
 
 ---
 
@@ -149,6 +163,27 @@ Divergência em cenário marcado como recomendação **não vira defeito automat
 
 ---
 
+## Step 3.9 — Protótipo (Figma) em US de FE (somente leitura)
+
+**Quando roda:** a história é de front-end **e** `$STORY_DESC` ou `$STORY_AC` traz link de protótipo `figma.com/design/...`. É de FE quando o título tem `FE` (ex.: `(FE)`), a descrição se declara de FE/front-end ou o módulo é um front do Share 4. Em dúvida se é FE, pergunte à usuária. Sem link, ou US que não é de FE: **pule sem erro** e registre em "Fonte técnica" `Protótipo não consultado: <motivo>`.
+
+**Procedimento:**
+1. Do link, extraia `fileKey` e `node-id` (`14246-2550` → `14246:2550`). Chame `create_session` do conector Figma com a `fileKey` e use o `sessionId` nas demais chamadas.
+2. `get_metadata` no nó do link para listar os quadros. A resposta costuma ser grande: salve e liste só os nomes dos quadros (ex.: com `python -I`/`jq`), em vez de lê-la inteira. O metadata **não traz os textos**.
+3. Escolha os quadros que mostram o que a US trata: a tela principal, os estados (vazio, busca sem resultado, carregando/scroll, erro), os modais de confirmação e bloqueio e os toasts de sucesso. Ignore os quadros de telas que a US declara fora do escopo.
+4. `get_screenshot` de cada quadro escolhido (`maxDimension` suficiente para ler o texto). Baixe o PNG (a URL é de curta duração e não deve ser repassada) para `$CICLOS_DIR\US-<ID>\mapas-teste\prototipo\` e leia a imagem. Transcreva **literalmente**: mensagens, títulos, botões, rótulos de coluna, tooltips, textos de estado vazio e de toast.
+5. Compare com a US e registre, em "Fonte técnica", só o que diverge ou que a US não define (ex.: elemento que o protótipo mostra e o CA manda não exibir; valor de coluna que só o protótipo mostra).
+6. **Inventário de quadros.** Liste **todos** os quadros e estados do protótipo que a US cobre (tela principal, cada estado: vazio, erro de validação por tipo de campo, duplicidade, edição, confirmação, bloqueio, carregando, toasts, modais) e marque os que a US declara fora do escopo. **Nenhum quadro do escopo pode ficar sem cenário de fidelidade.** Grave o inventário na especificação do item 7.
+7. **Especificação de design por quadro.** Para cada quadro do inventário chame `get_design_context` (somente leitura) e extraia, usando o valor padrão que aparece depois da vírgula em cada `var(--...)` do código retornado: textos literais; família, peso, tamanho e altura de linha; cor do texto, do fundo e da borda (hex); padding, gap, largura e altura fixas; largura e cor da borda; raio; sombra; tamanho e nome dos ícones; estados (hover, desabilitado, inativo, erro, foco quando o quadro mostra). Grave em `$CICLOS_DIR\US-<ID>\mapas-teste\prototipo\especificacao_<AAAA-MM-DD>.md`, uma tabela por quadro. É essa especificação que o `/executar-teste` mede contra a tela. O que não puder ser lido do quadro vai para uma lista "não especificado no protótipo" (não vira cenário).
+
+**Regras fixas:**
+- O Figma é **somente leitura**: nada é criado, editado ou comentado nele.
+- **A US vence o protótipo** só quando a US declara um comportamento ou texto diferente do protótipo (o protótipo pode estar desatualizado nesse ponto): o resultado esperado do cenário segue a US e, se mudar o esperado, pergunte à usuária antes de fechar o mapa. **Mesmo assim a divergência entre protótipo e US é sinalizada**: registre-a em "Fonte técnica" e no relatório da execução como "divergência declarada pela US". Fora disso, **o protótipo é a referência de fidelidade e não admite desvio**.
+- **Conector Figma não conectado**, ou arquivo sem acesso (página de login do Figma): **não autentique pelo navegador**. Pule o passo, registre `Protótipo não consultado: conector Figma não conectado` e marque os textos que a US remete ao Figma como `texto do Figma (não verificado)`. Isso não bloqueia o mapa.
+- O protótipo vale só para o que o Step 4.0 permite abaixo (6ª fonte); não cria regra de negócio.
+
+---
+
 ## Step 4 — Generate test map table
 
 ### 4.0 — Escopo de origem (obrigatório, ler antes de 4.1)
@@ -159,6 +194,8 @@ Todo cenário do mapa final precisa rastrear a **pelo menos uma** destas 4 fonte
 2. **Critérios de Aceite da história** (`$STORY_AC`).
 3. **Pontos de Impacto do dev** (`Custom.Pontosdeimpacto` do card `Análise`, ou a seção do relatório `/analise-tecnica` que rastreia diretamente a esse campo).
 4. **Casos de Teste do dev** (`Custom.CasodeTeste` do card `Análise`, ou a seção "Casos de teste sugeridos pelo dev" do relatório `/analise-tecnica`).
+
+**6ª fonte restrita, só quando o Step 3.9 rodou — Protótipo Figma:** serve (a) para redigir, dentro de um cenário já justificado pelas fontes acima, as mensagens, títulos, botões, rótulos e estados **literais** do protótipo e (b) para o **cenário único de paridade visual** do Step 4.4. Elemento que existe só no protótipo, sem Critério de Aceite, Ponto de Impacto ou Caso de Teste que o sustente, **não gera cenário**: vira observação em "Fonte técnica". A US prevalece sobre o protótipo quando divergem (Step 3.9).
 
 **Não é fonte suficiente, sozinha:** a narrativa investigativa da análise técnica (revalidações de infraestrutura, achados de performance em outro repositório/caminho de código, notas de "pontos de atenção" do dev que não viraram item explícito em Pontos de Impacto, discrepâncias entre análise e PR, dependências indiretas). Esse material serve para enriquecer a *Ação*/*Resultado Esperado* de um cenário já justificado pelas 4 fontes acima — nunca para, sozinho, criar um cenário novo. Motivo: mapas que puxavam cenário dessa narrativa vinham ficando difíceis/impossíveis de executar por irem além do que a própria história pede (decisão do time, 2026-09-22, herdada do produto anterior, US #138559).
 
@@ -223,6 +260,7 @@ Regras:
 7. `=== ERROS DE INTEGRACAO / API ===`
 8. `=== REGRESSAO ===` — alimentada por: (a) `Custom.Pontosdeimpacto` do card `Análise` (arquivos/componentes que o dev listou como alterados — não a lista mais ampla de "dependências indiretas" ou "integrações potencialmente impactadas" que só aparecem na narrativa); (b) `$DEFECT_HISTORY` do Step 3.5 — todo defeito histórico relevante vira pelo menos um cenário de regressão aqui
 9. `=== CASOS DE BORDA / HIPOTESES ===` (hipóteses não confirmadas — marcar `HIPOTESE:` e nunca inventar sem marcar)
+10. `=== FIDELIDADE AO PROTOTIPO ===` — só em US de FE com protótipo (Step 3.9): **um cenário por quadro/estado do inventário**; nunca um cenário único para a tela inteira.
 
 ### 4.4 — Regras de geração
 
@@ -231,6 +269,7 @@ Regras:
 - Todo cenário tem a coluna Pré-requisitos preenchida (Step 4.2b) — `Nenhum específico` quando não houver exigência, nunca vazia.
 - Todo cenário rastreia a uma das 4 fontes do Step 4.0 (Instruções QA, Critérios de Aceite, Pontos de Impacto do dev, Casos de Teste do dev) — nunca só à narrativa da análise técnica.
 - Considerar: validação de campos, comportamento de UI, consistência de dados, falhas de integração — sempre ancorado numa das 4 fontes acima, não como exploração livre do código/PR.
+- **Quando o Step 3.9 consultou o protótipo**, o Resultado Esperado dos cenários de mensagem, modal, toast e estado (vazio, sem resultado, carregando) leva o texto literal lido no Figma, não "texto do Figma". Crie, na categoria `=== FIDELIDADE AO PROTOTIPO ===`, **um cenário por quadro/estado do inventário** (Step 3.9, item 6), todos com técnica `exploratório`, tipo `positivo`, dimensão `regressão` e origem `história + protótipo`, pré-requisitos `[CONFIG] conector Figma conectado ao chat`, `[AMBIENTE]` com a US implantada e `[DADOS]` equivalentes aos do quadro. **Ação (padrão):** abrir o estado do quadro `<nome> (nodeId)` no mesmo tamanho de janela do quadro e comparar, item a item, com a especificação do Step 3.9 (item 7): (a) textos literais; (b) estrutura e elementos (ordem, rótulos, ícones, botões, campos); (c) medidas de design (tipografia, cores, espaçamentos, bordas, raios, tamanhos de controles e ícones); (d) estados e interações que o quadro mostra; (e) prints lado a lado. **Resultado Esperado (padrão):** zero divergência (tolerância apenas de ±1 px por arredondamento); toda divergência registrada com os dois prints e os valores esperado × obtido, e **o cenário só é `Passou` com zero divergência e nenhum aspecto não verificado**. Itens que a US manda ignorar (ex.: botão que o protótipo mostra e o CA manda não exibir) não contam como divergência, mas são citados. É esse conjunto que `/executar-teste` (Step 4.2b) executa por completo.
 
 ### 4.5 — Apresentar a tabela e pedir aprovação
 
@@ -245,7 +284,7 @@ Apresente a tabela completa no chat (markdown):
 - Tipo: `positivo`, `negativo`, `borda`
 - Técnica: `valor-limite`, `tabela-decisão`, `partição-equivalência`, `exploratório`
 - Dimensão: `positivo`, `negativo`, `permissão`, `dados`, `concorrência`, `regressão`
-- Origem: `história` (Instruções QA ou Critérios de Aceite), `análise técnica` (especificamente `Custom.Pontosdeimpacto` ou `Custom.CasodeTeste` — nunca a narrativa investigativa isolada, ver Step 4.0), `histórico de defeitos`, `hipótese`
+- Origem: `história` (Instruções QA ou Critérios de Aceite; quando o texto vem do protótipo, acrescente `+ protótipo`), `análise técnica` (especificamente `Custom.Pontosdeimpacto` ou `Custom.CasodeTeste` — nunca a narrativa investigativa isolada, ver Step 4.0), `histórico de defeitos`, `hipótese`
 
 **STOP HERE. Do NOT proceed to Step 5 until the user explicitly confirms.**
 
@@ -347,7 +386,7 @@ Executar **depois da aprovação do Step 4.5**, com a mesma tabela aprovada, e *
    - `{{PREREQ_HTML}}`: o mesmo consolidado do Step 5, em `<li>`.
    - `{{CHAVE_STORAGE}}` = `mapa-teste-us-<ID>-<slug>-testados-v1`; `{{ARQUIVO_EXPORT}}` = `mapa-teste-us-<ID>-<slug>.html` (`<slug>` curto, minúsculo, sem acentos).
 3. **Regras de apresentação (as mesmas do modelo de referência):**
-   - Coluna **Origem** em siglas: `CA<n>` (Critério de Aceite), `CT` (Casos de Teste do dev), `PI` (Pontos de Impacto do dev), `Bug #<id>` (histórico de defeitos). Cenário `HIPOTESE:` leva `HIPOTESE: <siglas>, hipótese` e a linha recebe `class="row-hipotese"` e o selo `<span class="hip-badge">hipótese</span>` antes do nome (sem repetir o prefixo `HIPOTESE:` no texto).
+   - Coluna **Origem** em siglas: `CA<n>` (Critério de Aceite), `CT` (Casos de Teste do dev), `PI` (Pontos de Impacto do dev), `Bug #<id>` (histórico de defeitos), `+ protótipo` quando o texto literal veio do Figma (Step 3.9). Cenário `HIPOTESE:` leva `HIPOTESE: <siglas>, hipótese` e a linha recebe `class="row-hipotese"` e o selo `<span class="hip-badge">hipótese</span>` antes do nome (sem repetir o prefixo `HIPOTESE:` no texto).
    - Tags: `tag-positivo` / `tag-negativo` em Tipo e Dimensão, `tag-regressao` em Dimensão `regressão`, `tag` simples nos demais.
    - Linha `N/A` (ex.: Concorrência): Configurações = `Nenhum específico`; Ação, Resultado, Tipo e Técnica = `—`.
    - Pré-requisitos no formato `[CATEGORIA] requisito` separados por `<br>`, texto idêntico ao do Step 5. Escape de `&`, `<` e `>` em todo texto de célula.
@@ -396,6 +435,7 @@ Reporte ao usuário:
 - **Dimensões cobertas:** lista das dimensões (positivo/negativo/permissão/dados/concorrência/regressão) efetivamente presentes na tabela aprovada, e quais ficaram `N/A` com o motivo.
 - **Pré-requisitos de ambiente:** lista consolidada dos requisitos distintos (por categoria) e quantos cenários dependem de cada um — é o que a skill de validação de ambiente vai consumir.
 - **Histórico de defeitos considerado:** IDs dos bugs de `$DEFECT_HISTORY` que geraram cenário de regressão, ou "nenhum encontrado / busca indisponível".
+- **Protótipo (Figma):** se o Step 3.9 rodou, quais quadros foram lidos, onde ficaram os prints (`$CICLOS_DIR\US-<ID>\mapas-teste\prototipo\`) e as divergências entre protótipo e US (a US prevalece); ou o motivo de `Protótipo não consultado`.
 - **Hipóteses em aberto:** se o Step 6.5 rodou, quantas hipóteses foram notificadas via comentário na história (ou, se falhou ao postar, avisar explicitamente que o comentário não saiu e o mapa segue com as hipóteses marcadas, só sem o aviso na história).
 
 ```powershell
@@ -431,4 +471,5 @@ falhou, se for o caso).
 - O comentário do Step 6.5 vai na **história** (`$WI_ID`), nunca no card "Criar Mapa de Teste" — postar lá misturaria o conteúdo do mapa com discussão, e ninguém olha o histórico de comentários de um card de mapa. Nunca mover os cenários `HIPOTESE:` para fora da tabela do mapa por causa desse comentário — ele é um apontador, não um substituto do mapa.
 - Se não for possível determinar o pré-requisito de um cenário a partir das 4 fontes, não deixe a célula vazia nem invente: registre o item com prefixo `HIPOTESE:` (Step 4.2b), para que a skill de validação de ambiente o trate como não verificável.
 - O HTML interativo do Step 5b é só um arquivo local de apoio à execução manual: o que vale como mapa é o conteúdo publicado no card. Se os dois divergirem, refaça o Step 5b a partir da tabela aprovada — nunca edite o mapa só no arquivo local.
+- Se o protótipo (Step 3.9) mostra algo que a US não pede ou manda não exibir (ex.: botão de filtro), **não crie cenário** nem trate como defeito: a US prevalece, e a diferença vai como observação em "Fonte técnica" e como nota no cenário de paridade visual.
 - Se, ao montar um cenário, a única justificativa que você consegue escrever na coluna Origem é "achei isso interessante na análise técnica" sem apontar para Instruções QA/Critérios de Aceite/Pontos de Impacto/Casos de Teste (Step 4.0), **não crie o cenário** — é sinal de que ele está fora do escopo da história, mesmo que pareça um risco técnico legítimo.

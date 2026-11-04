@@ -1,19 +1,19 @@
 # Manifesto de arquivos
 
-Gerado em 2026-10-14; atualizado em 2026-10-29 (rodada 12, analise-negocio.md, analise-tecnica.md e gerar-mapa-testes-v3.md). Hash = SHA-256 (12 primeiros caracteres).
+Gerado em 2026-10-14; atualizado em 2026-11-04 (rodada 15, hashes de destino recalculados nas 10 skills). Hash = SHA-256 (12 primeiros caracteres).
 
 | Arquivo | Origem (bytes) | Origem hash | Destino (bytes) | Destino hash | Estado |
 |---|---|---|---|---|---|
-| analise-falha.md | 5455 | 1325ac1d7513 | 5472 | 9f94b701046e | Modificado |
-| analise-negocio.md | 7063 | 68bf9fc61bc0 | 19037 | e81b869fda49 | Modificado |
-| analise-tecnica.md | 10973 | d3369839b6af | 18190 | 082003a2cb36 | Modificado |
-| atualizar-documentacao.md | 7294 | ef541734fc9c | 7337 | 8b45ed1891e0 | Modificado |
-| executar-teste.md | 45269 | 17e044e558ab | 51689 | 39e91656ae6a | Modificado |
-| gerar-defeito.md | 12905 | d7efb0134f2b | 14037 | d037ec7dfa42 | Modificado |
-| gerar-mapa-testes-v3.md | 28803 | e39d8766ea3d | 39754 | 1d6a8b846130 | Modificado |
-| homologar-release.md | 10883 | f346c62978a3 | 10813 | 6c45586c8bf2 | Modificado |
-| priorizar-automacao.md | 8023 | 748527c4d4d9 | 8218 | 65ec81166dc1 | Modificado |
-| validar-ambiente.md | — | — | 32365 | 528dd6d3c974 | Adicionado (rodada 4) |
+| analise-falha.md | 5455 | 1325ac1d7513 | 6611 | 3debd0c49a01 | Modificado |
+| analise-negocio.md | 7063 | 68bf9fc61bc0 | 20176 | 585d805f6a12 | Modificado |
+| analise-tecnica.md | 10973 | d3369839b6af | 22625 | 9d09eccc7374 | Modificado |
+| atualizar-documentacao.md | 7294 | ef541734fc9c | 8476 | 9cf2f775c2c1 | Modificado |
+| executar-teste.md | 45269 | 17e044e558ab | 57840 | f06022955ffb | Modificado |
+| gerar-defeito.md | 12905 | d7efb0134f2b | 15176 | f17b043f3f85 | Modificado |
+| gerar-mapa-testes-v3.md | 28803 | e39d8766ea3d | 48932 | 756ff1c1de23 | Modificado |
+| homologar-release.md | 10883 | f346c62978a3 | 11952 | 0c7d64868541 | Modificado |
+| priorizar-automacao.md | 8023 | 748527c4d4d9 | 9357 | b08c9e7723b8 | Modificado |
+| validar-ambiente.md | — | — | 43987 | c3db927d505f | Adicionado (rodada 4) |
 
 Fora do escopo (não são skills; não copiados): `analise-riscos-skills-extensas.md`, `analise-skills-bpm-ecm.md`.
 Adicionados no destino (artefatos de controle): `REGISTRO_ALTERACOES.md`, `MAPA_EVIDENCIAS_KB.md`, `BACKLOG_REFATORACAO.md`, `comparativo/*`.

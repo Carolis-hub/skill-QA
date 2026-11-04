@@ -14,6 +14,16 @@ Este comando é **somente leitura**. É a etapa de Análise Técnica (equivalent
 
 ---
 
+## Regra transversal — Dúvidas viram aprendizados
+
+Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
+
+1. **Antes de perguntar à usuária** qualquer dúvida, pendência ou pedido de retorno, ler `INDICE.md`. Se existir aprendizado `Ativo` aplicável à mesma situação (escopo `Geral`, da skill, ou da própria US), aplicar sem perguntar e escrever no relatório `Aplicado APR-NNN`.
+2. **Ao perguntar**, depois da resposta e **antes de seguir**, gravar `APR-NNN_<slug>.md` (situação, pergunta, resposta, como aplicar, escopo) e a linha no `INDICE.md`. Resposta vaga ou adiada fica `Pendente`, não vira regra.
+3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
+4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
+5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
+
 ## Regra fundamental
 
 **A fonte da verdade técnica é o card `Análise`, preenchido pelo dev — não o LLM.** Este comando não deve inferir classes, métodos ou componentes impactados que não estejam:
@@ -134,6 +144,25 @@ Se `$ANALISE_PONTOS` for muito genérico (ex.: "ajustes no back-end"), não crie
 
 ---
 
+## Step 3.8 — Validar as pendências no clássico (somente se houver pendência)
+
+Antes de montar o relatório, liste os pontos pendentes pelos mesmos critérios do Step 4.5 ("Quando criar"). **Sem nenhum ponto pendente, pule este passo.** Com pelo menos um, confirme no código do SmartShare clássico, via hub, o que cada item de comportamento ou regra diz do legado, antes de pedir resposta ao dev ou à PM.
+
+- **Quais itens entram:** os que dependem de comportamento legado — divergência entre o card e a US sobre regra, mensagem, ordem, bloqueio, log, "igual ao Clássico", impacto oculto no Clássico, regra que a US diz manter. **Não entram:** pendência de ambiente, de infraestrutura, de segurança sem paralelo no legado, de campo vazio no card, nem o que o Step 3 já classificou como fora do escopo desta análise.
+- **Onde ler (somente leitura):** hub = `SMARTSHARE_HUB`; se ausente, `C:\GIT\smartshare-hub`; projeto `SmartShare/`. Nesta ordem:
+  1. `SmartShare/.claude/docs/analises-realizadas/` — se já existe diagnóstico da tela, use-o e não releia o clássico.
+  2. A tela em `SmartShareWeb/` (referência da solution), no `.aspx.cs` do assunto: a regra costuma estar na própria página (SQL na página, `DbConn`). `WebApplication/` é cópia: se divergir de `SmartShareWeb/`, registre o delta, não misture.
+  3. Só então os símbolos que a página chama (BLL, `Log`, helpers), parando quando o helper já não muda a regra.
+- **Hub ausente ou item sem tela correspondente:** pule sem erro e registre em "Informações ausentes" que o clássico não foi consultado. Código de `Library`, `bin`, `obj`, `packages` e `*.designer.cs` não vale como regra; DLL sem fonte não se descreve.
+- **Resultado por item**, com rótulo `lida-no-codigo` e a evidência `arquivo:símbolo` (nunca colar método inteiro):
+  - **Confirmado pelo clássico** — o código faz o que a US ou o card afirma.
+  - **Diverge do clássico** — o código faz outra coisa; descreva em uma linha o que o clássico faz e o que a US/card diz.
+  - **Lacuna** — não foi possível ler (DLL sem fonte, regra só no banco ou em JavaScript não localizado). Não vira critério.
+- **Regras fixas:** o hub é somente leitura (nenhuma edição, checkout, pull, fetch, build ou script que escreva); nada no banco, nem `SELECT` de sonda; não copiar segredo (connection string, chave, licença); não abrir browser — "vista-no-browser" não se obtém nesta skill. O clássico **corrobora ou contesta, não substitui** a resposta do dev nem a decisão da PM: divergência vira achado para eles, não correção do card, da US ou do mapa.
+- A mensagem, o log e a regra que o clássico faz e a US redefine de propósito (regra nova da US) aparecem como **diverge**, para o time decidir; esta skill não decide qual vale.
+
+---
+
 ## Step 4 — Relatório final
 
 ```
@@ -177,6 +206,11 @@ Se `$ANALISE_PONTOS` for muito genérico (ex.: "ajustes no back-end"), não crie
 |---|---|---|---|
 (ou "sem pendências do dev a validar" / "arquivo não encontrado — /analise-negocio não registrou pendências")
 
+## Validação das pendências no clássico (hub)
+| Pendência | Resultado (Confirmado / Diverge / Lacuna) | Evidência (`arquivo:símbolo`, lida-no-codigo) | O que o clássico faz |
+|---|---|---|---|
+(ou "sem pendências a validar" / "hub não consultado: <motivo>")
+
 ## Casos de teste sugeridos pelo dev
 ...
 
@@ -187,7 +221,7 @@ Se `$ANALISE_PONTOS` for muito genérico (ex.: "ajustes no back-end"), não crie
 - Informação não encontrada / necessita validação: ...
 ```
 
-Antes de finalizar, execute o Step 4.5 (registrar pendências). Finalize perguntando se o usuário quer seguir para `/gerar-mapa-testes-v2 <ID>` — não encadeie automaticamente.
+Se houver pendência, o Step 3.8 (validação no clássico) roda antes do relatório. Antes de finalizar, execute o Step 4.5 (registrar pendências). Finalize perguntando se o usuário quer seguir para `/gerar-mapa-testes-v2 <ID>` — não encadeie automaticamente.
 
 ---
 
@@ -228,7 +262,7 @@ Itens pendentes na análise:
 2. <pendência em uma linha>
 ```
 
-- Os itens são os mesmos destacados ao usuário no relatório e no aviso ao dev, escritos de forma curta.
+- Os itens são os mesmos destacados ao usuário no relatório e no aviso ao dev, escritos de forma curta. Quando o Step 3.8 validou o item no clássico, acrescente ao fim da linha `[clássico: confirmado | diverge | lacuna]`.
 - Se a tarefa não tem ID no Azure DevOps, use `Task <nº> - <assunto>.txt` e escreva "(sem ID no Azure DevOps)" no cabeçalho.
 
 ### Ciclo de vida

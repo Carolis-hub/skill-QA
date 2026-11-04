@@ -12,7 +12,7 @@ Exemplos:
 
 Esta skill fica **entre** `/gerar-mapa-testes-v3` e `/executar-teste`: o primeiro declara, por cenário, o que o ambiente precisa ter (coluna `Pre-requisitos`); esta skill olha o ambiente real, **configura o que faltar** e responde "esse ambiente consegue rodar esses cenários?". Não executa cenário nenhum.
 
-**Arquivo de configuração (`$AMBIENTE_CFG`)** = `C:\skills-qualidade\config\ambiente-teste.local.md`, caminho absoluto. É preenchido pela usuária (modelo em `templates\ambiente-teste.template.md`) com: ambientes, caminhos das telas de configuração (relativos à URL base), login/senha do admin e usuários de teste. Contém senhas: nunca vai para o GitHub nem para relatório/chat/work item.
+**Arquivo de configuração (`$AMBIENTE_CFG`)** = `C:\skills-qualidade\config\ambiente-teste.local.md`, caminho absoluto. É preenchido pela usuária (modelo em `templates\ambiente-teste.template.md`) com: ambientes, caminhos das telas de configuração (relativos à URL base), login/senha do admin e usuários de teste. Contém senhas: nunca vai para o GitHub nem para relatório/chat/work item. Tem também a seção **"Destinatário de e-mail de teste"** (só o endereço do domínio selbetti da usuária, sem senha), usada pela regra de notificação por e-mail (Step 4.6).
 
 **URL base (`$URL_BASE`)** = perguntada à usuária **a cada execução** (Step 0.3), nunca assumida do arquivo. Ex.: `http://localhost:8080/smartshare/`. Toda URL de tela é `$URL_BASE` + caminho relativo da tabela "Telas de configuração" abaixo.
 
@@ -30,6 +30,16 @@ Perfil, área e papel são **dependências do cadastro de usuário** (Step 4.5).
 
 ---
 
+## Regra transversal — Dúvidas viram aprendizados
+
+Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
+
+1. **Antes de perguntar à usuária** qualquer dúvida, pendência ou pedido de retorno, ler `INDICE.md`. Se existir aprendizado `Ativo` aplicável à mesma situação (escopo `Geral`, da skill, ou da própria US), aplicar sem perguntar e escrever no relatório `Aplicado APR-NNN`.
+2. **Ao perguntar**, depois da resposta e **antes de seguir**, gravar `APR-NNN_<slug>.md` (situação, pergunta, resposta, como aplicar, escopo) e a linha no `INDICE.md`. Resposta vaga ou adiada fica `Pendente`, não vira regra.
+3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
+4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
+5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
+
 ## Regra fundamental (guardrails)
 
 - **Só atua em ambiente de teste.** A `$URL_BASE` é informada pela usuária a cada execução (Step 0.3) e a skill só navega em URLs que comecem por ela. Host `localhost`/`127.0.0.1` é aceito como teste; qualquer outro host só é aceito se a usuária confirmar na hora que é teste (e, havendo o ambiente no `$AMBIENTE_CFG`, com `Tipo = teste`). Produção ou URL não confirmada → parar e perguntar antes de navegar. Nunca inventar URL.
@@ -37,11 +47,14 @@ Perfil, área e papel são **dependências do cadastro de usuário** (Step 4.5).
 - **Configuração é por UI, com plano confirmado.** Criar/ajustar pela interface (nunca `INSERT`/`UPDATE`/`DELETE` no banco; banco só `SELECT`). O que será configurado é apresentado no Step 3 e só começa com o "sim" explícito da usuária.
 - **Aditivo e rastreável.** Pode **criar** (usuário, processo, parâmetro, registro) e **ligar/ajustar** configuração exigida pelo requisito. Nunca excluir nem sobrescrever dado/configuração existente que não seja do requisito, nunca redefinir senha de usuário existente, nunca conceder perfil de administrador a usuário de teste. **Única exceção:** o administrador de automação `Claude-adm` do Step 0.3b, criado uma única vez, a pedido da usuária, para uso exclusivo desta skill. Cada mudança é registrada no relatório com **antes → depois**, para a usuária poder desfazer.
 - **Ação irreversível ou de efeito fora do ambiente pede confirmação própria**, mesmo com o plano aprovado: publicar/ativar versão que não pode ser revertida, disparar integração real, enviar e-mail/notificação real, apagar algo. Se o requisito só se satisfaz assim e a usuária não autorizar → `NAO ATENDIDO`.
+- **Notificação por e-mail segue a regra do Step 4.6.** Sempre que um requisito ou cenário (de qualquer categoria) depender de e-mail de notificação enviado ou recebido, o destinatário só pode ser o e-mail do domínio selbetti da usuária, **confirmado por ela a cada execução**, e valem as regras de validade do Step 4.6. Nunca outro endereço, nunca webmail nem senha de caixa.
 - **Nunca marcar `ATENDIDO` ou `CONFIGURADO` sem evidência.** Cada um precisa apontar a observação que o comprova (tela/consulta e valor encontrado). Depois de configurar, **reverifique** o requisito pela UI; sem confirmação → não vale.
 - **Tentar antes de declarar `NAO VERIFICAVEL`/`NAO ATENDIDO`.** Razões válidas para `NAO VERIFICAVEL`: (1) falta de acesso (credencial, permissão, URL, MCP) depois de uma tentativa real; (2) requisito vago, sem número, `HIPOTESE:`; (3) só verificável por ação proibida acima. "Não tentei" não é motivo.
 - **Credenciais só no `$AMBIENTE_CFG`.** Senha de admin e de usuário (informado ou criado) nunca vai ao relatório, ao chat, ao LOG-ACOES ou ao work item. Connection string e token idem.
 - **Dúvida de conceito ou de como configurar: consultar o hub, senão sinalizar. Nunca inventar.** Termos do mapa que a skill não saiba definir (ex.: "o que é um usuário publicador?", "como crio um perfil?", qual permissão compõe um perfil, onde fica um parâmetro) seguem o Step 3.5. Sem definição no hub, KB ou memória, a skill **não chuta** perfil, permissão ou configuração: sinaliza à usuária e deixa o requisito `NAO VERIFICAVEL`/`NAO ATENDIDO`.
 - **Não reinterpretar o mapa.** Esta skill não cria, remove nem edita cenários ou pré-requisitos; se um pré-requisito parecer errado ou faltar, sinalize e deixe a correção para `/gerar-mapa-testes-v3`.
+
+- **Dado simulado (mock) invalida a validação.** O ambiente de teste deve ser o mais próximo possível do cenário real: tela ou endpoint que serve dado simulado (data service em memória, fixture, resposta fixa) não valida dado nem integração. A skill **sempre** verifica isso (Step 3.7) antes de configurar qualquer dado. Mock confirmado → **gera defeito imediatamente** (Step 3.7), por instrução da usuária de 2026-11-03, e o veredito nunca é `PRONTO`. Não "contorna" criando dado no mock.
 
 ---
 
@@ -120,6 +133,8 @@ Antes de navegar, apresente à usuária:
 | `INTEGRACAO` | Acessibilidade do serviço (URL/tela de status, conector configurado) | Só configurar o conector no ambiente de teste. Nunca disparar operação real com efeito colateral |
 | `AMBIENTE` | Versão/build, URL, disponibilidade. **Protótipo Figma:** pelo conector (Step 0.5b), extraia `fileKey` e `node-id` do link da US (`figma.com/design/<fileKey>/...?node-id=<a>-<b>` → nó `<a>:<b>`) e chame `get_metadata` nesse nó (somente leitura). Respondeu com os frames → `ATENDIDO` (evidência: nome do arquivo/página e frames encontrados, ex.: "Handoff", "Fluxo completo"); link sem `node-id` → liste as páginas (`get_metadata` sem nó) e peça um link do nó; erro de permissão/arquivo → `NAO ATENDIDO` com a mensagem; sem conector → `NAO VERIFICAVEL` | Nada a configurar: divergência vira `NAO ATENDIDO` com instrução |
 
+**Notificação por e-mail:** se algum requisito depender dela (Step 4.6), mostre também aqui o endereço selbetti lido de "Destinatário de e-mail de teste" no `$AMBIENTE_CFG` e **peça à usuária para confirmá-lo** (e para confirmar que o Agent está em execução) antes de configurar qualquer coisa. A confirmação é **obrigatória em toda execução, mesmo com o endereço preenchido no arquivo**: mostre o endereço escrito por extenso, peça para conferir a grafia (um erro de digitação manda o e-mail a outra pessoa) e só siga com o "confirmo" dela; se ela corrigir, use o endereço corrigido nesta execução e avise que o arquivo precisa ser ajustado (não o reescreva sem pedido). Endereço ausente ou `<preencher>` → peça o campo. Sem a confirmação, os requisitos de e-mail ficam `NAO VERIFICAVEL (destinatário não confirmado)`.
+
 Liste explicitamente cada item que será criado/alterado (`o quê`, `onde`, `valor`). **A configuração só começa com o "sim" da usuária neste plano**; sem ele, a skill roda só a verificação e os ausentes ficam `NAO ATENDIDO`. Se `$ambiente` parecer produção ou não for `teste` no arquivo, pare aqui (guardrail). Com muitos requisitos, diga a ordem planejada — comece pelos que bloqueiam mais cenários — e prossiga; não pede nova confirmação por requisito, salvo ação irreversível.
 
 ---
@@ -133,6 +148,33 @@ Para cada requisito cujo termo ou configuração a skill não saiba definir (ex.
 3. **Não localizou?** **Sinalize à usuária** e não configure: diga o termo, o que buscou (hub: onde procurou; KB/memória) e a pergunta objetiva (ex.: "o que define o perfil publicador no SmartShare e como é criado?"). Registre em "Dúvidas sinalizadas" do relatório. O requisito fica `NAO VERIFICAVEL (definição não localizada)`; se a usuária responder na hora, siga com a resposta e registre a fonte como "informado pela usuária".
 
 Hub ausente (nenhum caminho existe) não é erro: pula o item 1 e registra que o código não foi consultado. O que o hub revelar entra como evidência, mas **não substitui** o texto do mapa: divergência entre hub e mapa vai para "Observações".
+
+---
+
+## Step 3.7 — Verificar se a tela e os dados são reais ou simulados (mock) — e gerar defeito se forem simulados
+
+Roda **antes** de configurar qualquer dado (Step 4): criar dado em tela que usa mock não prova nada. Aplica-se a cada tela sob teste que o mapa usa (a da US e as que ela alimenta). É verificação de **leitura**: só usa dado que o plano do Step 3 já previa criar ou que já existe.
+
+**Como verificar (registre cada evidência no relatório):**
+1. **Rede.** Com a tela aberta, faça uma leitura (abrir a listagem) e, se o plano já previa gravar algo, uma gravação, e consulte `browser_network_requests` (ou `read_network_requests`). A tela não fez nenhuma chamada de API de dados (`/api`, `/be/`, serviço do BE) → indício de mock. Chamada só de arquivos estáticos, i18n e shell da aplicação não conta como dado.
+2. **Persistência.** Depois de criar **um** registro mínimo (só se o plano do Step 3 já previa criá-lo), recarregue a página (F5). Registro sumiu → dado em memória (mock).
+3. **Fonte real.** Se o mesmo ambiente tem outra tela com dado real do mesmo domínio (ex.: o Clássico) e a listagem nova abre vazia ou diferente dela → indício de que não lê a mesma base.
+4. **Código (somente leitura).** Se o caminho do código da tela é conhecido (hub ou clone local do projeto), procure `mock`, `simulad`, `INITIAL_`, `of(` no serviço de dados da tela e cite `arquivo:linha`. Não altere nada.
+
+**Conclusão:** novo requisito implícito `[AMBIENTE] dados reais (não simulados) em <tela>`:
+- `ATENDIDO` quando há chamada de API de dados **e** o registro persiste ao recarregar;
+- `NAO ATENDIDO` (**mock confirmado**) com **duas ou mais** evidências concordando (rede + persistência, ou código + uma delas);
+- `NAO VERIFICAVEL` quando não deu para observar (browser indisponível, evidência única ou contraditória).
+
+**Se o mock for confirmado, gere o defeito agora, sem esperar o fim da validação e sem pedir nova aprovação** (instrução explícita da usuária, 2026-11-03: "para que seja possível realizar os testes o ambiente deve estar o mais próximo possível do cenário real"). Siga o formato do `/gerar-defeito` e crie via MCP (nunca REST para criar):
+- **Título:** `BUG - [Ambiente de teste usa dados simulados (mock) em <tela>]`;
+- **ReproSteps** (campo `Microsoft.VSTS.TCM.ReproSteps`, em HTML): contexto (US, mapa, ambiente e URL base), **cenário de origem** no rótulo fixo `<p><strong>Cenário de origem:</strong> N/A — validação de ambiente do mapa de testes #<MAPA_ID></p>`, passos para reproduzir cada evidência, resultado esperado (dado real vindo do BE/banco, persistente, igual ao cenário de produção), resultado atual com as evidências (chamadas de rede ausentes, registro que some, trecho do código com `arquivo:linha`), impacto (resultado de teste de dado e de integração não reflete o cenário real; cenários que dependem de dado persistente ou legado ficam sem valor de aceite), ambiente e versão;
+- **Severidade sugerida:** Alta, "a confirmar com o time" (impede validar dado e integração);
+- **Vínculo:** filho da US (`wit_work_item_link_write`, `type: "parent"`), conferindo `Hierarchy-Reverse`; anexe as evidências pelo mesmo procedimento do Step 3.5 do `/gerar-defeito`;
+- se a US ou a análise técnica **já declara** que a simulação é provisória (ex.: "sem integração com o BE: simulado no data service mock"), diga isso no Bug e mesmo assim gere: a decisão de aceitar o risco é do time, não da skill;
+- antes de criar, busque Bug aberto do mesmo problema (`search_work_items`) e, se existir, **comente nele** em vez de duplicar.
+
+**Efeitos na validação:** o `[AMBIENTE] dados reais` fica `NAO ATENDIDO`; requisitos `[DADOS]` e `[INTEGRACAO]` que dependem da tela com mock viram `NAO ATENDIDO` com o motivo "dado simulado (ver Bug #<id>)" — **não** se tenta configurá-los (nada de dado criado em mock) —, e o veredito geral nunca é `PRONTO`: o máximo é `PARCIALMENTE PRONTO`, e os cenários que dependem da tela com mock ficam `BLOQUEADO` (motivo: dado simulado). O `/executar-teste` **recusa executar** em ambiente com mock (guardrail do Step 0.5 dele): o caminho é integrar a tela ao BE e revalidar.
 
 ---
 
@@ -155,11 +197,26 @@ Pare e peça ajuda (uma pergunta objetiva) só quando faltar acesso que a usuár
 1. **Defina o usuário** a partir do texto do requisito (ex.: "usuário com perfil Aprovador"). Vago, sem perfil identificável → `NAO VERIFICAVEL (requisito vago)`. Perfil/grupo inexistente no ambiente → não crie o perfil; `NAO ATENDIDO` com instrução. Um usuário serve a todos os requisitos que ele satisfaz.
 2. **Reaproveite:** procure em "Usuários de teste" do `$AMBIENTE_CFG` um usuário do ambiente com esse perfil e confirme que existe e entra (login com a credencial do arquivo). Existindo → `ATENDIDO` (evidência: "informado em `$AMBIENTE_CFG`, login confirmado"). Falhou o login → não redefina a senha; trate como ausente e crie outro (observação na linha antiga: "login falhou em <data>").
 3. **Prepare as dependências do usuário (perfil, área, papel).** Abra a tela de usuário (`$URL_BASE` + `workspace/management/configuracoes/usuario`) e identifique quais desses itens o cadastro exige. Para cada um que o requisito pede e **não existe**, crie-o antes do usuário pela respectiva tela (perfil e papel: telas da tabela "Telas de configuração"; área: sem tela própria, só seleção), sempre de forma aditiva e registrando antes → depois. Se o item já existe, reaproveite (não edite). Não localizou a definição de qual permissão compõe o perfil/papel → Step 3.5, não chute. A ordem de criação segue o que a tela de usuário exigir; não presuma.
-4. **Crie** pelo cadastro de usuários do ambiente (`$URL_BASE` + caminho de usuário; admin do arquivo): login `qa.<perfil-sem-acento-minusculo>.us<ID>`; e-mail, se obrigatório, no domínio de teste do ambiente e nunca de pessoa real; senha aleatória de 16 caracteres gerada na hora (maiúscula, minúscula, número, símbolo), ex.: `-join ((48..57)+(65..90)+(97..122)+(33,35,36,37,42,43,45,63) | Get-Random -Count 16 | % {[char]$_})`; só o perfil/permissão exigido. Se o sistema forçar troca de senha no primeiro acesso, desmarque quando existir; senão faça o primeiro login, troque para a senha gerada e anote na Observação.
+4. **Crie** pelo cadastro de usuários do ambiente (`$URL_BASE` + caminho de usuário; admin do arquivo): login `qa.<perfil-sem-acento-minusculo>.us<ID>`; e-mail, se obrigatório, no domínio de teste do ambiente e nunca de pessoa real (**exceção:** usuário destinatário de notificação por e-mail usa o endereço selbetti confirmado da usuária, Step 4.6); senha aleatória de 16 caracteres gerada na hora (maiúscula, minúscula, número, símbolo), ex.: `-join ((48..57)+(65..90)+(97..122)+(33,35,36,37,42,43,45,63) | Get-Random -Count 16 | % {[char]$_})`; só o perfil/permissão exigido. Se o sistema forçar troca de senha no primeiro acesso, desmarque quando existir; senão faça o primeiro login, troque para a senha gerada e anote na Observação.
    **4.1 Vincule os perfis "Geral" (obrigatório ao criar qualquer usuário).** Logo depois de criar (o cadastro abre em `.../usuario/editar/<cd_usuario>`), abra a aba **Perfis** e, em **cada** seção da tela, marque o grupo **Geral** (o checkbox "Select Geral" no topo da árvore, que marca também os filhos), depois **Salvar**. Seções: **Grupos que atuam como leitor** e **Grupos para quem podem publicar** (todos os tipos de usuário) e, só para o tipo **Administrador**, também **Grupos que administram** (3 seções). Cada seção é um acordeão: expanda os fechados antes de marcar. Registre antes → depois. Observado em 2026-10-26: o checkbox só muda com clique de mouse real nas coordenadas dele (`mouse.click`), e `check({force:true})` não marca a partir da 2ª seção.
    **Também no mesmo cadastro, pois sem isso o login do usuário novo não conclui na tela** (a API `autenticar` responde 200, mas o front volta ao login com `You provided 'undefined' where a stream was expected`): escolha uma **Área principal ativa** (a área "TI" estava inativa: salvar com ela falha com "Usuário não pode ser ativado — Área Principal inativa"; use uma área ativa, ex.: "Area Padr?o") e preencha o **Menu inicial** (ex.: "Minhas atividades"). Observado em 2026-10-26 com o conjunto área ativa + perfis Geral + Menu inicial; qual dos três é o mínimo necessário não foi isolado.
 5. **Reverifique:** o usuário aparece no cadastro com o perfil, os perfis "Geral" ficaram marcados ao reabrir a aba Perfis e o login com a senha gerada **conclui na tela** (entra em `/bpm?redirect=my-tasks`; faça em contexto de navegador separado para não derrubar a sessão do admin; depois deslogue). Só então `CONFIGURADO`.
 6. **Grave** uma linha em "Usuários de teste" do `$AMBIENTE_CFG` (via `Edit`, **anexando**; nunca apague nem reescreva linhas existentes): `Login | Senha | Perfil | Ambiente | CRIADO | <US> | <data> | <obs>`.
+
+### 4.6 — Notificação por e-mail (regra transversal)
+
+Aplica-se **sempre** que um requisito ou cenário, de qualquer categoria, depender de notificação por e-mail enviada ou recebida (ex.: e-mail do BPM, aviso de documento, alerta de tarefa).
+
+1. **Destinatário único.** Só o e-mail do domínio selbetti da usuária, lido de "Destinatário de e-mail de teste" no `$AMBIENTE_CFG` e **confirmado por ela a cada execução** (Step 3). Nunca outro endereço (pessoa real, domínio externo, Gmail), nunca login em webmail, nunca senha de caixa de e-mail.
+2. **Agent.** O envio é feito pelo `SmartShareAgent`, serviço do Windows que a usuária mantém em execução. A skill não consegue verificá-lo pela UI: peça a confirmação (Step 3) e **nunca tente iniciar ou parar o serviço**. Sem confirmação → o envio fica `NAO VERIFICAVEL (Agent não confirmado)`.
+3. **Regras de validade para receber** (lidas no código do clássico, `SmartShareAgent/Notify.cs`; no caminho novo do net8 são hipótese até o dev confirmar):
+   - existe notificação **ativa** (`st_ativo = 1`) para o par aplicação/ação do evento; o par é único e o sistema recusa duplicado. Existindo, reaproveite sem editar; não existindo, crie pela tela;
+   - o destinatário da notificação é um **perfil**, e os **perfis filhos** (por perfil pai) também recebem;
+   - o usuário que recebe pertence a esse perfil (ou a um filho), está **ativo**, **não está ausente** e tem o e-mail igual ao endereço selbetti confirmado.
+4. **Usuário destinatário.** Reaproveite um usuário de teste que cumpra o item 3; senão crie conforme o 4.5, com o e-mail selbetti confirmado. **Nunca altere o e-mail de um usuário existente** (regra aditiva).
+5. **Todos os destinatários do perfil.** Antes de qualquer disparo, liste os usuários do perfil destinatário (e dos filhos) com o e-mail de cada um. Se algum tiver e-mail que não seja o selbetti confirmado ou um endereço de teste, **não dispare**: sinalize em "Dúvidas sinalizadas" e deixe o requisito `NAO ATENDIDO`. Disparar o envio é efeito fora do ambiente e segue a confirmação própria da regra fundamental.
+6. **Par aplicação/ação.** Pela tela de Gerenciamento de Notificação, para **cada aplicação selecionada**, liste as ações disponíveis (somente leitura, sem salvar) e registre os pares no relatório, na seção "Pares aplicação/ação". Se o dev informou o par exato, use-o; senão é **hipótese** e fica marcada como tal. Sem URL confirmada da tela, peça-a (nunca invente).
+7. **Acesso à caixa.** A leitura dos e-mails recebidos é feita pelo conector Outlook da usuária (somente busca e leitura), na execução dos cenários. Aqui basta confirmar que o conector está conectado; se não estiver, `NAO VERIFICAVEL (conector de e-mail não conectado)`. Nunca clicar em links do e-mail, responder, encaminhar ou apagar.
 
 ---
 
@@ -229,8 +286,18 @@ Mapa: #<MAPA_ID> · Ambiente: <ambiente> (<URL>) · Execução: <$EXEC>
 
 Credenciais em `$AMBIENTE_CFG` — a senha **não** aparece neste relatório.
 
+## Notificação por e-mail (só se aplicável, Step 4.6)
+- Destinatário confirmado pela usuária: <sim/não> · Agent confirmado em execução: <sim/não> · Conector de e-mail: <conectado/não>
+| Aplicação | Ações disponíveis na tela | Par usado | Origem (informado pelo dev / hipótese) |
+|---|---|---|---|
+
 ## Dúvidas sinalizadas
 - <termo/configuração>: <onde buscou (hub: repositório/arquivo, KB, memória)> — <pergunta objetiva à usuária>
+
+## Dados simulados (mock) — Step 3.7
+| Tela | Rede (chamadas de API de dados) | Persiste ao recarregar? | Fonte real comparada | Código | Conclusão | Bug |
+|---|---|---|---|---|---|---|
+(ou `Dados reais confirmados` / `NAO VERIFICAVEL: <motivo>`)
 
 ## Não verificados (e por quê)
 - <requisito NAO VERIFICAVEL>: <razão válida>
@@ -272,9 +339,12 @@ Acrescente uma linha ao final da tabela em `~/.claude/docs/projetos/skills-qa/LO
 - **Requisito que só se satisfaz com ação irreversível ou efeito externo** (publicar versão definitiva, integração real, notificação): pedir confirmação própria; sem ela, `NAO ATENDIDO`.
 - **Protótipo Figma sem acesso** (página de login do Figma no navegador, "Cadastre-se ou faça login"): não autenticar pelo navegador. Usar o conector Figma (Step 0.5b); se a usuária ainda não o conectou, requisito `NAO VERIFICAVEL (conector Figma não conectado)` e a pendência "conectar o Figma ao chat" em "O que preparar no ambiente". Com o conector, o cenário de paridade visual (`/executar-teste`) lê o protótipo por `get_screenshot`/`get_metadata`.
 - **Usuário recém-criado autentica (API 200) mas a tela de login não avança:** conferir se os perfis **Geral** foram vinculados nas seções da aba Perfis (3 para Administrador, 2 para os demais), se a área principal está **ativa** e se o **Menu inicial** está preenchido (Step 4.5, item 4.1). Não redefinir senha nem alterar outro cadastro para contornar.
+- **E-mail de notificação não chega:** conferir, nesta ordem, Agent em execução (pedir à usuária), notificação ativa para o par, perfil destinatário (e filhos), usuário ativo, não ausente e com o e-mail selbetti. Não alterar a configuração de e-mail do ambiente para "destravar".
 - **Usuário do arquivo apagado do ambiente ou com login falho:** não reutilizar nem redefinir senha; criar outro e anotar na linha antiga.
 - **`$AMBIENTE_CFG` guarda senha em texto:** intencional e restrito a ambiente de teste; o arquivo fica fora do sync com o GitHub.
 - **Ambiente indisponível ou instável:** veredito `NAO PRONTO`, motivo no relatório; não classifique requisitos individualmente por palpite.
 - **Resultado muda entre execuções** (ambiente mutável): por isso cada validação é gravada com `$EXEC` e nunca sobrescrita; o relatório vale para o momento em que foi feito. Recomende revalidar logo antes de `/executar-teste` se houve mudança no ambiente.
 - **Divergência entre a tabela e a seção consolidada do mapa:** a tabela de cenários prevalece; sinalize em "Observações".
 - **Mapa com mais de um card "Criar Mapa de Teste":** sempre perguntar qual usar; nunca escolher sozinho sem confirmação.
+- **Tela só carrega shell, i18n e arquivos estáticos e nenhuma chamada de dado:** é o indício mais forte de mock (Step 3.7). Confirme com a persistência (F5) antes de gerar o defeito; uma única evidência não basta.
+- **Mock confirmado numa US que já avisa "simulado até a integração":** o defeito sai do mesmo jeito (decisão da usuária, 2026-11-03), citando o aviso; a decisão de aceitar é do time.

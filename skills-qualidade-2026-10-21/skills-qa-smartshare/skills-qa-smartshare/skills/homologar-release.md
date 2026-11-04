@@ -16,6 +16,16 @@ Este comando é a Skill 7 (QA Release Validator). Ele **recomenda**, não decide
 
 ---
 
+## Regra transversal — Dúvidas viram aprendizados
+
+Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
+
+1. **Antes de perguntar à usuária** qualquer dúvida, pendência ou pedido de retorno, ler `INDICE.md`. Se existir aprendizado `Ativo` aplicável à mesma situação (escopo `Geral`, da skill, ou da própria US), aplicar sem perguntar e escrever no relatório `Aplicado APR-NNN`.
+2. **Ao perguntar**, depois da resposta e **antes de seguir**, gravar `APR-NNN_<slug>.md` (situação, pergunta, resposta, como aplicar, escopo) e a linha no `INDICE.md`. Resposta vaga ou adiada fica `Pendente`, não vira regra.
+3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
+4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
+5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
+
 ## Regra fundamental
 
 A recomendação final (`Aprovada` / `Aprovada com ressalvas` / `Reprovada`) é uma **sugestão para decisão humana**, nunca uma aprovação automática de deploy. Nunca marcar um teste como aprovado sem tê-lo executado de fato (nada de "presumir que deve passar"). Nunca reprovar ou aprovar com base em suposição quando a execução real não foi possível — nesse caso, o status correto é `Aprovada com ressalvas` com a ressalva sendo justamente "não foi possível executar X".

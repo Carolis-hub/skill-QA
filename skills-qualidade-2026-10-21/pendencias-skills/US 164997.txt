@@ -1,0 +1,26 @@
+US 164997
+Título: Migração tela de gerenciamento | Gerenciamento de índice (FE) | Ajustes do formulário
+Dev da análise: Não informado no card (card Análise #165639, estado Done)
+
+Itens pendentes na análise:
+3. Código visto na branch: Descrição maxLength 100 (CA 2 pede 50) e Ordenação Validators.min(0) (CA 3 pede 1 a 255).
+7. Sem PR vinculado: análise não confirmada contra diff real.
+
+Decisão da usuária (2026-10-30): o que está no CA é a regra.
+- Modo de comparação vazio = 0 "Selecione" (CA 13), mesmo que o clássico grave NULL. Divergência do clássico não é pendência.
+- Descrição até 50 (CA 2) e Ordenação 1 a 255 (CA 3) valem; o código da branch (maxLength 100, min 0) é desvio a corrigir pelo dev, não regra.
+
+Resolvidos pela resposta do dev (2026-10-30):
+- Ambiente sem Portal do Cliente: no clássico é a chave Portal do web.config, lida em Global.asax:33-36 e aplicada em TipoIndiceForm.ascx.cs:902-919 (retVisibilidade). Alternar exige mudar a chave e reiniciar o site.
+- Erro de conexão no Testar SQL: simular com uma conexão inválida cadastrada e usada no índice (Tipo no DI Consulta).
+- Índice em uso (CA 15): o CA não define "uso", então vale o comportamento do clássico como regra. Em uso = existe registro em INDICE_DOCUMENTO para o cd_tipo_indice, ou (tipo de índice 1, Seleção) existe ao menos uma opção em INDICE. Em uso trava só Tipo de índice e Tipo de valor, sem alerta. Evidência: TipoIndice.aspx.cs:466-483 e TipoIndiceForm.ascx.cs:700-704 (lida-no-codigo).
+
+Regra definida pela usuária (2026-10-30): onde o CA é omisso, o comportamento do clássico é a regra.
+
+Novo item pendente:
+8. Card diz que índice em uso é o "vinculado a processos ou documentos"; a regra (clássico) é documento ou opções cadastradas de Seleção, sem processo. Dev confirmar se st_em_uso do BE segue essa regra.
+- Decisão da usuária (2026-10-30), itens 1, 2, 4 e 6:
+  1. PD-164997-01: o mapa executa todos os 19 CAs, sem filtrar por "sem alteração".
+  2. Campos st_escolha_unica, st_valor_inicial_data_atual e st_em_uso: estão na branch do BE, não na do FE (ausência no FE não é discrepância).
+  4. O mapa mantém casos de teste para todos os CAs.
+  6. O mapa mantém os casos de teste do card (modal paginada do Testar SQL, 3 idiomas, label do Tipo de índice preenchido).

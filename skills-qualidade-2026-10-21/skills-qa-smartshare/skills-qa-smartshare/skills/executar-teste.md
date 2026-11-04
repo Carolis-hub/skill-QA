@@ -17,6 +17,16 @@ Não usamos mais Test Case formal em Test Plan — os mapas de teste vivem sempr
 
 ---
 
+## Regra transversal — Dúvidas viram aprendizados
+
+Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
+
+1. **Antes de perguntar à usuária** qualquer dúvida, pendência ou pedido de retorno, ler `INDICE.md`. Se existir aprendizado `Ativo` aplicável à mesma situação (escopo `Geral`, da skill, ou da própria US), aplicar sem perguntar e escrever no relatório `Aplicado APR-NNN`.
+2. **Ao perguntar**, depois da resposta e **antes de seguir**, gravar `APR-NNN_<slug>.md` (situação, pergunta, resposta, como aplicar, escopo) e a linha no `INDICE.md`. Resposta vaga ou adiada fica `Pendente`, não vira regra.
+3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
+4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
+5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
+
 ## Regra fundamental (guardrails)
 
 **As únicas razões válidas para não executar um cenário (`NAO EXECUTADO`) são estas três — nenhuma outra:**
@@ -36,6 +46,8 @@ Dificuldade de execução, volume de trabalho, tempo gasto, "não tentei ainda" 
 - **Leitura no banco é permitida e deve ser tentada antes de desistir de um cenário — nunca escrita.** Se houver acesso de leitura via MCP de banco (read-only) ao ambiente do SmartShare (nome do MCP a confirmar), use-o ativamente: descubra schema via `information_schema` (ou equivalente do SGBD em uso) quando não souber nomes exatos de tabela/coluna, compare valor anterior/posterior de uma migração, confirme ausência/presença de um registro de histórico, encontre um registro candidato que satisfaça a condição do cenário (ex.: registro inativo com determinado valor, item já processado) — muita coisa que antes virava `NAO EXECUTADO` por "não tenho um registro assim" na verdade é uma query de leitura de distância (US #161881, cenários #7/#12/#13 fechados assim). **Nunca tente `INSERT`/`UPDATE`/`DELETE`** — esse MCP é somente leitura e não há outro acesso de escrita; isso continua sendo motivo válido de `NAO EXECUTADO` (categoria 3 acima), mas só depois de confirmar, por leitura, que uma escrita é de fato necessária (não presuma sem checar o schema/dado real primeiro). Quando a escrita for mesmo necessária, prepare o SQL exato (ou peça ao dev o formato certo, como em US #161881 cenários #5/#8) para a usuária ou o time de dev rodar manualmente — nunca adivinhe o formato de uma escrita que pode ter efeito colateral real no ambiente.
 - **Nunca concluir "não dá pra testar" sem antes explorar e perguntar.** Diante de dado ausente, falta de acesso técnico (ex.: feature flag) ou um caminho de UI que parece bloqueado, tentar pelo menos uma alternativa óbvia (outra tela, outro botão, dado já existente no ambiente, uma consulta de leitura no banco, perguntar se o dev pode validar localmente) e, se ainda bloqueado, perguntar explicitamente à usuária se existe uma forma de testar — ela costuma ter acesso ou técnica que não foi considerada. Só marcar `NAO EXECUTADO` depois dessa tentativa. **Não se aplica** a cenários `HIPOTESE` (fora de escopo por definição, Step 3) nem a bloqueios já confirmados como definitivos (ambiente fora do ar, credencial de login ausente) — nesses dois casos, parar sem perguntar continua correto.
 
+- **Nunca executar em ambiente com dados simulados (mock).** O teste só vale se o ambiente for o mais próximo possível do cenário real: tela ou endpoint que serve dado em memória, fixture ou resposta fixa não valida dado, persistência nem integração. Se o ambiente tem dado mockado, **não execute nenhum cenário** (Step 0.5). Não há exceção por pedido de "rodar mesmo assim": o caminho é corrigir o ambiente (integração com o BE) e revalidar com `/validar-ambiente`. Percebeu mock no meio da execução (registro que some ao recarregar, tela sem chamada de API de dados)? Pare na hora, marque o que falta como `NAO EXECUTADO` (problema de ambiente) e reporte.
+
 ---
 
 ## Step 0 — Validar ambiente
@@ -48,6 +60,17 @@ Dificuldade de execução, volume de trabalho, tempo gasto, "não tentei ainda" 
    - **KB de produto:** consulte a KB do SmartShare (`C:\project personal\smartshare-kb\smartshare-kb\kb\`, blocos `smartshare/` clássico e `smartshare-4/`): comece por `kb/_index.md` ou pelo `_index.md` do bloco mais provável e use `grep -ril "<termo>" kb/` com as palavras-chave da US (nome da tela, ação, campo, mensagem). Se algum artigo bater, leia-o **antes** de tentar navegar pela UI, mesmo que pareça óbvio como chegar lá. Nunca tentar redescobrir por tentativa e erro um caminho de navegação que já pode estar documentado — isso já causou retrabalho repetido (padrão recorrente observado na skill original, em USs de outro produto). Siga também o `CLAUDE.md` da própria KB: cite a fonte de cada regra (título do artigo + `url`), confira `atualizado_em` (artigo de 2023 ou anterior, ou listado em `_meta/relatorio_qualidade.md`, vira "a confirmar com o produto") e trate artigos `status: descontinuado` só como regressão de clientes legados.
    - **Prevalência da US sobre a KB:** a KB descreve o produto como era documentado, não o que a US altera. Se a informação da KB estiver **confusa** (ambígua, incompleta, contraditória entre artigos) ou **divergir de alguma alteração descrita na US** (descrição, critérios de aceite, mapa de testes), **prevalece a informação da US**: use-a como esperado do teste e não a corrija pela KB. A KB só orienta onde achar a tela e como navegar. Sempre que isso acontecer, **sinalize a divergência** — não a resolva em silêncio: registre no relatório final (Step 5), na seção "Divergências da KB", o artigo (título + `url`), o trecho da KB, o trecho da US que prevaleceu e o tipo (`divergente` ou `confusa`). Não altere a KB nem a US; a correção da KB é decisão do responsável por ela.
    - Este gate não substitui a Regra fundamental de "explorar antes de concluir impossível" (abaixo) — é anterior a ela: primeiro checar o que já está documentado, só depois explorar/perguntar se realmente não houver nada.
+
+---
+
+## Step 0.5 — Gate de ambiente real: proibido executar com dados simulados (mock)
+
+Roda **antes de qualquer navegação de teste e de qualquer criação de dado**, para o modo A e o modo B.
+
+1. **Relatório de `/validar-ambiente`.** Procure o mais recente em `$CICLOS_DIR\US-<ID>\validacoes-ambiente\` (maior `$EXEC` no nome). Se ele tiver o requisito `[AMBIENTE] dados reais` como `NAO ATENDIDO`, ou a seção "Dados simulados (mock)" com mock confirmado, **pare**: não execute nada.
+2. **Sem relatório, ou relatório anterior ao Step 3.7 do `/validar-ambiente` (sem a seção "Dados simulados").** Faça agora a verificação rápida na tela principal da US: (a) com `browser_network_requests`, abra a listagem e confira se há chamada de API de dados (`/api`, `/be/`; arquivos estáticos, i18n e shell não contam); (b) se o primeiro cenário já cria um registro, recarregue a página (F5) depois de criá-lo e veja se ele persiste. Nenhuma chamada de API de dados **e** registro que some → mock: **pare**. Evidência única ou contraditória → não conclua: peça `/validar-ambiente` antes de executar.
+3. **Ao parar**, reporte em uma resposta curta: tela, evidências (rede, persistência, relatório de validação), Bug aberto pelo `/validar-ambiente` (se houver) e o próximo passo (integrar a tela ao BE e rodar `/validar-ambiente`). **Não** crie dado no mock para "tentar", **não** execute só os cenários de leitura e **não** marque os cenários como `Passou`. Os cenários ficam `NAO EXECUTADO` (problema de ambiente, categoria 2 da regra fundamental); registre a execução no log (Step 6) com o motivo.
+4. **Ambiente com dado real** (chamada de API de dados presente **e** registro persistindo, ou relatório com `[AMBIENTE] dados reais` `ATENDIDO`): siga para o Step 1.
 
 ---
 
@@ -234,12 +257,15 @@ Para cada cenário, na ordem:
    Para todo step `Falhou`, **registrar o caminho local do arquivo de screenshot** retornado por `browser_take_screenshot` (ex.: `.playwright-mcp\page-2026-09-04T18-09-58-660Z.png`) na linha da tabela do Step 5, não só a palavra "screenshot". Esse caminho é o que permite à `/gerar-defeito` anexar a evidência ao Bug depois — sem ele, a evidência visual se perde ao fim da conversa/sessão do navegador.
 8. Se a sessão expirar no meio da execução (indício: redirecionado para tela de login), refazer o login (Step 4.1) e **retomar do mesmo step**, registrando no log que houve reautenticação — isso não conta como falha do cenário.
 
-### 4.2b — Cenário de paridade visual com protótipo (Figma): divergência sempre com dois prints
+### 4.2b — Fidelidade ao protótipo (Figma): validação completa, toda divergência sinalizada, sempre com dois prints
 
-Quando o cenário compara a tela entregue com o protótipo (ex.: "Paridade visual"), e o conector Figma estiver conectado (ver `/validar-ambiente`, Step 0.5b):
+Regra da usuária (2026-11-03): **a tela deve ser expressamente fiel ao protótipo e qualquer divergência deve ser sinalizada**, inclusive a pequena. Vale para cada cenário da categoria `=== FIDELIDADE AO PROTOTIPO ===` (um por quadro/estado) e para o cenário de "Paridade visual" de mapas antigos. Tolerância: ±1 px por arredondamento; qualquer outro desvio, de texto, medida, cor, ícone, ordem ou comportamento, é divergência. **`Passou` só com zero divergência e nenhum aspecto não verificado**; com divergência o resultado é `Falhou`; com aspecto que não deu para medir, o cenário **não** é `Passou`: registre `NAO EXECUTADO — verificação incompleta: <aspectos e motivo>`.
+
+Quando o cenário compara a tela entregue com o protótipo e o conector Figma estiver conectado (ver `/validar-ambiente`, Step 0.5b):
 
 1. Para cada tela do protótipo, capture o **esperado** com `get_screenshot` (arquivo/nó do link da US; `maxDimension` igual à largura da tela do dev) e baixe o PNG (a URL é de curta duração e não deve ser repassada) para `$CICLOS_DIR\US-<ID>\execucoes\evidencias_<AAAA-MM-DD>\ev-<ID>-c<N>-figma-<tela>.png`.
 2. Capture o **dev** com o navegador, **no mesmo tamanho de janela** do quadro do protótipo (use um contexto com `viewport` igual, ex.: 1280×832), no mesmo estado (mesma tela, mesmo dado, modal aberto quando for o caso), em `...-share4-<tela>.png`.
+2b. **Medição item a item contra a especificação.** Para cada elemento da especificação do quadro (`$CICLOS_DIR\US-<ID>\mapas-teste\prototipo\especificacao_<AAAA-MM-DD>.md`, gerada pelo `/gerar-mapa-testes-v3`, Step 3.9, item 7; se não existir, gere-a agora com `get_design_context`), meça no dev com `javascript_tool` (`getComputedStyle` e `getBoundingClientRect`): `fontFamily`, `fontSize`, `fontWeight`, `lineHeight`, `color`, `backgroundColor`, `padding*`, `border*`, `borderRadius`, `boxShadow`, largura, altura, `gap`, e a ordem e os rótulos dos elementos. Compare com o esperado (cor em hex exato, medidas ±1 px) e registre **todos** os itens: conforme, divergente (esperado × obtido) ou **não mensurável** (ex.: elemento dentro de Shadow DOM de componente `nyx-*`, ícone, sombra, overlay). Para o não mensurável, faça a comparação visual com `zoom` nos dois prints e peça à usuária/dev a inspeção, e liste em "Não verificados" com o motivo; **não** declare conforme sem evidência. Meça também os estados que o quadro mostra (erro, vazio, edição, confirmação, toasts) e as interações (ordem de foco, Esc, clique fora quando o quadro indica).
 3. **Toda divergência registrada precisa dos dois prints** (esperado e dev), lado a lado. Divergência sem os dois prints não entra no relatório: capture o que falta ou registre como "não comparado (motivo)". Divergência de comportamento (ex.: campo que deveria ser multilinha, Esc que não fecha) também leva o print do dev mostrando o comportamento e o do protótipo mostrando o esperado.
 4. Gere a página `$CICLOS_DIR\US-<ID>\execucoes\divergencias-prototipo_<AAAA-MM-DD>.html` com um bloco por divergência (id D1, D2..., descrição objetiva do que difere e qual print é de qual lado: "Esperado (protótipo)" e "Dev"), mais a lista do que confere ("Conforme"). A página deve ser **autocontida**: embuta as imagens no próprio HTML (`src="data:image/png;base64,..."`), porque caminho relativo não abre em visualizadores que carregam só o arquivo (observado em 2026-10-26: "não consigo visualizar as imagens"). Mantenha os PNGs na pasta de evidências como cópia.
 5. Itens do próprio protótipo que a US manda ignorar (ex.: criar/excluir) não são divergência: cite-os numa nota. O resultado do cenário segue o texto do mapa (em geral "divergências registradas para validação da PM"); a decisão de entrar no escopo é da PM.
@@ -298,6 +324,11 @@ Se `$MODO == "B"`, acrescente logo abaixo do cabeçalho:
 
 ## Steps que pararam por ação de alto risco
 ...
+
+## Fidelidade ao protótipo (Step 4.2b)
+| Quadro / estado (nodeId) | Itens conferidos | Conformes | Divergentes | Não verificados (motivo) | Resultado |
+|---|---|---|---|---|---|
+(um bloco por quadro do inventário; sem quadro do escopo sem linha; ou `Mapa sem cenário de fidelidade (mapa anterior ao Step 3.9 item 7)`)
 
 ## Divergências de protótipo (Step 4.2b)
 - Página com os prints lado a lado (esperado no protótipo × dev): `$CICLOS_DIR\US-<ID>\execucoes\divergencias-prototipo_<AAAA-MM-DD>.html`
@@ -389,3 +420,4 @@ efeito no ambiente e deve ficar auditável.
 - **"Não tentei ainda"/"só não fiz por tempo" numa linha de relatório é a mesma falha do 24/09, só disfarçada.** Aconteceu de novo em US #161881 (2026-09-25, cenário #13 "valor já zero não gera registro"): o relatório de pendências dizia literalmente "não tentei ainda — dava pra testar em outra conta... só não fiz por tempo". A usuária corrigiu apontando o print exato. A tentativa (buscar 1-2 contas a mais e conferir o histórico) era trivial e foi feita depois em segundos via leitura no banco. Regra: qualquer frase desse tipo, mesmo em rascunho interno, é o gatilho para tentar na hora — nunca vira uma linha de relatório esperando aprovação pra pular.
 - **Valor sensível que a tela não mostra (ex.: token do parâmetro 109):** o backup (Step 3.6) vem de uma tela de consulta que o exiba (Detalhar do Clássico) ou de `SELECT` somente leitura. Sem nenhuma dessas fontes, o original não é recuperável: o cenário depende da autorização explícita da usuária (Step 4.3) ou fica `NAO EXECUTADO`. A restauração de segredo é feita pela usuária (Step 4.4, item 2).
 - **Auto-detecção não reabre Bugs reabertos.** Se um Bug marcado com `"Reteste (Modo B)"` for reaberto depois (voltou de `Done` para `Active`/`New` porque o fix não era completo), a auto-detecção do Step 1/passo 4 só olha Bugs em estado "corrigido" — um Bug reaberto não aparece como candidato até ser corrigido de novo e voltar pro estado "Done". O marcador antigo no comentário fica obsoleto (refere-se ao fix anterior), mas isso não trava nada: quando o Bug voltar a "Done", ele reaparece como candidato (o filtro é por estado atual, não por ausência total do marcador em qualquer comentário — releia com atenção o texto de cada comentário se houver mais de um antes de decidir se já foi retestado desta vez).
+- **Tela sem chamada de API de dados ou dado que some ao recarregar:** é mock (ver Step 0.5). Não execute o mapa contra o mock, nem "só a parte que dá": o resultado não reflete o cenário real e induz aprovação falsa. Reporte, aponte o Bug de ambiente (aberto pelo `/validar-ambiente`) e aguarde a integração com o BE.
