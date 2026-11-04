@@ -1,0 +1,15 @@
+US 163659
+Título: Dashboard ECM - Totalizador Páginas publicadas na aba Conteúdo
+Dev da análise: Felipe Kuhnen
+
+Itens pendentes na análise:
+1. CA-09 (Exportar incluir Páginas publicadas): a US exige, mas a análise diz que o ECM não tem Exportar (decisão D8); pergunta aberta ao PM, sem resposta.
+2. Sem PR vinculado à US nem ao card Análise (branch feature/melhorias-dashboard/ecm-fase2); análise não confirmada contra o diff.
+3. Achado 4 aberto: índice em cd_versao_documento não confirmado e custo da tabela derivada não medido em volume real (CT-15).
+4. Texto do (i) diz "documentos publicados", mas a soma inclui em aprovação e expirados (exclui só Reprovado e Excluído); redação a alinhar com o PM.
+5. CT-02, CT-03, CT-04 e CT-14 pendentes na API/banco real; SQL Server e Oracle não executados; CT-05 (filtro por tipo) não executado por 404 em DocumentTypes.
+6. Validar em ambiente real, na execução dos testes (decisão da usuária, 04/11): todos os cenários que o dev validou só com mock: CT-01, CT-02, CT-05 (período), CT-06, CT-07, CT-11 e CT-13. CT-09 e CT-12 constam como "Validado" sem informar o ambiente; validar também em ambiente real.
+7. REC-163659-01 aguardando resposta do dev (Felipe Kuhnen): documento com número de páginas nulo/sem linha em VERSAO_DOCUMENTO_INFORMATION soma 0 e continua contado, sem erro?
+
+Desconsiderados a pedido (04/11, caso não testável na prática):
+Achado 1 aberto: PublishedPagesSumSelect soma INT sem CAST; acima de 2,1 bi de páginas o /Cards inteiro falha no SQL Server.

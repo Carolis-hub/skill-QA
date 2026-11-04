@@ -10,7 +10,7 @@ Exemplos:
 - `146157` → projeto resolvido automaticamente a partir do próprio work item
 - `146157 "Nome do Projeto"` → projeto explicito
 
-Este comando é **somente leitura no Azure DevOps** — não cria, edita nem comenta nada lá. A única escrita permitida é local, dentro de `$CICLOS_DIR` (`C:\skills-qualidade\ciclos-executados`): o relatório da análise, o arquivo de pendências do dev e o arquivo de recomendações (ver Step 4.5, 4.6 e Step 5). É a etapa de Análise de Negócio (equivalente à Skill 1 / QA Business Analyst) que antecede a análise técnica e a criação do mapa de testes.
+Este comando é **somente leitura no Azure DevOps** — não cria, edita nem comenta nada lá. A única escrita permitida é local, dentro de `$CICLOS_DIR` (`C:\skills-qualidade\ciclos-executados`): o relatório da análise e o arquivo de pendências do dev (ver Step 4.5 e Step 5). Esta skill **não emite recomendações (`REC-...`)**: elas só são dadas pela `/analise-tecnica`, depois das duas análises e da validação no hub (ver Step 4.6). É a etapa de Análise de Negócio (equivalente à Skill 1 / QA Business Analyst) que antecede a análise técnica e a criação do mapa de testes.
 
 ---
 
@@ -103,7 +103,7 @@ A partir de `$STORY_TITLE`, `$STORY_DESC`, `$STORY_AC` (e comentários, se houve
 
     **Valor de "nenhuma pendência":** se o campo de pendências a confirmar antes do desenvolvimento trouxer um valor semelhante a "nenhuma pendência", "sem alterações", "nada a confirmar" ou "não há pendências", interprete como **não existem itens a validar antes do desenvolvimento**. Registre `Nenhum item a validar antes do desenvolvimento (descrição: "<frase literal>")` e **não** trate essa frase como item pendente nem como lacuna. Isso vale só para o campo em que a frase aparece: itens atribuídos ao dev em outras partes da descrição continuam sendo listados como pontos de atenção.
 
-**Sugestões para o item 7 (Informações ausentes):** para cada informação ausente de negócio, proponha uma **recomendação** (ID `REC-<ID>-NN`) escolhendo o menor desvio do que a própria história já define, com a justificativa citando o CA ou trecho de origem. A recomendação é sempre **sugestão do Claude, não regra de negócio**: nasce com status `Pendente de aprovação`, nunca vira regra explícita e nunca é tratada como definida (ver Step 4.6). Não proponha recomendação para pendência bloqueante do Step 3.5.
+**Sem recomendações nesta skill (item 7):** liste cada informação ausente de negócio como `Informação não encontrada / necessita validação: <pergunta específica>`, **sem propor `REC-...`, sem sugerir solução e sem pedir aprovação**. A recomendação só pode ser dada depois das duas análises (negócio e técnica) e da validação no hub, e quem a emite é a `/analise-tecnica` (Step 4.6 dela), que pode já encontrar a resposta no PR, no card do dev ou no clássico. Ver Step 4.6.
 
 Se qualquer um dos 10 itens não tiver conteúdo aplicável, escreva explicitamente `Nenhum identificado` — não omita a seção.
 
@@ -175,8 +175,7 @@ Só execute este passo se o Step 3.5 não tiver encontrado pendência bloqueante
 ...
 
 ## Informações ausentes
-- Informação não encontrada / necessita validação: <pergunta específica>
-  - **Sugestão do Claude (REC-<ID>-NN, pendente de aprovação, não é regra da US):** <recomendação e justificativa>
+- Informação não encontrada / necessita validação: <pergunta específica> (origem: <CA/trecho>)
 
 ## Ambiguidades
 ...
@@ -193,9 +192,7 @@ Só execute este passo se o Step 3.5 não tiver encontrado pendência bloqueante
 <itens de PM/PO/negócio/não informado, ou `Nenhum item a validar antes do desenvolvimento (descrição: "<frase literal>")`>
 ```
 
-Informe no fim do relatório os caminhos dos arquivos gerados nos Steps 4.5, 4.6 e 5.
-
-Se houver recomendações, faça primeiro a pergunta de aprovação do Step 4.6; só depois pergunte sobre o próximo passo. Finalize perguntando ao usuário se deseja prosseguir para a análise técnica (`/analise-tecnica`, quando existir) ou diretamente para o mapa de testes (`/gerar-mapa-testes-v2 <ID>`) — não encadeie automaticamente.
+Informe no fim do relatório os caminhos dos arquivos gerados nos Steps 4.5 e 5. Se houver informações ausentes, avise em uma linha que as recomendações serão dadas pela `/analise-tecnica`, depois da validação no hub. Finalize perguntando ao usuário se deseja prosseguir para a análise técnica (`/analise-tecnica`, quando existir) ou diretamente para o mapa de testes (`/gerar-mapa-testes-v2 <ID>`) — não encadeie automaticamente.
 
 ---
 
@@ -227,30 +224,13 @@ Gerado em: <AAAA-MM-DD> por /analise-negocio | Revisão da US (System.Rev): <rev
 
 ---
 
-## Step 4.6 — Registrar e submeter as recomendações (somente se o Step 4 gerou alguma `REC`)
+## Step 4.6 — Recomendações NÃO são emitidas nesta skill
 
-Grave as recomendações em `$CICLOS_DIR\US-<ID>\recomendacoes-qa\US-<ID>_<$EXEC>.md` (mesmo `$EXEC` dos Steps 4.5 e 5; **nunca sobrescreva** arquivo de execução anterior). Formato fixo:
+Esta skill **não gera `REC-...`, não grava a pasta `recomendacoes-qa` e não pergunta aprovação de recomendação.** A recomendação só pode ser dada **depois das duas análises (negócio e técnica) e depois de validar no hub** (comportamento do SmartShare clássico, somente leitura). Quem emite é a `/analise-tecnica` (Step 4.6 dela), que parte das "Informações ausentes" deste relatório e só recomenda o que continuar sem resposta depois do card do dev, do PR e do hub.
 
-```
----
-us: <ID>
-origem: RECOMENDAÇÃO DO CLAUDE (QA), NÃO DECISÃO DA PM/PO
-execucao: <$EXEC>
-revisao_us: <System.Rev>
----
-
-# Recomendações — US #<ID> <Título>
-
-| ID | Informação ausente | Recomendação | Justificativa (base na US) | Impacto no mapa | Status | Decisão da usuária |
-|---|---|---|---|---|---|---|
-| REC-<ID>-01 | ... | ... | ... | ... | Pendente de aprovação | — |
-```
-
-**Regra de aprovação (inegociável):**
-- **Nunca aprove, ajuste ou rejeite uma recomendação por conta própria.** Todo item nasce `Pendente de aprovação`. A aprovação só vale com resposta **explícita da usuária, no chat**, item a item ou em lote nomeado ("aprovo todas", "aprovo 01 a 04 e rejeito 05").
-- Depois de apresentar o relatório, **pergunte** quais recomendações a usuária aprova, ajusta ou rejeita (pode usar `AskUserQuestion`). Silêncio, "ok", "prossiga" ou escolha do próximo passo **não são aprovação**: o item continua `Pendente de aprovação`.
-- Resposta explícita → atualize só a linha do item no mesmo arquivo: `Status` = `Aprovada` | `Ajustada` (grave o texto da usuária na recomendação) | `Rejeitada`, e `Decisão da usuária` = `<AAAA-MM-DD>, <resposta em poucas palavras>`.
-- Recomendação aprovada **não é editada na US nem no Azure DevOps** por esta skill; continua sendo identificada como "recomendação aprovada pela usuária", nunca como regra original da história.
+- Toda lacuna de negócio fica apenas como `Informação não encontrada / necessita validação` no relatório (Step 4).
+- Não proponha solução, "menor desvio" nem texto de regra no lugar da lacuna.
+- Recomendação já existente de execução anterior (`recomendacoes-qa`) não é lida, alterada nem aprovada aqui.
 - Não grave nada no Azure DevOps.
 
 ---
@@ -269,11 +249,10 @@ execucao: <$EXEC>
 revisao_us: <System.Rev>
 resultado: Concluída | Bloqueada
 pendencias_dev: C:\skills-qualidade\ciclos-executados\US-<ID>\pendencias-dev\US-<ID>_<$EXEC>.md
-recomendacoes: C:\skills-qualidade\ciclos-executados\US-<ID>\recomendacoes-qa\US-<ID>_<$EXEC>.md (ou "nenhuma")
 ---
 ```
 
-Informe ao usuário, no fim, os caminhos dos arquivos gravados (análise, pendências e, se houver, recomendações). Não grave nada no Azure DevOps.
+Informe ao usuário, no fim, os caminhos dos arquivos gravados (análise e pendências do dev). Não grave nada no Azure DevOps.
 
 ---
 

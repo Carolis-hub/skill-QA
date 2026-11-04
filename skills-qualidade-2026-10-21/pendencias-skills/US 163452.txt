@@ -1,0 +1,11 @@
+US 163452
+Título: Dashboard ECM - Lembrar largura do painel de detalhamento por usuário
+Dev da análise: Felipe Kuhnen
+
+Itens pendentes na análise:
+1. Código tem duplo clique na alça (volta ao padrão e apaga a preferência) e setas do teclado (gravam a cada tecla); o card não cita e a US/CA não cobre - confirmar se são escopo.
+2. CA-04 (isolamento por usuário): CV-02 não foi executado pelo dev (sem segundo login), só teste unitário - sem evidência E2E.
+3. Nenhum PR vinculado à US/cards; análise conferida só na branch remota feature/melhorias-dashboard/ecm-fase2 (543 arquivos no diff contra main, não filtrado por escopo).
+
+Resolvidos pela precedência de fontes (2026-11-04, APR-001):
+- Conta x navegador: a US só diz "por usuário" e não define; não há protótipo vinculado; vale a análise técnica (card #165846): preferência por navegador. A REC-163452-01 (conta), aprovada, fica superada.

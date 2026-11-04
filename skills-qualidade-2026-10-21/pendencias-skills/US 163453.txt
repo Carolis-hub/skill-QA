@@ -1,0 +1,15 @@
+US 163453
+Título: Dashboard ECM - Atalhos, acessibilidade e dispositivos no painel redimensionável
+Dev da análise: Felipe Kuhnen
+
+Casos/validações adicionais: C:\skills-qualidade\ciclos-executados\US-163453\validacoes-adicionais\US-163453_2026-11-04_validacoes-pendencias.md
+
+Itens pendentes na análise:
+1. CA-06 x implementação: tablet abaixo de 768px (ex.: iPad mini em pé, 744px) fica sem alça; a US diz que tablet tem alça (critério por largura de janela, risco aceito pelo dono, sem decisão da PM registrada). [validação: casos T-01 a T-13, tablets por dimensão]
+2. CA-04: leitor de tela real (NVDA/Narrador) não testado; valuetext vazio na árvore de acessibilidade do Chromium. [validação: LT-01 a LT-05]
+3. CA-01/CA-06: duplo toque e arraste em tablet físico não testados (dblclick não é garantido em touch; E2E só com emulação de largura). [validação: TF-01 a TF-04]
+4. CA-02: clique na alça pode não dar foco (preventDefault no pointerdown); não verificado no browser. [validação: FC-01 a FC-03]
+5. CA-02: diálogo aria-modal não move o foco ao abrir; chegar à alça por Tab exige atravessar a página. [validação: FM-01 a FM-03]
+6. Retrabalho do code review (modificadores e isResizing) revalidado só por unitários; E2E não reexecutado.
+7. Nenhum PR vinculado à US/card; análise não confirmada contra o diff.
+8. Gravação a cada tecla (~30 gravações/s com auto-repeat, AES síncrono): risco de lentidão sem teste de desempenho registrado. [validação: PF-01 a PF-06]

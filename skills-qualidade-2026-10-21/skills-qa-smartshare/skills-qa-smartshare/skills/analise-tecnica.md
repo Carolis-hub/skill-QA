@@ -221,7 +221,7 @@ Antes de montar o relatório, liste os pontos pendentes pelos mesmos critérios 
 - Informação não encontrada / necessita validação: ...
 ```
 
-Se houver pendência, o Step 3.8 (validação no clássico) roda antes do relatório. Antes de finalizar, execute o Step 4.5 (registrar pendências). Finalize perguntando se o usuário quer seguir para `/gerar-mapa-testes-v2 <ID>` — não encadeie automaticamente.
+Se houver pendência, o Step 3.8 (validação no clássico) roda antes do relatório. Antes de finalizar, execute o Step 4.5 (registrar pendências) e o Step 4.6 (recomendações). Finalize perguntando se o usuário quer seguir para `/gerar-mapa-testes-v2 <ID>` — não encadeie automaticamente.
 
 ---
 
@@ -269,6 +269,43 @@ Itens pendentes na análise:
 - Quando o dev ou a PM responder, atualize o arquivo: tire os itens resolvidos da lista e mova-os para um bloco ao final, "Resolvidos pela resposta do dev (<data>)". Itens que a pessoa pediu para desconsiderar vão no bloco "Desconsiderados a pedido".
 - Se todos os itens forem resolvidos, avise a pessoa e **pergunte se o arquivo pode ser apagado**. Não apague sem confirmação.
 - No resumo final da execução, informe o caminho do arquivo criado ou atualizado. Se não criou arquivo, diga que não houve pendência.
+
+---
+
+## Step 4.6 — Recomendações (única skill que as emite)
+
+A recomendação (`REC-<ID>-NN`) só é dada **depois das duas análises (negócio e técnica) e depois da validação no hub (Step 3.8)**. Esta skill é a única que as emite; a `/analise-negocio` não gera recomendação.
+
+**Quando emitir:** leia a análise de negócio mais recente (`$CICLOS_DIR\US-<ID>\analises-negocio\US-<ID>_*.md`, maior data/hora no nome) e liste as "Informações ausentes" dela. Para cada uma, verifique, nesta ordem, se já tem resposta: (1) regra escrita na US, (2) protótipo (só front), (3) card `Análise` do dev e PR, (4) clássico via hub (Step 3.8, `lida-no-codigo`). **Só vira recomendação a lacuna que continuar sem resposta depois dessas fontes** (precedência do APR-001). Lacuna respondida por fonte anterior não gera `REC`: registre no relatório a fonte que respondeu. Se a análise de negócio não existir, não emita recomendação e avise a usuária para executá-la antes. Se o hub não foi consultado (Step 3.8 pulado por ausência), avise na linha da recomendação que a validação no hub não ocorreu.
+
+**Como propor:** escolha o menor desvio do que a US já define e justifique citando o CA ou o trecho de origem. A recomendação é sempre **sugestão do Claude, não regra de negócio**; não proponha para pendência bloqueante de negócio (Step 3.5 da `/analise-negocio`).
+
+**Onde gravar:** `$CICLOS_DIR\US-<ID>\recomendacoes-qa\US-<ID>_<$EXEC>.md` (`$CICLOS_DIR` = `C:\skills-qualidade\ciclos-executados`; `$EXEC` = `AAAA-MM-DD_HHmm`; **nunca sobrescreva** arquivo anterior). Formato fixo:
+
+```
+---
+us: <ID>
+origem: RECOMENDAÇÃO DO CLAUDE (QA), NÃO DECISÃO DA PM/PO
+execucao: <$EXEC>
+revisao_us: <System.Rev>
+analise_negocio: <caminho do arquivo usado>
+analise_tecnica: <esta execução>
+validacao_hub: Consultado | Não consultado (<motivo>)
+---
+
+# Recomendações — US #<ID> <Título>
+
+| ID | Informação ausente | Recomendação | Justificativa (base na US) | Impacto no mapa | Status | Decisão da usuária |
+|---|---|---|---|---|---|---|
+| REC-<ID>-01 | ... | ... | ... | ... | Pendente de aprovação | — |
+```
+
+**Regra de aprovação (inegociável):**
+- **Nunca aprove, ajuste ou rejeite uma recomendação por conta própria.** Todo item nasce `Pendente de aprovação`. Só vale resposta **explícita da usuária, no chat**, item a item ou em lote nomeado ("aprovo todas", "aprovo 01 a 04 e rejeito 05").
+- Depois do relatório, **pergunte** quais aprova, ajusta ou rejeita (pode usar `AskUserQuestion`) e só então a pergunta de próximo passo. Silêncio, "ok" ou "prossiga" **não são aprovação**.
+- Resposta explícita → atualize só a linha do item: `Status` = `Aprovada` | `Ajustada` (grave o texto da usuária) | `Rejeitada`, e `Decisão da usuária` = `<AAAA-MM-DD>, <resposta em poucas palavras>`.
+- Recomendação aprovada **não é editada na US nem no Azure DevOps**; segue identificada como "recomendação aprovada pela usuária", nunca como regra original.
+- Sem lacuna a recomendar, não crie o arquivo e diga isso no resumo. Informe o caminho do arquivo gravado. Nada é gravado no Azure DevOps.
 
 ---
 

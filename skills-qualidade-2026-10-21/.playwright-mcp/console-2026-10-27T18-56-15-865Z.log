@@ -1,2 +1,0 @@
-[   42366ms] TypeError: Cannot read properties of null (reading 'document')
-    at http://172.16.0.182/smartshare/workflow/IniciaRevisaoProcesso.aspx?wid=EuYE9Ru7NaFc+8PZq6WVa7QqEiNTSDI77FBeopqiYFI%3d:370:11

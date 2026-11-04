@@ -2,3 +2,4 @@
 # credenciais de usuarios de teste (nunca versionar)
 **/usuarios-teste.local.md
 **/ambiente-teste.local.md
+.playwright-mcp/
