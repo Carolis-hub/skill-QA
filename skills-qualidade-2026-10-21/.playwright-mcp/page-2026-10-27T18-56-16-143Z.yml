@@ -1,0 +1,36 @@
+- generic [ref=f9e3]:
+  - generic [ref=f9e4]:
+    - heading [level=1] [ref=f9e14]
+    - generic [ref=f9e15]:
+      - heading "Revisar Processo" [level=2] [ref=f9e16]
+      - generic [ref=f9e17]: Selecione uma versão base para ser copiada
+    - generic [ref=f9e20]:
+      - generic "Ajuda" [ref=f9e21]:
+        - img "Ajuda" [ref=f9e22]
+      - button "Fechar" [ref=f9e23] [cursor=pointer]
+    - link "Editar" [ref=f9e25] [cursor=pointer]:
+      - /url: javascript:__doPostBack('lkbnEditarConteudo','')
+  - generic [ref=f9e27]:
+    - table [ref=f9e29]:
+      - rowgroup [ref=f9e30]:
+        - row [ref=f9e31]:
+          - cell [ref=f9e32]
+      - rowgroup [ref=f9e33]:
+        - row [ref=f9e34]:
+          - cell [ref=f9e35]:
+            - heading "Tipo de Revisão:" [level=1] [ref=f9e36]
+          - cell "Padrão Arquivo Externo" [ref=f9e37]:
+            - text: Padrão
+            - radio "Padrão" [checked] [ref=f9e38]
+            - text: Arquivo Externo
+            - radio "Arquivo Externo" [ref=f9e39]
+        - row [ref=f9e40]:
+          - cell [ref=f9e41]:
+            - heading "Versão Base:" [level=1] [ref=f9e42]
+          - cell "1 - 27/10/2026 15:30" [ref=f9e43]:
+            - combobox [ref=f9e44]:
+              - option "1 - 27/10/2026 15:30" [selected]
+        - row
+    - generic [ref=f9e46]:
+      - button "Confirmar" [ref=f9e47] [cursor=pointer]
+      - button "Cancelar" [ref=f9e48] [cursor=pointer]

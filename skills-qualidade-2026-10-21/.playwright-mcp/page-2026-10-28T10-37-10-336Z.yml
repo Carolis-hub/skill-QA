@@ -1,0 +1,15 @@
+- generic [ref=f6e10]:
+  - button "Português" [ref=f6e16] [cursor=pointer]
+  - generic [ref=f6e18]:
+    - heading "Bem-vindo ao SmartShare" [level=1] [ref=f6e19]
+    - generic [ref=f6e20]: Preencha os campos abaixo para ter acesso ao sistema
+    - generic [ref=f6e21]:
+      - textbox "Usuário" [ref=f6e24]
+      - generic [ref=f6e27]:
+        - textbox "Senha" [ref=f6e28]
+        - generic [ref=f6e29] [cursor=pointer]
+      - button "Entrar" [ref=f6e32]
+      - generic [ref=f6e34]: Esqueci minha senha
+  - generic [ref=f6e37]:
+    - img "logo" [ref=f6e38]
+    - paragraph [ref=f6e39]: Versão 4.13.12

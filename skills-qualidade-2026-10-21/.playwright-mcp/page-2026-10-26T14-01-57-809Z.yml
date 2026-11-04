@@ -1,0 +1,19 @@
+- generic [ref=f11e4]:
+  - banner [ref=f11e7]:
+    - generic [ref=f11e8]:
+      - button "Abrir ou fechar menu" [ref=f11e9] [cursor=pointer]
+      - img "Logo do Share" [ref=f11e13]
+    - button "Abrir menu de configurações do usuário" [ref=f11e16]:
+      - generic [ref=f11e17]: AD
+  - complementary [ref=f11e19]:
+    - navigation "Navegação principal" [ref=f11e21]:
+      - generic:
+        - button "Início" [ref=f11e24] [cursor=pointer]
+        - button "Dashboards" [ref=f11e33] [cursor=pointer]:
+          - generic [ref=f11e35]: 
+        - button "Configurações" [ref=f11e44] [cursor=pointer]
+        - button "Favoritos" [ref=f11e53] [cursor=pointer]
+        - button "Processos" [ref=f11e61] [cursor=pointer]
+        - button "Documentos" [ref=f11e71] [cursor=pointer]
+        - button "Portal de melhorias" [ref=f11e80] [cursor=pointer]
+  - main [ref=f11e86]

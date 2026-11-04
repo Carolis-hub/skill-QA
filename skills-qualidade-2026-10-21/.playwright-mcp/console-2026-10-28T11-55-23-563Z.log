@@ -1,0 +1,17 @@
+[     229ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[     306ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:2613
+[     319ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[     397ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-2493730.js?sv=6:2

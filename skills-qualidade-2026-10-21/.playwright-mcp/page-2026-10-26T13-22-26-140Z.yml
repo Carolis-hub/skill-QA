@@ -1,0 +1,585 @@
+- generic [ref=f7e4]:
+  - banner [ref=f7e7]:
+    - generic [ref=f7e8]:
+      - button "Abrir ou fechar menu" [ref=f7e9] [cursor=pointer]
+      - img "Logo do Share" [ref=f7e13]
+    - button "Abrir menu de configurações do usuário" [ref=f7e16]:
+      - generic [ref=f7e17]: AD
+  - complementary [ref=f7e19]:
+    - navigation "Navegação principal" [ref=f7e21]:
+      - generic:
+        - button "Início" [ref=f7e24] [cursor=pointer]
+        - button "Dashboards" [ref=f7e33] [cursor=pointer]:
+          - generic [ref=f7e35]: 
+        - button "Configurações" [ref=f7e44] [cursor=pointer]
+        - button "Favoritos" [ref=f7e53] [cursor=pointer]
+        - button "Processos" [ref=f7e61] [cursor=pointer]
+        - button "Documentos" [ref=f7e71] [cursor=pointer]
+        - button "Portal de melhorias" [ref=f7e80] [cursor=pointer]
+  - main [ref=f7e86]:
+    - generic [ref=f7e87]:
+      - navigation "Breadcrumb" [ref=f7e89]:
+        - list [ref=f7e90]:
+          - listitem [ref=f7e91]:
+            - button "Configurações" [ref=f7e92] [cursor=pointer]
+          - listitem [ref=f7e97]:
+            - button "Gerenciamento de usuário" [ref=f7e98] [cursor=pointer]
+          - listitem [ref=f7e103]:
+            - generic "Novo usuário" [ref=f7e104]
+      - generic [ref=f7e105]:
+        - generic [ref=f7e106]:
+          - tablist [ref=f7e108]:
+            - generic:
+              - tab "Dados" [selected] [ref=f7e109]
+              - tab "Perfis" [disabled]
+              - tab "Agenda" [disabled]
+              - tab "Processos" [disabled]
+              - tab "Propriedades" [disabled]
+              - tab "Substitutos" [disabled]
+          - generic [ref=f7e115]:
+            - generic [ref=f7e117]:
+              - generic [ref=f7e118]: Configurações de usuário
+              - region "Configurações de usuário" [ref=f7e122]:
+                - generic [ref=f7e125]:
+                  - generic [ref=f7e128]:
+                    - generic "Usuário ativo" [ref=f7e129]:
+                      - generic [ref=f7e130] [cursor=pointer]:
+                        - generic:
+                          - checkbox "Usuário ativo" [checked]
+                        - generic: Usuário ativo
+                    - button "Ao desativar, o usuário não poderá acessar o sistema." [ref=f7e132]:
+                      - generic [ref=f7e133]: 
+                  - generic [ref=f7e135]:
+                    - generic [ref=f7e137]:
+                      - generic [ref=f7e138]: Usuário modelo
+                      - generic [ref=f7e139]:
+                        - generic [ref=f7e141]:
+                          - textbox "Buscar usuário modelo" [ref=f7e142] [cursor=pointer]:
+                            - /placeholder: Busque o usuário modelo
+                          - generic:
+                            - generic [aria-hidden]:
+                              - generic: 
+                        - button "Limpar usuário modelo" [ref=f7e143] [cursor=pointer]:
+                          - generic [ref=f7e144]: 
+                    - generic [ref=f7e147]:
+                      - generic [ref=f7e148]: Tipo de usuário
+                      - combobox "Administrador" [ref=f7e400] [cursor=pointer]
+            - generic [ref=f7e156]:
+              - generic [ref=f7e157]: Dados do usuário
+              - region "Dados do usuário" [ref=f7e161]:
+                - generic [ref=f7e164]:
+                  - generic [ref=f7e165]:
+                    - generic [ref=f7e167]:
+                      - generic [ref=f7e168]: Nome
+                      - textbox "Nome" [ref=f7e171]: Claude-adm
+                    - generic [ref=f7e173]:
+                      - generic [ref=f7e174]: E-mail
+                      - textbox "E-mail" [ref=f7e177]: claude-adm@teste.local
+                  - generic [ref=f7e178]:
+                    - generic [ref=f7e180]:
+                      - generic [ref=f7e181]: Telefone
+                      - textbox "Telefone" [ref=f7e184]
+                    - generic [ref=f7e186]:
+                      - generic [ref=f7e187]: Ramal
+                      - spinbutton "Ramal" [ref=f7e190]
+            - generic [ref=f7e192]:
+              - generic [ref=f7e193]: Login
+              - region "Login" [ref=f7e197]:
+                - generic [ref=f7e200]:
+                  - generic [ref=f7e201]:
+                    - generic [ref=f7e203]:
+                      - generic [ref=f7e204]: Tipo de autenticação
+                      - combobox "Usuário e senha" [ref=f7e210] [cursor=pointer]
+                    - generic [ref=f7e212]:
+                      - generic [ref=f7e213]: Login
+                      - textbox "Login" [ref=f7e216]:
+                        - /placeholder: Login de acesso
+                        - text: Claude-adm
+                  - generic [ref=f7e217]:
+                    - generic [ref=f7e219]:
+                      - generic [ref=f7e220]: Senha
+                      - generic [ref=f7e222]:
+                        - textbox "Senha" [ref=f7e223]: WRAqDbhtz0x5pSd#
+                        - button "Mostrar senha" [ref=f7e224] [cursor=pointer]
+                      - generic [ref=f7e225]: De 6 a 20 caracteres
+                    - generic [ref=f7e229]:
+                      - generic [ref=f7e230]: Impressão Digital
+                      - textbox "Impressão Digital" [ref=f7e233]
+                  - generic [ref=f7e234]:
+                    - generic [ref=f7e236]:
+                      - generic [ref=f7e237]: Trocar a senha a cada x dias
+                      - spinbutton "Trocar a senha a cada x dias" [ref=f7e240]
+                    - generic [ref=f7e244] [cursor=pointer]:
+                      - generic:
+                        - checkbox "A senha nunca expira"
+                      - strong [ref=f7e249]: A senha nunca expira
+                  - generic [ref=f7e250]:
+                    - generic [ref=f7e252]:
+                      - generic [ref=f7e253]: Data da última troca de senha
+                      - textbox "Data da última troca de senha" [ref=f7e256]:
+                        - /placeholder: dd/MM/yyyy
+                        - text: 26/10/2026
+                    - generic [ref=f7e260] [cursor=pointer]:
+                      - generic:
+                        - checkbox "Trocar a senha no próximo login"
+                      - strong [ref=f7e265]: Trocar a senha no próximo login
+            - generic [ref=f7e267]:
+              - generic [ref=f7e268]: Área e papel
+              - region "Área e papel" [ref=f7e272]:
+                - generic [ref=f7e275]:
+                  - generic [ref=f7e276]:
+                    - generic [ref=f7e278]:
+                      - generic [ref=f7e279]: Área principal
+                      - generic [ref=f7e282]:
+                        - textbox "Área principal" [ref=f7e283] [cursor=pointer]
+                        - generic:
+                          - generic [aria-hidden]:
+                            - generic: 
+                    - generic [ref=f7e285]:
+                      - generic [ref=f7e286]: Papel principal
+                      - generic [ref=f7e289]:
+                        - textbox "Papel principal" [ref=f7e290] [cursor=pointer]
+                        - generic:
+                          - generic [aria-hidden]:
+                            - generic: 
+                  - generic [ref=f7e291]:
+                    - generic [ref=f7e293]:
+                      - generic [ref=f7e294]: Visão inicial
+                      - radiogroup "Visão inicial" [ref=f7e295]:
+                        - generic [ref=f7e297]:
+                          - generic [ref=f7e299]:
+                            - generic [ref=f7e300] [cursor=pointer]
+                            - generic:
+                              - radio "Documentos"
+                            - generic: Documentos
+                          - generic [ref=f7e302]:
+                            - generic:
+                              - radio "Processos" [checked]
+                            - generic: Processos
+                    - generic "Possibilitar troca de visão" [ref=f7e308]:
+                      - generic [ref=f7e309] [cursor=pointer]:
+                        - generic:
+                          - checkbox "Possibilitar troca de visão"
+                        - generic: Possibilitar troca de visão
+                  - generic [ref=f7e311]:
+                    - generic [ref=f7e312]: Menu inicial
+                    - combobox "Selecione o menu inicial" [ref=f7e318] [cursor=pointer]
+            - generic [ref=f7e320]:
+              - generic [ref=f7e321]: Status do usuário
+              - region "Status do usuário" [ref=f7e325]:
+                - generic [ref=f7e330]:
+                  - generic "Usuário ausente" [ref=f7e331]:
+                    - generic [ref=f7e332] [cursor=pointer]:
+                      - generic:
+                        - checkbox "Usuário ausente"
+                      - generic: Usuário ausente
+                  - button "Ao ativar, as atividades atribuídas serão transferidas para outro usuário configurado no Workflow." [ref=f7e334]:
+                    - generic [ref=f7e335]: 
+            - generic [ref=f7e338]:
+              - generic [ref=f7e339]: Permissões
+              - region "Permissões" [ref=f7e343]:
+                - generic [ref=f7e347]:
+                  - generic [ref=f7e350] [cursor=pointer]:
+                    - generic:
+                      - checkbox "Usuário mobile"
+                    - generic: Usuário mobile
+                  - generic [ref=f7e357] [cursor=pointer]:
+                    - generic:
+                      - checkbox "Usuário indexador"
+                    - generic: Usuário indexador
+                  - generic [ref=f7e364] [cursor=pointer]:
+                    - generic:
+                      - checkbox "Desabilitar autenticação Duplo Fator"
+                    - generic: Desabilitar autenticação Duplo Fator
+                  - generic [ref=f7e371] [cursor=pointer]:
+                    - generic:
+                      - checkbox "Assinatura automática (BRy Signer)"
+                    - generic: Assinatura automática (BRy Signer)
+        - generic [ref=f7e376]:
+          - button "Sair" [ref=f7e378] [cursor=pointer]
+          - generic "Salvar" [ref=f7e379]:
+            - button "Salvar" [ref=f7e380] [cursor=pointer]:
+              - generic: 
+        - generic:
+          - generic "Selecionar área principal" [active]:
+            - dialog [ref=f7e401]:
+              - generic [ref=f7e402]:
+                - generic [ref=f7e403]:
+                  - generic [ref=f7e404]: Selecionar Área Principal
+                  - button "Close modal" [ref=f7e407] [cursor=pointer]
+                - generic [ref=f7e416]:
+                  - generic [ref=f7e417]:
+                    - textbox "Buscar por área" [ref=f7e420]
+                    - status [ref=f7e421]
+                  - generic [ref=f7e422]:
+                    - generic [ref=f7e423]: Áreas disponíveis
+                    - tree "Áreas disponíveis" [ref=f7e425]:
+                      - generic [ref=f7e426]:
+                        - treeitem "Select Geral Collapse Geral Geral" [disabled] [expanded] [level=1] [ref=f7e427]:
+                          - generic [ref=f7e428]:
+                            - generic [ref=f7e431]:
+                              - generic:
+                                - radio "Select Geral" [disabled]
+                            - button "Collapse Geral" [disabled] [ref=f7e434]
+                            - button "Geral" [disabled] [ref=f7e438]
+                        - group [ref=f7e439]:
+                          - generic [ref=f7e440]:
+                            - treeitem "Select Centro Padrão Collapse Centro Padrão Centro Padrão" [disabled] [expanded] [level=2] [ref=f7e441]:
+                              - generic [ref=f7e442]:
+                                - generic [ref=f7e445]:
+                                  - generic:
+                                    - radio "Select Centro Padrão" [disabled]
+                                - button "Collapse Centro Padrão" [disabled] [ref=f7e448]
+                                - button "Centro Padrão" [disabled] [ref=f7e452]
+                            - group [ref=f7e453]:
+                              - treeitem [level=3] [ref=f7e455]:
+                                - generic [ref=f7e456]:
+                                  - generic [ref=f7e459]:
+                                    - generic:
+                                      - radio "Select Area Padr?o" [checked]
+                                  - button "Area Padr?o" [ref=f7e462] [cursor=pointer]
+                              - treeitem "Select Desenvolvimento de sistemas na filial de Joinville Desenvolvimento de sistemas na filial de Joinville" [level=3] [ref=f7e464]:
+                                - generic [ref=f7e465]:
+                                  - generic [ref=f7e468]:
+                                    - generic [ref=f7e469] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select Desenvolvimento de sistemas na filial de Joinville"
+                                  - button "Desenvolvimento de sistemas na filial de Joinville" [ref=f7e471] [cursor=pointer]
+                              - treeitem "Select TI TI" [level=3] [ref=f7e473]:
+                                - generic [ref=f7e474]:
+                                  - generic [ref=f7e477]:
+                                    - generic [ref=f7e478] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select TI"
+                                  - button "TI" [ref=f7e480] [cursor=pointer]
+                              - treeitem "Select RH RH" [level=3] [ref=f7e482]:
+                                - generic [ref=f7e483]:
+                                  - generic [ref=f7e486]:
+                                    - generic [ref=f7e487] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select RH"
+                                  - button "RH" [ref=f7e489] [cursor=pointer]
+                              - treeitem "Select Consultoria Consultoria" [level=3] [ref=f7e491]:
+                                - generic [ref=f7e492]:
+                                  - generic [ref=f7e495]:
+                                    - generic [ref=f7e496] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select Consultoria"
+                                  - button "Consultoria" [ref=f7e498] [cursor=pointer]
+                              - treeitem "Select testando testando" [level=3] [ref=f7e500]:
+                                - generic [ref=f7e501]:
+                                  - generic [ref=f7e504]:
+                                    - generic [ref=f7e505] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select testando"
+                                  - button "testando" [ref=f7e507] [cursor=pointer]
+                              - treeitem "Select filhoAreaPadrao filhoAreaPadrao" [level=3] [ref=f7e509]:
+                                - generic [ref=f7e510]:
+                                  - generic [ref=f7e513]:
+                                    - generic [ref=f7e514] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select filhoAreaPadrao"
+                                  - button "filhoAreaPadrao" [ref=f7e516] [cursor=pointer]
+                              - treeitem "Select área carol área carol" [level=3] [ref=f7e518]:
+                                - generic [ref=f7e519]:
+                                  - generic [ref=f7e522]:
+                                    - generic [ref=f7e523] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select área carol"
+                                  - button "área carol" [ref=f7e525] [cursor=pointer]
+                              - treeitem "Select Area Local 2 Area Local 2" [level=3] [ref=f7e527]:
+                                - generic [ref=f7e528]:
+                                  - generic [ref=f7e531]:
+                                    - generic [ref=f7e532] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select Area Local 2"
+                                  - button "Area Local 2" [ref=f7e534] [cursor=pointer]
+                              - treeitem "Select area instalador area instalador" [level=3] [ref=f7e536]:
+                                - generic [ref=f7e537]:
+                                  - generic [ref=f7e540]:
+                                    - generic [ref=f7e541] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select area instalador"
+                                  - button "area instalador" [ref=f7e543] [cursor=pointer]
+                          - generic [ref=f7e544]:
+                            - treeitem "Select infraestrutura Collapse infraestrutura infraestrutura" [disabled] [expanded] [level=2] [ref=f7e545]:
+                              - generic [ref=f7e546]:
+                                - generic [ref=f7e549]:
+                                  - generic:
+                                    - radio "Select infraestrutura" [disabled]
+                                - button "Collapse infraestrutura" [disabled] [ref=f7e552]
+                                - button "infraestrutura" [disabled] [ref=f7e556]
+                            - group [ref=f7e557]:
+                              - treeitem "Select NovoPerfilDocSolucoes NovoPerfilDocSolucoes" [level=3] [ref=f7e559]:
+                                - generic [ref=f7e560]:
+                                  - generic [ref=f7e563]:
+                                    - generic [ref=f7e564] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select NovoPerfilDocSolucoes"
+                                  - button "NovoPerfilDocSolucoes" [ref=f7e566] [cursor=pointer]
+                              - treeitem "Select TI_TESTE TI_TESTE" [level=3] [ref=f7e568]:
+                                - generic [ref=f7e569]:
+                                  - generic [ref=f7e572]:
+                                    - generic [ref=f7e573] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select TI_TESTE"
+                                  - button "TI_TESTE" [ref=f7e575] [cursor=pointer]
+                          - generic [ref=f7e576]:
+                            - treeitem "Select RHteste Collapse RHteste RHteste" [disabled] [expanded] [level=2] [ref=f7e577]:
+                              - generic [ref=f7e578]:
+                                - generic [ref=f7e581]:
+                                  - generic:
+                                    - radio "Select RHteste" [disabled]
+                                - button "Collapse RHteste" [disabled] [ref=f7e584]
+                                - button "RHteste" [disabled] [ref=f7e588]
+                            - group [ref=f7e589]:
+                              - treeitem "Select RH_TESTE RH_TESTE" [level=3] [ref=f7e591]:
+                                - generic [ref=f7e592]:
+                                  - generic [ref=f7e595]:
+                                    - generic [ref=f7e596] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select RH_TESTE"
+                                  - button "RH_TESTE" [ref=f7e598] [cursor=pointer]
+                              - treeitem "Select RH_TESTE RH_TESTE" [level=3] [ref=f7e600]:
+                                - generic [ref=f7e601]:
+                                  - generic [ref=f7e604]:
+                                    - generic [ref=f7e605] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select RH_TESTE"
+                                  - button "RH_TESTE" [ref=f7e607] [cursor=pointer]
+                              - treeitem "Select RH_TESTE RH_TESTE" [level=3] [ref=f7e609]:
+                                - generic [ref=f7e610]:
+                                  - generic [ref=f7e613]:
+                                    - generic [ref=f7e614] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select RH_TESTE"
+                                  - button "RH_TESTE" [ref=f7e616] [cursor=pointer]
+                              - treeitem "Select RH_TESTE RH_TESTE" [level=3] [ref=f7e618]:
+                                - generic [ref=f7e619]:
+                                  - generic [ref=f7e622]:
+                                    - generic [ref=f7e623] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select RH_TESTE"
+                                  - button "RH_TESTE" [ref=f7e625] [cursor=pointer]
+                              - treeitem "Select RH_TESTE RH_TESTE" [level=3] [ref=f7e627]:
+                                - generic [ref=f7e628]:
+                                  - generic [ref=f7e631]:
+                                    - generic [ref=f7e632] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select RH_TESTE"
+                                  - button "RH_TESTE" [ref=f7e634] [cursor=pointer]
+                              - treeitem "Select RH_TESTE RH_TESTE" [level=3] [ref=f7e636]:
+                                - generic [ref=f7e637]:
+                                  - generic [ref=f7e640]:
+                                    - generic [ref=f7e641] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select RH_TESTE"
+                                  - button "RH_TESTE" [ref=f7e643] [cursor=pointer]
+                              - treeitem "Select RH_TESTE RH_TESTE" [level=3] [ref=f7e645]:
+                                - generic [ref=f7e646]:
+                                  - generic [ref=f7e649]:
+                                    - generic [ref=f7e650] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select RH_TESTE"
+                                  - button "RH_TESTE" [ref=f7e652] [cursor=pointer]
+                              - treeitem "Select RH_TESTE RH_TESTE" [level=3] [ref=f7e654]:
+                                - generic [ref=f7e655]:
+                                  - generic [ref=f7e658]:
+                                    - generic [ref=f7e659] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select RH_TESTE"
+                                  - button "RH_TESTE" [ref=f7e661] [cursor=pointer]
+                          - generic [ref=f7e662]:
+                            - treeitem "Select AREA PAI Collapse AREA PAI AREA PAI" [expanded] [level=2] [ref=f7e663]:
+                              - generic [ref=f7e664]:
+                                - generic [ref=f7e667]:
+                                  - generic [ref=f7e668] [cursor=pointer]
+                                  - generic:
+                                    - radio "Select AREA PAI"
+                                - button "Collapse AREA PAI" [ref=f7e670] [cursor=pointer]
+                                - button "AREA PAI" [ref=f7e674] [cursor=pointer]
+                            - group [ref=f7e675]:
+                              - treeitem "Select AREA FILHO 1 Expand AREA FILHO 1 AREA FILHO 1" [level=3] [ref=f7e677]:
+                                - generic [ref=f7e678]:
+                                  - generic [ref=f7e681]:
+                                    - generic [ref=f7e682] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select AREA FILHO 1"
+                                  - button "Expand AREA FILHO 1" [ref=f7e684] [cursor=pointer]
+                                  - button "AREA FILHO 1" [ref=f7e688] [cursor=pointer]
+                              - treeitem "Select AREA FILHO 2 AREA FILHO 2" [level=3] [ref=f7e690]:
+                                - generic [ref=f7e691]:
+                                  - generic [ref=f7e694]:
+                                    - generic [ref=f7e695] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select AREA FILHO 2"
+                                  - button "AREA FILHO 2" [ref=f7e697] [cursor=pointer]
+                          - treeitem "Select AREA PAI 2 AREA PAI 2" [level=2] [ref=f7e699]:
+                            - generic [ref=f7e700]:
+                              - generic [ref=f7e703]:
+                                - generic [ref=f7e704] [cursor=pointer]
+                                - generic:
+                                  - radio "Select AREA PAI 2"
+                              - button "AREA PAI 2" [ref=f7e706] [cursor=pointer]
+                          - treeitem "Select Selbetti Tecnologia Selbetti Tecnologia" [level=2] [ref=f7e708]:
+                            - generic [ref=f7e709]:
+                              - generic [ref=f7e712]:
+                                - generic [ref=f7e713] [cursor=pointer]
+                                - generic:
+                                  - radio "Select Selbetti Tecnologia"
+                              - button "Selbetti Tecnologia" [ref=f7e715] [cursor=pointer]
+                          - generic [ref=f7e716]:
+                            - treeitem "Select Selbetti - Joinville Collapse Selbetti - Joinville Selbetti - Joinville" [disabled] [expanded] [level=2] [ref=f7e717]:
+                              - generic [ref=f7e718]:
+                                - generic [ref=f7e721]:
+                                  - generic:
+                                    - radio "Select Selbetti - Joinville" [disabled]
+                                - button "Collapse Selbetti - Joinville" [disabled] [ref=f7e724]
+                                - button "Selbetti - Joinville" [disabled] [ref=f7e728]
+                            - group [ref=f7e729]:
+                              - treeitem "Select TI - Infraestrutura Expand TI - Infraestrutura TI - Infraestrutura" [level=3] [ref=f7e731]:
+                                - generic [ref=f7e732]:
+                                  - generic [ref=f7e735]:
+                                    - generic [ref=f7e736] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select TI - Infraestrutura"
+                                  - button "Expand TI - Infraestrutura" [ref=f7e738] [cursor=pointer]
+                                  - button "TI - Infraestrutura" [ref=f7e742] [cursor=pointer]
+                              - treeitem "Select SERV - Analise de Pecas SERV - Analise de Pecas" [level=3] [ref=f7e744]:
+                                - generic [ref=f7e745]:
+                                  - generic [ref=f7e748]:
+                                    - generic [ref=f7e749] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select SERV - Analise de Pecas"
+                                  - button "SERV - Analise de Pecas" [ref=f7e751] [cursor=pointer]
+                              - treeitem "Select TI - Desenvolvimento Expand TI - Desenvolvimento TI - Desenvolvimento" [level=3] [ref=f7e753]:
+                                - generic [ref=f7e754]:
+                                  - generic [ref=f7e757]:
+                                    - generic [ref=f7e758] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select TI - Desenvolvimento"
+                                  - button "Expand TI - Desenvolvimento" [ref=f7e760] [cursor=pointer]
+                                  - button "TI - Desenvolvimento" [ref=f7e764] [cursor=pointer]
+                              - treeitem "Select area QA area QA" [level=3] [ref=f7e766]:
+                                - generic [ref=f7e767]:
+                                  - generic [ref=f7e770]:
+                                    - generic [ref=f7e771] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select area QA"
+                                  - button "area QA" [ref=f7e773] [cursor=pointer]
+                              - treeitem "Select Area teste (luis) Area teste (luis)" [level=3] [ref=f7e775]:
+                                - generic [ref=f7e776]:
+                                  - generic [ref=f7e779]:
+                                    - generic [ref=f7e780] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select Area teste (luis)"
+                                  - button "Area teste (luis)" [ref=f7e782] [cursor=pointer]
+                          - treeitem "Select TESTE_GPO TESTE_GPO" [disabled] [level=2] [ref=f7e784]:
+                            - generic [ref=f7e785]:
+                              - generic [ref=f7e788]:
+                                - generic:
+                                  - radio "Select TESTE_GPO" [disabled]
+                              - button "TESTE_GPO" [disabled] [ref=f7e791]
+                          - treeitem "Select Area - 178 Area - 178" [level=2] [ref=f7e793]:
+                            - generic [ref=f7e794]:
+                              - generic [ref=f7e797]:
+                                - generic [ref=f7e798] [cursor=pointer]
+                                - generic:
+                                  - radio "Select Area - 178"
+                              - button "Area - 178" [ref=f7e800] [cursor=pointer]
+                          - treeitem "Select Leitores - 178 Leitores - 178" [level=2] [ref=f7e802]:
+                            - generic [ref=f7e803]:
+                              - generic [ref=f7e806]:
+                                - generic [ref=f7e807] [cursor=pointer]
+                                - generic:
+                                  - radio "Select Leitores - 178"
+                              - button "Leitores - 178" [ref=f7e809] [cursor=pointer]
+                          - treeitem "Select centro de teste centro de teste" [disabled] [level=2] [ref=f7e811]:
+                            - generic [ref=f7e812]:
+                              - generic [ref=f7e815]:
+                                - generic:
+                                  - radio "Select centro de teste" [disabled]
+                              - button "centro de teste" [disabled] [ref=f7e818]
+                          - generic [ref=f7e819]:
+                            - treeitem "Select Centro A Collapse Centro A Centro A" [disabled] [expanded] [level=2] [ref=f7e820]:
+                              - generic [ref=f7e821]:
+                                - generic [ref=f7e824]:
+                                  - generic:
+                                    - radio "Select Centro A" [disabled]
+                                - button "Collapse Centro A" [disabled] [ref=f7e827]
+                                - button "Centro A" [disabled] [ref=f7e831]
+                            - group [ref=f7e832]:
+                              - treeitem "Select area A area A" [level=3] [ref=f7e834]:
+                                - generic [ref=f7e835]:
+                                  - generic [ref=f7e838]:
+                                    - generic [ref=f7e839] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select area A"
+                                  - button "area A" [ref=f7e841] [cursor=pointer]
+                              - treeitem "Select area B area B" [level=3] [ref=f7e843]:
+                                - generic [ref=f7e844]:
+                                  - generic [ref=f7e847]:
+                                    - generic [ref=f7e848] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select area B"
+                                  - button "area B" [ref=f7e850] [cursor=pointer]
+                              - treeitem "Select Notificac?o 2 Notificac?o 2" [level=3] [ref=f7e852]:
+                                - generic [ref=f7e853]:
+                                  - generic [ref=f7e856]:
+                                    - generic [ref=f7e857] [cursor=pointer]
+                                    - generic:
+                                      - radio "Select Notificac?o 2"
+                                  - button "Notificac?o 2" [ref=f7e859] [cursor=pointer]
+                          - treeitem "Select Centro 178 Centro 178" [disabled] [level=2] [ref=f7e861]:
+                            - generic [ref=f7e862]:
+                              - generic [ref=f7e865]:
+                                - generic:
+                                  - radio "Select Centro 178" [disabled]
+                              - button "Centro 178" [disabled] [ref=f7e868]
+                          - treeitem "Select Geral Area - Teste Download Geral Area - Teste Download" [level=2] [ref=f7e870]:
+                            - generic [ref=f7e871]:
+                              - generic [ref=f7e874]:
+                                - generic [ref=f7e875] [cursor=pointer]
+                                - generic:
+                                  - radio "Select Geral Area - Teste Download"
+                              - button "Geral Area - Teste Download" [ref=f7e877] [cursor=pointer]
+                - generic [ref=f7e879]:
+                  - button "Sair" [ref=f7e881] [cursor=pointer]
+                  - generic "Selecionar área principal" [ref=f7e882]:
+                    - button "Selecionar área principal" [ref=f7e883] [cursor=pointer]:
+                      - generic: Selecionar
+        - generic:
+          - generic "Selecionar papel principal":
+            - text: 
+            - generic: 
+            - generic: Sair
+            - generic: Selecionar
+        - generic:
+          - generic "Selecionar pasta de visão GED":
+            - generic: 
+            - generic: Cancelar
+        - generic:
+          - generic "Selecionar usuário modelo":
+            - text: 
+            - generic: 
+            - generic: Sair
+            - generic: Selecionar
+        - generic:
+          - generic "Associar papéis ao usuário":
+            - generic: Cancelar
+            - generic: Confirmar seleção
+        - generic:
+          - generic "Selecionar usuário substituto":
+            - text: 
+            - generic: 
+            - generic: Sair
+            - generic: Selecionar
+        - generic:
+          - generic "Associar usuários substitutos":
+            - text: 
+            - generic: 
+            - generic: Sair
+            - generic: Selecionar
+        - generic "Confirmar saída":
+          - generic: Voltar
+          - generic: Sair mesmo assim

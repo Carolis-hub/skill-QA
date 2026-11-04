@@ -1,0 +1,57 @@
+[     478ms] [ERROR] WebSocket connection to 'ws://localhost:8080/smartshare/workspace/?token=rYLg5iv-5GuZ' failed: Error during WebSocket handshake: Unexpected response code: 200 @ http://localhost:8080/smartshare/workspace/@vite/client:744
+[     522ms] [INFO] [vite] Direct websocket connection fallback. Check out https://vite.dev/config/server-options.html#server-hmr to remove the previous connection error. @ http://localhost:8080/smartshare/workspace/@vite/client:759
+[     916ms] [LOG] Angular is running in development mode. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-F7DIFGVZ.js?v=41d35ac2:11246
+[     932ms] [WARNING] Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-SDFR5ZY7.js?v=41d35ac2:85
+[     932ms] [WARNING] Multiple versions of Lit loaded. Loading multiple versions is not recommended. See https://lit.dev/msg/multiple-versions for more information. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-SDFR5ZY7.js?v=41d35ac2:85
+[    1502ms] [ERROR] Failed to load resource: the server responded with a status of 403 (Forbidden) @ http://localhost:8080/smartshare/api/api/perfil?PageIndex=0&PageSize=200&OrderFields=ds_perfil&OrderByType=ASC:0
+[    1505ms] [ERROR] Failed to load resource: the server responded with a status of 403 (Forbidden) @ http://localhost:8080/smartshare/api/api/papel?PageIndex=0&PageSize=200&OrderFields=ds_papel&OrderByType=ASC:0
+[    1506ms] [ERROR] Failed to load resource: the server responded with a status of 403 (Forbidden) @ http://localhost:8080/smartshare/api/api/perfil?PageIndex=0&PageSize=200&id_tipo_perfil=2&OrderFields=ds_perfil&OrderByType=ASC:0
+[    1507ms] [ERROR] Failed to load resource: the server responded with a status of 403 (Forbidden) @ http://localhost:8080/smartshare/api/api/usuario?PageIndex=0&PageSize=50&OrderFields=ds_usuario&OrderByType=ASC:0
+[    1724ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-2493730.js?sv=6:2
+[    2462ms] [WARNING] Could not find Angular Material core theme. Most Material components may not work as expected. For more info refer to the theming guide: https://material.angular.io/guide/theming @ http://localhost:8080/smartshare/home/vendor.js:115397
+[    2463ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://localhost:8080/smartshare/home/vendor.js:224285
+[    2492ms] [LOG] Angular is running in the development mode. Call enableProdMode() to enable the production mode. @ http://localhost:8080/smartshare/home/vendor.js:95688
+[    2605ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-2493730.js?sv=6:2
+[    3138ms] [WARNING] Could not find Angular Material core theme. Most Material components may not work as expected. For more info refer to the theming guide: https://material.angular.io/guide/theming @ http://localhost:8080/smartshare/home/vendor.js:115397
+[    3139ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://localhost:8080/smartshare/home/vendor.js:224285
+[    3152ms] [LOG] Angular is running in the development mode. Call enableProdMode() to enable the production mode. @ http://localhost:8080/smartshare/home/vendor.js:95688
+[    3238ms] [INFO] [WDS] Live Reloading enabled. @ http://localhost:8080/smartshare/home/vendor.js:287063
+[    3770ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cDevelopment 🚧%c
+        ❯ Backend Version: 4.11.20.25227
+        ❯ FrontEnd Version: 4.13.10
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #e26565; font-size: 14px; color: #7c7c7b @ http://localhost:8080/smartshare/home/main.js:4740
+[    3791ms] [ERROR] ERROR TypeError: Cannot read properties of null (reading 'id')
+    at push../src/app/core/auth/login/msal/AuthModule.ts.AuthModule.configureMsal (http://localhost:8080/smartshare/home/main.js:2508:47)
+    at push../src/app/core/auth/login/login.component.ts.LoginComponent.configLoginAzureAD (http://localhost:8080/smartshare/home/main.js:2276:25)
+    at SafeSubscriber._next (http://localhost:8080/smartshare/home/main.js:2155:23)
+    at push../node_modules/rxjs/_esm5/internal/Subscriber.js.SafeSubscriber.__tryOrUnsub (http://localhost:8080/smartshare/home/vendor.js:269134:16)
+    at push../node_modules/rxjs/_esm5/internal/Subscriber.js.SafeSubscriber.next (http://localhost:8080/smartshare/home/vendor.js:269072:22)
+    at push../node_modules/rxjs/_esm5/internal/Subscriber.js.Subscriber._next (http://localhost:8080/smartshare/home/vendor.js:269016:26)
+    at push../node_modules/rxjs/_esm5/internal/Subscriber.js.Subscriber.next (http://localhost:8080/smartshare/home/vendor.js:268993:18)
+    at push../node_modules/rxjs/_esm5/internal/Subscriber.js.Subscriber._next (http://localhost:8080/smartshare/home/vendor.js:269016:26)
+    at push../node_modules/rxjs/_esm5/internal/Subscriber.js.Subscriber.next (http://localhost:8080/smartshare/home/vendor.js:268993:18)
+    at push../node_modules/rxjs/_esm5/internal/Subject.js.Subject.next (http://localhost:8080/smartshare/home/vendor.js:268759:25) @ http://localhost:8080/smartshare/home/vendor.js:74052
+[    3791ms] [ERROR] ERROR TypeError: You provided 'undefined' where a stream was expected. You can provide an Observable, Promise, Array, or Iterable.
+    at subscribeTo (http://localhost:8080/smartshare/home/vendor.js:279631:15)
+    at subscribeToResult (http://localhost:8080/smartshare/home/vendor.js:279788:76)
+    at push../node_modules/rxjs/_esm5/internal/operators/switchMap.js.SwitchMapSubscriber._innerSub (http://localhost:8080/smartshare/home/vendor.js:276616:115)
+    at push../node_modules/rxjs/_esm5/internal/operators/switchMap.js.SwitchMapSubscriber._next (http://localhost:8080/smartshare/home/vendor.js:276606:14)
+    at push../node_modules/rxjs/_esm5/internal/Subscriber.js.Subscriber.next (http://localhost:8080/smartshare/home/vendor.js:268993:18)
+    at http://localhost:8080/smartshare/home/vendor.js:279753:28
+    at push../node_modules/zone.js/dist/zone.js.ZoneDelegate.invoke (http://localhost:8080/smartshare/home/polyfills.js:3746:26)
+    at Object.onInvoke (http://localhost:8080/smartshare/home/vendor.js:96307:33)
+    at push../node_modules/zone.js/dist/zone.js.ZoneDelegate.invoke (http://localhost:8080/smartshare/home/polyfills.js:3745:52)
+    at push../node_modules/zone.js/dist/zone.js.Zone.run (http://localhost:8080/smartshare/home/polyfills.js:3505:43) @ http://localhost:8080/smartshare/home/vendor.js:74052
+[    5172ms] [ERROR] Failed to load resource: the server responded with a status of 502 (Bad Gateway) @ http://localhost:8080/smartshare/SmartShareAPI/api/v1/ObterParametro?codigoParametro=86:0
+[    5203ms] [ERROR] Failed to load resource: the server responded with a status of 502 (Bad Gateway) @ http://localhost:8080/smartshare/SmartShareAPI/api/v1/ObterParametro?codigoParametro=110:0
+[    5207ms] [ERROR] Failed to load resource: the server responded with a status of 502 (Bad Gateway) @ http://localhost:8080/smartshare/SmartShareAPI/api/v1/ObterParametro?codigoParametro=111:0

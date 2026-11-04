@@ -1,0 +1,1318 @@
+[    7804ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[    7925ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[    8847ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[    9050ms] [INFO] Autofocus processing was blocked because a document already has a focused element. @ http://172.16.0.182/smartshare/bpm/my-tasks:0
+[   40523ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[   40574ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[   40640ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[   40982ms] [INFO] Autofocus processing was blocked because a document already has a focused element. @ http://172.16.0.182/smartshare/bpm/my-tasks:0
+[  423029ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  423124ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  423166ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  426696ms] [ERROR] ERROR TypeError: Cannot read properties of undefined (reading '0')
+    at t.value (http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:181:271461)
+    at http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:181:272901
+    at Cs (http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:933:1225)
+    at o (http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:933:1403)
+    at http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1361:462
+    at http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1361:7598
+    at t.invoke (http://172.16.0.182/smartshare/bpm/polyfills.fc9376584212825838f1.js:13:7169)
+    at Object.onInvoke (http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1262:1869)
+    at t.invoke (http://172.16.0.182/smartshare/bpm/polyfills.fc9376584212825838f1.js:13:7109)
+    at e.runGuarded (http://172.16.0.182/smartshare/bpm/polyfills.fc9376584212825838f1.js:13:2430) @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:670
+[  439813ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  439932ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  439949ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  448508ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  448617ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  448664ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  452470ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  452542ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  452562ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  456204ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  456284ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  456316ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  459907ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  459989ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  460010ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  463636ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  463713ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  464217ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  467818ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  467885ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  467919ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  471513ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  471584ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  471615ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  475212ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  475279ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  475320ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  478919ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  478988ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  479026ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  487747ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  487834ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  487907ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  491554ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  491614ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  491691ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  495255ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  495314ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  495347ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  499262ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  499328ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  499357ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  503165ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  503236ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  503263ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  506964ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  507029ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  507074ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  510735ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  510827ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  510848ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  514603ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  514670ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  514694ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  518356ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  518446ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  518463ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  533844ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  533945ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  533961ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  536587ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  536673ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  536697ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  539310ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  539445ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  539474ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  542044ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  542121ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  542145ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  544813ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  544884ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  544918ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  547547ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  547628ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  547714ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  550661ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  550731ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  550761ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  553444ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  553547ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  553563ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  556152ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  556231ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  556260ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  558774ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  558845ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  558879ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  594103ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  594175ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  594213ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  597009ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  597057ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  597196ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  599693ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  599841ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  599860ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  602692ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  602774ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  602835ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  605444ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  605514ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  605560ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  608191ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  608297ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  608334ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  610879ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  610949ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  610990ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  613582ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  613664ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  613684ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  616306ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  616357ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  616491ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  651873ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  651951ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  652076ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  654719ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  654816ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  654835ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  657580ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  657681ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  657692ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  660336ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  660425ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  660446ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  662990ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  663065ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  663104ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  665779ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  665876ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  665897ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  687394ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  687471ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  687581ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  690190ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  690249ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  690291ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  692834ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  692918ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  692952ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  695460ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  695533ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  695589ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  698207ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  698291ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  698308ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  700981ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  701071ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  701100ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  703701ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  703776ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  703815ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  742720ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  742782ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  742913ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  745459ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  745536ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  745563ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  748150ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  748233ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  748266ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  750905ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  750991ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  751031ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  753527ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Invalid token) @ http://172.16.0.182/smartshare/Share4/be/bpmApi/api/v1/Tarefa/MyTaskInfo/31836/3/1/:0
+[  753531ms] [LOG] e @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  753890ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  754005ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://172.16.0.182/smartshare/Share4/be/coreApi/api/v1/Usuario/terminar-sessao:0
+[  754008ms] [ERROR] ERROR Error: Uncaught (in promise): t: {"headers":{"normalizedNames":{},"lazyUpdate":null},"status":500,"statusText":"Internal Server Error","url":"http://172.16.0.182/smartshare/Share4/be/coreApi/api/v1/Usuario/terminar-sessao","ok":false,"name":"HttpErrorResponse","message":"Http failure response for http://172.16.0.182/smartshare/Share4/be/coreApi/api/v1/Usuario/terminar-sessao: 500 Internal Server Error","error":{"tipoRetorno":3,"mensagem":"TokenInvalido","dados":null}}
+    at T (http://172.16.0.182/smartshare/home/polyfills.9e5f02ddbbe9b6461c4d.js:2:13327)
+    at http://172.16.0.182/smartshare/home/polyfills.9e5f02ddbbe9b6461c4d.js:2:12425
+    at c (http://172.16.0.182/smartshare/home/polyfills.9e5f02ddbbe9b6461c4d.js:2:46292)
+    at e.invoke (http://172.16.0.182/smartshare/home/polyfills.9e5f02ddbbe9b6461c4d.js:2:7129)
+    at Object.onInvoke (http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:2:455742)
+    at e.invoke (http://172.16.0.182/smartshare/home/polyfills.9e5f02ddbbe9b6461c4d.js:2:7069)
+    at t.run (http://172.16.0.182/smartshare/home/polyfills.9e5f02ddbbe9b6461c4d.js:2:2332)
+    at http://172.16.0.182/smartshare/home/polyfills.9e5f02ddbbe9b6461c4d.js:2:14093
+    at e.invokeTask (http://172.16.0.182/smartshare/home/polyfills.9e5f02ddbbe9b6461c4d.js:2:7813)
+    at Object.onInvokeTask (http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:2:455654) @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  754028ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-2493730.js?sv=6:2
+[  754038ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://172.16.0.182/smartshare/Share4/be/coreApi/api/v1/Usuario/validar-token:0
+[  754083ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  754086ms] [INFO] [Wed, 28 Oct 2026 10:54:32 GMT] : @azure/msal-browser@2.37.0 : Info - Emitting event: msal:handleRedirectStart @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  754086ms] [INFO] [Wed, 28 Oct 2026 10:54:32 GMT] : [85ef7218-3882-42a3-966e-6649896a6e9a] : msal.js.browser@2.37.0 : Info - handleRedirectPromise called but there is no interaction in progress, returning null. @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  754087ms] [INFO] [Wed, 28 Oct 2026 10:54:32 GMT] : @azure/msal-browser@2.37.0 : Info - Emitting event: msal:handleRedirectEnd @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  754100ms] [ERROR] ERROR TypeError: You provided 'undefined' where a stream was expected. You can provide an Observable, Promise, Array, or Iterable.
+    at j (http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:2:387569)
+    at B (http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:2:387766)
+    at t._innerSub (http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:2:550879)
+    at t._next (http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:2:550696)
+    at t.next (http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:2:378915)
+    at http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:2:386537
+    at e.invoke (http://172.16.0.182/smartshare/home/polyfills.9e5f02ddbbe9b6461c4d.js:2:7129)
+    at Object.onInvoke (http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:2:455742)
+    at e.invoke (http://172.16.0.182/smartshare/home/polyfills.9e5f02ddbbe9b6461c4d.js:2:7069)
+    at t.run (http://172.16.0.182/smartshare/home/polyfills.9e5f02ddbbe9b6461c4d.js:2:2332) @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  773566ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  773596ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  773745ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  773858ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  773859ms] [INFO] [Wed, 28 Oct 2026 10:54:51 GMT] : @azure/msal-browser@2.37.0 : Info - Emitting event: msal:handleRedirectStart @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  773859ms] [INFO] [Wed, 28 Oct 2026 10:54:51 GMT] : [a9655273-d754-43a7-b724-6c1e95ae2bc2] : msal.js.browser@2.37.0 : Info - handleRedirectPromise called but there is no interaction in progress, returning null. @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  773860ms] [INFO] [Wed, 28 Oct 2026 10:54:51 GMT] : @azure/msal-browser@2.37.0 : Info - Emitting event: msal:handleRedirectEnd @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  773867ms] [ERROR] ERROR TypeError: You provided 'undefined' where a stream was expected. You can provide an Observable, Promise, Array, or Iterable.
+    at j (http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:2:387569)
+    at B (http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:2:387766)
+    at t._innerSub (http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:2:550879)
+    at t._next (http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:2:550696)
+    at t.next (http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:2:378915)
+    at http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:2:386537
+    at e.invoke (http://172.16.0.182/smartshare/home/polyfills.9e5f02ddbbe9b6461c4d.js:2:7129)
+    at Object.onInvoke (http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:2:455742)
+    at e.invoke (http://172.16.0.182/smartshare/home/polyfills.9e5f02ddbbe9b6461c4d.js:2:7069)
+    at t.run (http://172.16.0.182/smartshare/home/polyfills.9e5f02ddbbe9b6461c4d.js:2:2332) @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  773918ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-2493730.js?sv=6:2
+[  815337ms] [INFO] [Wed, 28 Oct 2026 10:55:33 GMT] : @azure/msal-browser@2.37.0 : Info - Emitting event: msal:handleRedirectStart @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  815337ms] [INFO] [Wed, 28 Oct 2026 10:55:33 GMT] : [73b6aed1-9d59-4f89-9266-04effe36d194] : msal.js.browser@2.37.0 : Info - handleRedirectPromise called but there is no interaction in progress, returning null. @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  815338ms] [INFO] [Wed, 28 Oct 2026 10:55:33 GMT] : @azure/msal-browser@2.37.0 : Info - Emitting event: msal:handleRedirectEnd @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  815444ms] [INFO] [Wed, 28 Oct 2026 10:55:33 GMT] : @azure/msal-browser@2.37.0 : Info - Emitting event: msal:handleRedirectStart @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  815444ms] [INFO] [Wed, 28 Oct 2026 10:55:33 GMT] : [37c01e24-e653-422d-82e6-5d45af4809b7] : msal.js.browser@2.37.0 : Info - handleRedirectPromise called but there is no interaction in progress, returning null. @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  815444ms] [INFO] [Wed, 28 Oct 2026 10:55:33 GMT] : @azure/msal-browser@2.37.0 : Info - Emitting event: msal:handleRedirectEnd @ http://172.16.0.182/smartshare/home/main.4eb579993ae8426bd372.js:1
+[  815797ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  815854ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  815928ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  867594ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  867669ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  867722ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  870321ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  870406ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  870435ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  872965ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  873032ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  873070ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  875634ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  875732ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  875769ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  878543ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  878621ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  878681ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  881333ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  881412ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  881475ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  884055ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  884135ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  884158ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  886851ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  886930ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  886950ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  917358ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  917446ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  917481ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  920133ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  920224ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  920242ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  922871ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  922960ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  922987ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  925715ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  925795ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  925821ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  928581ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  928667ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  929720ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  947209ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  947318ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  947326ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  950027ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  950116ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  950157ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  958093ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[  958176ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[  958200ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[  966175ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://172.16.0.182/smartshare/Share4/be/bpmApi/api/v1/attachment/downloadAllToPrint/31839/2:0
+[  990784ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://172.16.0.182/smartshare/Share4/be/bpmApi/api/v1/attachment/downloadAllToPrint/31839/2:0
+[ 1005660ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://172.16.0.182/smartshare/Share4/be/bpmApi/api/v1/attachment/downloadAllToPrint/31839/2:0
+[ 1024035ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[ 1024139ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1024375ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1209974ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1210090ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[ 1210151ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1214002ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1214098ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[ 1214139ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1216821ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1216904ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[ 1216935ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1219746ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1219820ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[ 1219890ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1223000ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1223081ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[ 1223141ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1225936ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1226022ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[ 1226069ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1228850ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1228940ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[ 1228983ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1231667ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1231735ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[ 1231774ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1234773ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1234853ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[ 1234937ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1238027ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1238097ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[ 1238146ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1253802ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1253892ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[ 1253945ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1256533ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1256628ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[ 1256654ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1259287ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1259365ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[ 1259392ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1261950ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1262026ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[ 1262082ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1264824ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1264896ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[ 1264972ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1267948ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1268044ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[ 1268078ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1270776ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1270860ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[ 1270910ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1285197ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[ 1285345ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[ 1285394ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2

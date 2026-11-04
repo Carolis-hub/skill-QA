@@ -1,0 +1,71 @@
+- iframe [ref=f74e3]:
+  - generic [ref=f75e1]:
+    - iframe [ref=f75e2]:
+      - generic [ref=f76e2]:
+        - generic [ref=f76e3]:
+          - generic:
+            - generic [ref=f76e6]:
+              - generic [ref=f76e7]: Olá Administrador
+              - link "[ SAIR ]" [ref=f76e9] [cursor=pointer]:
+                - /url: javascript:__doPostBack('lbLogout','')
+            - generic [ref=f76e10]:
+              - link "Submit":
+                - /url: javascript:__doPostBack('linkDoc','')
+                - button "Submit" [ref=f76e11] [cursor=pointer]
+              - link "Submit":
+                - /url: javascript:__doPostBack('linkBusca','')
+                - button "Submit" [ref=f76e12] [cursor=pointer]
+              - link "Submit":
+                - /url: javascript:__doPostBack('linkGauge','')
+                - button "Submit" [ref=f76e13] [cursor=pointer]
+        - generic [ref=f76e14]:
+          - list [ref=f76e17]:
+            - listitem [ref=f76e18]:
+              - textbox [ref=f76e19]
+            - listitem [ref=f76e20]:
+              - link [ref=f76e21] [cursor=pointer]:
+                - /url: "#"
+                - button "Submit" [ref=f76e22]
+            - listitem [ref=f76e23]:
+              - link [ref=f76e25] [cursor=pointer]:
+                - /url: "#"
+                - button "Submit" [ref=f76e26]
+            - listitem [ref=f76e27]:
+              - link [ref=f76e29] [cursor=pointer]:
+                - /url: "#"
+                - button "Submit" [ref=f76e30]
+            - listitem [ref=f76e31]:
+              - link [ref=f76e33] [cursor=pointer]:
+                - /url: "#"
+                - button "Submit" [ref=f76e34]
+            - listitem [ref=f76e35]:
+              - link [ref=f76e37] [cursor=pointer]:
+                - /url: "#"
+                - button "Submit" [ref=f76e38]
+            - listitem [ref=f76e39]:
+              - link [ref=f76e41] [cursor=pointer]:
+                - /url: "#"
+                - button "Submit" [ref=f76e42]
+            - listitem [ref=f76e43]:
+              - link [ref=f76e45] [cursor=pointer]:
+                - /url: "#"
+                - button "Submit" [ref=f76e46]
+            - listitem [ref=f76e47]:
+              - link [ref=f76e49] [cursor=pointer]:
+                - /url: "#"
+                - button "Submit" [ref=f76e50]
+            - listitem [ref=f76e51]:
+              - link [ref=f76e53] [cursor=pointer]:
+                - /url: "#"
+                - button "Submit" [ref=f76e54]
+            - listitem [ref=f76e55]:
+              - link [ref=f76e57] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=f76e59]:
+              - link [ref=f76e61] [cursor=pointer]:
+                - /url: "#"
+                - button "Submit" [ref=f76e62]
+          - generic: Esta tarefa ja esta associada a um usuário.
+          - generic [ref=f76e77] [cursor=pointer]
+          - generic [ref=f76e78] [cursor=pointer]
+    - iframe [ref=f75e3]

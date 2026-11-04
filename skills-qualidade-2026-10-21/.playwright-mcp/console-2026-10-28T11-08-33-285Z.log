@@ -1,0 +1,136 @@
+[    1127ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-1821837.js?sv=6:2
+[    1220ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:180
+[    1343ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/bpm/main.b840c05a980e0b6df2ab.js:1800
+[    9908ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-2493730.js?sv=6:2
+[   10821ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[   10929ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:2613
+[   11037ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[   76150ms] [INFO] Autofocus processing was blocked because a document already has a focused element. @ http://172.16.0.182/smartshare/ecm/main-folder:0
+[  492600ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[  492725ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:2613
+[  492755ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[  492814ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-2493730.js?sv=6:2
+[  505162ms] [ERROR] FontAwesome: Could not find icon with iconName=null and prefix=null @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:288
+[  694430ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://172.16.0.182/smartshare/gerenciamento/Scripts/ssGerenciamento.js:0
+[  703541ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[  703649ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:2613
+[  703671ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[  703740ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-2493730.js?sv=6:2
+[  984381ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[  984468ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:2613
+[  984492ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[  984563ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-2493730.js?sv=6:2
+[ 1163563ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[ 1163664ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:2613
+[ 1163694ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[ 1163771ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-2493730.js?sv=6:2
+[ 1183271ms] [INFO] Autofocus processing was blocked because a document already has a focused element. @ http://172.16.0.182/smartshare/ecm/main-folder:0
+[ 1411255ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[ 1411342ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:2613
+[ 1411357ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[ 1411418ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-2493730.js?sv=6:2
+[ 1447836ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[ 1447918ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:2613
+[ 1447936ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[ 1447997ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-2493730.js?sv=6:2

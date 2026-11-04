@@ -1,0 +1,39 @@
+- generic [ref=f22e2]:
+  - generic [ref=f22e13]:
+    - generic [ref=f22e14]:
+      - heading "Aviso!" [level=2] [ref=f22e15]
+      - paragraph [ref=f22e16]: "Não é possível revisar o processo pois o mesmo está sendo revisado por: Administrador"
+    - button "Submit" [ref=f22e18] [cursor=pointer]
+  - generic [ref=f22e28]:
+    - generic [ref=f22e29]:
+      - heading [level=1] [ref=f22e39]
+      - heading "Revisar Processo" [level=2] [ref=f22e41]
+      - generic [ref=f22e42]:
+        - generic "Ajuda" [ref=f22e43]:
+          - img "Ajuda" [ref=f22e44]
+        - button "Fechar" [ref=f22e45] [cursor=pointer]
+      - link "Editar" [ref=f22e47] [cursor=pointer]:
+        - /url: javascript:__doPostBack('lkbnEditarConteudo','')
+    - generic [ref=f22e49]:
+      - table [ref=f22e51]:
+        - rowgroup [ref=f22e52]:
+          - row [ref=f22e53]:
+            - cell [ref=f22e54]
+        - rowgroup [ref=f22e55]:
+          - row [ref=f22e56]:
+            - cell [ref=f22e57]:
+              - heading "Tipo de Revisão:" [level=1] [ref=f22e58]
+            - cell "Padrão Arquivo Externo" [ref=f22e59]:
+              - text: Padrão
+              - radio "Padrão" [checked] [ref=f22e60]
+              - text: Arquivo Externo
+              - radio "Arquivo Externo" [ref=f22e61]
+          - row [ref=f22e62]:
+            - cell [ref=f22e63]:
+              - heading "Versão Base:" [level=1] [ref=f22e64]
+            - cell [ref=f22e65]:
+              - combobox [ref=f22e66]
+          - row
+      - generic [ref=f22e68]:
+        - button "Confirmar" [ref=f22e69] [cursor=pointer]
+        - button "Cancelar" [ref=f22e70] [cursor=pointer]

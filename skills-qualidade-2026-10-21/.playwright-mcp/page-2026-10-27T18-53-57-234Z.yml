@@ -1,0 +1,20 @@
+- generic [ref=f6e3]:
+  - button [ref=f6e6] [cursor=pointer]
+  - generic [ref=f6e11]: AD
+  - generic [ref=f6e21]:
+    - button "Solicitar" [ref=f6e24] [cursor=pointer]
+    - generic [ref=f6e26]:
+      - button "Início" [ref=f6e29] [cursor=pointer]
+      - button "Favoritos" [ref=f6e36] [cursor=pointer]
+      - button "Documentos" [ref=f6e43] [cursor=pointer]
+      - button "Minhas tarefas" [ref=f6e50] [cursor=pointer]
+      - button "Acompanhar" [ref=f6e57] [cursor=pointer]
+      - button "Finalizados" [ref=f6e64] [cursor=pointer]
+      - button "Portal de melhorias" [ref=f6e71] [cursor=pointer]
+      - button "Dashboards" [ref=f6e78] [cursor=pointer]
+      - button "Configurações" [ref=f6e85] [cursor=pointer]
+  - generic:
+    - generic:
+      - generic:
+        - heading [level=1]
+  - status "Carregando" [ref=f6e88]

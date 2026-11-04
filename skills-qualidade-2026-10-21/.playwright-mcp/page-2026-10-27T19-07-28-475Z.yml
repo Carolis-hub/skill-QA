@@ -1,0 +1,525 @@
+- generic [ref=f47e3]:
+  - button [ref=f47e6] [cursor=pointer]
+  - generic [ref=f47e11]: AD
+  - generic [ref=f47e21]:
+    - button "Solicitar" [ref=f47e24] [cursor=pointer]
+    - generic [ref=f47e26]:
+      - button "Início" [ref=f47e29] [cursor=pointer]
+      - button "Favoritos" [ref=f47e36] [cursor=pointer]
+      - button "Documentos" [ref=f47e43] [cursor=pointer]
+      - button "Minhas tarefas" [ref=f47e50] [cursor=pointer]
+      - button "Acompanhar" [ref=f47e57] [cursor=pointer]
+      - button "Finalizados" [ref=f47e64] [cursor=pointer]
+      - button "Portal de melhorias" [ref=f47e71] [cursor=pointer]
+      - button "Dashboards" [ref=f47e78] [cursor=pointer]
+      - button "Configurações" [ref=f47e85] [cursor=pointer]
+  - heading "Minhas tarefas" [level=1] [ref=f47e89]
+  - generic [ref=f47e91]:
+    - generic [ref=f47e93]:
+      - button "Filtro" [ref=f47e97] [cursor=pointer]
+      - generic [ref=f47e102]:
+        - button "Itens por pagina" [ref=f47e105] [cursor=pointer]
+        - separator [ref=f47e113]
+        - button [ref=f47e114] [cursor=pointer]
+        - button [ref=f47e118] [cursor=pointer]
+        - separator [ref=f47e122]
+        - button [ref=f47e123] [cursor=pointer]
+        - button "Todos" [ref=f47e129] [cursor=pointer]
+        - textbox "Buscar" [ref=f47e142] [cursor=pointer]
+    - list [ref=f47e147]:
+      - listitem [ref=f47e148]:
+        - generic [ref=f47e149]:
+          - text: Todas
+          - generic [ref=f47e150]: "1414"
+      - listitem [ref=f47e152] [cursor=pointer]:
+        - generic [ref=f47e153]:
+          - text: No prazo
+          - generic [ref=f47e154]: "1340"
+      - listitem [ref=f47e155] [cursor=pointer]:
+        - generic [ref=f47e156]:
+          - text: Em risco
+          - generic [ref=f47e157]: "0"
+      - listitem [ref=f47e158] [cursor=pointer]:
+        - generic [ref=f47e159]:
+          - text: Atrasadas
+          - generic [ref=f47e160]: "74"
+  - generic [ref=f47e163]:
+    - generic [ref=f47e166]:
+      - generic [ref=f47e167]:
+        - generic [ref=f47e171]:
+          - generic [ref=f47e172]:
+            - heading "Atividade" [level=3] [ref=f47e174]
+            - separator [ref=f47e175]
+            - heading "processo claude" [level=5] [ref=f47e178]
+            - generic [ref=f47e179]: processo-claude
+            - generic [ref=f47e181]:
+              - generic [ref=f47e182]:
+                - generic [ref=f47e183]: Data
+                - heading "27/10/2026" [level=5] [ref=f47e184]
+              - generic [ref=f47e185]:
+                - generic [ref=f47e186]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e187]
+              - generic [ref=f47e188]: AD
+          - generic [ref=f47e190]:
+            - button "Executar" [ref=f47e191] [cursor=pointer]
+            - button "Detalhar" [ref=f47e193] [cursor=pointer]
+        - generic [ref=f47e198]:
+          - generic [ref=f47e199]:
+            - heading "Atividade 2" [level=3] [ref=f47e201]
+            - separator [ref=f47e202]
+            - heading "processo claude" [level=5] [ref=f47e205]
+            - generic [ref=f47e206]: processo-claude
+            - generic [ref=f47e208]:
+              - generic [ref=f47e209]:
+                - generic [ref=f47e210]: Data
+                - heading "27/10/2026" [level=5] [ref=f47e211]
+              - generic [ref=f47e212]:
+                - generic [ref=f47e213]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e214]
+              - generic [ref=f47e215]: AD
+          - generic [ref=f47e217]:
+            - button "Executar" [ref=f47e218] [cursor=pointer]
+            - button "Detalhar" [ref=f47e220] [cursor=pointer]
+        - generic [ref=f47e225]:
+          - generic [ref=f47e226]:
+            - heading "Atv 1" [level=3] [ref=f47e228]
+            - separator [ref=f47e229]
+            - heading "Processo permissão anexos" [level=5] [ref=f47e232]
+            - generic [ref=f47e233]: Permissao_anexos_31821
+            - generic [ref=f47e235]:
+              - generic [ref=f47e236]:
+                - generic [ref=f47e237]: Data
+                - heading "27/10/2026" [level=5] [ref=f47e238]
+              - generic [ref=f47e239]:
+                - generic [ref=f47e240]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e241]
+              - generic [ref=f47e242]: AD
+          - generic [ref=f47e244]:
+            - button "Executar" [ref=f47e245] [cursor=pointer]
+            - button "Detalhar" [ref=f47e247] [cursor=pointer]
+        - generic [ref=f47e252]:
+          - generic [ref=f47e253]:
+            - heading "Atv 1" [level=3] [ref=f47e255]
+            - separator [ref=f47e256]
+            - heading "Processo permissão anexos" [level=5] [ref=f47e259]
+            - generic [ref=f47e260]: Permissao_anexos_31820
+            - generic [ref=f47e262]:
+              - generic [ref=f47e263]:
+                - generic [ref=f47e264]: Data
+                - heading "27/10/2026" [level=5] [ref=f47e265]
+              - generic [ref=f47e266]:
+                - generic [ref=f47e267]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e268]
+              - generic [ref=f47e269]: AD
+          - generic [ref=f47e271]:
+            - button "Executar" [ref=f47e272] [cursor=pointer]
+            - button "Detalhar" [ref=f47e274] [cursor=pointer]
+        - generic [ref=f47e279]:
+          - generic [ref=f47e280]:
+            - heading "Atv 2" [level=3] [ref=f47e282]
+            - separator [ref=f47e283]
+            - heading "Processo permissão anexos" [level=5] [ref=f47e286]
+            - generic [ref=f47e287]: Permissao_anexos_31812
+            - generic [ref=f47e289]:
+              - generic [ref=f47e290]:
+                - generic [ref=f47e291]: Data
+                - heading "27/10/2026" [level=5] [ref=f47e292]
+              - generic [ref=f47e293]:
+                - generic [ref=f47e294]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e295]
+              - generic [ref=f47e296]: AD
+          - generic [ref=f47e298]:
+            - button "Executar" [ref=f47e299] [cursor=pointer]
+            - button "Detalhar" [ref=f47e301] [cursor=pointer]
+        - generic [ref=f47e306]:
+          - generic [ref=f47e307]:
+            - heading "Atv 1" [level=3] [ref=f47e309]
+            - separator [ref=f47e310]
+            - heading "Processo permissão anexos" [level=5] [ref=f47e313]
+            - generic [ref=f47e314]: Permissao_anexos_31810
+            - generic [ref=f47e316]:
+              - generic [ref=f47e317]:
+                - generic [ref=f47e318]: Data
+                - heading "27/10/2026" [level=5] [ref=f47e319]
+              - generic [ref=f47e320]:
+                - generic [ref=f47e321]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e322]
+              - generic [ref=f47e323]: AD
+          - generic [ref=f47e325]:
+            - button "Executar" [ref=f47e326] [cursor=pointer]
+            - button "Detalhar" [ref=f47e328] [cursor=pointer]
+        - generic [ref=f47e333]:
+          - generic [ref=f47e334]:
+            - heading "Atv 2" [level=3] [ref=f47e336]
+            - separator [ref=f47e337]
+            - heading "Processo permissão anexos" [level=5] [ref=f47e340]
+            - generic [ref=f47e341]: Permissao_anexos_31807
+            - generic [ref=f47e343]:
+              - generic [ref=f47e344]:
+                - generic [ref=f47e345]: Data
+                - heading "27/10/2026" [level=5] [ref=f47e346]
+              - generic [ref=f47e347]:
+                - generic [ref=f47e348]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e349]
+              - generic [ref=f47e350]: AD
+          - generic [ref=f47e352]:
+            - button "Executar" [ref=f47e353] [cursor=pointer]
+            - button "Detalhar" [ref=f47e355] [cursor=pointer]
+        - generic [ref=f47e360]:
+          - generic [ref=f47e361]:
+            - heading "Atividade" [level=3] [ref=f47e363]
+            - separator [ref=f47e364]
+            - heading "Processo bootstrap 5" [level=5] [ref=f47e367]
+            - generic [ref=f47e368]: Teste instalador - 31800
+            - generic [ref=f47e370]:
+              - generic [ref=f47e371]:
+                - generic [ref=f47e372]: Data
+                - heading "22/10/2026" [level=5] [ref=f47e373]
+              - generic [ref=f47e374]:
+                - generic [ref=f47e375]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e376]
+              - generic [ref=f47e377]: AD
+          - generic [ref=f47e379]:
+            - button "Executar" [ref=f47e380] [cursor=pointer]
+            - button "Detalhar" [ref=f47e382] [cursor=pointer]
+        - generic [ref=f47e387]:
+          - generic [ref=f47e388]:
+            - heading "Atividade" [level=3] [ref=f47e390]
+            - separator [ref=f47e391]
+            - heading "Processo bootstrap 5" [level=5] [ref=f47e394]
+            - generic [ref=f47e395]: Teste instalador - 31799
+            - generic [ref=f47e397]:
+              - generic [ref=f47e398]:
+                - generic [ref=f47e399]: Data
+                - heading "22/10/2026" [level=5] [ref=f47e400]
+              - generic [ref=f47e401]:
+                - generic [ref=f47e402]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e403]
+              - generic [ref=f47e404]: AD
+          - generic [ref=f47e406]:
+            - button "Executar" [ref=f47e407] [cursor=pointer]
+            - button "Detalhar" [ref=f47e409] [cursor=pointer]
+        - generic [ref=f47e414]:
+          - generic [ref=f47e415]:
+            - heading "Atividade" [level=3] [ref=f47e417]
+            - separator [ref=f47e418]
+            - heading "Processo bootstrap 5" [level=5] [ref=f47e421]
+            - generic [ref=f47e422]: Teste instalador - 31798
+            - generic [ref=f47e424]:
+              - generic [ref=f47e425]:
+                - generic [ref=f47e426]: Data
+                - heading "21/10/2026" [level=5] [ref=f47e427]
+              - generic [ref=f47e428]:
+                - generic [ref=f47e429]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e430]
+              - generic [ref=f47e431]: AD
+          - generic [ref=f47e433]:
+            - button "Executar" [ref=f47e434] [cursor=pointer]
+            - button "Detalhar" [ref=f47e436] [cursor=pointer]
+        - generic [ref=f47e441]:
+          - generic [ref=f47e442]:
+            - heading "Atividade" [level=3] [ref=f47e444]
+            - separator [ref=f47e445]
+            - heading "Processo bootstrap 5" [level=5] [ref=f47e448]
+            - generic [ref=f47e449]: Teste instalador - 31797
+            - generic [ref=f47e451]:
+              - generic [ref=f47e452]:
+                - generic [ref=f47e453]: Data
+                - heading "21/10/2026" [level=5] [ref=f47e454]
+              - generic [ref=f47e455]:
+                - generic [ref=f47e456]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e457]
+              - generic [ref=f47e458]: AD
+          - generic [ref=f47e460]:
+            - button "Executar" [ref=f47e461] [cursor=pointer]
+            - button "Detalhar" [ref=f47e463] [cursor=pointer]
+        - generic [ref=f47e468]:
+          - generic [ref=f47e469]:
+            - heading "Atividade" [level=3] [ref=f47e471]
+            - separator [ref=f47e472]
+            - heading "Processo teste instalador" [level=5] [ref=f47e475]
+            - generic [ref=f47e476]: Teste instalador - 31796
+            - generic [ref=f47e478]:
+              - generic [ref=f47e479]:
+                - generic [ref=f47e480]: Data
+                - heading "21/10/2026" [level=5] [ref=f47e481]
+              - generic [ref=f47e482]:
+                - generic [ref=f47e483]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e484]
+              - generic [ref=f47e485]: AD
+          - generic [ref=f47e487]:
+            - button "Executar" [ref=f47e488] [cursor=pointer]
+            - button "Detalhar" [ref=f47e490] [cursor=pointer]
+        - generic [ref=f47e495]:
+          - generic [ref=f47e496]:
+            - heading "Iniciar Admissão" [level=3] [ref=f47e498]
+            - separator [ref=f47e499]
+            - heading "Admissão Formulário 4.0 - Felipe" [level=5] [ref=f47e502]
+            - generic [ref=f47e503]: "Admissão Formulário 4.0 - Felipe - cd_fluxo: 31795 - cd_processo: 11603 - cd_versao_processo: 2"
+            - generic [ref=f47e505]:
+              - generic [ref=f47e506]:
+                - generic [ref=f47e507]: Data
+                - heading "21/10/2026" [level=5] [ref=f47e508]
+              - generic [ref=f47e509]:
+                - generic [ref=f47e510]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e511]
+              - generic [ref=f47e512]: AD
+          - generic [ref=f47e514]:
+            - button "Executar" [ref=f47e515] [cursor=pointer]
+            - button "Detalhar" [ref=f47e517] [cursor=pointer]
+        - generic [ref=f47e522]:
+          - generic [ref=f47e523]:
+            - heading "Atividade 1 com nome grande para verificar se o titulo é truncado na visão de cards e lista" [level=3] [ref=f47e525]
+            - separator [ref=f47e526]
+            - heading "Processo 1" [level=5] [ref=f47e529]
+            - generic [ref=f47e530]: Teste Máquina - 31794 - 11604
+            - generic [ref=f47e532]:
+              - generic [ref=f47e533]:
+                - generic [ref=f47e534]: Data
+                - heading "21/10/2026" [level=5] [ref=f47e535]
+              - generic [ref=f47e536]:
+                - generic [ref=f47e537]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e538]
+              - generic [ref=f47e539]: AD
+          - generic [ref=f47e541]:
+            - button "Executar" [ref=f47e542] [cursor=pointer]
+            - button "Detalhar" [ref=f47e544] [cursor=pointer]
+        - generic [ref=f47e549]:
+          - generic [ref=f47e550]:
+            - heading "Atividade" [level=3] [ref=f47e552]
+            - separator [ref=f47e553]
+            - heading "Processo bootstrap 5" [level=5] [ref=f47e556]
+            - generic [ref=f47e557]: Teste instalador - 31793
+            - generic [ref=f47e559]:
+              - generic [ref=f47e560]:
+                - generic [ref=f47e561]: Data
+                - heading "21/10/2026" [level=5] [ref=f47e562]
+              - generic [ref=f47e563]:
+                - generic [ref=f47e564]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e565]
+              - generic [ref=f47e566]: AD
+          - generic [ref=f47e568]:
+            - button "Executar" [ref=f47e569] [cursor=pointer]
+            - button "Detalhar" [ref=f47e571] [cursor=pointer]
+        - generic [ref=f47e576]:
+          - generic [ref=f47e577]:
+            - heading "Atividade" [level=3] [ref=f47e579]
+            - separator [ref=f47e580]
+            - heading "Processo teste Thiago" [level=5] [ref=f47e583]
+            - generic [ref=f47e584]: Processo teste Thiago
+            - generic [ref=f47e586]:
+              - generic [ref=f47e587]:
+                - generic [ref=f47e588]: Data
+                - heading "21/10/2026" [level=5] [ref=f47e589]
+              - generic [ref=f47e590]:
+                - generic [ref=f47e591]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e592]
+              - generic [ref=f47e593]: TL
+          - generic [ref=f47e595]:
+            - button "Executar" [ref=f47e596] [cursor=pointer]
+            - button "Detalhar" [ref=f47e598] [cursor=pointer]
+        - generic [ref=f47e603]:
+          - generic [ref=f47e604]:
+            - heading "Atividade" [level=3] [ref=f47e606]
+            - separator [ref=f47e607]
+            - heading "Processo bootstrap 5" [level=5] [ref=f47e610]
+            - generic [ref=f47e611]: Teste instalador - 31791
+            - generic [ref=f47e613]:
+              - generic [ref=f47e614]:
+                - generic [ref=f47e615]: Data
+                - heading "21/10/2026" [level=5] [ref=f47e616]
+              - generic [ref=f47e617]:
+                - generic [ref=f47e618]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e619]
+              - generic [ref=f47e620]: AD
+          - generic [ref=f47e622]:
+            - button "Executar" [ref=f47e623] [cursor=pointer]
+            - button "Detalhar" [ref=f47e625] [cursor=pointer]
+        - generic [ref=f47e630]:
+          - generic [ref=f47e631]:
+            - heading "Atividade 1 com nome grande para verificar se o titulo é truncado na visão de cards e lista" [level=3] [ref=f47e633]
+            - separator [ref=f47e634]
+            - heading "Processo 1" [level=5] [ref=f47e637]
+            - generic [ref=f47e638]: Teste Máquina - 31790 - 11604
+            - generic [ref=f47e640]:
+              - generic [ref=f47e641]:
+                - generic [ref=f47e642]: Data
+                - heading "21/10/2026" [level=5] [ref=f47e643]
+              - generic [ref=f47e644]:
+                - generic [ref=f47e645]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e646]
+              - generic [ref=f47e647]: AD
+          - generic [ref=f47e649]:
+            - button "Executar" [ref=f47e650] [cursor=pointer]
+            - button "Detalhar" [ref=f47e652] [cursor=pointer]
+        - generic [ref=f47e657]:
+          - generic [ref=f47e658]:
+            - heading "Atividade" [level=3] [ref=f47e660]
+            - separator [ref=f47e661]
+            - heading "Processo bootstrap 5" [level=5] [ref=f47e664]
+            - generic [ref=f47e665]: Teste instalador - 31789
+            - generic [ref=f47e667]:
+              - generic [ref=f47e668]:
+                - generic [ref=f47e669]: Data
+                - heading "21/10/2026" [level=5] [ref=f47e670]
+              - generic [ref=f47e671]:
+                - generic [ref=f47e672]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e673]
+              - generic [ref=f47e674]: AD
+          - generic [ref=f47e676]:
+            - button "Executar" [ref=f47e677] [cursor=pointer]
+            - button "Detalhar" [ref=f47e679] [cursor=pointer]
+        - generic [ref=f47e684]:
+          - generic [ref=f47e685]:
+            - heading "Atividade 1 com nome grande para verificar se o titulo é truncado na visão de cards e lista" [level=3] [ref=f47e687]
+            - separator [ref=f47e688]
+            - heading "Processo 1" [level=5] [ref=f47e691]
+            - generic [ref=f47e692]: Teste Máquina - 31788 - 11604
+            - generic [ref=f47e694]:
+              - generic [ref=f47e695]:
+                - generic [ref=f47e696]: Data
+                - heading "19/10/2026" [level=5] [ref=f47e697]
+              - generic [ref=f47e698]:
+                - generic [ref=f47e699]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e700]
+              - generic [ref=f47e701]: AD
+          - generic [ref=f47e703]:
+            - button "Executar" [ref=f47e704] [cursor=pointer]
+            - button "Detalhar" [ref=f47e706] [cursor=pointer]
+        - generic [ref=f47e711]:
+          - generic [ref=f47e712]:
+            - heading "Atividade 1 com nome grande para verificar se o titulo é truncado na visão de cards e lista" [level=3] [ref=f47e714]
+            - separator [ref=f47e715]
+            - heading "Processo 1" [level=5] [ref=f47e718]
+            - generic [ref=f47e719]: Teste Máquina - 31787 - 11604
+            - generic [ref=f47e721]:
+              - generic [ref=f47e722]:
+                - generic [ref=f47e723]: Data
+                - heading "19/10/2026" [level=5] [ref=f47e724]
+              - generic [ref=f47e725]:
+                - generic [ref=f47e726]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e727]
+              - generic [ref=f47e728]: AD
+          - generic [ref=f47e730]:
+            - button "Executar" [ref=f47e731] [cursor=pointer]
+            - button "Detalhar" [ref=f47e733] [cursor=pointer]
+        - generic [ref=f47e738]:
+          - generic [ref=f47e739]:
+            - heading "Atividade 1 com nome grande para verificar se o titulo é truncado na visão de cards e lista" [level=3] [ref=f47e741]
+            - separator [ref=f47e742]
+            - heading "Processo 1" [level=5] [ref=f47e745]
+            - generic [ref=f47e746]: Teste Máquina - 31784 - 11604
+            - generic [ref=f47e748]:
+              - generic [ref=f47e749]:
+                - generic [ref=f47e750]: Data
+                - heading "15/10/2026" [level=5] [ref=f47e751]
+              - generic [ref=f47e752]:
+                - generic [ref=f47e753]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e754]
+              - generic [ref=f47e755]: AD
+          - generic [ref=f47e757]:
+            - button "Executar" [ref=f47e758] [cursor=pointer]
+            - button "Detalhar" [ref=f47e760] [cursor=pointer]
+        - generic [ref=f47e765]:
+          - generic [ref=f47e766]:
+            - heading "Atividade 1 com nome grande para verificar se o titulo é truncado na visão de cards e lista" [level=3] [ref=f47e768]
+            - separator [ref=f47e769]
+            - heading "Processo 1" [level=5] [ref=f47e772]
+            - generic [ref=f47e773]: Teste Máquina - 31783 - 11604
+            - generic [ref=f47e775]:
+              - generic [ref=f47e776]:
+                - generic [ref=f47e777]: Data
+                - heading "15/10/2026" [level=5] [ref=f47e778]
+              - generic [ref=f47e779]:
+                - generic [ref=f47e780]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e781]
+              - generic [ref=f47e782]: AD
+          - generic [ref=f47e784]:
+            - button "Executar" [ref=f47e785] [cursor=pointer]
+            - button "Detalhar" [ref=f47e787] [cursor=pointer]
+        - generic [ref=f47e792]:
+          - generic [ref=f47e793]:
+            - heading "Atividade 2 com nome grande para verificar se o titulo é truncado na visão de cards e lista" [level=3] [ref=f47e795]
+            - separator [ref=f47e796]
+            - generic [ref=f47e797]:
+              - heading "Processo 1" [level=5] [ref=f47e799]
+              - generic [ref=f47e800]: Comigo
+            - generic [ref=f47e808]: Teste Máquina - 31782 - 11604
+            - generic [ref=f47e810]:
+              - generic [ref=f47e811]:
+                - generic [ref=f47e812]: Data
+                - heading "15/10/2026" [level=5] [ref=f47e813]
+              - generic [ref=f47e814]:
+                - generic [ref=f47e815]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e816]
+              - generic [ref=f47e817]: AD
+          - generic [ref=f47e819]:
+            - button "Executar" [ref=f47e820] [cursor=pointer]
+            - button "Devolver" [ref=f47e822] [cursor=pointer]
+            - button "Detalhar" [ref=f47e824] [cursor=pointer]
+        - generic [ref=f47e829]:
+          - generic [ref=f47e830]:
+            - heading "Atividade 1 com nome grande para verificar se o titulo é truncado na visão de cards e lista" [level=3] [ref=f47e832]
+            - separator [ref=f47e833]
+            - heading "Processo 1" [level=5] [ref=f47e836]
+            - generic [ref=f47e837]: Teste Máquina - 31781 - 11604
+            - generic [ref=f47e839]:
+              - generic [ref=f47e840]:
+                - generic [ref=f47e841]: Data
+                - heading "15/10/2026" [level=5] [ref=f47e842]
+              - generic [ref=f47e843]:
+                - generic [ref=f47e844]: Prazo
+                - heading "Não definido" [level=5] [ref=f47e845]
+              - generic [ref=f47e846]: AD
+          - generic [ref=f47e848]:
+            - button "Executar" [ref=f47e849] [cursor=pointer]
+            - button "Detalhar" [ref=f47e851] [cursor=pointer]
+      - button "Carregar mais tarefas" [ref=f47e854] [cursor=pointer]
+    - generic [ref=f47e857]:
+      - generic [ref=f47e860]:
+        - generic [ref=f47e861]:
+          - button [ref=f47e862] [cursor=pointer]
+          - generic [ref=f47e866]: "31826"
+          - generic [ref=f47e870]: Atividade
+          - heading "processo-claude" [level=3] [ref=f47e875]
+        - generic [ref=f47e876]:
+          - tablist [ref=f47e877]:
+            - listitem [ref=f47e878]:
+              - tab "Formulário" [selected] [ref=f47e879] [cursor=pointer]
+            - listitem [ref=f47e880]:
+              - tab "Histórico" [ref=f47e881] [cursor=pointer]
+          - generic:
+            - tabpanel "Formulário"
+      - generic [ref=f47e882]:
+        - generic [ref=f47e886]:
+          - generic [ref=f47e887]:
+            - button "1" [ref=f47e889] [cursor=pointer]
+            - button [ref=f47e897] [cursor=pointer]
+          - generic [ref=f47e904]:
+            - generic [ref=f47e905]:
+              - heading "Anexos" [level=3] [ref=f47e907]
+              - button [ref=f47e908] [cursor=pointer]
+            - generic [ref=f47e914]:
+              - button "ANEXAR ARQUIVOS" [ref=f47e917] [cursor=pointer]
+              - generic [ref=f47e921]:
+                - generic [ref=f47e922]:
+                  - generic [ref=f47e923]: AD
+                  - generic [ref=f47e925]: 27/10/2026 às 16:07
+                - generic [ref=f47e926]:
+                  - generic [ref=f47e932]:
+                    - generic [ref=f47e933]:
+                      - generic [ref=f47e934]: QA-US154487-anexo-A
+                      - generic [ref=f47e935]: .pdf
+                    - generic [ref=f47e936]: documento-sem-download
+                  - button [ref=f47e937] [cursor=pointer]
+        - generic [ref=f47e943]: Tarefa sem formulário ou usuário sem permissão. Por favor, entre em contato com o administrador.
+        - generic [ref=f47e957]:
+          - generic [ref=f47e958]:
+            - heading "Ações" [level=3] [ref=f47e959]
+            - button [ref=f47e960] [cursor=pointer]
+          - button "avança" [ref=f47e967] [cursor=pointer]
+          - button "Salvar" [ref=f47e971] [cursor=pointer]
+  - alert [ref=f47e974]:
+    - generic [ref=f47e976]:
+      - generic [ref=f47e981]: 1 arquivo anexado com sucesso
+      - button "Close" [ref=f47e984] [cursor=pointer]

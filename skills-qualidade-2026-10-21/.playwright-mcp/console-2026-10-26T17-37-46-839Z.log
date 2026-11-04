@@ -1,0 +1,174 @@
+[     671ms] [ERROR] WebSocket connection to 'ws://localhost:8080/smartshare/workspace/?token=4OXSFSZomD53' failed: Error during WebSocket handshake: Unexpected response code: 200 @ http://localhost:8080/smartshare/workspace/@vite/client:744
+[     678ms] [INFO] [vite] Direct websocket connection fallback. Check out https://vite.dev/config/server-options.html#server-hmr to remove the previous connection error. @ http://localhost:8080/smartshare/workspace/@vite/client:759
+[    1357ms] [LOG] Angular is running in development mode. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-F7DIFGVZ.js?v=41d35ac2:11246
+[    1375ms] [WARNING] Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-SDFR5ZY7.js?v=41d35ac2:85
+[    1375ms] [WARNING] Multiple versions of Lit loaded. Loading multiple versions is not recommended. See https://lit.dev/msg/multiple-versions for more information. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-SDFR5ZY7.js?v=41d35ac2:85
+[    2003ms] [WARNING] Element nyx-radio scheduled an update (generally because a property was set) after an update completed, causing a new update to be scheduled. This is inefficient and should be avoided unless the next update can only be scheduled as a side effect of the previous update. See https://lit.dev/msg/change-in-update for more information. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-SDFR5ZY7.js?v=41d35ac2:1029
+[    2074ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:8080/smartshare/workspace/management/usuario/novo:0
+[    2820ms] [ERROR] Failed to load resource: the server responded with a status of 403 (Forbidden) @ http://localhost:8080/smartshare/api/api/usuario?ds_login=Claude-adm&pageSize=1:0
+[    3018ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-2493730.js?sv=6:2
+[    4195ms] [WARNING] Could not find Angular Material core theme. Most Material components may not work as expected. For more info refer to the theming guide: https://material.angular.io/guide/theming @ http://localhost:8080/smartshare/home/vendor.js:115397
+[    4196ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://localhost:8080/smartshare/home/vendor.js:224285
+[    4231ms] [LOG] Angular is running in the development mode. Call enableProdMode() to enable the production mode. @ http://localhost:8080/smartshare/home/vendor.js:95688
+[    4358ms] [INFO] [WDS] Live Reloading enabled. @ http://localhost:8080/smartshare/home/vendor.js:287063
+[    5148ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cDevelopment 🚧%c
+        ❯ Backend Version: 4.11.20.25227
+        ❯ FrontEnd Version: 4.13.10
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #e26565; font-size: 14px; color: #7c7c7b @ http://localhost:8080/smartshare/home/main.js:4740
+[    5150ms] [INFO] [Mon, 26 Oct 2026 17:37:51 GMT] : @azure/msal-browser@2.37.0 : Info - Emitting event: msal:handleRedirectStart @ http://localhost:8080/smartshare/home/main.js:2647
+[    5151ms] [INFO] [Mon, 26 Oct 2026 17:37:51 GMT] : [411833c4-3b6d-4b3a-8902-d581ff1b1b3f] : msal.js.browser@2.37.0 : Info - handleRedirectPromise called but there is no interaction in progress, returning null. @ http://localhost:8080/smartshare/home/main.js:2647
+[    5152ms] [INFO] [Mon, 26 Oct 2026 17:37:51 GMT] : @azure/msal-browser@2.37.0 : Info - Emitting event: msal:handleRedirectEnd @ http://localhost:8080/smartshare/home/main.js:2647
+[    5177ms] [ERROR] ERROR TypeError: You provided 'undefined' where a stream was expected. You can provide an Observable, Promise, Array, or Iterable.
+    at subscribeTo (http://localhost:8080/smartshare/home/vendor.js:279631:15)
+    at subscribeToResult (http://localhost:8080/smartshare/home/vendor.js:279788:76)
+    at push../node_modules/rxjs/_esm5/internal/operators/switchMap.js.SwitchMapSubscriber._innerSub (http://localhost:8080/smartshare/home/vendor.js:276616:115)
+    at push../node_modules/rxjs/_esm5/internal/operators/switchMap.js.SwitchMapSubscriber._next (http://localhost:8080/smartshare/home/vendor.js:276606:14)
+    at push../node_modules/rxjs/_esm5/internal/Subscriber.js.Subscriber.next (http://localhost:8080/smartshare/home/vendor.js:268993:18)
+    at http://localhost:8080/smartshare/home/vendor.js:279753:28
+    at push../node_modules/zone.js/dist/zone.js.ZoneDelegate.invoke (http://localhost:8080/smartshare/home/polyfills.js:3746:26)
+    at Object.onInvoke (http://localhost:8080/smartshare/home/vendor.js:96307:33)
+    at push../node_modules/zone.js/dist/zone.js.ZoneDelegate.invoke (http://localhost:8080/smartshare/home/polyfills.js:3745:52)
+    at push../node_modules/zone.js/dist/zone.js.Zone.run (http://localhost:8080/smartshare/home/polyfills.js:3505:43) @ http://localhost:8080/smartshare/home/vendor.js:74052
+[    6264ms] [ERROR] Failed to load resource: the server responded with a status of 502 (Bad Gateway) @ http://localhost:8080/smartshare/SmartShareAPI/api/v1/ObterParametro?codigoParametro=86:0
+[    6325ms] [ERROR] Failed to load resource: the server responded with a status of 502 (Bad Gateway) @ http://localhost:8080/smartshare/SmartShareAPI/api/v1/ObterParametro?codigoParametro=110:0
+[    6325ms] [ERROR] Failed to load resource: the server responded with a status of 502 (Bad Gateway) @ http://localhost:8080/smartshare/SmartShareAPI/api/v1/ObterParametro?codigoParametro=111:0
+[   42065ms] [INFO] [Mon, 26 Oct 2026 17:38:28 GMT] : @azure/msal-browser@2.37.0 : Info - Emitting event: msal:handleRedirectStart @ http://localhost:8080/smartshare/home/main.js:2647
+[   42066ms] [INFO] [Mon, 26 Oct 2026 17:38:28 GMT] : [06c7c262-0916-4458-b29b-d0141032e142] : msal.js.browser@2.37.0 : Info - handleRedirectPromise called but there is no interaction in progress, returning null. @ http://localhost:8080/smartshare/home/main.js:2647
+[   42066ms] [INFO] [Mon, 26 Oct 2026 17:38:28 GMT] : @azure/msal-browser@2.37.0 : Info - Emitting event: msal:handleRedirectEnd @ http://localhost:8080/smartshare/home/main.js:2647
+[   42375ms] [INFO] [Mon, 26 Oct 2026 17:38:29 GMT] : @azure/msal-browser@2.37.0 : Info - Emitting event: msal:handleRedirectStart @ http://localhost:8080/smartshare/home/main.js:2647
+[   42376ms] [INFO] [Mon, 26 Oct 2026 17:38:29 GMT] : [f2833cd5-bb83-4737-989c-7ec14e2366ac] : msal.js.browser@2.37.0 : Info - handleRedirectPromise called but there is no interaction in progress, returning null. @ http://localhost:8080/smartshare/home/main.js:2647
+[   42376ms] [INFO] [Mon, 26 Oct 2026 17:38:29 GMT] : @azure/msal-browser@2.37.0 : Info - Emitting event: msal:handleRedirectEnd @ http://localhost:8080/smartshare/home/main.js:2647
+[   45749ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-2493730.js?sv=6:2
+[   45978ms] [INFO] [WDS] Live Reloading enabled. @ http://localhost:8080/smartshare/ecm/polyfills.js:14783
+[   45978ms] [WARNING] [WDS] Warnings while compiling. @ http://localhost:8080/smartshare/ecm/polyfills.js:14857
+[   45978ms] [WARNING] C:\projetos_selbetti\smartshare-4\fe\smartshare-ecm-fe\src\app\view\direct-link\direct-link.component.ts depends on 'rxjs/internal/Subject'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.io/guide/build#configuring-commonjs-dependencies @ http://localhost:8080/smartshare/ecm/polyfills.js:14866
+[   46378ms] [WARNING] Could not find Angular Material core theme. Most Material components may not work as expected. For more info refer to the theming guide: https://material.angular.io/guide/theming @ http://localhost:8080/smartshare/ecm/vendor.js:109729
+[   46379ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://localhost:8080/smartshare/ecm/vendor.js:47198
+[   46426ms] [LOG] Angular is running in development mode. Call enableProdMode() to enable production mode. @ http://localhost:8080/smartshare/ecm/vendor.js:231025
+[   46498ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cDevelopment 🚧%c
+        ❯ Backend Version: 4.11.20.25227
+        ❯ FrontEnd Version: 4.13.10
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #e26565; font-size: 14px; color: #7c7c7b @ http://localhost:8080/smartshare/ecm/main.js:4218
+[   46538ms] [WARNING] Could not find Angular Material core theme. Most Material components may not work as expected. For more info refer to the theming guide: https://material.angular.io/guide/theming @ http://localhost:8080/smartshare/ecm/vendor.js:109729
+[   46538ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://localhost:8080/smartshare/ecm/vendor.js:47198
+[   48584ms] [ERROR] Failed to load resource: the server responded with a status of 502 (Bad Gateway) @ http://localhost:8080/smartshare/Share4/be/ecmApi/api/v1/tipodocumento?myFiles=false&toPublish=false:0
+[   48586ms] [LOG] HttpErrorResponse @ http://localhost:8080/smartshare/ecm/view-main-folder-main-folder-module.js:208
+[   48588ms] [LOG] HttpErrorResponse @ http://localhost:8080/smartshare/ecm/view-main-folder-main-folder-module.js:2545
+[   50627ms] [ERROR] Failed to load resource: the server responded with a status of 502 (Bad Gateway) @ http://localhost:8080/smartshare/SmartShareAPI/api/v1/ObterParametro?codigoParametro=92:0
+[   50643ms] [ERROR] Failed to load resource: the server responded with a status of 502 (Bad Gateway) @ http://localhost:8080/smartshare/Share4/be/ecmApi/api/v1/folder/1?orderByDirection=0&pageNumber=1&entriesPerPage=25:0
+[   50644ms] [LOG] HttpErrorResponse @ http://localhost:8080/smartshare/ecm/view-main-folder-main-folder-module.js:1872
+[   50658ms] [ERROR] Failed to load resource: the server responded with a status of 502 (Bad Gateway) @ http://localhost:8080/smartshare/Share4/be/ecmApi/api/v1/documento/count/1:0
+[   50662ms] [ERROR] ERROR Error: Uncaught (in promise): HttpErrorResponse: {"headers":{"normalizedNames":{},"lazyUpdate":null},"status":502,"statusText":"Bad Gateway","url":"http://localhost:8080/smartshare/Share4/be/ecmApi/api/v1/documento/count/1","ok":false,"name":"HttpErrorResponse","message":"Http failure response for http://localhost:8080/smartshare/Share4/be/ecmApi/api/v1/documento/count/1: 502 Bad Gateway","error":"<html>\r\n<head><title>502 Bad Gateway</title></head>\r\n<body>\r\n<center><h1>502 Bad Gateway</h1></center>\r\n<hr><center>nginx/1.21.1</center>\r\n</body>\r\n</html>\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n"}
+    at resolvePromise (http://localhost:8080/smartshare/ecm/polyfills.js:12521:39)
+    at http://localhost:8080/smartshare/ecm/polyfills.js:12428:21
+    at rejected (http://localhost:8080/smartshare/ecm/vendor.js:278336:89)
+    at ZoneDelegate.invoke (http://localhost:8080/smartshare/ecm/polyfills.js:12087:30)
+    at Object.onInvoke (http://localhost:8080/smartshare/ecm/vendor.js:231629:33)
+    at ZoneDelegate.invoke (http://localhost:8080/smartshare/ecm/polyfills.js:12086:36)
+    at Zone.run (http://localhost:8080/smartshare/ecm/polyfills.js:11846:47)
+    at http://localhost:8080/smartshare/ecm/polyfills.js:12580:40
+    at ZoneDelegate.invokeTask (http://localhost:8080/smartshare/ecm/polyfills.js:12122:35)
+    at Object.onInvokeTask (http://localhost:8080/smartshare/ecm/vendor.js:231616:33) @ http://localhost:8080/smartshare/ecm/vendor.js:209247
+[   52311ms] [ERROR] WebSocket connection to 'ws://localhost:8080/smartshare/workspace/?token=4OXSFSZomD53' failed: Error during WebSocket handshake: Unexpected response code: 200 @ http://localhost:8080/smartshare/workspace/@vite/client:744
+[   52322ms] [INFO] [vite] Direct websocket connection fallback. Check out https://vite.dev/config/server-options.html#server-hmr to remove the previous connection error. @ http://localhost:8080/smartshare/workspace/@vite/client:759
+[   52386ms] [LOG] Angular is running in development mode. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-F7DIFGVZ.js?v=41d35ac2:11246
+[   52411ms] [WARNING] Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-SDFR5ZY7.js?v=41d35ac2:85
+[   52411ms] [WARNING] Multiple versions of Lit loaded. Loading multiple versions is not recommended. See https://lit.dev/msg/multiple-versions for more information. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-SDFR5ZY7.js?v=41d35ac2:85
+[   52610ms] [WARNING] Element nyx-radio scheduled an update (generally because a property was set) after an update completed, causing a new update to be scheduled. This is inefficient and should be avoided unless the next update can only be scheduled as a side effect of the previous update. See https://lit.dev/msg/change-in-update for more information. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-SDFR5ZY7.js?v=41d35ac2:1029
+[   52684ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:8080/smartshare/workspace/management/usuario/novo:0
+[   77255ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:8080/smartshare/api/api/usuario:0
+[   77384ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) @ http://localhost:8080/smartshare/workspace/management/usuario/novo:0
+[  131226ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:8080/smartshare/api/api/usuario/GetOne?cd_usuario=1:0
+[  131340ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) @ http://localhost:8080/smartshare/workspace/management/usuario/novo:0
+[  140496ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:8080/smartshare/api/api/usuario/GetOne?cd_usuario=1:0
+[  140616ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) @ http://localhost:8080/smartshare/workspace/management/usuario/novo:0
+[  167015ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:8080/smartshare/api/api/usuario:0
+[  167126ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) @ http://localhost:8080/smartshare/workspace/management/usuario/novo:0
+[  182698ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:8080/smartshare/api/api/usuario:0
+[  182813ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) @ http://localhost:8080/smartshare/workspace/management/usuario/novo:0
+[  756309ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:8080/smartshare/workspace/management/usuario/editar/8982:0
+[  831839ms] [ERROR] WebSocket connection to 'ws://localhost:8080/smartshare/workspace/?token=4OXSFSZomD53' failed: Error during WebSocket handshake: Unexpected response code: 200 @ http://localhost:8080/smartshare/workspace/@vite/client:744
+[  831861ms] [INFO] [vite] Direct websocket connection fallback. Check out https://vite.dev/config/server-options.html#server-hmr to remove the previous connection error. @ http://localhost:8080/smartshare/workspace/@vite/client:759
+[  831912ms] [WARNING] Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-SDFR5ZY7.js?v=41d35ac2:85
+[  831912ms] [WARNING] Multiple versions of Lit loaded. Loading multiple versions is not recommended. See https://lit.dev/msg/multiple-versions for more information. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-SDFR5ZY7.js?v=41d35ac2:85
+[  832020ms] [LOG] Angular is running in development mode. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-F7DIFGVZ.js?v=41d35ac2:11246
+[  832749ms] [WARNING] Element nyx-radio scheduled an update (generally because a property was set) after an update completed, causing a new update to be scheduled. This is inefficient and should be avoided unless the next update can only be scheduled as a side effect of the previous update. See https://lit.dev/msg/change-in-update for more information. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-SDFR5ZY7.js?v=41d35ac2:1029
+[  832916ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:8080/smartshare/workspace/management/usuario/editar/8982:0
+[ 1005985ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) @ http://localhost:8080/smartshare/workspace/management/usuario/editar/8982:0
+[ 1273211ms] [ERROR] WebSocket connection to 'ws://localhost:8080/smartshare/workspace/?token=4OXSFSZomD53' failed: Error during WebSocket handshake: Unexpected response code: 200 @ http://localhost:8080/smartshare/workspace/@vite/client:744
+[ 1273248ms] [INFO] [vite] Direct websocket connection fallback. Check out https://vite.dev/config/server-options.html#server-hmr to remove the previous connection error. @ http://localhost:8080/smartshare/workspace/@vite/client:759
+[ 1273288ms] [WARNING] Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-SDFR5ZY7.js?v=41d35ac2:85
+[ 1273289ms] [WARNING] Multiple versions of Lit loaded. Loading multiple versions is not recommended. See https://lit.dev/msg/multiple-versions for more information. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-SDFR5ZY7.js?v=41d35ac2:85
+[ 1273344ms] [LOG] Angular is running in development mode. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-F7DIFGVZ.js?v=41d35ac2:11246
+[ 1274405ms] [WARNING] Element nyx-radio scheduled an update (generally because a property was set) after an update completed, causing a new update to be scheduled. This is inefficient and should be avoided unless the next update can only be scheduled as a side effect of the previous update. See https://lit.dev/msg/change-in-update for more information. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-SDFR5ZY7.js?v=41d35ac2:1029
+[ 1274466ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:8080/smartshare/workspace/management/usuario/editar/8982:0
+[ 3395929ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:8080/smartshare/workspace/@vite/client:864
+[ 3736284ms] [WARNING] Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-SDFR5ZY7.js?v=41d35ac2:85
+[ 3736389ms] [ERROR] WebSocket connection to 'ws://localhost:8080/smartshare/workspace/?token=4OXSFSZomD53' failed: Error during WebSocket handshake: Unexpected response code: 200 @ http://localhost:8080/smartshare/workspace/@vite/client:744
+[ 3736394ms] [INFO] [vite] Direct websocket connection fallback. Check out https://vite.dev/config/server-options.html#server-hmr to remove the previous connection error. @ http://localhost:8080/smartshare/workspace/@vite/client:759
+[ 3736752ms] [LOG] Angular is running in development mode. @ http://localhost:8080/smartshare/workspace/@fs/C:/projetos_selbetti/smartshare-analytics/.angular/cache/21.2.19/smartshare-admin/vite/deps/chunk-F7DIFGVZ.js?v=41d35ac2:11246
+[ 3739146ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8080/smartshare/api/api/Perfil/GetUserProfilesTab?cd_usuario=8982:0
+[ 3739545ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-2493730.js?sv=6:2
+[ 3743050ms] [WARNING] Could not find Angular Material core theme. Most Material components may not work as expected. For more info refer to the theming guide: https://material.angular.io/guide/theming @ http://localhost:8080/smartshare/home/vendor.js:115397
+[ 3743051ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://localhost:8080/smartshare/home/vendor.js:224285
+[ 3743110ms] [LOG] Angular is running in the development mode. Call enableProdMode() to enable the production mode. @ http://localhost:8080/smartshare/home/vendor.js:95688
+[ 3743357ms] [INFO] [WDS] Live Reloading enabled. @ http://localhost:8080/smartshare/home/vendor.js:287063
+[ 3743915ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:8080/smartshare/Share4/be/coreApi/api/v1/Usuario/terminar-sessao:0
+[ 3743919ms] [ERROR] ERROR Error: Uncaught (in promise): HttpErrorResponse: {"headers":{"normalizedNames":{},"lazyUpdate":null},"status":500,"statusText":"Internal Server Error","url":"http://localhost:8080/smartshare/Share4/be/coreApi/api/v1/Usuario/terminar-sessao","ok":false,"name":"HttpErrorResponse","message":"Http failure response for http://localhost:8080/smartshare/Share4/be/coreApi/api/v1/Usuario/terminar-sessao: 500 Internal Server Error","error":{"tipoRetorno":3,"mensagem":"TokenInvalido","dados":null}}
+    at resolvePromise (http://localhost:8080/smartshare/home/polyfills.js:4207:31)
+    at http://localhost:8080/smartshare/home/polyfills.js:4117:17
+    at rejected (http://localhost:8080/smartshare/home/polyfills.js:3199:89)
+    at ZoneDelegate.invoke (http://localhost:8080/smartshare/home/polyfills.js:3746:26)
+    at Object.onInvoke (http://localhost:8080/smartshare/home/vendor.js:96307:33)
+    at ZoneDelegate.invoke (http://localhost:8080/smartshare/home/polyfills.js:3745:52)
+    at Zone.run (http://localhost:8080/smartshare/home/polyfills.js:3505:43)
+    at http://localhost:8080/smartshare/home/polyfills.js:4265:34
+    at ZoneDelegate.invokeTask (http://localhost:8080/smartshare/home/polyfills.js:3778:31)
+    at Object.onInvokeTask (http://localhost:8080/smartshare/home/vendor.js:96298:33) @ http://localhost:8080/smartshare/home/vendor.js:74052
+[ 3743921ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8080/smartshare/Share4/be/coreApi/api/v1/Usuario/validar-token:0
+[ 3744387ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cDevelopment 🚧%c
+        ❯ Backend Version: 4.11.20.25227
+        ❯ FrontEnd Version: 4.13.10
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #e26565; font-size: 14px; color: #7c7c7b @ http://localhost:8080/smartshare/home/main.js:4740
+[ 3744388ms] [INFO] [Mon, 26 Oct 2026 18:40:11 GMT] : @azure/msal-browser@2.37.0 : Info - Emitting event: msal:handleRedirectStart @ http://localhost:8080/smartshare/home/main.js:2647
+[ 3744389ms] [INFO] [Mon, 26 Oct 2026 18:40:11 GMT] : [b242b6bc-b884-4820-aa2d-9df453ec0dcb] : msal.js.browser@2.37.0 : Info - handleRedirectPromise called but there is no interaction in progress, returning null. @ http://localhost:8080/smartshare/home/main.js:2647
+[ 3744395ms] [INFO] [Mon, 26 Oct 2026 18:40:11 GMT] : @azure/msal-browser@2.37.0 : Info - Emitting event: msal:handleRedirectEnd @ http://localhost:8080/smartshare/home/main.js:2647
+[ 3744404ms] [ERROR] ERROR TypeError: You provided 'undefined' where a stream was expected. You can provide an Observable, Promise, Array, or Iterable.
+    at subscribeTo (http://localhost:8080/smartshare/home/vendor.js:279631:15)
+    at subscribeToResult (http://localhost:8080/smartshare/home/vendor.js:279788:76)
+    at SwitchMapSubscriber._innerSub (http://localhost:8080/smartshare/home/vendor.js:276616:115)
+    at SwitchMapSubscriber._next (http://localhost:8080/smartshare/home/vendor.js:276606:14)
+    at SwitchMapSubscriber.next (http://localhost:8080/smartshare/home/vendor.js:268993:18)
+    at http://localhost:8080/smartshare/home/vendor.js:279753:28
+    at ZoneDelegate.invoke (http://localhost:8080/smartshare/home/polyfills.js:3746:26)
+    at Object.onInvoke (http://localhost:8080/smartshare/home/vendor.js:96307:33)
+    at ZoneDelegate.invoke (http://localhost:8080/smartshare/home/polyfills.js:3745:52)
+    at Zone.run (http://localhost:8080/smartshare/home/polyfills.js:3505:43) @ http://localhost:8080/smartshare/home/vendor.js:74052
+[ 3745134ms] [ERROR] Failed to load resource: the server responded with a status of 502 (Bad Gateway) @ http://localhost:8080/smartshare/SmartShareAPI/api/v1/ObterParametro?codigoParametro=86:0
+[ 3745193ms] [ERROR] Failed to load resource: the server responded with a status of 502 (Bad Gateway) @ http://localhost:8080/smartshare/SmartShareAPI/api/v1/ObterParametro?codigoParametro=110:0
+[ 3745197ms] [ERROR] Failed to load resource: the server responded with a status of 502 (Bad Gateway) @ http://localhost:8080/smartshare/SmartShareAPI/api/v1/ObterParametro?codigoParametro=111:0

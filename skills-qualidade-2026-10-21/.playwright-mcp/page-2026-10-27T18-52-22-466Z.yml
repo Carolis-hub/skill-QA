@@ -1,0 +1,514 @@
+- generic [ref=f4e3]:
+  - button [ref=f4e6] [cursor=pointer]
+  - generic [ref=f4e11]: AD
+  - generic [ref=f4e21]:
+    - button "Solicitar" [ref=f4e24] [cursor=pointer]
+    - generic [ref=f4e26]:
+      - button "Início" [ref=f4e29] [cursor=pointer]
+      - button "Favoritos" [ref=f4e36] [cursor=pointer]
+      - button "Documentos" [ref=f4e43] [cursor=pointer]
+      - button "Minhas tarefas" [ref=f4e50] [cursor=pointer]
+      - button "Acompanhar" [ref=f4e57] [cursor=pointer]
+      - button "Finalizados" [ref=f4e64] [cursor=pointer]
+      - button "Portal de melhorias" [ref=f4e71] [cursor=pointer]
+      - button "Dashboards" [ref=f4e78] [cursor=pointer]
+      - button "Configurações" [ref=f4e85] [cursor=pointer]
+  - heading "Minhas tarefas" [level=1] [ref=f4e89]
+  - generic [ref=f4e91]:
+    - generic [ref=f4e93]:
+      - button "Filtro" [ref=f4e97] [cursor=pointer]
+      - generic [ref=f4e102]:
+        - button "Itens por pagina" [ref=f4e105] [cursor=pointer]
+        - separator [ref=f4e113]
+        - button [ref=f4e114] [cursor=pointer]
+        - button [ref=f4e118] [cursor=pointer]
+        - separator [ref=f4e122]
+        - button [ref=f4e123] [cursor=pointer]
+        - button "Todos" [ref=f4e129] [cursor=pointer]
+        - textbox "Buscar" [ref=f4e142] [cursor=pointer]
+    - list [ref=f4e147]:
+      - listitem [ref=f4e148]:
+        - generic [ref=f4e149]:
+          - text: Todas
+          - generic [ref=f4e150]: "1413"
+      - listitem [ref=f4e152] [cursor=pointer]:
+        - generic [ref=f4e153]:
+          - text: No prazo
+          - generic [ref=f4e154]: "1339"
+      - listitem [ref=f4e155] [cursor=pointer]:
+        - generic [ref=f4e156]:
+          - text: Em risco
+          - generic [ref=f4e157]: "0"
+      - listitem [ref=f4e158] [cursor=pointer]:
+        - generic [ref=f4e159]:
+          - text: Atrasadas
+          - generic [ref=f4e160]: "74"
+  - generic [ref=f4e163]:
+    - generic [ref=f4e166]:
+      - generic [ref=f4e167]:
+        - generic [ref=f4e171]:
+          - generic [ref=f4e172]:
+            - heading "Atividade 2" [level=3] [ref=f4e174]
+            - separator [ref=f4e175]
+            - heading "processo claude" [level=5] [ref=f4e178]
+            - generic [ref=f4e179]: processo-claude
+            - generic [ref=f4e181]:
+              - generic [ref=f4e182]:
+                - generic [ref=f4e183]: Data
+                - heading "27/10/2026" [level=5] [ref=f4e184]
+              - generic [ref=f4e185]:
+                - generic [ref=f4e186]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e187]
+              - generic [ref=f4e188]: AD
+          - generic [ref=f4e190]:
+            - button "Executar" [ref=f4e191] [cursor=pointer]
+            - button "Detalhar" [ref=f4e193] [cursor=pointer]
+        - generic [ref=f4e198]:
+          - generic [ref=f4e199]:
+            - heading "Atv 1" [level=3] [ref=f4e201]
+            - separator [ref=f4e202]
+            - heading "Processo permissão anexos" [level=5] [ref=f4e205]
+            - generic [ref=f4e206]: Permissao_anexos_31821
+            - generic [ref=f4e208]:
+              - generic [ref=f4e209]:
+                - generic [ref=f4e210]: Data
+                - heading "27/10/2026" [level=5] [ref=f4e211]
+              - generic [ref=f4e212]:
+                - generic [ref=f4e213]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e214]
+              - generic [ref=f4e215]: AD
+          - generic [ref=f4e217]:
+            - button "Executar" [ref=f4e218] [cursor=pointer]
+            - button "Detalhar" [active] [ref=f4e220] [cursor=pointer]
+        - generic [ref=f4e225]:
+          - generic [ref=f4e226]:
+            - heading "Atv 1" [level=3] [ref=f4e228]
+            - separator [ref=f4e229]
+            - heading "Processo permissão anexos" [level=5] [ref=f4e232]
+            - generic [ref=f4e233]: Permissao_anexos_31820
+            - generic [ref=f4e235]:
+              - generic [ref=f4e236]:
+                - generic [ref=f4e237]: Data
+                - heading "27/10/2026" [level=5] [ref=f4e238]
+              - generic [ref=f4e239]:
+                - generic [ref=f4e240]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e241]
+              - generic [ref=f4e242]: AD
+          - generic [ref=f4e244]:
+            - button "Executar" [ref=f4e245] [cursor=pointer]
+            - button "Detalhar" [ref=f4e247] [cursor=pointer]
+        - generic [ref=f4e252]:
+          - generic [ref=f4e253]:
+            - heading "Atv 2" [level=3] [ref=f4e255]
+            - separator [ref=f4e256]
+            - heading "Processo permissão anexos" [level=5] [ref=f4e259]
+            - generic [ref=f4e260]: Permissao_anexos_31812
+            - generic [ref=f4e262]:
+              - generic [ref=f4e263]:
+                - generic [ref=f4e264]: Data
+                - heading "27/10/2026" [level=5] [ref=f4e265]
+              - generic [ref=f4e266]:
+                - generic [ref=f4e267]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e268]
+              - generic [ref=f4e269]: AD
+          - generic [ref=f4e271]:
+            - button "Executar" [ref=f4e272] [cursor=pointer]
+            - button "Detalhar" [ref=f4e274] [cursor=pointer]
+        - generic [ref=f4e279]:
+          - generic [ref=f4e280]:
+            - heading "Atv 1" [level=3] [ref=f4e282]
+            - separator [ref=f4e283]
+            - heading "Processo permissão anexos" [level=5] [ref=f4e286]
+            - generic [ref=f4e287]: Permissao_anexos_31810
+            - generic [ref=f4e289]:
+              - generic [ref=f4e290]:
+                - generic [ref=f4e291]: Data
+                - heading "27/10/2026" [level=5] [ref=f4e292]
+              - generic [ref=f4e293]:
+                - generic [ref=f4e294]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e295]
+              - generic [ref=f4e296]: AD
+          - generic [ref=f4e298]:
+            - button "Executar" [ref=f4e299] [cursor=pointer]
+            - button "Detalhar" [ref=f4e301] [cursor=pointer]
+        - generic [ref=f4e306]:
+          - generic [ref=f4e307]:
+            - heading "Atv 2" [level=3] [ref=f4e309]
+            - separator [ref=f4e310]
+            - heading "Processo permissão anexos" [level=5] [ref=f4e313]
+            - generic [ref=f4e314]: Permissao_anexos_31807
+            - generic [ref=f4e316]:
+              - generic [ref=f4e317]:
+                - generic [ref=f4e318]: Data
+                - heading "27/10/2026" [level=5] [ref=f4e319]
+              - generic [ref=f4e320]:
+                - generic [ref=f4e321]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e322]
+              - generic [ref=f4e323]: AD
+          - generic [ref=f4e325]:
+            - button "Executar" [ref=f4e326] [cursor=pointer]
+            - button "Detalhar" [ref=f4e328] [cursor=pointer]
+        - generic [ref=f4e333]:
+          - generic [ref=f4e334]:
+            - heading "Atividade" [level=3] [ref=f4e336]
+            - separator [ref=f4e337]
+            - heading "Processo bootstrap 5" [level=5] [ref=f4e340]
+            - generic [ref=f4e341]: Teste instalador - 31800
+            - generic [ref=f4e343]:
+              - generic [ref=f4e344]:
+                - generic [ref=f4e345]: Data
+                - heading "22/10/2026" [level=5] [ref=f4e346]
+              - generic [ref=f4e347]:
+                - generic [ref=f4e348]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e349]
+              - generic [ref=f4e350]: AD
+          - generic [ref=f4e352]:
+            - button "Executar" [ref=f4e353] [cursor=pointer]
+            - button "Detalhar" [ref=f4e355] [cursor=pointer]
+        - generic [ref=f4e360]:
+          - generic [ref=f4e361]:
+            - heading "Atividade" [level=3] [ref=f4e363]
+            - separator [ref=f4e364]
+            - heading "Processo bootstrap 5" [level=5] [ref=f4e367]
+            - generic [ref=f4e368]: Teste instalador - 31799
+            - generic [ref=f4e370]:
+              - generic [ref=f4e371]:
+                - generic [ref=f4e372]: Data
+                - heading "22/10/2026" [level=5] [ref=f4e373]
+              - generic [ref=f4e374]:
+                - generic [ref=f4e375]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e376]
+              - generic [ref=f4e377]: AD
+          - generic [ref=f4e379]:
+            - button "Executar" [ref=f4e380] [cursor=pointer]
+            - button "Detalhar" [ref=f4e382] [cursor=pointer]
+        - generic [ref=f4e387]:
+          - generic [ref=f4e388]:
+            - heading "Atividade" [level=3] [ref=f4e390]
+            - separator [ref=f4e391]
+            - heading "Processo bootstrap 5" [level=5] [ref=f4e394]
+            - generic [ref=f4e395]: Teste instalador - 31798
+            - generic [ref=f4e397]:
+              - generic [ref=f4e398]:
+                - generic [ref=f4e399]: Data
+                - heading "21/10/2026" [level=5] [ref=f4e400]
+              - generic [ref=f4e401]:
+                - generic [ref=f4e402]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e403]
+              - generic [ref=f4e404]: AD
+          - generic [ref=f4e406]:
+            - button "Executar" [ref=f4e407] [cursor=pointer]
+            - button "Detalhar" [ref=f4e409] [cursor=pointer]
+        - generic [ref=f4e414]:
+          - generic [ref=f4e415]:
+            - heading "Atividade" [level=3] [ref=f4e417]
+            - separator [ref=f4e418]
+            - heading "Processo bootstrap 5" [level=5] [ref=f4e421]
+            - generic [ref=f4e422]: Teste instalador - 31797
+            - generic [ref=f4e424]:
+              - generic [ref=f4e425]:
+                - generic [ref=f4e426]: Data
+                - heading "21/10/2026" [level=5] [ref=f4e427]
+              - generic [ref=f4e428]:
+                - generic [ref=f4e429]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e430]
+              - generic [ref=f4e431]: AD
+          - generic [ref=f4e433]:
+            - button "Executar" [ref=f4e434] [cursor=pointer]
+            - button "Detalhar" [ref=f4e436] [cursor=pointer]
+        - generic [ref=f4e441]:
+          - generic [ref=f4e442]:
+            - heading "Atividade" [level=3] [ref=f4e444]
+            - separator [ref=f4e445]
+            - heading "Processo teste instalador" [level=5] [ref=f4e448]
+            - generic [ref=f4e449]: Teste instalador - 31796
+            - generic [ref=f4e451]:
+              - generic [ref=f4e452]:
+                - generic [ref=f4e453]: Data
+                - heading "21/10/2026" [level=5] [ref=f4e454]
+              - generic [ref=f4e455]:
+                - generic [ref=f4e456]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e457]
+              - generic [ref=f4e458]: AD
+          - generic [ref=f4e460]:
+            - button "Executar" [ref=f4e461] [cursor=pointer]
+            - button "Detalhar" [ref=f4e463] [cursor=pointer]
+        - generic [ref=f4e468]:
+          - generic [ref=f4e469]:
+            - heading "Iniciar Admissão" [level=3] [ref=f4e471]
+            - separator [ref=f4e472]
+            - heading "Admissão Formulário 4.0 - Felipe" [level=5] [ref=f4e475]
+            - generic [ref=f4e476]: "Admissão Formulário 4.0 - Felipe - cd_fluxo: 31795 - cd_processo: 11603 - cd_versao_processo: 2"
+            - generic [ref=f4e478]:
+              - generic [ref=f4e479]:
+                - generic [ref=f4e480]: Data
+                - heading "21/10/2026" [level=5] [ref=f4e481]
+              - generic [ref=f4e482]:
+                - generic [ref=f4e483]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e484]
+              - generic [ref=f4e485]: AD
+          - generic [ref=f4e487]:
+            - button "Executar" [ref=f4e488] [cursor=pointer]
+            - button "Detalhar" [ref=f4e490] [cursor=pointer]
+        - generic [ref=f4e495]:
+          - generic [ref=f4e496]:
+            - heading "Atividade 1 com nome grande para verificar se o titulo é truncado na visão de cards e lista" [level=3] [ref=f4e498]
+            - separator [ref=f4e499]
+            - heading "Processo 1" [level=5] [ref=f4e502]
+            - generic [ref=f4e503]: Teste Máquina - 31794 - 11604
+            - generic [ref=f4e505]:
+              - generic [ref=f4e506]:
+                - generic [ref=f4e507]: Data
+                - heading "21/10/2026" [level=5] [ref=f4e508]
+              - generic [ref=f4e509]:
+                - generic [ref=f4e510]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e511]
+              - generic [ref=f4e512]: AD
+          - generic [ref=f4e514]:
+            - button "Executar" [ref=f4e515] [cursor=pointer]
+            - button "Detalhar" [ref=f4e517] [cursor=pointer]
+        - generic [ref=f4e522]:
+          - generic [ref=f4e523]:
+            - heading "Atividade" [level=3] [ref=f4e525]
+            - separator [ref=f4e526]
+            - heading "Processo bootstrap 5" [level=5] [ref=f4e529]
+            - generic [ref=f4e530]: Teste instalador - 31793
+            - generic [ref=f4e532]:
+              - generic [ref=f4e533]:
+                - generic [ref=f4e534]: Data
+                - heading "21/10/2026" [level=5] [ref=f4e535]
+              - generic [ref=f4e536]:
+                - generic [ref=f4e537]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e538]
+              - generic [ref=f4e539]: AD
+          - generic [ref=f4e541]:
+            - button "Executar" [ref=f4e542] [cursor=pointer]
+            - button "Detalhar" [ref=f4e544] [cursor=pointer]
+        - generic [ref=f4e549]:
+          - generic [ref=f4e550]:
+            - heading "Atividade" [level=3] [ref=f4e552]
+            - separator [ref=f4e553]
+            - heading "Processo teste Thiago" [level=5] [ref=f4e556]
+            - generic [ref=f4e557]: Processo teste Thiago
+            - generic [ref=f4e559]:
+              - generic [ref=f4e560]:
+                - generic [ref=f4e561]: Data
+                - heading "21/10/2026" [level=5] [ref=f4e562]
+              - generic [ref=f4e563]:
+                - generic [ref=f4e564]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e565]
+              - generic [ref=f4e566]: TL
+          - generic [ref=f4e568]:
+            - button "Executar" [ref=f4e569] [cursor=pointer]
+            - button "Detalhar" [ref=f4e571] [cursor=pointer]
+        - generic [ref=f4e576]:
+          - generic [ref=f4e577]:
+            - heading "Atividade" [level=3] [ref=f4e579]
+            - separator [ref=f4e580]
+            - heading "Processo bootstrap 5" [level=5] [ref=f4e583]
+            - generic [ref=f4e584]: Teste instalador - 31791
+            - generic [ref=f4e586]:
+              - generic [ref=f4e587]:
+                - generic [ref=f4e588]: Data
+                - heading "21/10/2026" [level=5] [ref=f4e589]
+              - generic [ref=f4e590]:
+                - generic [ref=f4e591]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e592]
+              - generic [ref=f4e593]: AD
+          - generic [ref=f4e595]:
+            - button "Executar" [ref=f4e596] [cursor=pointer]
+            - button "Detalhar" [ref=f4e598] [cursor=pointer]
+        - generic [ref=f4e603]:
+          - generic [ref=f4e604]:
+            - heading "Atividade 1 com nome grande para verificar se o titulo é truncado na visão de cards e lista" [level=3] [ref=f4e606]
+            - separator [ref=f4e607]
+            - heading "Processo 1" [level=5] [ref=f4e610]
+            - generic [ref=f4e611]: Teste Máquina - 31790 - 11604
+            - generic [ref=f4e613]:
+              - generic [ref=f4e614]:
+                - generic [ref=f4e615]: Data
+                - heading "21/10/2026" [level=5] [ref=f4e616]
+              - generic [ref=f4e617]:
+                - generic [ref=f4e618]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e619]
+              - generic [ref=f4e620]: AD
+          - generic [ref=f4e622]:
+            - button "Executar" [ref=f4e623] [cursor=pointer]
+            - button "Detalhar" [ref=f4e625] [cursor=pointer]
+        - generic [ref=f4e630]:
+          - generic [ref=f4e631]:
+            - heading "Atividade" [level=3] [ref=f4e633]
+            - separator [ref=f4e634]
+            - heading "Processo bootstrap 5" [level=5] [ref=f4e637]
+            - generic [ref=f4e638]: Teste instalador - 31789
+            - generic [ref=f4e640]:
+              - generic [ref=f4e641]:
+                - generic [ref=f4e642]: Data
+                - heading "21/10/2026" [level=5] [ref=f4e643]
+              - generic [ref=f4e644]:
+                - generic [ref=f4e645]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e646]
+              - generic [ref=f4e647]: AD
+          - generic [ref=f4e649]:
+            - button "Executar" [ref=f4e650] [cursor=pointer]
+            - button "Detalhar" [ref=f4e652] [cursor=pointer]
+        - generic [ref=f4e657]:
+          - generic [ref=f4e658]:
+            - heading "Atividade 1 com nome grande para verificar se o titulo é truncado na visão de cards e lista" [level=3] [ref=f4e660]
+            - separator [ref=f4e661]
+            - heading "Processo 1" [level=5] [ref=f4e664]
+            - generic [ref=f4e665]: Teste Máquina - 31788 - 11604
+            - generic [ref=f4e667]:
+              - generic [ref=f4e668]:
+                - generic [ref=f4e669]: Data
+                - heading "19/10/2026" [level=5] [ref=f4e670]
+              - generic [ref=f4e671]:
+                - generic [ref=f4e672]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e673]
+              - generic [ref=f4e674]: AD
+          - generic [ref=f4e676]:
+            - button "Executar" [ref=f4e677] [cursor=pointer]
+            - button "Detalhar" [ref=f4e679] [cursor=pointer]
+        - generic [ref=f4e684]:
+          - generic [ref=f4e685]:
+            - heading "Atividade 1 com nome grande para verificar se o titulo é truncado na visão de cards e lista" [level=3] [ref=f4e687]
+            - separator [ref=f4e688]
+            - heading "Processo 1" [level=5] [ref=f4e691]
+            - generic [ref=f4e692]: Teste Máquina - 31787 - 11604
+            - generic [ref=f4e694]:
+              - generic [ref=f4e695]:
+                - generic [ref=f4e696]: Data
+                - heading "19/10/2026" [level=5] [ref=f4e697]
+              - generic [ref=f4e698]:
+                - generic [ref=f4e699]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e700]
+              - generic [ref=f4e701]: AD
+          - generic [ref=f4e703]:
+            - button "Executar" [ref=f4e704] [cursor=pointer]
+            - button "Detalhar" [ref=f4e706] [cursor=pointer]
+        - generic [ref=f4e711]:
+          - generic [ref=f4e712]:
+            - heading "Atividade 1 com nome grande para verificar se o titulo é truncado na visão de cards e lista" [level=3] [ref=f4e714]
+            - separator [ref=f4e715]
+            - heading "Processo 1" [level=5] [ref=f4e718]
+            - generic [ref=f4e719]: Teste Máquina - 31784 - 11604
+            - generic [ref=f4e721]:
+              - generic [ref=f4e722]:
+                - generic [ref=f4e723]: Data
+                - heading "15/10/2026" [level=5] [ref=f4e724]
+              - generic [ref=f4e725]:
+                - generic [ref=f4e726]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e727]
+              - generic [ref=f4e728]: AD
+          - generic [ref=f4e730]:
+            - button "Executar" [ref=f4e731] [cursor=pointer]
+            - button "Detalhar" [ref=f4e733] [cursor=pointer]
+        - generic [ref=f4e738]:
+          - generic [ref=f4e739]:
+            - heading "Atividade 1 com nome grande para verificar se o titulo é truncado na visão de cards e lista" [level=3] [ref=f4e741]
+            - separator [ref=f4e742]
+            - heading "Processo 1" [level=5] [ref=f4e745]
+            - generic [ref=f4e746]: Teste Máquina - 31783 - 11604
+            - generic [ref=f4e748]:
+              - generic [ref=f4e749]:
+                - generic [ref=f4e750]: Data
+                - heading "15/10/2026" [level=5] [ref=f4e751]
+              - generic [ref=f4e752]:
+                - generic [ref=f4e753]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e754]
+              - generic [ref=f4e755]: AD
+          - generic [ref=f4e757]:
+            - button "Executar" [ref=f4e758] [cursor=pointer]
+            - button "Detalhar" [ref=f4e760] [cursor=pointer]
+        - generic [ref=f4e765]:
+          - generic [ref=f4e766]:
+            - heading "Atividade 2 com nome grande para verificar se o titulo é truncado na visão de cards e lista" [level=3] [ref=f4e768]
+            - separator [ref=f4e769]
+            - generic [ref=f4e770]:
+              - heading "Processo 1" [level=5] [ref=f4e772]
+              - generic [ref=f4e773]: Comigo
+            - generic [ref=f4e781]: Teste Máquina - 31782 - 11604
+            - generic [ref=f4e783]:
+              - generic [ref=f4e784]:
+                - generic [ref=f4e785]: Data
+                - heading "15/10/2026" [level=5] [ref=f4e786]
+              - generic [ref=f4e787]:
+                - generic [ref=f4e788]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e789]
+              - generic [ref=f4e790]: AD
+          - generic [ref=f4e792]:
+            - button "Executar" [ref=f4e793] [cursor=pointer]
+            - button "Devolver" [ref=f4e795] [cursor=pointer]
+            - button "Detalhar" [ref=f4e797] [cursor=pointer]
+        - generic [ref=f4e802]:
+          - generic [ref=f4e803]:
+            - heading "Atividade 1 com nome grande para verificar se o titulo é truncado na visão de cards e lista" [level=3] [ref=f4e805]
+            - separator [ref=f4e806]
+            - heading "Processo 1" [level=5] [ref=f4e809]
+            - generic [ref=f4e810]: Teste Máquina - 31781 - 11604
+            - generic [ref=f4e812]:
+              - generic [ref=f4e813]:
+                - generic [ref=f4e814]: Data
+                - heading "15/10/2026" [level=5] [ref=f4e815]
+              - generic [ref=f4e816]:
+                - generic [ref=f4e817]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e818]
+              - generic [ref=f4e819]: AD
+          - generic [ref=f4e821]:
+            - button "Executar" [ref=f4e822] [cursor=pointer]
+            - button "Detalhar" [ref=f4e824] [cursor=pointer]
+        - generic [ref=f4e829]:
+          - generic [ref=f4e830]:
+            - heading "Atividade 1 com nome grande para verificar se o titulo é truncado na visão de cards e lista" [level=3] [ref=f4e832]
+            - separator [ref=f4e833]
+            - heading "Processo 1" [level=5] [ref=f4e836]
+            - generic [ref=f4e837]: Teste Máquina - 31780 - 11604
+            - generic [ref=f4e839]:
+              - generic [ref=f4e840]:
+                - generic [ref=f4e841]: Data
+                - heading "15/10/2026" [level=5] [ref=f4e842]
+              - generic [ref=f4e843]:
+                - generic [ref=f4e844]: Prazo
+                - heading "Não definido" [level=5] [ref=f4e845]
+              - generic [ref=f4e846]: AD
+          - generic [ref=f4e848]:
+            - button "Executar" [ref=f4e849] [cursor=pointer]
+            - button "Detalhar" [ref=f4e851] [cursor=pointer]
+      - button "Carregar mais tarefas" [ref=f4e854] [cursor=pointer]
+    - generic [ref=f4e857]:
+      - generic [ref=f4e858]:
+        - heading "Detalhes" [level=3] [ref=f4e865]
+        - button "Close" [ref=f4e866] [cursor=pointer]
+      - generic [ref=f4e872]:
+        - tablist [ref=f4e873]:
+          - listitem [ref=f4e874]:
+            - tab "Informações" [selected] [ref=f4e875] [cursor=pointer]
+          - listitem [ref=f4e876]:
+            - tab "Histórico" [ref=f4e877] [cursor=pointer]
+        - tabpanel "Informações" [ref=f4e879]:
+          - generic [ref=f4e881]:
+            - generic [ref=f4e882]: "31821"
+            - generic [ref=f4e887]: Permissao_anexos_31821
+            - separator [ref=f4e888]
+            - generic [ref=f4e889]:
+              - term [ref=f4e890]: Tarefa atual
+              - definition [ref=f4e891]: Atv 1
+              - term [ref=f4e892]: Processo
+              - definition [ref=f4e893]: Processo permissão anexos
+              - term [ref=f4e894]: Solicitante
+              - definition [ref=f4e895]: Administrador
+              - term [ref=f4e896]: Data de início
+              - definition [ref=f4e897]: 27 de out. de 2026
+            - generic [ref=f4e898]:
+              - generic [ref=f4e899]:
+                - generic [ref=f4e900]: Dados da tarefa
+                - button [ref=f4e902] [cursor=pointer]
+              - generic [ref=f4e907]:
+                - term [ref=f4e908]: Status
+                - definition [ref=f4e909]: Não definido
+                - term [ref=f4e910]: Prazo
+                - definition [ref=f4e911]: Não definido
+                - term [ref=f4e912]: Tipo de responsável
+                - definition [ref=f4e913]: Usuário
+                - term [ref=f4e914]: Responsável
+                - definition [ref=f4e915]: Administrador

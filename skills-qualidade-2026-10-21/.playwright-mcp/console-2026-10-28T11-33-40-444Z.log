@@ -1,0 +1,52 @@
+[     219ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[     319ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:2613
+[     331ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[     423ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-2493730.js?sv=6:2
+[  821503ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[  821579ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[  821619ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:2613
+[  821637ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-2493730.js?sv=6:2
+[  855720ms] [INFO] Autofocus processing was blocked because a document already has a focused element. @ http://172.16.0.182/smartshare/ecm/main-folder:0
+[ 1281548ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[ 1281650ms] [LOG] 
+%cBuild Info:
+        %c
+        ❯ Environment: %cProduction 🏭%c
+        ❯ Backend Version: 4.13.12.26299
+        ❯ FrontEnd Version: 4.13.12
+        ❯ Codex Version: 2.29.5
+         font-size: 15px; color: #7c7c7b; font-size: 14px; color: #7c7c7b font-size: 14px; color: #95c230; font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:2613
+[ 1281663ms] [LOG] 
+%cCodex Info:
+        > Version: 2.29.5
+         font-size: 14px; color: #7c7c7b @ http://172.16.0.182/smartshare/ecm/main-es2015.fb4a8ab3ea445d11ecb7.js:123
+[ 1281742ms] [WARNING] For security reasons, Hotjar only works over HTTPS. Learn more: https://help.hotjar.com/hc/en-us/articles/115011624047 @ https://static.hotjar.com/c/hotjar-2493730.js?sv=6:2

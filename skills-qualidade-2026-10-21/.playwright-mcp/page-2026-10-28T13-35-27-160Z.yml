@@ -1,0 +1,19 @@
+- generic [ref=f16e3]:
+  - button [ref=f16e6] [cursor=pointer]
+  - generic [ref=f16e12]:
+    - button [ref=f16e15] [cursor=pointer]
+    - generic [ref=f16e19]: AD
+  - generic [ref=f16e28]:
+    - button "Início" [ref=f16e31] [cursor=pointer]
+    - button "Favoritos" [ref=f16e38] [cursor=pointer]
+    - button "Processos" [ref=f16e45] [cursor=pointer]
+    - button "Pasta principal" [ref=f16e52] [cursor=pointer]
+    - button "Últimas publicações" [ref=f16e59] [cursor=pointer]
+    - button "Atividades ECM" [ref=f16e66] [cursor=pointer]
+    - button "Meus arquivos" [ref=f16e73] [cursor=pointer]
+    - button "Portal de melhorias" [ref=f16e80] [cursor=pointer]
+    - button "Dashboards" [ref=f16e87] [cursor=pointer]
+    - button "Configurações" [ref=f16e94] [cursor=pointer]
+  - heading "Documentos" [level=1] [ref=f16e99]
+  - textbox [ref=f16e112] [cursor=pointer]
+  - heading "Carregando" [level=3] [ref=f16e124]

@@ -1,0 +1,242 @@
+- generic [ref=f7e4]:
+  - banner [ref=f7e7]:
+    - generic [ref=f7e8]:
+      - button "Abrir ou fechar menu" [ref=f7e9] [cursor=pointer]
+      - img "Logo do Share" [ref=f7e13]
+    - button "Abrir menu de configurações do usuário" [ref=f7e16]:
+      - generic [ref=f7e17]: AD
+  - complementary [ref=f7e19]:
+    - navigation "Navegação principal" [ref=f7e21]:
+      - generic:
+        - button "Início" [ref=f7e24] [cursor=pointer]
+        - button "Dashboards" [ref=f7e33] [cursor=pointer]:
+          - generic [ref=f7e35]: 
+        - button "Configurações" [ref=f7e44] [cursor=pointer]
+        - button "Favoritos" [ref=f7e53] [cursor=pointer]
+        - button "Processos" [ref=f7e61] [cursor=pointer]
+        - button "Documentos" [ref=f7e71] [cursor=pointer]
+        - button "Portal de melhorias" [ref=f7e80] [cursor=pointer]
+  - main [ref=f7e86]:
+    - generic [ref=f7e87]:
+      - navigation "Breadcrumb" [ref=f7e89]:
+        - list [ref=f7e90]:
+          - listitem [ref=f7e91]:
+            - button "Configurações" [ref=f7e92] [cursor=pointer]
+          - listitem [ref=f7e97]:
+            - button "Gerenciamento de usuário" [ref=f7e98] [cursor=pointer]
+          - listitem [ref=f7e103]:
+            - generic "Novo usuário" [ref=f7e104]
+      - generic [ref=f7e105]:
+        - generic [ref=f7e106]:
+          - tablist [ref=f7e108]:
+            - generic:
+              - tab "Dados" [selected] [ref=f7e109]
+              - tab "Perfis" [disabled]
+              - tab "Agenda" [disabled]
+              - tab "Processos" [disabled]
+              - tab "Propriedades" [disabled]
+              - tab "Substitutos" [disabled]
+          - generic [ref=f7e115]:
+            - generic [ref=f7e117]:
+              - generic [ref=f7e118]: Configurações de usuário
+              - region "Configurações de usuário" [ref=f7e122]:
+                - generic [ref=f7e125]:
+                  - generic [ref=f7e128]:
+                    - generic "Usuário ativo" [ref=f7e129]:
+                      - generic [ref=f7e130] [cursor=pointer]:
+                        - generic:
+                          - checkbox "Usuário ativo" [checked]
+                        - generic: Usuário ativo
+                    - button "Ao desativar, o usuário não poderá acessar o sistema." [ref=f7e132]:
+                      - generic [ref=f7e133]: 
+                  - generic [ref=f7e135]:
+                    - generic [ref=f7e137]:
+                      - generic [ref=f7e138]: Usuário modelo
+                      - generic [ref=f7e139]:
+                        - generic [ref=f7e141]:
+                          - textbox "Buscar usuário modelo" [ref=f7e142] [cursor=pointer]:
+                            - /placeholder: Busque o usuário modelo
+                          - generic:
+                            - generic [aria-hidden]:
+                              - generic: 
+                        - button "Limpar usuário modelo" [ref=f7e143] [cursor=pointer]:
+                          - generic [ref=f7e144]: 
+                    - generic [ref=f7e147]:
+                      - generic [ref=f7e148]: Tipo de usuário
+                      - combobox "Administrador" [ref=f7e400] [cursor=pointer]
+            - generic [ref=f7e156]:
+              - generic [ref=f7e157]: Dados do usuário
+              - region "Dados do usuário" [ref=f7e161]:
+                - generic [ref=f7e164]:
+                  - generic [ref=f7e165]:
+                    - generic [ref=f7e167]:
+                      - generic [ref=f7e168]: Nome
+                      - textbox "Nome" [ref=f7e171]: Claude-adm
+                    - generic [ref=f7e173]:
+                      - generic [ref=f7e174]: E-mail
+                      - textbox "E-mail" [ref=f7e177]: claude-adm@teste.local
+                  - generic [ref=f7e178]:
+                    - generic [ref=f7e180]:
+                      - generic [ref=f7e181]: Telefone
+                      - textbox "Telefone" [ref=f7e184]
+                    - generic [ref=f7e186]:
+                      - generic [ref=f7e187]: Ramal
+                      - spinbutton "Ramal" [ref=f7e190]
+            - generic [ref=f7e192]:
+              - generic [ref=f7e193]: Login
+              - region "Login" [ref=f7e197]:
+                - generic [ref=f7e200]:
+                  - generic [ref=f7e201]:
+                    - generic [ref=f7e203]:
+                      - generic [ref=f7e204]: Tipo de autenticação
+                      - combobox "Usuário e senha" [ref=f7e210] [cursor=pointer]
+                    - generic [ref=f7e212]:
+                      - generic [ref=f7e213]: Login
+                      - textbox "Login" [ref=f7e216]:
+                        - /placeholder: Login de acesso
+                        - text: Claude-adm
+                  - generic [ref=f7e217]:
+                    - generic [ref=f7e219]:
+                      - generic [ref=f7e220]: Senha
+                      - generic [ref=f7e222]:
+                        - textbox "Senha" [active] [ref=f7e223]: WRAqDbhtz0x5pSd#
+                        - button "Mostrar senha" [ref=f7e224] [cursor=pointer]
+                      - generic [ref=f7e225]: De 6 a 20 caracteres
+                    - generic [ref=f7e229]:
+                      - generic [ref=f7e230]: Impressão Digital
+                      - textbox "Impressão Digital" [ref=f7e233]
+                  - generic [ref=f7e234]:
+                    - generic [ref=f7e236]:
+                      - generic [ref=f7e237]: Trocar a senha a cada x dias
+                      - spinbutton "Trocar a senha a cada x dias" [ref=f7e240]
+                    - generic [ref=f7e244] [cursor=pointer]:
+                      - generic:
+                        - checkbox "A senha nunca expira"
+                      - strong [ref=f7e249]: A senha nunca expira
+                  - generic [ref=f7e250]:
+                    - generic [ref=f7e252]:
+                      - generic [ref=f7e253]: Data da última troca de senha
+                      - textbox "Data da última troca de senha" [ref=f7e256]:
+                        - /placeholder: dd/MM/yyyy
+                        - text: 26/10/2026
+                    - generic [ref=f7e260] [cursor=pointer]:
+                      - generic:
+                        - checkbox "Trocar a senha no próximo login"
+                      - strong [ref=f7e265]: Trocar a senha no próximo login
+            - generic [ref=f7e267]:
+              - generic [ref=f7e268]: Área e papel
+              - region "Área e papel" [ref=f7e272]:
+                - generic [ref=f7e275]:
+                  - generic [ref=f7e276]:
+                    - generic [ref=f7e278]:
+                      - generic [ref=f7e279]: Área principal
+                      - generic [ref=f7e282]:
+                        - textbox "Área principal" [ref=f7e283] [cursor=pointer]
+                        - generic:
+                          - generic [aria-hidden]:
+                            - generic: 
+                    - generic [ref=f7e285]:
+                      - generic [ref=f7e286]: Papel principal
+                      - generic [ref=f7e289]:
+                        - textbox "Papel principal" [ref=f7e290] [cursor=pointer]
+                        - generic:
+                          - generic [aria-hidden]:
+                            - generic: 
+                  - generic [ref=f7e291]:
+                    - generic [ref=f7e293]:
+                      - generic [ref=f7e294]: Visão inicial
+                      - radiogroup "Visão inicial" [ref=f7e295]:
+                        - generic [ref=f7e297]:
+                          - generic [ref=f7e299]:
+                            - generic [ref=f7e300] [cursor=pointer]
+                            - generic:
+                              - radio "Documentos"
+                            - generic: Documentos
+                          - generic [ref=f7e302]:
+                            - generic:
+                              - radio "Processos" [checked]
+                            - generic: Processos
+                    - generic "Possibilitar troca de visão" [ref=f7e308]:
+                      - generic [ref=f7e309] [cursor=pointer]:
+                        - generic:
+                          - checkbox "Possibilitar troca de visão"
+                        - generic: Possibilitar troca de visão
+                  - generic [ref=f7e311]:
+                    - generic [ref=f7e312]: Menu inicial
+                    - combobox "Selecione o menu inicial" [ref=f7e318] [cursor=pointer]
+            - generic [ref=f7e320]:
+              - generic [ref=f7e321]: Status do usuário
+              - region "Status do usuário" [ref=f7e325]:
+                - generic [ref=f7e330]:
+                  - generic "Usuário ausente" [ref=f7e331]:
+                    - generic [ref=f7e332] [cursor=pointer]:
+                      - generic:
+                        - checkbox "Usuário ausente"
+                      - generic: Usuário ausente
+                  - button "Ao ativar, as atividades atribuídas serão transferidas para outro usuário configurado no Workflow." [ref=f7e334]:
+                    - generic [ref=f7e335]: 
+            - generic [ref=f7e338]:
+              - generic [ref=f7e339]: Permissões
+              - region "Permissões" [ref=f7e343]:
+                - generic [ref=f7e347]:
+                  - generic [ref=f7e350] [cursor=pointer]:
+                    - generic:
+                      - checkbox "Usuário mobile"
+                    - generic: Usuário mobile
+                  - generic [ref=f7e357] [cursor=pointer]:
+                    - generic:
+                      - checkbox "Usuário indexador"
+                    - generic: Usuário indexador
+                  - generic [ref=f7e364] [cursor=pointer]:
+                    - generic:
+                      - checkbox "Desabilitar autenticação Duplo Fator"
+                    - generic: Desabilitar autenticação Duplo Fator
+                  - generic [ref=f7e371] [cursor=pointer]:
+                    - generic:
+                      - checkbox "Assinatura automática (BRy Signer)"
+                    - generic: Assinatura automática (BRy Signer)
+        - generic [ref=f7e376]:
+          - button "Sair" [ref=f7e378] [cursor=pointer]
+          - generic "Salvar" [ref=f7e379]:
+            - button "Salvar" [ref=f7e380] [cursor=pointer]:
+              - generic: 
+        - generic:
+          - generic "Selecionar área principal":
+            - generic: 
+            - generic: Sair
+            - generic: Selecionar
+        - generic:
+          - generic "Selecionar papel principal":
+            - text: 
+            - generic: 
+            - generic: Sair
+            - generic: Selecionar
+        - generic:
+          - generic "Selecionar pasta de visão GED":
+            - generic: 
+            - generic: Cancelar
+        - generic:
+          - generic "Selecionar usuário modelo":
+            - text: 
+            - generic: 
+            - generic: Sair
+            - generic: Selecionar
+        - generic:
+          - generic "Associar papéis ao usuário":
+            - generic: Cancelar
+            - generic: Confirmar seleção
+        - generic:
+          - generic "Selecionar usuário substituto":
+            - text: 
+            - generic: 
+            - generic: Sair
+            - generic: Selecionar
+        - generic:
+          - generic "Associar usuários substitutos":
+            - text: 
+            - generic: 
+            - generic: Sair
+            - generic: Selecionar
+        - generic "Confirmar saída":
+          - generic: Voltar
+          - generic: Sair mesmo assim

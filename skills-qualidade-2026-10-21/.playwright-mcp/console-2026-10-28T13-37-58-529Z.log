@@ -1,0 +1,4 @@
+[       9ms] [ERROR] Failed to load resource: net::ERR_UNKNOWN_URL_SCHEME @ javascript:false:0
+[      27ms] [ERROR] Failed to load resource: net::ERR_UNKNOWN_URL_SCHEME @ javascript:false:0
+[      52ms] [ERROR] Failed to load resource: net::ERR_UNKNOWN_URL_SCHEME @ javascript:false:0
+[      98ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://172.16.0.182/favicon.ico:0

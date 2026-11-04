@@ -1,0 +1,91 @@
+- generic [ref=f11e3]:
+  - generic [ref=f11e4] [cursor=pointer]: Buscar
+  - generic [ref=f11e5]:
+    - generic [ref=f11e6]:
+      - heading [level=1] [ref=f11e16]
+      - generic [ref=f11e17]:
+        - heading "Gerenciamento de Anexos - processo claude" [level=2] [ref=f11e18]
+        - generic [ref=f11e19]: Listando Registros
+      - generic [ref=f11e20]:
+        - button "Ajuda" [ref=f11e21] [cursor=pointer]
+        - button "Fechar" [ref=f11e22] [cursor=pointer]
+      - generic: Label
+    - generic [ref=f11e37]:
+      - generic:
+        - link "Listar" [ref=f11e38] [cursor=pointer]:
+          - /url: javascript:__doPostBack('ctl00$header1$linkAba0','')
+        - link "Detalhes" [ref=f11e40] [cursor=pointer]:
+          - /url: javascript:__doPostBack('ctl00$header1$linkAba1','')
+        - link "Restrições" [ref=f11e42] [cursor=pointer]:
+          - /url: javascript:__doPostBack('ctl00$header1$linkAba2','')
+  - generic [ref=f11e44]:
+    - textbox [ref=f11e48]: Ir para...
+    - generic [ref=f11e50]:
+      - table [ref=f11e51]:
+        - rowgroup [ref=f11e52]:
+          - row [ref=f11e53]:
+            - cell "Ações" [ref=f11e54]
+            - cell [ref=f11e55]:
+              - link:
+                - /url: javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$ContentPlaceHolder1$ssOrdenacaoLista$linkOrdenacao0", "", true, "", "", false, true))
+            - cell [ref=f11e56]:
+              - link "Código" [ref=f11e57] [cursor=pointer]:
+                - /url: javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$ContentPlaceHolder1$ssOrdenacaoLista$linkOrdenacao1", "", true, "", "", false, true))
+            - cell [ref=f11e58]:
+              - link "Descrição" [ref=f11e59] [cursor=pointer]:
+                - /url: javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$ContentPlaceHolder1$ssOrdenacaoLista$linkOrdenacao2", "", true, "", "", false, true))
+            - cell [ref=f11e60]:
+              - link "Histórico Anexos" [ref=f11e61] [cursor=pointer]:
+                - /url: javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$ContentPlaceHolder1$ssOrdenacaoLista$linkOrdenacao3", "", true, "", "", false, true))
+            - cell [ref=f11e62]:
+              - link "Vis. Restrita" [ref=f11e63] [cursor=pointer]:
+                - /url: javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$ContentPlaceHolder1$ssOrdenacaoLista$linkOrdenacao4", "", true, "", "", false, true))
+            - cell [ref=f11e64]:
+              - link "Inc. Restrita" [ref=f11e65] [cursor=pointer]:
+                - /url: javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$ContentPlaceHolder1$ssOrdenacaoLista$linkOrdenacao5", "", true, "", "", false, true))
+            - cell [ref=f11e66]:
+              - link "Tipo de Documento" [ref=f11e67] [cursor=pointer]:
+                - /url: javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$ContentPlaceHolder1$ssOrdenacaoLista$linkOrdenacao6", "", true, "", "", false, true))
+        - rowgroup [ref=f11e68]:
+          - row [ref=f11e69]:
+            - cell [ref=f11e70]:
+              - button "Detalhar Registro" [ref=f11e72] [cursor=pointer]
+            - cell [ref=f11e73]:
+              - button "Restrições" [ref=f11e75] [cursor=pointer]
+            - cell "1" [ref=f11e76]
+            - cell "documento-eletronico" [ref=f11e77]
+            - cell "Todas as alterações" [ref=f11e78]
+            - cell [ref=f11e79]
+            - cell [ref=f11e82]
+            - cell "Documento Eletrônico" [ref=f11e85]
+          - row [ref=f11e86]:
+            - cell [ref=f11e87]:
+              - button "Detalhar Registro" [ref=f11e89] [cursor=pointer]
+            - cell [ref=f11e90]:
+              - button "Restrições" [ref=f11e92] [cursor=pointer]
+            - cell "2" [ref=f11e93]
+            - cell "publicacao SS" [ref=f11e94]
+            - cell "Todas as alterações" [ref=f11e95]
+            - cell [ref=f11e96]
+            - cell [ref=f11e99]
+            - cell "Publicação SmartShare" [ref=f11e102]
+      - generic [ref=f11e103]:
+        - generic [ref=f11e104]:
+          - paragraph [ref=f11e105]:
+            - button "Primeira Página" [ref=f11e106] [cursor=pointer]
+            - button "Página Anterior" [ref=f11e107] [cursor=pointer]
+          - generic:
+            - term [ref=f11e108]: "Página:"
+            - textbox [ref=f11e110]: "1"
+          - paragraph [ref=f11e111]:
+            - button "Próxima Página" [ref=f11e112] [cursor=pointer]
+            - button "Última Página" [ref=f11e113] [cursor=pointer]
+        - generic [ref=f11e115]:
+          - text: Exibir
+          - table "combobox" [ref=f11e117]:
+            - rowgroup [ref=f11e118]:
+              - row [ref=f11e119]:
+                - cell [ref=f11e120]:
+                  - textbox [ref=f11e121]: "10"
+                - cell "select" [ref=f11e122]
+          - text: "registros por página. Total de registros: 2."
