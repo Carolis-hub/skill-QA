@@ -113,3 +113,53 @@ Leitura: as divergências são de parte do esperado sem evidência (log, altera�
 | 54, 56, 58 | NAO EXECUTADO (ambiente) | Dependem de Indexador DI, MFP e busca de documentos, que passam pelas mesmas telas de lançamento/consulta bloqueadas. Não abri essas telas; confirmar com a usuária se há outro caminho (ex.: Indexador DI por outro link) |
 
 **Dados criados nesta rodada:** índice cd 1145 (total de registros de teste: 1120 a 1145). **Alteração desfeita:** a associação do índice 1145 ao tipo de documento 100 foi removida e confirmada (lista voltou a 20 índices).
+
+## Reavaliação com o mapa ajustado (card #164883 rev 8, 59 cenários, só API e dados)
+
+A numeração mudou (cenários de tela e lançamento saíram). Mapeamento do que já foi executado e o que continua pendente.
+
+**Já cobertos (Passou pela API):** #1*, #2, #3, #4, #13–#33 (29* e 33* com ressalva), #35, #43, #45*, #46*. (* log de aplicação não verificado.)
+
+**Pendências**
+
+| Pendência | Cenários | Situação |
+|---|---|---|
+| **Sem endpoint de alteração** (`PUT` e `PATCH /api/api/TipoIndice` → 405; `PUT /TipoIndice/1120` → 404; confirmado com sessão admin no HMG) | #5, #8, #9, #10, #11, #12 (parte salvar), #39, #40, #53; partes de #7 e #37 | Bloqueio do build: os cenários de alteração do mapa não têm o que chamar. Decisão do dev/PO (lacuna da US ou outra US) |
+| **Sem leitura do banco/LOG_APLICACAO** | #6, #41, #44, #51, #52 (parte banco); parte de log em #1, #29, #45, #46 | Provados só pela API/Clássico (proxy). Precisa de credencial somente leitura da base do app |
+| **SQL Server** | #49, #50 | Ambiente é Oracle |
+| **Módulo Portal** | #34 | `possuiPortal=false` |
+| **Hipóteses** (decisão dev/PO, e #47/#48 sem mecanismo de falha) | #47, #48, #54–#59 | Não executados por regra. Observado no HMG: #54 bloqueia; #55 Seleção com 1 grava 1 |
+| **Dado legado inexistente** (varridos os 125 tipos legados via GetOne) | #12 (regex inválida), #11 (escolha ≠ 0 fora de Seleção), #40 (comparação nula), #42 (identificador/máscara indevidos) | Nenhum registro legado nesse estado; criar exigiria escrita no banco |
+| **Dado legado existente, mas sem endpoint para alterar** | #5 (35 tipos com Conexão/SQL/Valor inicial/Comparação; ex.: 101, 102, 103), #53 (6 tipos Data com Fixo e Desabilitado: 122, 184, 306, 482, 840, 860), #8/#10 (9 tipos Informado com Conexão e SQL: 123, 124, 181, 185, 580, 700, 720, 740) | Dado ok; falta o endpoint |
+
+**Divergências do mapa novo contra o obtido**
+- **#38** espera "Listagem devolve 200; inclusão bloqueada". Obtido: o publicador (tipo 2) recebe **403 também na listagem**. O `Share4UserAuthorizationMiddleware.cs:51-57` bloqueia todas as rotas de gerenciamento para quem não é Administrador, então o pré-requisito "com acesso à listagem e sem permissão de gerenciar" não existe no BE. Pelo texto do mapa: **Falhou** (ou ajustar o mapa/US).
+- **#36** continua pedindo "401"; obtido 403. Reclassificado como Passou por decisão da usuária (CA 95 aceita 401/403); sugiro ajustar o texto do mapa para "401/403".
+- **#52** executado agora (cd 1160): `id_tipo_local_di`, regex, máscara, `st_busca`, `st_ordenacao_busca`, `vl_ordenacao` e `st_portal` voltaram como enviados; `st_portal_cliente=1` voltou 0 (ambiente sem Portal). Resultado: **Passou*** com a ressalva do Portal e sem conferência no banco. `st_portal`, `st_portal_cliente` e `id_tipo_local_di` são numéricos e não nulos (API).
+- O mapa ainda diz "Sem PR vinculado"; a US agora tem PRs (30113–30117, 30119, 30336) e commits.
+
+Registros de teste: cd 1120 a 1145 e 1160.
+
+## Massa legada criada pelo Clássico (tentativa a pedido da usuária)
+
+Objetivo: gerar pelo Clássico os estados que o POST do BE impede (#11, #12, #40, #42 do mapa rev 8).
+
+| Caso | Resultado | Evidência |
+|---|---|---|
+| #12 regex inválida gravada | **Criado** (cd 1161, `ds_expressao_regular = "("`). O Clássico aceitou ("Inclusão realizada com sucesso") porque não valida a sintaxe. `GET GetOne/1161` devolve 200 sem erro | API; Clássico `TipoIndice.aspx` (Informado, valor Data, Data Atual) |
+| #42 máscara fora de contexto | **Não reproduzível**: com valor Data, o Clássico descarta a máscara (cd 1161 ficou com máscara nula); ao trocar o tipo de Informado para Seleção no Detalhar (cd 1162), a máscara `999` também foi limpa. Identificador só é editável em Específico | API (cd 1161, 1162) |
+| #11 escolha ≠ 0 fora de Seleção | **Não reproduzível pela tela**: o formulário do Clássico não tem o campo "Escolha Única" (st_escolha_multipla) | Formulário de inclusão e Detalhar |
+| #40 id_tipo_comparacao nulo | **Indistinguível pela API**: os registros do Clássico (cd 1144, 1161, 1162) voltam com `id_tipo_comparacao = 0`; a API lê NULL como 0, então só o banco mostra se é nulo | API |
+
+Registros criados nesta etapa: cd 1161 (regex inválida) e 1162 (Seleção, sem máscara). Total de registros de teste: 1120 a 1145, 1160 a 1162.
+Para #11, #40 e #42 continua valendo o SQL de escrita (dev/DBA) e, para salvar, o endpoint de alteração.
+
+## Análise de falha (/analise-falha, 2026-11-05) — veredito: NÃO abrir defeito para os 3 pontos
+
+| Ponto | Veredito | Base |
+|---|---|---|
+| (1) Sem endpoint de alteração (PUT/PATCH → 405) | **NÃO** | A alteração (`PUT /api/TipoIndice`) é escopo da US 164850 / BE 04 (Análise #164859; mapa #164888 "Alteração, inativação e exclusão"), não da US 164848. O mapa #164883 tem cenários de alteração que dependem do build da BE 04 (lida-no-card). |
+| (2) #38: listagem 403 para não administrador | **NÃO** | Decisão do dev registrada no mapa #164886 (CA94/CA96): permissão = ser administrador; não administrador recebe 403, inclusive na consulta; CA95: sem login ou token inválido = 403, sessão encerrada = 401. Coerente com `Share4UserAuthorizationMiddleware.cs:51-57`. Aplicado APR-010 e APR-013. Ajustar o texto de #36 e #38 do mapa #164883. |
+| (3) HTTP 500 para validação de negócio | **NÃO** | Convenção global da API: `HttpResult` (Common.Api) devolve 500 sempre que há erros; o CA 99 só trata falha técnica e a US não define status para validação. Possível melhoria transversal, fora desta US. |
+
+Histórico: Bug #165721 (Done) já tratou dado simulado no front do Gerenciamento de índices e dizia que criar/alterar/excluir ainda estavam em memória; o #166156 (aberto hoje) pode ser regressão ou continuação dele. Citar o #165721 no #166156.

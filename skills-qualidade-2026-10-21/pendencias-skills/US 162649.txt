@@ -1,0 +1,13 @@
+US 162649
+Título: Migração Share 4 | Troca de senha obrigatória (primeiro acesso e senha expirada)
+Dev da análise: Leonardo Oliva Neves
+
+Itens pendentes na análise:
+1. PD-162649-01 parcial: card diz que vl_dias_expira é o mesmo campo, mas falta confirmar que o cadastro novo (Gerenciamento de Usuários) o grava. [clássico: confirmado leitura de vl_dias_expira, Login.aspx.cs:569, 792]
+2. Card e PR dizem que o AC 7 (dispositivos confiáveis, #164372) NÃO faz parte da entrega (só // TODO #164372), mas a US o exige. Definir como o CA 7 é tratado.
+3. Caminho Oracle (SELECT FOR UPDATE + UPDATE) não validado, só SQL Server (descrição do PR 30495).
+4. Outros logins sem verificação de troca/expiração (autenticar-token-classico, autenticar-integracao, refresh-token, SSO), risco declarado no card; a US só trata o autenticar.
+5. Nulos/zero de expiração tratados como "não expira" (Q-04 do dev); o clássico faz double.Parse do valor sem tratar vazio. [clássico: diverge, Login.aspx.cs:568, 791]
+6. PR 30496 extrai password-strength.helper.ts do NewPassComponent (recuperação de senha por e-mail, #162412) e altera new-pass.component.ts e route.service.ts, itens que o card não cita (card diz recuperação "inalterada").
+7. PR 30495 registra auditoria TipoAcao.AlterarSenha=22 e conta tentativas em Controle_Login; o card cita só o Controle_Login.
+8. Não verificados pelo dev: bloqueio AD/Azure AD no browser, 2FA para quem já tem autenticador, AC 12 Mobile no app, comparação com Figma (descrição do PR 30496); build do PR 30495 pendente.
