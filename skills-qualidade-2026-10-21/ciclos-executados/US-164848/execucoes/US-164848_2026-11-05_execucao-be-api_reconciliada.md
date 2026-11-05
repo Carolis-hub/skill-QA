@@ -50,7 +50,7 @@ Os antigos 53 (Detalhe do Clássico) e 54 (Indexador DI) foram reescritos como #
 | 26 | 28 | Escolha Única fora de Seleção | Informado com 1 grava 0 (cd 1132) | Passou |
 | 27 | 29 | Identificador fora de Específico | "abc" não gravado (cd 1133; Oracle lê vazio como NULL) | Passou |
 | 28 | 30 | Regex válida | 500 chars gravados (cd 1125) | Passou |
-| 29 | 31 | Regex inválida | 500 "Expressão regular inválida."; nada gravado | Passou* (log) |
+| 29 | 31 | Regex inválida | 500 "Expressão regular inválida."; nada gravado; nenhum log órfão no `LOG_APLICACAO` (consultas 3 e 5 vazias) | Passou |
 | 30 | 32 | Máscara MFP válida | 150 chars gravados (cd 1126) | Passou |
 | 31 | 33 | Máscara com Tipo de valor Data | gravada vazia (cd 1134) | Passou |
 | 32 | 34 | Máscara com tipo ≠ Informado | gravada vazia (cd 1135) | Passou |
@@ -62,7 +62,7 @@ Os antigos 53 (Detalhe do Clássico) e 54 (Indexador DI) foram reescritos como #
 | 41 | 43 | Campos obrigatórios nunca nulos | cd 1121 (só Descrição): a API devolve `st_portal`=1, `st_portal_cliente`=0 e DI=2, não nulos; banco não consultado (a evidência pela tela do Clássico deixa de valer) | Passou* |
 | 43 | 45 | Texto com aspas e SQL | gravado literal (cd 1138); log 817816 traz `O'Brien'; DROP TABLE x--` literal | Passou |
 | 45 | 47 | Duas inclusões simultâneas | cd 1142 e 1143; logs 817820 e 817821, um para cada | Passou |
-| 46 | 48 | Rejeição não grava nem loga | 23 rejeições, total 125 → 125 | Passou* (log) |
+| 46 | 48 | Rejeição não grava nem loga | 23 rejeições, total 125 → 125; nenhum log órfão no `LOG_APLICACAO` (consultas 3 e 5 vazias) | Passou |
 | 51 | 53 | Conversão numérica dos campos que o Clássico lê | a API devolve 0/0/2 numéricos e não nulos (cd 1136); banco não consultado (a evidência pela tela do Clássico deixa de valer) | Passou* |
 | 54 | 60 | HIPOTESE: descrição duplicada | bloqueia com "Já existe um índice com esta descrição." (também sem diferenciar maiúsculas) | Observação, não classificado |
 
@@ -98,3 +98,6 @@ Códigos 1120 a 1145, como no relatório original. A exclusão é do escopo da B
 
 ## Complemento (2026-11-05, leitura real do `LOG_APLICACAO`, resultado do script manual da usuária)
 Ver `validacoes-log/US-164848_2026-11-05_validacao-log.md` (seção "Resultado da leitura real"). Efeito: #1, #43 e #45 passam a **Passou** sem ressalva de log, e o #44 (que estava não executado) passa a **Passou**. #29 e #46 seguem `Passou*` (falta provar que a rejeição não gerou log). Totais: 37 executados, 34 Passou, 3 Parcial, 22 não executados.
+
+## Complemento (2026-11-05, consultas 3 e 5 do `LOG_APLICACAO`)
+Consulta 3 (logs duplicados do mesmo tipo) e consulta 5 (logs de tipo de índice sem tipo correspondente, de hoje): **nenhuma linha** nas duas. #29 e #46 passam a **Passou**. Totais: 37 executados, 34 Passou e 3 Parcial, com 0 `Passou*` de log; #6, #7 e #38 seguem Parcial e #47 (rollback) segue não executado.
