@@ -28,7 +28,7 @@ Os antigos 53 (Detalhe do Clássico) e 54 (Indexador DI) foram reescritos como #
 ## Detalhe por cenário executado
 | # (atual) | Antigo | Cenário | Obtido | Resultado |
 |---|---|---|---|---|
-| 1 | 1 | Inclusão válida (Informado) | 200, cd 1120, GetOne confere | Passou* (log aplicação 19 não verificado) |
+| 1 | 1 | Inclusão válida (Informado) | 200, cd 1120, GetOne confere; log 817798 (aplicação 19, ação 1, usuário 8982) confirmado no `LOG_APLICACAO` | Passou |
 | 2 | 2 | Inclusão só com Descrição | 200, cd 1121, padrões do CA 16 conferem | Passou |
 | 3 | 3 | Inclusão Específico com Identificador | 200, cd 1122, DI=3 | Passou |
 | 4 | 4 | Inclusão Múltipla Seleção | 200, cd 1123, DI=4 | Passou |
@@ -60,8 +60,8 @@ Os antigos 53 (Detalhe do Clássico) e 54 (Indexador DI) foram reescritos como #
 | 37 | 39 | Sem permissão no menu Configurações | publicador (tipo 2) → 403 ao incluir; alterar sem endpoint | Passou* |
 | 38 | 40 | Sem permissão de gerenciar índices: incluir | publicador → 403, nada gravado; o usuário também não acessa a listagem, então o pré-requisito "com acesso à listagem" (e o resultado "listagem 200") não foram atendidos | **Parcial** |
 | 41 | 43 | Campos obrigatórios nunca nulos | cd 1121 (só Descrição): a API devolve `st_portal`=1, `st_portal_cliente`=0 e DI=2, não nulos; banco não consultado (a evidência pela tela do Clássico deixa de valer) | Passou* |
-| 43 | 45 | Texto com aspas e SQL | gravado literal (cd 1138) | Passou |
-| 45 | 47 | Duas inclusões simultâneas | cd 1142 e 1143 | Passou* (logs não verificados) |
+| 43 | 45 | Texto com aspas e SQL | gravado literal (cd 1138); log 817816 traz `O'Brien'; DROP TABLE x--` literal | Passou |
+| 45 | 47 | Duas inclusões simultâneas | cd 1142 e 1143; logs 817820 e 817821, um para cada | Passou |
 | 46 | 48 | Rejeição não grava nem loga | 23 rejeições, total 125 → 125 | Passou* (log) |
 | 51 | 53 | Conversão numérica dos campos que o Clássico lê | a API devolve 0/0/2 numéricos e não nulos (cd 1136); banco não consultado (a evidência pela tela do Clássico deixa de valer) | Passou* |
 | 54 | 60 | HIPOTESE: descrição duplicada | bloqueia com "Já existe um índice com esta descrição." (também sem diferenciar maiúsculas) | Observação, não classificado |
@@ -95,3 +95,6 @@ Os antigos 53 (Detalhe do Clássico) e 54 (Indexador DI) foram reescritos como #
 
 ## Registros de teste criados no HMG (não excluídos)
 Códigos 1120 a 1145, como no relatório original. A exclusão é do escopo da BE 04.
+
+## Complemento (2026-11-05, leitura real do `LOG_APLICACAO`, resultado do script manual da usuária)
+Ver `validacoes-log/US-164848_2026-11-05_validacao-log.md` (seção "Resultado da leitura real"). Efeito: #1, #43 e #45 passam a **Passou** sem ressalva de log, e o #44 (que estava não executado) passa a **Passou**. #29 e #46 seguem `Passou*` (falta provar que a rejeição não gerou log). Totais: 37 executados, 34 Passou, 3 Parcial, 22 não executados.
