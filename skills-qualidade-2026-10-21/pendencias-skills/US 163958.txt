@@ -1,0 +1,13 @@
+US 163958
+Título: Dashboard ECM - Gráfico Tamanho do repositório por tipo de documento
+Dev da análise: Felipe Kuhnen
+
+Itens pendentes na análise:
+1. Nenhum PR vinculado à US nem ao card Análise; commits 9dfe0f69 (net8) e dfc5a5c7 (analytics) não existem no clone do hub, então o card não foi confirmado contra o código.
+2. Desempenho: GROUP BY sobre todas as versões em VERSAO_DOCUMENTO_INFORMATION, sem medição de latência em acervo grande nem confirmação de índice em cd_versao_documento (card).
+3. Tipos "Excluído (4)" e "Aplicação Servidor" ficam fora do gráfico, o que a US não prevê (diz "todos os tipos"); coberto só por teste de SQL, não executado contra o banco.
+4. Anexos fora do cálculo (card, Story-21) contra "com anexos" da US (decisão do dev prevalece, APR-010).
+5. CA-10 Exportar fora da entrega (PBI 163956 inexistente); só o signal storageSizeByType() fica exposto.
+6. Achados Baixa em aberto: tipo sem nome fica em branco, rótulo da barra pode ser cortado, ticks repetidos abaixo de 1 KB, números em pt-BR também em en/es.
+7. Não executados: tooltip por foco de teclado (CA-08 cita foco) e idioma espanhol na tela.
+8. Nota de escopo no topo da aba (nyx-alert) não está na US; texto e posição ainda sem confirmação da PM.

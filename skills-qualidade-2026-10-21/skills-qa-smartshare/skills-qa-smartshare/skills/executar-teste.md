@@ -50,6 +50,12 @@ Dificuldade de execução, volume de trabalho, tempo gasto, "não tentei ainda" 
 
 ---
 
+## Regra — US de BE: execução por API, sem tela
+
+Quando a US é de back-end (título com `BE`, ex.: `(BE)`; descrição declarada de BE/back-end; ou módulo da API; em dúvida, pergunte à usuária), os cenários do mapa são executados por **chamada HTTP à API** e por conferência dos dados (banco e log), não por interação com tela. Se o mapa de uma US de BE trouxer cenário que exija tela, UI, protótipo ou o Clássico/Portal como interface, **não execute esse cenário**: marque `NÃO EXECUTADO` com o motivo `cenário de FE em US de BE (defeito do mapa)` e avise a usuária para corrigir o mapa com `/gerar-mapa-testes-v3` (Step 3.10).
+
+---
+
 ## Step 0 — Validar ambiente
 
 1. Verifique que `mcp__azure-devops` está conectado (chamada de teste em `get_work_item`).

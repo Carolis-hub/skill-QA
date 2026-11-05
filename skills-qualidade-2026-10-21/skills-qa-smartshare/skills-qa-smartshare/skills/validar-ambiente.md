@@ -58,6 +58,12 @@ Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendi
 
 ---
 
+## Regra — US de BE: sem pré-requisito de tela
+
+Quando a US é de back-end (título com `BE`, ex.: `(BE)`; descrição declarada de BE/back-end; ou módulo da API; em dúvida, pergunte à usuária), verifique e configure só o que a API e os dados exigem (build, usuário/perfil/sessão, massa de dados, configuração, acesso ao banco, cliente HTTP). Não configure nem exija pré-requisito que só serve a um fluxo de tela; se o mapa trouxer um, marque o requisito `NÃO VERIFICÁVEL` com o motivo `pré-requisito de FE em US de BE (defeito do mapa)`.
+
+---
+
 ## Step 0 — Validar ferramentas, arquivo de configuração e argumentos
 
 1. Se `$ARGUMENTS` estiver vazio, pare e peça o ID da US.

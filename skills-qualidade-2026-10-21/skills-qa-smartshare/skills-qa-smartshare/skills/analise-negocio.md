@@ -36,6 +36,12 @@ Nunca preencher esse vazio com suposição não marcada como tal.
 
 ---
 
+## Regra — US de BE: sem escopo nem dependência de front
+
+Quando a US é de back-end (título com `BE`, ex.: `(BE)`; descrição declarada de BE/back-end; ou módulo da API; em dúvida, pergunte à usuária), a análise de negócio trata **só do que a API e os dados fazem**. Critérios, regras ou textos que são de front (tela, tooltip, aviso de saída, campo ou seta, rótulo, layout, protótipo) **não entram** em "Comportamentos esperados", "Regras", "Dependências", "Riscos", nem viram pendência ou recomendação: liste-os em uma linha `Fora do escopo desta US (FE): CA <n> — <motivo>` no relatório. **Não liste front como dependência** da US e não trate a tela como forma de verificar um critério.
+
+---
+
 ## Step 0 — Validar ambiente
 
 Verifique que o servidor MCP `mcp__azure-devops` está disponível chamando `mcp__azure-devops_wit_get_work_item` com o ID informado. Se a chamada falhar porque o servidor MCP está indisponível ou a ferramenta não existe, **pare imediatamente** e reporte:

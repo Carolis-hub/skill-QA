@@ -1,0 +1,13 @@
+US 162626
+Título: Herdar perfis da pasta de destino ao publicar documento recortado
+Dev da análise: Rodrigo Emílio Ferreira Neves
+
+Itens pendentes na análise:
+1. Card diz que os perfis da pasta entram "só com permissão de leitura"; o dev confirmou "leitura", mas não disse quais flags de PERFIL_DOCUMENTO ficam zeradas (st_revisar, st_imprimir, st_salvar, st_leitura_obrigatoria, st_requer_aprovacao). A US (CA-1/CA-2/CA-4) não fala em nível de permissão. [clássico: lacuna]
+2. CA-8 (sair sem publicar) e CA-6 (troca de pasta antes de publicar) sem caso de teste no card; CA-4 só implícito.
+
+Resolvidos pela resposta do dev (2026-11-05):
+- Pasta de destino sem perfil: segundo o dev, uma pasta não pode ser publicada sem perfis (situação não ocorre). [resposta do dev; não verificado no código]
+- Herança de pastas superiores: o recorte herda somente os perfis da pasta de destino, sem herdar das superiores. [resposta do dev; clássico: confirmado, tela de publicação usa só a própria pasta]
+- PR: ainda não existe, a US não foi desenvolvida. O card descreve a alteração planejada; análise sem diff real.
+- Perfil 1: será entendido como um perfil normal da pasta (dev, após conversa com a Carina). Ex.: pasta com perfis 1, 5, 8 e 10 gera recorte com esses 4 perfis e nenhum outro. [resposta do dev; clássico: diverge, tela de publicação trata o 1 de forma especial]

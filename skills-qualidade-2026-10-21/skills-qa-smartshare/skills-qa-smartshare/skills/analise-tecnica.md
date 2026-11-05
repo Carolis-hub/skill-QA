@@ -42,6 +42,12 @@ criar, roda depois dos testes de QA), não de QA. Ver seção "Discrepâncias" n
 
 ---
 
+## Regra — US de BE: sem camada nem dependência de front
+
+Quando a US é de back-end (título com `BE`, ex.: `(BE)`; descrição declarada de BE/back-end; ou módulo da API; em dúvida, pergunte à usuária), a análise técnica **não lista** a camada "Front-end" na tabela de camadas, **não registra** front como dependência direta ou indireta nem como funcionalidade impactada, e **não cria** pré-requisito técnico de tela. Consumidores do dado (outros módulos, telas do Clássico) aparecem só como **contrato de dados** que a API deve manter (colunas, tipos, não nulos), nunca como tela a testar. Se o card `Análise` ou o PR citar algo de front, registre uma linha `Fora do escopo (FE): <item>` e não analise risco nele.
+
+---
+
 ## Pré-requisito bloqueante: card `Análise` do dev
 
 Antes de qualquer análise, é obrigatório localizar, entre os filhos (`Hierarchy-Forward`) da história, um card cujo `System.WorkItemType` seja **exatamente** `Análise`.

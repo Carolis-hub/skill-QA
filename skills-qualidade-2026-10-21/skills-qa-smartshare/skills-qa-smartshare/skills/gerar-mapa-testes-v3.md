@@ -45,6 +45,8 @@ Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendi
 
 14. **Fidelidade expressa ao protótipo (Figma) em US de FE** (Step 3.9 e categoria 10 do Step 4.3, 2026-11-03, pedido da usuária) — a tela deve ser **expressamente fiel ao protótipo** e **qualquer divergência deve ser sinalizada**, inclusive a pequena. Em vez de um único cenário de paridade, o mapa traz **um cenário de fidelidade por quadro e estado do protótipo que a US cobre** (inventário de quadros), com uma especificação de design extraída do Figma (textos, tipografia, cores, espaçamentos, bordas, raios, tamanhos, ícones, estados). A execução compara tudo isso (Step 4.2b do `/executar-teste`) e só dá `Passou` com zero divergência.
 
+15. **US de BE não tem cenário nem dependência de front** (Step 3.10 e regra do Step 4.4, 2026-11-05, pedido da usuária) — em US de back-end, o mapa verifica só **API (requisição/resposta) e dados (banco/log)**. Nenhum cenário, pré-requisito ou dependência pode exigir tela, formulário, botão, tooltip, aviso de saída, layout, protótipo (Figma) nem o Clássico/Portal/outro front como interface. O que for de FE na US vira nota `Fora do escopo do mapa (FE)` em "Fonte técnica", não cenário.
+
 ---
 
 ## Encoding Policy (read before executing any step)
@@ -184,6 +186,21 @@ Divergência em cenário marcado como recomendação **não vira defeito automat
 
 ---
 
+## Step 3.10 — US de BE: nenhuma dependência de front
+
+**Quando roda:** a história é de back-end. É de BE quando o título tem `BE` (ex.: `(BE)`), a descrição se declara de BE/back-end ou o módulo é a API. Em dúvida se é BE, pergunte à usuária. Se a US não é de BE, pule sem erro.
+
+**Regras (valem para o Step 4 inteiro):**
+1. **Proibido** cenário que exija tela, formulário, botão, mensagem exibida em tela, tooltip, aviso de saída, navegação, layout, protótipo (Figma) ou o Clássico/Portal/outro front como interface. Nunca gerar a categoria `FIDELIDADE AO PROTOTIPO`.
+2. **Como verificar:** pela API (status, payload e mensagem de erro **devolvida**) e pelos dados (o que foi ou não gravado no banco e no log). Ação = chamada HTTP com payload; Resultado Esperado = resposta e estado dos dados. Nunca "abrir a tela", "clicar" ou "ver na listagem".
+3. **Consumidores (outros módulos, telas do Clássico, Indexador, Portal etc.):** não testar pela interface deles. Verificar o **contrato de dados** (colunas, tipos, valores não nulos, formato) que eles leem, na resposta da API ou no banco. Ação de consumidor por tela é de outra US.
+4. **Indicador devolvido ao FE** (ex.: ambiente tem ou não o módulo X): testar o campo na resposta da API, nunca o que a tela mostra ou esconde.
+5. **Pré-requisitos** sem item de tela: permitidos build, usuário/perfil/sessão (token), massa de dados, configuração, acesso de leitura ao banco e cliente HTTP. Proibidos `[AMBIENTE] Clássico acessível`, usuário de uso de tela e dado que só serve a um fluxo de tela.
+6. **Critérios de aceite de FE na US** (tela, tooltip, campo ou seta, aviso de saída, rótulo, comportamento de formulário) **não geram cenário**: liste em "Fonte técnica" `Fora do escopo do mapa (FE): CA <n> — <motivo>`. Se um CA só pode ser verificado pela tela, trate do mesmo modo (`verificação depende de FE`).
+7. Em "Dimensões cobertas" registre que os itens de FE ficaram fora do mapa por ser US de BE. A coluna Origem segue igual (CA, CT, PI, Bug).
+
+---
+
 ## Step 4 — Generate test map table
 
 ### 4.0 — Escopo de origem (obrigatório, ler antes de 4.1)
@@ -269,6 +286,7 @@ Regras:
 - Todo cenário tem a coluna Pré-requisitos preenchida (Step 4.2b) — `Nenhum específico` quando não houver exigência, nunca vazia.
 - Todo cenário rastreia a uma das 4 fontes do Step 4.0 (Instruções QA, Critérios de Aceite, Pontos de Impacto do dev, Casos de Teste do dev) — nunca só à narrativa da análise técnica.
 - Considerar: validação de campos, comportamento de UI, consistência de dados, falhas de integração — sempre ancorado numa das 4 fontes acima, não como exploração livre do código/PR.
+- **US de BE (Step 3.10):** nenhum cenário de tela, UI, protótipo ou Clássico/Portal como interface; só API e dados. Antes de apresentar a tabela, releia cada Ação, Resultado Esperado e Pré-requisito e remova ou reescreva (como chamada de API e conferência de dados) o que citar tela, botão, formulário, listagem, "abrir" ou front.
 - **Quando o Step 3.9 consultou o protótipo**, o Resultado Esperado dos cenários de mensagem, modal, toast e estado (vazio, sem resultado, carregando) leva o texto literal lido no Figma, não "texto do Figma". Crie, na categoria `=== FIDELIDADE AO PROTOTIPO ===`, **um cenário por quadro/estado do inventário** (Step 3.9, item 6), todos com técnica `exploratório`, tipo `positivo`, dimensão `regressão` e origem `história + protótipo`, pré-requisitos `[CONFIG] conector Figma conectado ao chat`, `[AMBIENTE]` com a US implantada e `[DADOS]` equivalentes aos do quadro. **Ação (padrão):** abrir o estado do quadro `<nome> (nodeId)` no mesmo tamanho de janela do quadro e comparar, item a item, com a especificação do Step 3.9 (item 7): (a) textos literais; (b) estrutura e elementos (ordem, rótulos, ícones, botões, campos); (c) medidas de design (tipografia, cores, espaçamentos, bordas, raios, tamanhos de controles e ícones); (d) estados e interações que o quadro mostra; (e) prints lado a lado. **Resultado Esperado (padrão):** zero divergência (tolerância apenas de ±1 px por arredondamento); toda divergência registrada com os dois prints e os valores esperado × obtido, e **o cenário só é `Passou` com zero divergência e nenhum aspecto não verificado**. Itens que a US manda ignorar (ex.: botão que o protótipo mostra e o CA manda não exibir) não contam como divergência, mas são citados. É esse conjunto que `/executar-teste` (Step 4.2b) executa por completo.
 
 ### 4.5 — Apresentar a tabela e pedir aprovação
@@ -400,7 +418,19 @@ Executar **depois da aprovação do Step 4.5**, com a mesma tabela aprovada, e *
 - **Se `CARD_EXISTS = false`:** chame `mcp__azure-devops__create_work_item` com `workItemType: "Criar Mapa de Teste"`, `title: "Mapa de teste"`, `description: {HTML do Step 5}`, `parentId: $WI_ID`, `areaPath: $STORY_AREA_PATH`, `iterationPath: $STORY_ITERATION_PATH`, `projectId: $STORY_PROJECT`. Capture o `id` retornado como `$MAPA_CARD_ID`.
 - **Se `CARD_EXISTS = true`:** chame `mcp__azure-devops__update_work_item` com `workItemId: $MAPA_CARD_ID`, `description: {HTML do Step 5}`.
 
-Não altere `state`, `assignedTo` nem qualquer outro campo do card além da Descrição, a menos que o usuário peça explicitamente — a decisão de mover o card para "Done" é do time, não da skill.
+**Regra fixa de publicação (2026-11-05, pedido da usuária):** ao publicar o mapa (criação do card ou atualização da Descrição), a skill também (1) muda o `System.State` do card "Criar Mapa de Teste" para **`Committed`** e (2) adiciona a tag **`agenteqa`** em `System.Tags`, **preservando as tags já existentes** (nunca substituir: leia `System.Tags` do card, acrescente `agenteqa` só se ainda não estiver, separando por `; `). Faça isso depois de a Descrição estar gravada, com `mcp__azure-devops__wit_work_item_write` (`action: "update"`, `id: $MAPA_CARD_ID`), usando `/fields/System.State` = `Committed` e `/fields/System.Tags`. Vale também para card que já existia e foi sobrescrito com a confirmação do Step 4.5. Se a mudança de estado ou a tag falhar (ex.: transição inválida), **não é bloqueante**: o mapa já está publicado; reporte o erro exato no Step 7 e avise a usuária. Não altere `assignedTo` nem outros campos além de Descrição, `State` e `Tags`; mover o card para "Done" continua sendo decisão do time, não da skill.
+
+---
+
+## Step 6.4 — Anexar o HTML interativo ao card (regra fixa, 2026-11-05, pedido da usuária)
+
+Depois do Step 6 (mapa publicado e card em `Committed` com a tag `agenteqa`) e do Step 5b (HTML interativo gravado em `$CICLOS_DIR\US-<ID>\mapas-teste\`), **anexe esse arquivo `.html` ao card "Criar Mapa de Teste"** (`$MAPA_CARD_ID`):
+
+1. Leia as relações do card (`wit_work_item` com `expand: "Relations"`). Se já existir um `AttachedFile` com o **mesmo nome** do arquivo, não anexe de novo (evita duplicata em reexecução); se o conteúdo mudou, avise a usuária em vez de acumular versões.
+2. Envie o arquivo com `mcp__azure-devops__wit_work_item_attachment_upload` e vincule ao card com `mcp__azure-devops__wit_work_item_attachment_link` (ou a ferramenta equivalente do MCP). Use o caminho absoluto do arquivo gravado no Step 5b.
+3. Se o Step 5b foi pulado (template ausente) ou o upload/vínculo falhar, **não é bloqueante**: o mapa já está publicado. Reporte o erro exato no Step 7.
+
+Só o HTML interativo é anexado: nunca anexe prints, o `.md` da especificação do protótipo nem arquivos com segredo.
 
 ---
 
@@ -430,6 +460,8 @@ Se `update_work_item` falhar ao postar o comentário, isso **não é bloqueante*
 Reporte ao usuário:
 
 - Card publicado: `#$MAPA_CARD_ID` (criado ou atualizado), com link (`https://dev.azure.com/selbettidev/{projeto}/_workitems/edit/{id}`).
+- **Estado e tag:** confirme que o card ficou em `Committed` e com a tag `agenteqa` (ou o erro, se a alteração falhou).
+- **Anexo:** confirme que o HTML interativo ficou anexado ao card (ou que já existia um anexo de mesmo nome, ou o erro, se falhou).
 - Quantidade de cenários publicados e categorias cobertas.
 - **HTML interativo local:** caminho do arquivo gravado no Step 5b (ou aviso de que o template não foi encontrado e o passo foi pulado).
 - **Dimensões cobertas:** lista das dimensões (positivo/negativo/permissão/dados/concorrência/regressão) efetivamente presentes na tabela aprovada, e quais ficaram `N/A` com o motivo.
@@ -453,7 +485,7 @@ Depois de reportar o Step 7, acrescente uma linha ao final da tabela em
 | <data/hora atual, ex.: via `Get-Date -Format "yyyy-MM-dd HH:mm"`> | `/gerar-mapa-testes-v3` | Publicação de mapa de testes (<criação\|atualização> do card) | Card #<MAPA_CARD_ID> → US #<WI_ID> | Sucesso | <nome do usuário que aprovou no chat> | <nº de cenários publicados> cenários, dimensões: <lista> |
 ```
 
-Se o Step 4.5 registrou uma sobrescrita de conteúdo existente, mencione isso explicitamente na
+Se o estado do card foi para `Committed`, a tag `agenteqa` foi adicionada (Step 6) e o HTML foi anexado (Step 6.4), mencione isso na coluna Observações. Se o Step 4.5 registrou uma sobrescrita de conteúdo existente, mencione isso explicitamente na
 coluna Observações (ex.: "sobrescreveu mapa anterior do card, com confirmação do usuário"). Se o Step 6.5
 rodou, mencione também quantas hipóteses foram notificadas via comentário na história (ou que o comentário
 falhou, se for o caso).
@@ -473,3 +505,5 @@ falhou, se for o caso).
 - O HTML interativo do Step 5b é só um arquivo local de apoio à execução manual: o que vale como mapa é o conteúdo publicado no card. Se os dois divergirem, refaça o Step 5b a partir da tabela aprovada — nunca edite o mapa só no arquivo local.
 - Se o protótipo (Step 3.9) mostra algo que a US não pede ou manda não exibir (ex.: botão de filtro), **não crie cenário** nem trate como defeito: a US prevalece, e a diferença vai como observação em "Fonte técnica" e como nota no cenário de paridade visual.
 - Se, ao montar um cenário, a única justificativa que você consegue escrever na coluna Origem é "achei isso interessante na análise técnica" sem apontar para Instruções QA/Critérios de Aceite/Pontos de Impacto/Casos de Teste (Step 4.0), **não crie o cenário** — é sinal de que ele está fora do escopo da história, mesmo que pareça um risco técnico legítimo.
+
+- Se a US é de BE e algum cenário da tabela cita tela, UI, protótipo ou Clássico/Portal como interface (Step 3.10), **reescreva como API/dados ou remova**; nunca publique o mapa com dependência de front. O CA de FE vira nota em "Fonte técnica", não cenário.

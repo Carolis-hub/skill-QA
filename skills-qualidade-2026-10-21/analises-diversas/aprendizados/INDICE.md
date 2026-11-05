@@ -14,3 +14,7 @@ Consultar antes de perguntar à usuária. Regras em `README.md`.
 | APR-009 | 2026-11-04 | analise-tecnica | Geral | Pendência cuja resposta é da PM/PO | Ativo | APR-009_pendencias-da-pm-nos-comentarios-da-us.md |
 | APR-008 | 2026-11-04 | analise-tecnica | US 163770 | Card do dev diverge da US (CA-10 Exportar, CA-14 base única, D8/D9 não previstos) | Ativo | APR-008_us-163770-decisao-do-dev-prevalece.md |
 | APR-010 | 2026-11-04 | analise-tecnica | Geral | Decisão do dev no card Análise diverge da US ou cobre lacuna dela | Ativo | APR-010_decisao-do-dev-prevalece-sempre.md |
+| APR-011 | 2026-11-04 | gerar-mapa-testes-v3 | Geral | Cenário de performance precisa de número e a US não traz tempo (máximo aceitável do APR-002) | Ativo | APR-011_performance-maximo-aceitavel-e-o-timeout.md |
+| APR-012 | 2026-11-05 | gerar-mapa-testes-v3 | Geral | Mapa de testes: todo CA precisa de cenário, inclusive CA fora da entrega ou não executado pelo dev | Ativo | APR-012_todo-ca-tem-cenario-de-teste.md |
+| APR-013 | 2026-11-05 | validar-ambiente | Geral | Permissão de gerenciar índices sem regra definida no net8: usar a do Clássico (admin = cdTipoUsuario 1) | Ativo | APR-013_gerenciar-indices-segue-regra-do-classico.md |
+| APR-014 | 2026-11-05 | gerar-mapa-testes-v3 | Geral | US de BE: mapa sem cenário nem dependência de front (CA de FE vira nota; exceção ao APR-012) | Ativo | APR-014_us-de-be-sem-cenario-nem-dependencia-de-front.md |

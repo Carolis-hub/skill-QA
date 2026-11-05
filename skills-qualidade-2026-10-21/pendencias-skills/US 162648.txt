@@ -1,0 +1,15 @@
+US 162648
+Título: Migração Share 4 | Reset de autenticação de duplo fator
+Dev da análise: Leonardo Oliva Neves
+
+Itens pendentes na análise:
+1. CA7: duração da sessão/token de recuperação que define "sessão expirada" não informada no card. Respeitar o tempo exibido em tela e verificar se é configurável (REC-162648-01 ajustada). [clássico: lacuna]
+2. CA10 (Mobile): o card Análise (comentário Discussion) diz que o Mobile passa a pedir o código do novo autenticador, e não um novo cadastro de QR; o CA10 da US diz "pede o cadastro do novo autenticador pelo fluxo que já existe". Dev confirmar o comportamento; a PM deve ajustar o CA10. O Mobile está fora do workspace. [clássico: lacuna]
+3. CA3d x caso (k) do card: a US diz que na 5ª tentativa errada o código é invalidado; o card descreve a 6ª tentativa errada com bloqueio (CodigoBloqueadoPorTentativas). Dev confirmar o que aparece na 5ª e na 6ª.
+4. Os critérios CA3e (pedir novo código não zera o contador do MaximoTentativasLogin) e CA4b (login automático não marca o dispositivo como confiável) não aparecem nos casos de teste do card: dev confirmar que estão implementados.
+5. Casos (k) e (m) do card e e2e CV-05, CV-06, CV-07, CV-10 e CV-11 (PR 30437) ainda não executados no navegador: confirmar em ambiente real.
+6. PR 30436: achados 3 a 5 da revisão adversarial ficaram abertos como dívida técnica, sem descrição no card; informar o que são.
+7. Scripts Oracle (tabela RECUPERACAO_DUPLO_FATOR e PreCarga) não validados em banco Oracle real (PRs 30435/30436/30437): validar a execução em Oracle antes de testar nesse banco.
+
+Resolvidos pela resposta do dev (2026-11-04):
+- CA9 (dispositivos confiáveis): o card Análise (comentário Discussion) informa que o AC 9 é coberto no PBI #164372, fora desta US. Segue valendo a REC-162648-02 (executar só se #164372 estiver implantado).

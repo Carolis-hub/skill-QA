@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resumo das alterações nas skills de QA</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#1d2330;--mut:#5b6577;--bd:#e1e5ec;--ac:#2557d6;--new:#0f8a4f;--newbg:#e3f5ec}
+@media (prefers-color-scheme:dark){:root{--bg:#14171d;--card:#1c212b;--tx:#e7eaf0;--mut:#9aa4b5;--bd:#2d3442;--ac:#7ea2ff;--new:#4fd08d;--newbg:#16352a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,Segoe UI,Arial,sans-serif;padding:24px 16px}
+main{max-width:980px;margin:0 auto}
+h1{font-size:22px;margin:0 0 4px}
+.sub{color:var(--mut);margin-bottom:20px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px 18px;margin-bottom:12px}
+.card h2{font-size:16px;margin:0 0 6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+code{background:var(--bg);border:1px solid var(--bd);border-radius:4px;padding:0 5px;font-size:13px}
+ul{margin:4px 0 0;padding-left:20px}
+li{margin:3px 0}
+.tag{font-size:11px;border-radius:99px;padding:1px 9px;background:var(--bd);color:var(--mut);font-weight:600}
+.tag.new{background:var(--newbg);color:var(--new)}
+.card.new{border-color:var(--new)}
+.rule{border-left:4px solid var(--ac)}
+footer{color:var(--mut);font-size:13px;margin-top:18px}
+</style>
+</head>
+<body>
+<main>
+<h1>Resumo das alterações nas skills de QA</h1>
+<div class="sub">Pacote <code>skills-qa-smartshare</code>, alterações ALT-001 a ALT-122 do REGISTRO_ALTERACOES. Resumo em 05/11/2026. A origem (<code>Skills-QA-Processo_2026-09-28</code>) não foi alterada.</div>
+
+<div class="card rule">
+<h2>Regras transversais</h2>
+<ul>
+<li><b>Adaptação ao SmartShare (rodadas 1 e 2):</b> referências ao produto anterior (Cobrança, CNAB, ExtJS, nomes e caminhos pessoais) neutralizadas em todas as skills.</li>
+<li><b>Diretório único de registro (ALT-087 a 089):</b> tudo é gravado em <code>C:\skills-qualidade\ciclos-executados\US-&lt;ID&gt;\…</code>.</li>
+<li><b>Hub somente leitura (ALT-097):</b> a consulta ao código do hub nunca altera nada.</li>
+<li><b>Dúvidas viram aprendizados (ALT-120):</b> as 10 skills consultam e gravam em <code>analises-diversas\aprendizados</code> antes de perguntar à usuária.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2><code>analise-negocio</code></h2>
+<ul>
+<li>Gate bloqueante quando a US remete ao legado sem definir o comportamento (Step 3.5).</li>
+<li>Pontos de atenção do dev são registrados em <code>pendencias-dev</code>, com IDs <code>PD-&lt;ID&gt;-NN</code> (Step 4.5).</li>
+<li>O relatório de cada execução é salvo, sem sobrescrever (Step 5).</li>
+<li>Passou a marcar a US com a tag <code>agentqa</code> e a movê-la para <code>Committed</code> quando estiver em New ou Approved (ALT-122).</li>
+<li>Deixou de emitir recomendações. Isso agora é papel da <code>analise-tecnica</code> (ALT-121).</li>
+</ul>
+</div>
+
+<div class="card">
+<h2><code>analise-tecnica</code></h2>
+<ul>
+<li>Valida as pendências do dev como Respondida, Parcial ou Não respondida (Step 2.5).</li>
+<li>Valida os itens do card Análise no código do hub (Steps 2.7 e 3.8).</li>
+<li>Grava as pendências da US em <code>pendencias-skills\US &lt;ID&gt;.txt</code> (Step 4.5).</li>
+<li>Limite de escopo: não valida cards em review, configuração de banco (<code>NLS_SORT</code>, collation) nem a branch no dev.</li>
+<li>Emite as recomendações <code>REC</code> somente depois das duas análises e da validação no hub (Step 4.6).</li>
+</ul>
+</div>
+
+<div class="card">
+<h2><code>gerar-mapa-testes-v3</code></h2>
+<ul>
+<li>Nova coluna <code>Pré-requisitos</code> no formato <code>[CATEGORIA] requisito</code> (9 colunas).</li>
+<li>Consulta opcional ao hub para precisar ação e resultado esperado (Step 3.7).</li>
+<li>Usa a recomendação aprovada como 5ª fonte de cenários, com marca de origem (Step 3.8).</li>
+<li>HTML interativo do mapa a partir de template versionado: checkbox, filtros e exportação.</li>
+<li>Em US de FE com link Figma, lê o protótipo (Step 3.9) e inventaria os quadros. Gera um cenário por quadro ou estado (categoria <code>FIDELIDADE AO PROTOTIPO</code>), com a US prevalecendo sobre o protótipo.</li>
+</ul>
+</div>
+
+<div class="card new">
+<h2><code>validar-ambiente</code> <span class="tag new">NOVA</span></h2>
+<ul>
+<li>Lê a coluna <code>Pre-requisitos</code> do mapa e classifica cada requisito (ATENDIDO, CONFIGURADO, NAO ATENDIDO, NAO VERIFICAVEL) e cada cenário (EXECUTAVEL, PARCIAL, BLOQUEADO).</li>
+<li>Deixou de ser somente leitura: <b>configura o ambiente de teste pela UI</b> (usuários, perfis, áreas, processos, parâmetros e dados), sempre de forma aditiva e só em ambiente de teste.</li>
+<li>Pergunta a URL base a cada execução. Usa <code>config\ambiente-teste.local.md</code> (fora do sync) para telas, admin e usuários.</li>
+<li>Cria o administrador de automação <code>Claude-adm</code> a partir de um bootstrap único, com fallback para o admin informado.</li>
+<li>Vincula o perfil "Geral" ao criar usuário e confirma o login na tela.</li>
+<li>Valida o conector Figma quando o protótipo é necessário.</li>
+<li>Detecta <b>dado simulado (mock)</b>, que invalida a validação e bloqueia os cenários dependentes (Step 3.7).</li>
+<li>Resolve dúvidas de conceito no código do hub antes de perguntar à usuária.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2><code>executar-teste</code></h2>
+<ul>
+<li>A US prevalece sobre a KB quando divergem, com seção "Divergências da KB" no relatório.</li>
+<li>Lê as 9 colunas do mapa e faz login com os usuários de <code>ambiente-teste.local.md</code>.</li>
+<li><b>Backup e restauração de valores</b> alterados durante o teste (Steps 3.6 e 4.4).</li>
+<li><b>Paridade com o protótipo (Step 4.2b):</b> zero tolerância, medição de estilos computados contra a especificação de design, prints dos dois lados. Gera HTML de divergências e um único Bug com todas as divergências.</li>
+<li><b>Gate de ambiente real (Step 0.5):</b> recusa executar em ambiente com dado mockado.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2><code>gerar-defeito</code></h2>
+<ul>
+<li>Divergências de protótipo viram um único Bug, com o HTML e os PNGs anexados.</li>
+<li>Cenários com o mesmo comportamento defeituoso viram um único Bug, reunindo os passos e as evidências de todos (ALT-110).</li>
+</ul>
+</div>
+
+<div class="card">
+<h2><code>analise-falha</code>, <code>homologar-release</code>, <code>atualizar-documentacao</code>, <code>priorizar-automacao</code></h2>
+<ul>
+<li>Neutralização de referências ao produto anterior. Em <code>priorizar-automacao</code>, o caminho do projeto <code>automacao.teste</code> deixou de ser fixo e passou a ser informado pelo usuário.</li>
+<li>Recebem a regra transversal de aprendizados (ALT-120).</li>
+<li>Sem alterações funcionais próprias além disso.</li>
+</ul>
+</div>
+
+<footer>Fonte: REGISTRO_ALTERACOES.md (rodadas 1 a 16). Resumo gerado por Claude.</footer>
+</main>
+</body>
+</html>
