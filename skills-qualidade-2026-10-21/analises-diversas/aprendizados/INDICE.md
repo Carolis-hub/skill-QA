@@ -18,3 +18,4 @@ Consultar antes de perguntar à usuária. Regras em `README.md`.
 | APR-012 | 2026-11-05 | gerar-mapa-testes-v3 | Geral | Mapa de testes: todo CA precisa de cenário, inclusive CA fora da entrega ou não executado pelo dev | Ativo | APR-012_todo-ca-tem-cenario-de-teste.md |
 | APR-013 | 2026-11-05 | validar-ambiente | Geral | Permissão de gerenciar índices sem regra definida no net8: usar a do Clássico (admin = cdTipoUsuario 1) | Ativo | APR-013_gerenciar-indices-segue-regra-do-classico.md |
 | APR-014 | 2026-11-05 | gerar-mapa-testes-v3 | Geral | US de BE: mapa sem cenário nem dependência de front (CA de FE vira nota; exceção ao APR-012) | Ativo | APR-014_us-de-be-sem-cenario-nem-dependencia-de-front.md |
+| APR-015 | 2026-11-06 | executar-teste | Geral | Criar configuração/massa para um teste (perfil, usuário, conexão, índice...): validar antes a regra legada de criação | Ativo | APR-015_criar-configuracao-de-teste-valida-regra-legada.md |

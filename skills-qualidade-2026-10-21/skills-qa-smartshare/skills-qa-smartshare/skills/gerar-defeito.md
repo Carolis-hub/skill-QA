@@ -12,6 +12,10 @@ Este comando é a Skill 6 (Geração de Defeito). Ele **depende de uma análise 
 
 ---
 
+## Regra transversal — Fidelidade à versão legada
+
+Vale para todas as skills. O legado é a referência para descobrir o comportamento existente (a US explícita e as mudanças aprovadas prevalecem). Leia **`C:\skills-qualidade\skills-qa-smartshare\skills-qa-smartshare\templates\DIRETRIZ_FIDELIDADE_LEGADO.md`** (fonte única; não replique o texto aqui) e aplique-a ao que esta skill faz: não presumir melhoria, investigar divergência legado × migrado e registrar exceção documentada.
+
 ## Regra transversal — Dúvidas viram aprendizados
 
 Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).

@@ -17,6 +17,10 @@ Não usamos mais Test Case formal em Test Plan — os mapas de teste vivem sempr
 
 ---
 
+## Regra transversal — Fidelidade à versão legada
+
+Vale para todas as skills. O legado é a referência para descobrir o comportamento existente (a US explícita e as mudanças aprovadas prevalecem). Leia **`C:\skills-qualidade\skills-qa-smartshare\skills-qa-smartshare\templates\DIRETRIZ_FIDELIDADE_LEGADO.md`** (fonte única; não replique o texto aqui) e aplique-a ao que esta skill faz: não presumir melhoria, investigar divergência legado × migrado e registrar exceção documentada.
+
 ## Regra transversal — Dúvidas viram aprendizados
 
 Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
@@ -55,6 +59,8 @@ Dificuldade de execução, volume de trabalho, tempo gasto, "não tentei ainda" 
 
 ## Regra — US de BE: execução por API, sem tela
 
+**Escopo da regra (classificação técnica):** vale a classificação do mapa (Step 3.4 do `/gerar-mapa-testes-v3`). A regra se aplica quando a US é só BE e/ou API, sem FE; classificada com FE, não se aplica à parte de front. Sem classificação, vale o critério abaixo.
+
 Quando a US é de back-end (título com `BE`, ex.: `(BE)`; descrição declarada de BE/back-end; ou módulo da API; em dúvida, pergunte à usuária), os cenários do mapa são executados por **chamada HTTP à API** e por conferência dos dados (banco e log), não por interação com tela. Se o mapa de uma US de BE trouxer cenário que exija tela, UI, protótipo ou o Clássico/Portal como interface, **não execute esse cenário**: marque `NÃO EXECUTADO` com o motivo `cenário de FE em US de BE (defeito do mapa)` e avise a usuária para corrigir o mapa com `/gerar-mapa-testes-v3` (Step 3.10).
 
 ---
@@ -87,6 +93,12 @@ Roda **antes de qualquer navegação de teste e de qualquer criação de dado**,
 
 1. **Banco desta execução.** Leia o relatório mais recente de `/validar-ambiente` em `$CICLOS_DIR\US-<ID>\validacoes-ambiente\` (campo `banco:` do cabeçalho). Confirme com a usuária, em uma pergunta: "Banco desta execução: <SQL Server | Oracle>, base <nome/instância>?". Relatório sem `banco:`, ou a usuária informa outro banco → **pare** e peça para rodar `/validar-ambiente <ID>` (que pergunta o banco, confirma a base e faz a troca se preciso). Esta skill nunca altera a configuração do banco.
 2. **A US exige os dois bancos?** Sim quando o mapa/US citar SQL Server **e** Oracle, houver CA de paridade entre bancos, ou a usuária disser. Nesse caso, **todos** os cenários do mapa são executados em **cada** banco (não só os marcados como de banco), e o relatório registra o banco de cada resultado.
+   Execução integral nos dois bancos, sem escolher só alguns cenários para o segundo. Cada banco tem resultados, evidências e status **independentes**; o relatório mostra a matriz por cenário:
+
+   | Cenário | SQL Server | Oracle |
+   |---|---|---|
+   | 01 | Executar → resultado | Executar → resultado |
+
 3. Registre em `$BANCO_EXEC` o banco desta execução e em `$BANCOS_PENDENTES` o(s) que ainda faltam. Acrescente `**Banco:** <banco>` ao cabeçalho do relatório (Step 5).
 
 ---
@@ -273,9 +285,16 @@ Para cada cenário, na ordem:
 
    Para todo step `Falhou`, **registrar o caminho local do arquivo de screenshot** retornado por `browser_take_screenshot` (ex.: `.playwright-mcp\page-2026-09-04T18-09-58-660Z.png`) na linha da tabela do Step 5, não só a palavra "screenshot". Esse caminho é o que permite à `/gerar-defeito` anexar a evidência ao Bug depois — sem ele, a evidência visual se perde ao fim da conversa/sessão do navegador.
 8. Se a sessão expirar no meio da execução (indício: redirecionado para tela de login), refazer o login (Step 4.1) e **retomar do mesmo step**, registrando no log que houve reautenticação — isso não conta como falha do cenário.
-9. **Defeito identificado → análise antes do Bug.** Ao classificar `Falhou` (ou identificar divergência de protótipo, Step 4.2b), registre o cenário, a evidência (screenshot, rede) e **rode `/analise-falha` (Skill `analise-falha`) antes de qualquer proposta de Bug**: ela determina causa provável, componente e se há evidência suficiente. Resultado da análise:
-   - **Evidência suficiente** → registre a análise no relatório (seção "Análise de falha") e só então ofereça `/gerar-defeito` (aprovação explícita antes de escrever, como sempre). Falhas pela mesma causa seguem a regra de um único Bug do `/gerar-defeito`.
-   - **Evidência insuficiente ou falso positivo** (ex.: dado de teste, ambiente, expectativa do mapa) → não gere Bug; registre o motivo, reclassifique o cenário se for o caso (`NAO EXECUTADO` por ambiente/dado) e informe a usuária.
+9. **Defeito identificado → análise antes do Bug (fluxo obrigatório).** Comportamento inesperado ou divergência **não vira Bug automaticamente**: a skill primeiro entende a regra de negócio e valida o comportamento no legado. Ao classificar `Falhou` (ou identificar divergência de protótipo, Step 4.2b), siga, em ordem:
+   1. **Identificar** o comportamento inesperado.
+   2. **Reproduzir** o cenário (no mínimo 1 repetição, estado limpo) para confirmar que é consistente; não reproduziu → registre como intermitente/inconclusivo, sem Bug.
+   3. **Comparar** resultado obtido × esperado do mapa (literal).
+   4. **Investigar o legado:** o comportamento já existe na versão legada? Leia o código do legado via hub (somente leitura) e, se houver ambiente legado acessível, execute o mesmo cenário nele (a URL do legado é perguntada uma vez e registrada como aprendizado; sem ambiente legado, registre "legado só pelo código"). Siga `DIRETRIZ_FIDELIDADE_LEGADO.md`.
+   5. **Verificar a causa:** implementação, configuração, ambiente, banco de dados (inclusive diferença SQL Server × Oracle) ou regra de negócio. Rode `/analise-falha` (Skill `analise-falha`) com esses dados.
+   6. **Avaliar se é defeito** ou se está de acordo com a regra existente (a US explícita e a decisão do dev prevalecem sobre o legado; o legado prevalece sobre expectativa não escrita do mapa).
+   7. **Registrar** evidências e conclusão (seção "Análise de falha" do relatório: reprodução, legado, causa, conclusão).
+   8. **Só então gerar o Bug**, e **com confirmação explícita da usuária**, se o defeito foi confirmado: `/gerar-defeito` (falhas pela mesma causa seguem a regra de um único Bug).
+   Conclusão "não é defeito" (conforme legado/regra, ambiente, dado de teste, expectativa do mapa incorreta) → não gere Bug; reclassifique o cenário (`Passou` conforme regra, ou `NAO EXECUTADO` por ambiente/dado), sinalize a correção do mapa e informe a usuária.
    Pode rodar a análise ao fim do cenário ou, quando houver várias falhas, em lote no fim da execução (Step 5), mas **sempre antes** do Bug.
 
 ### 4.2b — Fidelidade ao protótipo (Figma): validação completa, toda divergência sinalizada, sempre com dois prints
@@ -399,14 +418,21 @@ Se houver pelo menos um `Falhou` (ou divergência de protótipo), **rode `/anali
 
 ---
 
-## Step 5.5 — Fim de 100% dos cenários em um banco: novo chat para o outro banco
+## Critérios de conclusão da US (para o relatório final)
 
-Aplica-se quando a US exige os dois bancos (Step 0.6, item 2) e `$BANCOS_PENDENTES` não está vazio.
+A US só é declarada **integralmente validada** quando: (1) todos os cenários aplicáveis foram executados; (2) todas as áreas técnicas impactadas (FE/BE/API do mapa) foram contempladas; (3) todos os bancos exigidos receberam a execução completa; (4) as divergências em relação ao legado foram analisadas; (5) os defeitos passaram pela análise prévia (Step 4.2 item 9); (6) resultados e evidências estão registrados. Faltando algum item, o relatório diz "validação parcial" e lista o que falta; nunca declare integral.
 
-1. **100% finalizada** = todos os cenários do mapa têm resultado neste banco (`Passou`, `Falhou` já analisado pelo Step 4.2 item 9, ou `NAO EXECUTADO` justificado) e o relatório está gravado. Antes disso, não troque de banco.
-2. **Não troque o banco neste chat.** Grave no relatório: banco concluído, banco pendente e "todos os cenários devem ser repassados no <banco pendente>".
-3. **Abra um novo chat** (contexto limpo) e peça que ele execute, nesta ordem: `/validar-ambiente <ID>` indicando o banco pendente (a skill pergunta, confirma a base e faz a troca) e, depois do veredito, `/executar-teste <ID>` com **todos** os cenários no novo banco. Se houver ferramenta para iniciar sessão (`start_session`), use-a com esse roteiro como instrução; senão entregue à usuária o texto pronto para colar no novo chat: `/validar-ambiente <ID>` (banco: <pendente>) e, em seguida, `/executar-teste <ID>`.
-4. No novo chat, o relatório do banco anterior fica como referência; os resultados dos dois bancos são comparados no fim (divergência de resultado entre bancos é achado a analisar com `/analise-falha`).
+---
+
+## Step 5.5 — Fim de 100% dos cenários em um banco: consolidar e abrir novo chat
+
+Aplica-se quando a US exige os dois bancos (Step 0.6, item 2) e `$BANCOS_PENDENTES` não está vazio. A abertura de um novo chat é **obrigatória**: garante nova validação de ambiente, sem usar configuração presumida da execução anterior.
+
+1. **100% finalizada** = todos os cenários do mapa têm resultado neste banco (`Passou`, `Falhou` já analisado pelo Step 4.2 item 9, `Bloqueado`/`NAO EXECUTADO` justificado). Antes disso, não troque de banco.
+2. **Consolidar:** grave o relatório do banco com a contagem de cenários **aprovados, reprovados, bloqueados e não executados**, as evidências e o banco/base. **Finalize o ciclo daquele banco.**
+3. **Não troque o banco neste chat.** Registre: banco concluído, banco pendente e "todos os cenários devem ser executados novamente no <banco pendente>".
+4. **Abra um novo chat** com o padrão de inicialização `/task <ID_US> - execução-testes <ID_US> - <banco pendente>` (via `start_session`, se houver; senão entregue esse texto pronto à usuária). Instrução do novo chat, nesta ordem: (a) executar `/validar-ambiente <ID_US>` e confirmar o novo banco e sua base; (b) validar a conexão da aplicação e da API com o banco; (c) executar `/executar-teste <ID_US>` com **todos** os cenários no novo banco; (d) consolidar.
+5. Os resultados dos dois bancos são comparados no fim; divergência de resultado entre bancos é achado a analisar (Step 4.2 item 9).
 
 ---
 

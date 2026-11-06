@@ -14,6 +14,10 @@ Este comando é **somente leitura**. É a etapa de Análise Técnica (equivalent
 
 ---
 
+## Regra transversal — Fidelidade à versão legada
+
+Vale para todas as skills. O legado é a referência para descobrir o comportamento existente (a US explícita e as mudanças aprovadas prevalecem). Leia **`C:\skills-qualidade\skills-qa-smartshare\skills-qa-smartshare\templates\DIRETRIZ_FIDELIDADE_LEGADO.md`** (fonte única; não replique o texto aqui) e aplique-a ao que esta skill faz: não presumir melhoria, investigar divergência legado × migrado e registrar exceção documentada.
+
 ## Regra transversal — Dúvidas viram aprendizados
 
 Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
@@ -43,6 +47,8 @@ criar, roda depois dos testes de QA), não de QA. Ver seção "Discrepâncias" n
 ---
 
 ## Regra — US de BE: sem camada nem dependência de front
+
+**Escopo da regra (classificação técnica):** vale a classificação do mapa (Step 3.4 do `/gerar-mapa-testes-v3`). A regra se aplica quando a US é só BE e/ou API, sem FE; classificada com FE, não se aplica à parte de front. Sem classificação, vale o critério abaixo.
 
 Quando a US é de back-end (título com `BE`, ex.: `(BE)`; descrição declarada de BE/back-end; ou módulo da API; em dúvida, pergunte à usuária), a análise técnica **não lista** a camada "Front-end" na tabela de camadas, **não registra** front como dependência direta ou indireta nem como funcionalidade impactada, e **não cria** pré-requisito técnico de tela. Consumidores do dado (outros módulos, telas do Clássico) aparecem só como **contrato de dados** que a API deve manter (colunas, tipos, não nulos), nunca como tela a testar. Se o card `Análise` ou o PR citar algo de front, registre uma linha `Fora do escopo (FE): <item>` e não analise risco nele.
 

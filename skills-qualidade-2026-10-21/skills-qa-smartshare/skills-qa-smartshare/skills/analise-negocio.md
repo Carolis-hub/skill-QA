@@ -14,6 +14,10 @@ Este comando é **somente leitura no Azure DevOps**, com uma única exceção au
 
 ---
 
+## Regra transversal — Fidelidade à versão legada
+
+Vale para todas as skills. O legado é a referência para descobrir o comportamento existente (a US explícita e as mudanças aprovadas prevalecem). Leia **`C:\skills-qualidade\skills-qa-smartshare\skills-qa-smartshare\templates\DIRETRIZ_FIDELIDADE_LEGADO.md`** (fonte única; não replique o texto aqui) e aplique-a ao que esta skill faz: não presumir melhoria, investigar divergência legado × migrado e registrar exceção documentada.
+
 ## Regra transversal — Dúvidas viram aprendizados
 
 Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
@@ -37,6 +41,8 @@ Nunca preencher esse vazio com suposição não marcada como tal.
 ---
 
 ## Regra — US de BE: sem escopo nem dependência de front
+
+**Escopo da regra (classificação técnica):** vale a classificação do mapa (Step 3.4 do `/gerar-mapa-testes-v3`). A regra se aplica quando a US é só BE e/ou API, sem FE; classificada com FE, não se aplica à parte de front. Sem classificação, vale o critério abaixo.
 
 Quando a US é de back-end (título com `BE`, ex.: `(BE)`; descrição declarada de BE/back-end; ou módulo da API; em dúvida, pergunte à usuária), a análise de negócio trata **só do que a API e os dados fazem**. Critérios, regras ou textos que são de front (tela, tooltip, aviso de saída, campo ou seta, rótulo, layout, protótipo) **não entram** em "Comportamentos esperados", "Regras", "Dependências", "Riscos", nem viram pendência ou recomendação: liste-os em uma linha `Fora do escopo desta US (FE): CA <n> — <motivo>` no relatório. **Não liste front como dependência** da US e não trate a tela como forma de verificar um critério.
 

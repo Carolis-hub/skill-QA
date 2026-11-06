@@ -14,6 +14,10 @@ Examples:
 
 ---
 
+## Regra transversal — Fidelidade à versão legada
+
+Vale para todas as skills. O legado é a referência para descobrir o comportamento existente (a US explícita e as mudanças aprovadas prevalecem). Leia **`C:\skills-qualidade\skills-qa-smartshare\skills-qa-smartshare\templates\DIRETRIZ_FIDELIDADE_LEGADO.md`** (fonte única; não replique o texto aqui) e aplique-a ao que esta skill faz: não presumir melhoria, investigar divergência legado × migrado e registrar exceção documentada.
+
 ## Regra transversal — Dúvidas viram aprendizados
 
 Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendizados` (regras e formato em `README.md`, lista em `INDICE.md`).
@@ -132,6 +136,24 @@ Idêntico ao comportamento already validado desta skill:
 
 ---
 
+## Step 3.4 — Classificação técnica obrigatória da US (FE / BE / API)
+
+Antes de qualquer cenário, classifique a US. Toda US é classificada antes da criação do mapa.
+
+| Classificação | Responsabilidade |
+|---|---|
+| FE | Front-end: interface e interação com o usuário. |
+| BE | Back-end: regras de negócio, processamento e acesso a dados. |
+| API | Endpoints, contratos e integração entre sistemas. |
+
+1. Identifique **todas** as áreas impactadas (título, descrição, CA, análise técnica, PR). Uma US pode ter mais de uma. Não limite os testes a uma área quando houver impacto em outras camadas.
+2. Exemplos: alteração de layout/comportamento de botão → FE; regra de aprovação → BE; criar/alterar endpoint → API; funcionalidade nova com tela, regra e comunicação com serviços → FE + BE + API.
+3. **Área não contemplada** (ex.: infraestrutura, migração de dados, relatório, integração externa): informe à usuária e **proponha uma nova classificação** com nome e responsabilidade; não force a US nas três.
+4. **Sem como identificar com clareza:** assuma **BE + FE** e declare a suposição no relatório.
+5. Registre a classificação (e a justificativa curta) em "Dimensões cobertas" e no relatório do Step 7. Ela comanda o restante: Step 3.9 (protótipo) só com FE; Step 3.10 (sem front) só quando **não há FE**; os tipos de teste do Step 4.1b dependem das áreas.
+
+---
+
 ## Step 3.5 — Histórico de defeitos
 
 Objetivo: identificar bugs anteriores relacionados à mesma área/funcionalidade, para que cenários que já quebraram antes virem regressão obrigatória no Step 4.
@@ -188,7 +210,7 @@ Divergência em cenário marcado como recomendação **não vira defeito automat
 
 ## Step 3.10 — US de BE: nenhuma dependência de front
 
-**Quando roda:** a história é de back-end. É de BE quando o título tem `BE` (ex.: `(BE)`), a descrição se declara de BE/back-end ou o módulo é a API. Em dúvida se é BE, pergunte à usuária. Se a US não é de BE, pule sem erro.
+**Quando roda:** a classificação do Step 3.4 **não inclui FE** (só BE e/ou API). Sem classificação, é de BE quando o título tem `BE` (ex.: `(BE)`), a descrição se declara de BE/back-end ou o módulo é a API; em dúvida, pergunte à usuária. Se a US inclui FE, pule sem erro: as regras de front deste mapa valem para a parte de FE.
 
 **Regras (valem para o Step 4 inteiro):**
 1. **Proibido** cenário que exija tela, formulário, botão, mensagem exibida em tela, tooltip, aviso de saída, navegação, layout, protótipo (Figma) ou o Clássico/Portal/outro front como interface. Nunca gerar a categoria `FIDELIDADE AO PROTOTIPO`.
@@ -232,6 +254,16 @@ Para **cada** regra condicional identificada, aplique o checklist obrigatório d
 | **Dados** | Dado inexistente, nulo ou vazio relevante à regra (ex.: grupo sem membros, documento inexistente) |
 | **Concorrência** | Duas execuções simultâneas disputando o mesmo recurso/contador — se genuinamente não aplicável à regra, registrar explicitamente `N/A — <motivo>` em vez de omitir |
 | **Regressão** | Fluxo anterior/adjacente que não pode quebrar por causa desta mudança |
+
+### 4.1b — Tipos de teste por área técnica (selecionar, não esgotar)
+
+Para cada área da classificação (Step 3.4), escolha **só os tipos aplicáveis** à funcionalidade, aos riscos e ao impacto da US; não é necessário cobrir todos os tipos em toda US. Registre em "Dimensões cobertas" os tipos escolhidos e os descartados com o motivo. Cada cenário indica o tipo na técnica/categoria.
+
+- **FE:** Funcional (botões, campos, filtros, formulários); Interface (UI); Usabilidade; Responsividade; Acessibilidade; Compatibilidade (navegadores/ambientes); Regressão; Integração (interface × APIs); Visual Regression (diferenças visuais entre versões).
+- **BE:** Funcional (regras de negócio); Unitário (métodos/componentes isolados); Integração (serviços, componentes, banco); Banco de dados (consultas, gravações, atualizações, integridade); Regressão; Desempenho; Carga; Estresse; Segurança (autorização, exposição de dados).
+- **API:** Funcional de API (endpoints, métodos HTTP); Contrato (requisição/resposta); Integração; Validação de dados (obrigatórios, formatos, tipos); Autenticação; Autorização; Tratamento de erros (códigos HTTP, mensagens); Desempenho; Carga; Segurança; Compatibilidade (não quebrar consumidores existentes).
+
+Desempenho, carga e estresse só entram com critério mensurável (APR-002/APR-011); sem ele, não invente tempo. Tipos que a skill de execução não consegue rodar (ex.: carga, estresse) viram cenário `NAO EXECUTADO` justificado ou ficam fora, conforme a usuária decidir.
 
 ### 4.2 — Escolher a técnica formal de teste por cenário
 
@@ -286,7 +318,8 @@ Regras:
 - Todo cenário tem a coluna Pré-requisitos preenchida (Step 4.2b) — `Nenhum específico` quando não houver exigência, nunca vazia.
 - Todo cenário rastreia a uma das 4 fontes do Step 4.0 (Instruções QA, Critérios de Aceite, Pontos de Impacto do dev, Casos de Teste do dev) — nunca só à narrativa da análise técnica.
 - Considerar: validação de campos, comportamento de UI, consistência de dados, falhas de integração — sempre ancorado numa das 4 fontes acima, não como exploração livre do código/PR.
-- **US de BE (Step 3.10):** nenhum cenário de tela, UI, protótipo ou Clássico/Portal como interface; só API e dados. Antes de apresentar a tabela, releia cada Ação, Resultado Esperado e Pré-requisito e remova ou reescreva (como chamada de API e conferência de dados) o que citar tela, botão, formulário, listagem, "abrir" ou front.
+- **Legado como referência de esperado (diretriz de fidelidade ao legado):** quando a US não define o Resultado Esperado, use o comportamento do legado (código via hub, Step 3.7, e/ou o legado executando), marque o cenário "conforme legado" e inclua cenários de regressão para o que deve ser preservado. A US explícita e a decisão documentada prevalecem. Não trate diferença como melhoria sem requisito.
+- **US só BE/API (Step 3.10):** nenhum cenário de tela, UI, protótipo ou Clássico/Portal como interface; só API e dados. Antes de apresentar a tabela, releia cada Ação, Resultado Esperado e Pré-requisito e remova ou reescreva (como chamada de API e conferência de dados) o que citar tela, botão, formulário, listagem, "abrir" ou front.
 - **Quando o Step 3.9 consultou o protótipo**, o Resultado Esperado dos cenários de mensagem, modal, toast e estado (vazio, sem resultado, carregando) leva o texto literal lido no Figma, não "texto do Figma". Crie, na categoria `=== FIDELIDADE AO PROTOTIPO ===`, **um cenário por quadro/estado do inventário** (Step 3.9, item 6), todos com técnica `exploratório`, tipo `positivo`, dimensão `regressão` e origem `história + protótipo`, pré-requisitos `[CONFIG] conector Figma conectado ao chat`, `[AMBIENTE]` com a US implantada e `[DADOS]` equivalentes aos do quadro. **Ação (padrão):** abrir o estado do quadro `<nome> (nodeId)` no mesmo tamanho de janela do quadro e comparar, item a item, com a especificação do Step 3.9 (item 7): (a) textos literais; (b) estrutura e elementos (ordem, rótulos, ícones, botões, campos); (c) medidas de design (tipografia, cores, espaçamentos, bordas, raios, tamanhos de controles e ícones); (d) estados e interações que o quadro mostra; (e) prints lado a lado. **Resultado Esperado (padrão):** zero divergência (tolerância apenas de ±1 px por arredondamento); toda divergência registrada com os dois prints e os valores esperado × obtido, e **o cenário só é `Passou` com zero divergência e nenhum aspecto não verificado**. Itens que a US manda ignorar (ex.: botão que o protótipo mostra e o CA manda não exibir) não contam como divergência, mas são citados. É esse conjunto que `/executar-teste` (Step 4.2b) executa por completo.
 
 ### 4.5 — Apresentar a tabela e pedir aprovação

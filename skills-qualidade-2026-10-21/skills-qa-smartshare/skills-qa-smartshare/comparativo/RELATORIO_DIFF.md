@@ -1,6 +1,6 @@
 # RELATORIO_DIFF
 
-Gerado em 2026-10-14 com `git diff --no-index` e replay determinístico das alterações registradas; atualizado em 2026-11-06 (rodada 19, linhas de `executar-teste.md` e `validar-ambiente.md`; antes, rodada 18, linhas de `analise-negocio.md`, `analise-tecnica.md`, `executar-teste.md`, `gerar-mapa-testes-v3.md` e `validar-ambiente.md`) com `git diff --no-index` sobre o estado atual.
+Gerado em 2026-10-14 com `git diff --no-index` e replay determinístico das alterações registradas; atualizado em 2026-11-06 (rodada 20, linhas das 10 skills; antes, rodada 19, linhas de `executar-teste.md` e `validar-ambiente.md`; antes, rodada 18, linhas de `analise-negocio.md`, `analise-tecnica.md`, `executar-teste.md`, `gerar-mapa-testes-v3.md` e `validar-ambiente.md`) com `git diff --no-index` sobre o estado atual.
 
 ## Resumo
 
@@ -15,16 +15,16 @@ Linhas +/− medidas com `git diff --no-index --numstat` em 2026-11-05.
 
 | Arquivo | Linhas +/− | Classificação |
 |---|---|---|
-| analise-falha.md | +11 / −1 | Alteração esperada (adaptação funcional) |
-| analise-negocio.md | +154 / −9 | Alteração esperada (adaptação funcional + endurecimento de regra, rodadas 3 e 5) |
-| analise-tecnica.md | +164 / −6 | Alteração esperada (adaptação funcional + validação das pendências do dev, rodadas 3 e 5; pendências do dev em arquivo, ALT-111; limite de escopo, ALT-114; validação das pendências no clássico, Step 3.8, ALT-115) |
-| atualizar-documentacao.md | +13 / −3 | Alteração esperada (adaptação funcional) |
-| executar-teste.md | +141 / −34 | Alteração esperada (adaptação funcional + regras novas, rodadas 3 e 4) |
-| gerar-defeito.md | +17 / −3 | Alteração esperada (adaptação funcional) |
-| gerar-mapa-testes-v3.md | +187 / −23 | Alteração esperada (adaptação funcional + coluna `Pré-requisitos`, rodada 4) |
-| homologar-release.md | +12 / −2 | Alteração esperada (adaptação funcional) |
-| priorizar-automacao.md | +16 / −6 | Alteração esperada (adaptação funcional) |
-| validar-ambiente.md | +376 / −0 | Arquivo adicionado (nova skill, rodada 4; ajustada nas rodadas 5, 8, 9 e 10) |
+| analise-falha.md | +15 / −1 | Alteração esperada (adaptação funcional) |
+| analise-negocio.md | +160 / −9 | Alteração esperada (adaptação funcional + endurecimento de regra, rodadas 3 e 5) |
+| analise-tecnica.md | +170 / −6 | Alteração esperada (adaptação funcional + validação das pendências do dev, rodadas 3 e 5; pendências do dev em arquivo, ALT-111; limite de escopo, ALT-114; validação das pendências no clássico, Step 3.8, ALT-115) |
+| atualizar-documentacao.md | +17 / −3 | Alteração esperada (adaptação funcional) |
+| executar-teste.md | +167 / −34 | Alteração esperada (adaptação funcional + regras novas, rodadas 3 e 4) |
+| gerar-defeito.md | +21 / −3 | Alteração esperada (adaptação funcional) |
+| gerar-mapa-testes-v3.md | +220 / −23 | Alteração esperada (adaptação funcional + coluna `Pré-requisitos`, rodada 4) |
+| homologar-release.md | +16 / −2 | Alteração esperada (adaptação funcional) |
+| priorizar-automacao.md | +20 / −6 | Alteração esperada (adaptação funcional) |
+| validar-ambiente.md | +384 / −0 | Arquivo adicionado (nova skill, rodada 4; ajustada nas rodadas 5, 8, 9 e 10) |
 
 ## Reconciliação com REGISTRO_ALTERACOES.md
 
@@ -48,6 +48,7 @@ Linhas +/− medidas com `git diff --no-index --numstat` em 2026-11-05.
 
 - **Rodada 3 (2026-10-15, ALT-064…ALT-083):** endurecimento de regra em `analise-negocio` (gate de conclusão, Steps 3.5, 4.5 e 5, pontos de atenção do dev), validação das pendências do dev em `analise-tecnica` (Step 2.5) e regras novas em `executar-teste` (prevalência da US sobre a KB, seção `Divergências da KB`).
 - **Rodada 19 (2026-11-06, ALT-124…ALT-127):** `executar-teste.md` roda `/analise-falha` antes de qualquer Bug e repassa todos os cenários em cada banco (um chat por banco); `validar-ambiente.md` pergunta o banco, confirma a base e documenta a troca de banco (Step 0.3c/0.3d); template de configuração ganha a seção "Troca de banco". Origem imutável não alterada; patch regenerado.
+- **Rodada 20 (2026-11-06, ALT-128…ALT-133):** análise de defeito em 8 passos, gate de banco/API, matriz por banco e novo chat, troca de banco com SQL Server, classificação FE/BE/API e tipos de teste por área, e diretriz compartilhada de fidelidade ao legado (`templates\DIRETRIZ_FIDELIDADE_LEGADO.md`, referenciada pelas 10 skills). Origem imutável não alterada; patch regenerado.
 - **Rodada 4 (2026-10-20, ALT-084…ALT-086):** coluna `Pré-requisitos` em `gerar-mapa-testes-v3.md` (Step 4.2b, `colspan` 8→9), parser de 9 colunas em `executar-teste.md` e nova skill `validar-ambiente.md`.
 - **Rodada 5 (2026-10-20, ALT-087…ALT-089):** diretório único de registro das execuções, `C:\skills-qualidade\ciclos-executados` (`$CICLOS_DIR`), em `analise-negocio.md`, `analise-tecnica.md` e `validar-ambiente.md`. Os caminhos deixam de ser relativos ao diretório de trabalho. O diretório `ciclos-executados` que ficava dentro de `skills-qa-smartshare` foi unificado com o da raiz (arquivos copiados e conferidos byte a byte).
 - **Rodada 6 (2026-10-21, ALT-090…ALT-091):** validação opcional do código via hub em `analise-tecnica.md` (Step 2.7) e `gerar-mapa-testes-v3.md` (Step 3.7).
