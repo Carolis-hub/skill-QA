@@ -31,6 +31,17 @@ ambiente_padrao: HMG
 |---|---|---|---|---|
 | HMG | Claude-adm | <preencher> | A CRIAR | |
 
+## Troca de banco (tela config/webconfig.aspx)
+
+> Lido pelo `/validar-ambiente` (Step 0.3d) ao trocar o banco do ambiente. Contém senhas: nunca copiar para relatório, chat, log ou GitHub. Base de Dados fica em branco para Oracle (campo desabilitado).
+
+| Banco | Provider | Servidor/Instância | Base de Dados | Usuário do banco | Senha do banco | Caminho virtual | Admin SmartShare | Senha admin |
+|---|---|---|---|---|---|---|---|---|
+| Oracle | System.Data.OracleClient | orcl | (em branco) | <preencher> | <preencher> | /smartshare/ | <preencher> | <preencher> |
+| SQL Server | <preencher> | <preencher> | <preencher> | <preencher> | <preencher> | /smartshare/ | <preencher> | <preencher> |
+
+Código do net8 (conferência somente leitura após a troca): `C:\projetos_selbetti\smartshare-net8\src - Core\Project.Core.Apippsettings.json`. A API do net8 precisa ser reiniciada depois da troca.
+
 ## Valores originais (backup)
 
 > O `/executar-teste` (Step 3.6) grava aqui o valor existente de todo campo que o teste vai alterar, e o devolve no Step 4.4. Contém segredos: nunca copiar para relatório, chat, log ou GitHub.

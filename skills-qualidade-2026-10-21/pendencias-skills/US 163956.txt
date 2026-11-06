@@ -1,0 +1,12 @@
+US 163956
+Título: Dashboard ECM - Exportar a aba ativa
+Dev da análise: Felipe Kuhnen
+
+Itens pendentes na análise:
+1. CA-02 ("igual ao de antes") foi reinterpretado pelo dev: o Exportar não existia, então virou "Conteúdo exporta os mesmos valores da tela"; a US ainda diz o contrário (PM precisa ciência; vale a decisão do dev, APR-010).
+2. A US não pede formatos; o dev entregou PDF, Excel e CSV (3 formatos, 3 libs novas, evento GA4 ecm_export) sem escopo escrito na US.
+3. Alteração fora do escopo da US: csv-export.helper (CSV do BPM) passou a delegar a downloadBlob, com revoke da URL adiado em 4 s.
+4. Nenhum Pull Request vinculado à US ou ao card; só o commit 0d3fa9a3 na branch feature/melhorias-dashboard/ecm-fase2 (lido no hub).
+5. Não executado pelo dev: mobile 375px e idiomas en/es no browser.
+6. Limitações conhecidas do dev: nome com "+" ganha "'" visível no CSV, foco se perde após exportar, fonte helvetica do PDF só cobre Latin-1.
+7. Sem dado/erro na aba Armazenamento: US e card não dizem o que o arquivo contém (builder devolve seção sem linhas).

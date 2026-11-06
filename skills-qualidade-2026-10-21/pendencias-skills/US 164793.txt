@@ -1,0 +1,8 @@
+US 164793
+Título: Gravar índices do tipo Seleção ao publicar documentos gerados pela divisão
+Dev da análise: Pedro Fellipe Roque Rocha (autor dos PRs 30462 e 30463; o card Análise #165885 não traz responsável)
+
+Itens pendentes na análise:
+1. Card Análise #165885 traz "Pontos de impacto" = N/A, mas os PRs alteram IndiceDAL.GetValorIndiceSelecao (ecm-be) e normalizeSelectionIndexes (ecm-fe). [clássico: não se aplica]
+2. Caminho Oracle (TO_CHAR) não verificado; os dois PRs declaram validação manual pendente e sem teste automatizado. [clássico: não se aplica]
+3. Impacto no Share Clássico não coberto pela análise: o CA 2 exige exibir o valor no Clássico, e os PRs não tocam o Clássico nem dizem como ele lê o índice Seleção gravado (nem como lê documento antigo com JSON). [clássico: lacuna]

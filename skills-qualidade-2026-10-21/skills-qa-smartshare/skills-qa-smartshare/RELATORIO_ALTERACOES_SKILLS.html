@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relatório de alterações nas skills de QA</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#1d2330;--mut:#5b6577;--bd:#e1e5ec;--ac:#2557d6;--new:#0f8a4f;--newbg:#e3f5ec}
+@media (prefers-color-scheme:dark){:root{--bg:#14171d;--card:#1c212b;--tx:#e7eaf0;--mut:#9aa4b5;--bd:#2d3442;--ac:#7ea2ff;--new:#4fd08d;--newbg:#16352a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,Segoe UI,Arial,sans-serif;padding:24px 16px}
+main{max-width:1000px;margin:0 auto}
+h1{font-size:24px;margin:0 0 4px}
+h2.sec{font-size:18px;margin:28px 0 10px;border-bottom:1px solid var(--bd);padding-bottom:4px}
+.sub{color:var(--mut);margin-bottom:16px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.kpi{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:10px 14px}
+.kpi b{display:block;font-size:24px;color:var(--ac)}
+.kpi span{color:var(--mut);font-size:13px}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--bd);border-radius:10px;overflow:hidden;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--bd);vertical-align:top}
+th{background:var(--bg);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--mut)}
+tr:last-child td{border-bottom:0}
+code{background:var(--bg);border:1px solid var(--bd);border-radius:4px;padding:0 5px;font-size:13px}
+.tag{font-size:11px;border-radius:99px;padding:1px 9px;background:var(--newbg);color:var(--new);font-weight:600}
+.wrap{overflow-x:auto}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px 18px;margin-bottom:10px}
+.card h3{font-size:15px;margin:0 0 4px}
+ul{margin:4px 0 0;padding-left:20px}li{margin:3px 0}
+footer{color:var(--mut);font-size:13px;margin-top:22px}
+</style>
+</head>
+<body>
+<main>
+<h1>Relatório de alterações nas skills de QA</h1>
+<div class="sub">Pacote <code>skills-qa-smartshare</code> · posição em 05/11/2026 · fonte: REGISTRO_ALTERACOES.md (ALT-001 a ALT-123, rodadas 1 a 18). A origem <code>Skills-QA-Processo_2026-09-28</code> permanece intacta.</div>
+
+<div class="kpis">
+<div class="kpi"><b>10</b><span>skills no pacote</span></div>
+<div class="kpi"><b>1</b><span>skill nova (<code>validar-ambiente</code>)</span></div>
+<div class="kpi"><b>123</b><span>alterações registradas</span></div>
+<div class="kpi"><b>18</b><span>rodadas (set–nov/2026)</span></div>
+</div>
+
+<h2 class="sec">1. Linha do tempo por rodada</h2>
+<div class="wrap"><table>
+<tr><th>Rodada</th><th>Data</th><th>O que mudou</th><th>ALT</th></tr>
+<tr><td>1–2</td><td>14/10</td><td>Neutralização das referências ao produto anterior; alinhamento ao pacote de referência da squad SmartShare (ambiente padrão <code>HMG</code>, remoção de blocos CNAB/ExtJS).</td><td>001–059</td></tr>
+<tr><td>3</td><td>15/10</td><td><code>analise-negocio</code>: gate de conclusão, pontos de atenção do dev, persistência por US. <code>analise-tecnica</code>: valida pendências do dev. <code>executar-teste</code>: a US prevalece sobre a KB.</td><td>060–083</td></tr>
+<tr><td>4</td><td>—</td><td>Coluna <code>Pré-requisitos</code> no mapa (9 colunas). Nasce a skill <b><code>validar-ambiente</code></b>.</td><td>084–086</td></tr>
+<tr><td>5</td><td>20/10</td><td>Diretório único <code>C:\skills-qualidade\ciclos-executados</code>.</td><td>087–089</td></tr>
+<tr><td>6</td><td>21/10</td><td>Validação opcional do código via hub (somente leitura).</td><td>090–091</td></tr>
+<tr><td>7</td><td>21/10</td><td>HTML interativo do mapa de testes a partir de template.</td><td>092–093</td></tr>
+<tr><td>8</td><td>21/10</td><td><code>validar-ambiente</code> passa a configurar o ambiente, lendo <code>config\ambiente-teste.local.md</code>; <code>executar-teste</code> usa esse arquivo no login.</td><td>094–096</td></tr>
+<tr><td>9</td><td>23/10</td><td>Hub somente leitura como regra fixa; URL base perguntada a cada execução; telas de configuração relativas; admin <code>Claude-adm</code>.</td><td>097–104</td></tr>
+<tr><td>10</td><td>26/10</td><td>Perfil "Geral" ao criar usuário; conector Figma; backup/restauração de valores; divergências de protótipo com dois prints e Bug único.</td><td>105–110</td></tr>
+<tr><td>11</td><td>27/10</td><td><code>analise-tecnica</code> grava pendências em <code>pendencias-skills\US &lt;ID&gt;.txt</code>.</td><td>111</td></tr>
+<tr><td>12</td><td>29/10</td><td>Recomendações com aprovação da usuária; escopo da análise técnica limitado; pendências de legado validadas no hub.</td><td>112–115</td></tr>
+<tr><td>13</td><td>30/10</td><td><code>gerar-mapa-testes-v3</code> consulta o protótipo Figma em US de FE.</td><td>116</td></tr>
+<tr><td>14</td><td>03/11</td><td>Detecção de dado simulado (mock); gate de ambiente real; fidelidade ao protótipo com zero tolerância.</td><td>117–119</td></tr>
+<tr><td>15</td><td>04/11</td><td>Dúvidas viram aprendizados, em todas as skills.</td><td>120</td></tr>
+<tr><td>16</td><td>04/11</td><td>Recomendações só pela <code>analise-tecnica</code>, após as análises e o hub.</td><td>121</td></tr>
+<tr><td>17</td><td>04/11</td><td><code>analise-negocio</code> marca a US: estado <code>Committed</code> e tag <code>agentqa</code>.</td><td>122</td></tr>
+<tr><td>18</td><td>05/11</td><td>Regra transversal de US de BE: sem cenário, pré-requisito nem dependência de front.</td><td>123</td></tr>
+</table></div>
+
+<h2 class="sec">2. Por skill</h2>
+
+<div class="card"><h3><code>analise-negocio</code></h3><ul>
+<li>Gate bloqueante para remissão ao legado sem definição; pontos de atenção do dev registrados com IDs <code>PD-&lt;ID&gt;-NN</code>.</li>
+<li>Relatório salvo por execução, sem sobrescrever.</li>
+<li>Marca a US com <code>agentqa</code> e <code>Committed</code> no início do ciclo.</li>
+<li>Deixou de emitir recomendações (passam à <code>analise-tecnica</code>).</li>
+<li>US de BE não gera nada voltado ao front.</li></ul></div>
+
+<div class="card"><h3><code>analise-tecnica</code></h3><ul>
+<li>Valida pendências do dev e itens do card Análise no código do hub; valida no clássico as pendências que dependem de legado.</li>
+<li>Grava as pendências em <code>pendencias-skills</code>.</li>
+<li>Fora do escopo: cards em review, configuração de banco e branch no dev.</li>
+<li>Emite as recomendações <code>REC</code> ao final.</li>
+<li>Regra de US de BE.</li></ul></div>
+
+<div class="card"><h3><code>gerar-mapa-testes-v3</code></h3><ul>
+<li>Coluna <code>Pré-requisitos</code> (9 colunas); consulta opcional ao hub; recomendação aprovada como 5ª fonte, com marca de origem.</li>
+<li>HTML interativo do mapa a partir de template.</li>
+<li>Leitura do protótipo Figma em US de FE: inventário de quadros, um cenário por quadro ou estado (<code>FIDELIDADE AO PROTOTIPO</code>), com a US prevalecendo.</li>
+<li>Regra de US de BE.</li></ul></div>
+
+<div class="card"><h3><code>validar-ambiente</code> <span class="tag">NOVA</span></h3><ul>
+<li>Valida cada pré-requisito do mapa (ATENDIDO, CONFIGURADO, NAO ATENDIDO, NAO VERIFICAVEL) e classifica cada cenário (EXECUTAVEL, PARCIAL, BLOQUEADO).</li>
+<li>Configura o ambiente de teste pela UI, de forma aditiva; pergunta a URL base a cada execução.</li>
+<li>Administrador de automação <code>Claude-adm</code>, perfil "Geral", conector Figma.</li>
+<li>Detecta dado simulado (mock), que bloqueia os cenários dependentes.</li>
+<li>Regra de US de BE.</li></ul></div>
+
+<div class="card"><h3><code>executar-teste</code></h3><ul>
+<li>A US prevalece sobre a KB; login pelos usuários de <code>ambiente-teste.local.md</code>.</li>
+<li>Backup e restauração de valores alterados.</li>
+<li>Paridade com o protótipo (Step 4.2b) com zero tolerância, medição de estilos e HTML de divergências.</li>
+<li>Gate de ambiente real (Step 0.5): recusa dado mockado.</li>
+<li>Regra de US de BE.</li></ul></div>
+
+<div class="card"><h3><code>gerar-defeito</code></h3><ul>
+<li>Divergências de protótipo viram um único Bug, com HTML e PNGs anexados.</li>
+<li>Cenários com o mesmo comportamento defeituoso viram um único Bug.</li></ul></div>
+
+<div class="card"><h3><code>analise-falha</code>, <code>homologar-release</code>, <code>atualizar-documentacao</code>, <code>priorizar-automacao</code></h3><ul>
+<li>Neutralização de referências ao produto anterior; <code>priorizar-automacao</code> deixa de ter caminho fixo do projeto <code>automacao.teste</code>.</li>
+<li>Regra transversal de aprendizados.</li></ul></div>
+
+<h2 class="sec">3. Regras transversais</h2>
+<div class="card"><ul>
+<li><b>Diretório único de registro</b> em <code>ciclos-executados\US-&lt;ID&gt;\…</code>.</li>
+<li><b>Hub somente leitura</b>: nada é alterado no repositório.</li>
+<li><b>Dúvidas viram aprendizados</b>: consulta e gravação em <code>analises-diversas\aprendizados</code> antes de perguntar.</li>
+<li><b>Recomendação nunca é aprovada sozinha</b>; a US vence a KB e o protótipo.</li>
+<li><b>Ambiente</b>: só ambiente de teste, nunca com dado simulado.</li></ul></div>
+
+<h2 class="sec">4. Pontos de atenção</h2>
+<div class="card"><ul>
+<li>Este relatório vem do registro de alterações; não comparei o conteúdo dos arquivos das skills com ele.</li>
+<li>As datas das rodadas 4 e 14 foram inferidas das entradas do registro; a rodada 4 não traz data própria no cabeçalho.</li>
+<li>Push para <code>Carolis-hub/skill-QA</code> ainda não realizado nesta sessão.</li></ul></div>
+
+<footer>Gerado por Claude a partir do REGISTRO_ALTERACOES.md.</footer>
+</main>
+</body>
+</html>

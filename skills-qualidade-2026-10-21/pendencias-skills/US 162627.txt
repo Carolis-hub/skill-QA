@@ -1,0 +1,11 @@
+US 162627
+Título: Instrumentar eventos GA4 de uso do Recorte de Documentos e da herança de perfis da pasta
+Dev da análise: Pedro Fellipe Roque Rocha
+
+Itens pendentes na análise:
+1. Card Análise com Pontos de impacto "N/A": arquivos/camadas impactadas só constam no PR (component split-documents.component.ts).
+2. IDs das propriedades GA4 dev/prod seguem pendentes (PR: "pendentes (externo)"); CA 5 depende disso.
+3. Nome/categoria do evento não evidenciados como validados contra a aba ECM da planilha oficial (card e PR só citam o valor).
+4. Rótulo: US diz "sem rótulo", card e PR usam el=clique (decisão do dev prevalece, APR-010; confirmar com PM). [clássico: lacuna, evento novo]
+5. Dimensões: a US mapeia D3 = Tipo de Usuário e Cliente_Nome, mas o sendEvent existente grava dimension3 = cliente e dimension4 = tipo de usuário (analytics-tracker.service.ts:configureDimension). Confirmar contra a planilha.
+6. Duplo clique no botão do modal pode duplicar publicação e evento (risco aceito no PR, sem CA).

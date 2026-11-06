@@ -25,6 +25,7 @@ Esta skill fica **entre** `/gerar-mapa-testes-v3` e `/executar-teste`: o primeir
 | Perfil | `workspace/management/configuracoes/perfil` | criar perfil |
 | Área | sem tela própria localizada: é um seletor "Área principal" no cadastro de usuário | selecionar área existente |
 | Papel | `workspace/management/configuracoes/papel` | criar papel |
+| Configuração do banco (webconfig) | `config/webconfig.aspx` | consultar e trocar o banco do ambiente (Step 0.3d); só por esta tela |
 
 Perfil, área e papel são **dependências do cadastro de usuário** (Step 4.5). Na UI observada em 2026-10-23 a área não tem tela própria: o cadastro de usuário tem os seletores "Área principal" e "Papel principal", que listam as existentes; o tipo de usuário "Administrador" é um campo do cadastro. Os caminhos de perfil e papel acima vieram da usuária e não foram abertos nessa observação: confirmar ao usar.
 
@@ -52,6 +53,7 @@ Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendi
 - **Tentar antes de declarar `NAO VERIFICAVEL`/`NAO ATENDIDO`.** Razões válidas para `NAO VERIFICAVEL`: (1) falta de acesso (credencial, permissão, URL, MCP) depois de uma tentativa real; (2) requisito vago, sem número, `HIPOTESE:`; (3) só verificável por ação proibida acima. "Não tentei" não é motivo.
 - **Credenciais só no `$AMBIENTE_CFG`.** Senha de admin e de usuário (informado ou criado) nunca vai ao relatório, ao chat, ao LOG-ACOES ou ao work item. Connection string e token idem.
 - **Dúvida de conceito ou de como configurar: consultar o hub, senão sinalizar. Nunca inventar.** Termos do mapa que a skill não saiba definir (ex.: "o que é um usuário publicador?", "como crio um perfil?", qual permissão compõe um perfil, onde fica um parâmetro) seguem o Step 3.5. Sem definição no hub, KB ou memória, a skill **não chuta** perfil, permissão ou configuração: sinaliza à usuária e deixa o requisito `NAO VERIFICAVEL`/`NAO ATENDIDO`.
+- **Banco de dados: perguntar, confirmar a base e só trocar pela tela de configuração.** A cada execução a skill pergunta se o ambiente deve estar em **SQL Server** ou **Oracle** e confirma a base (Step 0.3c). Se o banco atual for outro, troca pelo procedimento do Step 0.3d (`config/webconfig.aspx` + conferência do `appsettings.json` do net8 + reinício da API), registrando como foi feito. Nunca troca o banco por `UPDATE`/script no banco, nunca em ambiente que não seja de teste, e credenciais do banco só vêm do `$AMBIENTE_CFG` (nunca neste arquivo, no relatório ou no chat).
 - **Não reinterpretar o mapa.** Esta skill não cria, remove nem edita cenários ou pré-requisitos; se um pré-requisito parecer errado ou faltar, sinalize e deixe a correção para `/gerar-mapa-testes-v3`.
 
 - **Dado simulado (mock) invalida a validação.** O ambiente de teste deve ser o mais próximo possível do cenário real: tela ou endpoint que serve dado simulado (data service em memória, fixture, resposta fixa) não valida dado nem integração. A skill **sempre** verifica isso (Step 3.7) antes de configurar qualquer dado. Mock confirmado → **gera defeito imediatamente** (Step 3.7), por instrução da usuária de 2026-11-03, e o veredito nunca é `PRONTO`. Não "contorna" criando dado no mock.
@@ -75,6 +77,20 @@ Quando a US é de back-end (título com `BE`, ex.: `(BE)`; descrição declarada
    - **Não existe (primeira execução neste ambiente):** peça à usuária **uma única vez** um admin já existente do ambiente (login e senha informados no chat) apenas para criar o `Claude-adm`. Essa credencial de bootstrap é usada nesta execução e **não é gravada** em arquivo, relatório nem log. Com ela, crie o usuário `Claude-adm` pela tela de usuário (`$URL_BASE` + `workspace/management/configuracoes/usuario`), com o perfil de administrador do ambiente (se o perfil não for identificável, Step 3.5; não chute), senha aleatória de 16 caracteres gerada na hora (receita do Step 4.5) e e-mail, se obrigatório, no domínio de teste do ambiente. Reverifique (aparece no cadastro e o login com a senha gerada funciona) e grave no `$AMBIENTE_CFG`, via `Edit` (tabela "Administração": complete a linha `Claude-adm` marcada `A CRIAR`, ou anexe `ambiente | Claude-adm | senha | CRIADO | <data>` se não houver; nunca apague nem reescreva outras linhas).
    - Nas execuções seguintes e em `/executar-teste`, o `Claude-adm` é o admin padrão. Ele existe só para configurar o ambiente de teste: nunca o use para executar cenário nem o conceda a outro usuário.
    - Se a usuária não tiver admin de bootstrap ou o sistema recusar a criação (ex.: "Número de usuários disponíveis já foi alcançado", limite da licença): não tente liberar vaga desativando ou apagando usuários; registre o motivo na linha `Claude-adm` do `$AMBIENTE_CFG`, use o admin informado (ex.: `root`, registrado no arquivo **sem senha**; a senha é pedida no chat a cada execução) e rode só a verificação, sem criar usuários (requisitos [USUARIO] ausentes ficam `NAO ATENDIDO`).
+   **0.3c — Banco de dados (SQL Server ou Oracle): perguntar e confirmar a base.** Logo depois do login, **pergunte à usuária, em uma pergunta objetiva, qual banco o ambiente deve usar nesta execução: SQL Server ou Oracle** (não assuma da execução anterior nem do arquivo; consulte `aprendizados\INDICE.md` antes, regra transversal). Em seguida **confirme a base**, lendo **sem alterar nada**: (a) a tela `$URL_BASE` + `config/webconfig.aspx` (Provider, Servidor/Instância, Base de Dados; não clique em "Salvar") e (b) a connection string de `C:\projetos_selbetti\smartshare-net8\src\3 - Core\Project.Core.Api\appsettings.json` (leitura; mascare usuário e senha). Mostre à usuária o resultado (provider, servidor/instância, base, sem senha) e peça o "confirmo":
+   - **Banco atual = banco pedido, e as duas fontes concordam** → siga; registre `banco: <SQL Server | Oracle>` e a base confirmada.
+   - **Banco atual ≠ banco pedido, ou `webconfig.aspx` e `appsettings.json` discordam** → faça a troca (Step 0.3d), só depois do "sim" dela (é mudança de configuração do ambiente).
+   - **Teste que precisa valer nos dois bancos** (a US/mapa cita SQL Server e Oracle, ou CA de paridade): a skill prepara **um banco por vez**. Ao concluir 100% dos cenários em um banco, o `/executar-teste` (Step 5.5) abre um novo chat que roda `/validar-ambiente` para o outro banco e depois repassa **todos** os cenários. Nesta execução, valide apenas o banco informado e avise que o outro ficará para o novo chat.
+   Grave `banco:` no cabeçalho do relatório (Step 6).
+
+   **0.3d — Troca de banco (procedimento).** Parâmetros (provider, servidor/instância, base, usuário e senha do banco, caminho virtual, admin do SmartShare) vêm da seção **"Troca de banco"** do `$AMBIENTE_CFG` (linha do banco de destino); campo `<preencher>` ou linha ausente = informação ausente: peça à usuária exatamente esse campo e grave-o no arquivo (nunca em outro lugar). Passos:
+   1. **Registre o estado de origem** (provider/servidor/base atuais, sem senha), para poder voltar.
+   2. Navegue para `$URL_BASE` + `config/webconfig.aspx` e preencha: em **Banco de dados**, Provider, Servidor/Instância, Base de Dados, Usuário e Senha; em **SmartShare**, Caminho Virtual (ex.: `/smartshare/`), Usuário Administrador e Senha. **Oracle:** o campo Base de Dados fica **em branco** (desabilitado para Oracle); Provider `System.Data.OracleClient`. **SQL Server:** use os valores da linha SQL Server do arquivo (Base de Dados preenchida). Clique em **Salvar** e **confirme a mensagem de sucesso** (sem ela, a troca não vale: registre a mensagem do sistema e pare).
+   3. **Conferir o código do net8:** abra (somente leitura) `C:\projetos_selbetti\smartshare-net8\src\3 - Core\Project.Core.Api\appsettings.json` e valide que a connection string passou a apontar para o banco de destino (provider/servidor/instância/usuário; não copie a senha para o relatório). Não editou? Não altere o arquivo à mão: reporte a divergência.
+   4. **Reiniciar a API do net8**: a alteração só vale depois do reinício. Use o procedimento já registrado em aprendizado, se houver; senão peça à usuária para reiniciar a API (ou informar como) e **aguarde a confirmação**, registrando o método usado. Não siga antes do reinício.
+   5. **Reverificar:** repita a leitura do item 0.3c (webconfig + appsettings coerentes com o destino) e o login pela tela com o admin (`Claude-adm`/`root`, conforme Step 0.3b; observação do `$AMBIENTE_CFG`: usuário criado em um banco só autentica naquele banco). Sem login concluindo → `NAO ATENDIDO` com a mensagem; não tente contornar.
+   6. **Registrar o aprendizado da troca:** ao terminar (sucesso ou não), grave `C:\skills-qualidade\analises-diversas\aprendizados\APR-NNN_troca-de-banco-<origem>-para-<destino>.md` (e a linha em `INDICE.md`, conforme `README.md` da pasta) descrevendo **como a troca foi feita nesta execução, do seu jeito**: telas e campos tocados, ordem, o que o sistema respondeu, como a API foi reiniciada, tempo de espera, armadilhas e como o login foi reverificado. **Nunca grave senha ou connection string completa**. Nas execuções seguintes, leia esse aprendizado primeiro e siga-o, para a usuária não precisar repetir o passo a passo; se a prática mudou, atualize o mesmo aprendizado.
+   Estas instruções valem para qualquer direção (SQL Server → Oracle ou Oracle → SQL Server). Só se executa em ambiente de teste e com o "sim" da usuária.
 4. Verifique que `mcp__playwright` está conectado. Se indisponível, **não pare**: tudo que depende da UI vira `NAO VERIFICAVEL` (motivo: browser indisponível) e nada é configurado.
 5. Verifique se há MCP de banco somente leitura para o ambiente (nome a confirmar). Se não houver, a verificação segue pela UI; senão `NAO VERIFICAVEL` (sem acesso de leitura ao banco).
    **0.5b — Conector Figma.** Se algum requisito do mapa for de acesso ao protótipo (ex.: `[AMBIENTE] acesso ao protótipo Figma da US`) ou a US trouxer link do Figma, verifique se o **conector Figma** está conectado ao chat (ferramentas do servidor Figma, por exemplo `get_metadata`, `get_screenshot` e `whoami`; se estiverem como ferramentas adiadas, carregue-as com `ToolSearch`). Conector ausente → o requisito fica `NAO VERIFICAVEL (conector Figma não conectado)`; peça à usuária para conectá-lo ao chat. **Nunca** digite login/senha do Figma no navegador nem use credencial do `$AMBIENTE_CFG` para autenticar: a autenticação é da usuária, pelo conector.
@@ -126,7 +142,7 @@ Para a coluna `Pre-requisitos` de cada cenário:
 
 Antes de navegar, apresente à usuária:
 
-- ambiente, `$URL_BASE` informada e as URLs de tela (base + caminho) que serão usadas;
+- ambiente, `$URL_BASE` informada, as URLs de tela (base + caminho) que serão usadas e o **banco** confirmado no Step 0.3c (e a troca de banco, se for fazer);
 - quantidade de cenários e de requisitos distintos, por categoria;
 - como cada categoria será verificada e **o que será configurado caso falte** (tabela abaixo), com o que ficará `NAO VERIFICAVEL` de antemão.
 
@@ -254,6 +270,7 @@ Defina `$EXEC` = data e hora no formato `AAAA-MM-DD_HHmm`. Apresente no chat e g
 us: <ID>
 mapa: <MAPA_ID>
 ambiente: <ambiente> (<URL>)
+banco: <SQL Server | Oracle> (base/instância confirmada)
 execucao: <$EXEC>
 veredito: <PRONTO | PRONTO COM RESSALVAS | PARCIALMENTE PRONTO | NAO PRONTO>
 configurado: <n itens configurados>
@@ -265,7 +282,7 @@ Modelo do relatório:
 ```
 # Validação de ambiente — #<ID> <Título da US>
 
-Mapa: #<MAPA_ID> · Ambiente: <ambiente> (<URL>) · Execução: <$EXEC>
+Mapa: #<MAPA_ID> · Ambiente: <ambiente> (<URL>) · Banco: <SQL Server | Oracle> · Execução: <$EXEC>
 **Veredito: <veredito>** — <N> cenários: <a> executáveis, <b> parciais, <c> bloqueados · <k> itens configurados
 
 ## Requisitos (<M> distintos)
@@ -330,6 +347,9 @@ Acrescente uma linha ao final da tabela em `~/.claude/docs/projetos/skills-qa/LO
 ---
 
 ## Troubleshooting
+
+- **Banco não confirmado ou webconfig e appsettings discordando:** não valide nem configure dado; resolva o banco primeiro (Step 0.3c/0.3d). Dados criados em um banco não existem no outro (usuários, processos): cada troca de banco exige nova validação do ambiente.
+- **Troca de banco sem reiniciar a API do net8:** a connection string do `appsettings.json` só é relida no reinício; login falhando logo após a troca costuma ser API ainda no banco antigo.
 
 - **Mapa sem coluna `Pre-requisitos` (8 colunas):** não há o que validar. Pare e sugira regerar com `/gerar-mapa-testes-v3`; nunca invente pré-requisitos.
 - **Muitos cenários `Nenhum específico`:** é válido. Eles entram como `EXECUTAVEL`; só informe a contagem.

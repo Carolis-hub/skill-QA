@@ -48,6 +48,9 @@ Dificuldade de execução, volume de trabalho, tempo gasto, "não tentei ainda" 
 
 - **Nunca executar em ambiente com dados simulados (mock).** O teste só vale se o ambiente for o mais próximo possível do cenário real: tela ou endpoint que serve dado em memória, fixture ou resposta fixa não valida dado, persistência nem integração. Se o ambiente tem dado mockado, **não execute nenhum cenário** (Step 0.5). Não há exceção por pedido de "rodar mesmo assim": o caminho é corrigir o ambiente (integração com o BE) e revalidar com `/validar-ambiente`. Percebeu mock no meio da execução (registro que some ao recarregar, tela sem chamada de API de dados)? Pare na hora, marque o que falta como `NAO EXECUTADO` (problema de ambiente) e reporte.
 
+- **Defeito/bug identificado: análise antes de gerar o Bug.** Sempre que um cenário `Falhou` ou um defeito for identificado durante a execução (inclusive divergência de protótipo, Step 4.2b), a skill **não chama `/gerar-defeito` direto**: primeiro roda `/analise-falha` (Skill `analise-falha`) sobre o(s) cenário(s) e só segue para o Bug se a análise concluir que há evidência suficiente (Step 4.2, item 9). Sem a análise registrada, nenhum Bug é gerado.
+- **Banco de dados (SQL Server × Oracle).** A execução ocorre em um banco por vez, o confirmado no `/validar-ambiente` (Step 0.6). Esta skill nunca troca o banco (isso é do `/validar-ambiente`). Teste que precisa valer nos dois bancos roda **todos** os cenários em **cada** banco, um banco por chat (Step 0.6 e Step 5.5).
+
 ---
 
 ## Regra — US de BE: execução por API, sem tela
@@ -77,6 +80,14 @@ Roda **antes de qualquer navegação de teste e de qualquer criação de dado**,
 2. **Sem relatório, ou relatório anterior ao Step 3.7 do `/validar-ambiente` (sem a seção "Dados simulados").** Faça agora a verificação rápida na tela principal da US: (a) com `browser_network_requests`, abra a listagem e confira se há chamada de API de dados (`/api`, `/be/`; arquivos estáticos, i18n e shell não contam); (b) se o primeiro cenário já cria um registro, recarregue a página (F5) depois de criá-lo e veja se ele persiste. Nenhuma chamada de API de dados **e** registro que some → mock: **pare**. Evidência única ou contraditória → não conclua: peça `/validar-ambiente` antes de executar.
 3. **Ao parar**, reporte em uma resposta curta: tela, evidências (rede, persistência, relatório de validação), Bug aberto pelo `/validar-ambiente` (se houver) e o próximo passo (integrar a tela ao BE e rodar `/validar-ambiente`). **Não** crie dado no mock para "tentar", **não** execute só os cenários de leitura e **não** marque os cenários como `Passou`. Os cenários ficam `NAO EXECUTADO` (problema de ambiente, categoria 2 da regra fundamental); registre a execução no log (Step 6) com o motivo.
 4. **Ambiente com dado real** (chamada de API de dados presente **e** registro persistindo, ou relatório com `[AMBIENTE] dados reais` `ATENDIDO`): siga para o Step 1.
+
+---
+
+## Step 0.6 — Banco de dados da execução (SQL Server × Oracle)
+
+1. **Banco desta execução.** Leia o relatório mais recente de `/validar-ambiente` em `$CICLOS_DIR\US-<ID>\validacoes-ambiente\` (campo `banco:` do cabeçalho). Confirme com a usuária, em uma pergunta: "Banco desta execução: <SQL Server | Oracle>, base <nome/instância>?". Relatório sem `banco:`, ou a usuária informa outro banco → **pare** e peça para rodar `/validar-ambiente <ID>` (que pergunta o banco, confirma a base e faz a troca se preciso). Esta skill nunca altera a configuração do banco.
+2. **A US exige os dois bancos?** Sim quando o mapa/US citar SQL Server **e** Oracle, houver CA de paridade entre bancos, ou a usuária disser. Nesse caso, **todos** os cenários do mapa são executados em **cada** banco (não só os marcados como de banco), e o relatório registra o banco de cada resultado.
+3. Registre em `$BANCO_EXEC` o banco desta execução e em `$BANCOS_PENDENTES` o(s) que ainda faltam. Acrescente `**Banco:** <banco>` ao cabeçalho do relatório (Step 5).
 
 ---
 
@@ -262,6 +273,10 @@ Para cada cenário, na ordem:
 
    Para todo step `Falhou`, **registrar o caminho local do arquivo de screenshot** retornado por `browser_take_screenshot` (ex.: `.playwright-mcp\page-2026-09-04T18-09-58-660Z.png`) na linha da tabela do Step 5, não só a palavra "screenshot". Esse caminho é o que permite à `/gerar-defeito` anexar a evidência ao Bug depois — sem ele, a evidência visual se perde ao fim da conversa/sessão do navegador.
 8. Se a sessão expirar no meio da execução (indício: redirecionado para tela de login), refazer o login (Step 4.1) e **retomar do mesmo step**, registrando no log que houve reautenticação — isso não conta como falha do cenário.
+9. **Defeito identificado → análise antes do Bug.** Ao classificar `Falhou` (ou identificar divergência de protótipo, Step 4.2b), registre o cenário, a evidência (screenshot, rede) e **rode `/analise-falha` (Skill `analise-falha`) antes de qualquer proposta de Bug**: ela determina causa provável, componente e se há evidência suficiente. Resultado da análise:
+   - **Evidência suficiente** → registre a análise no relatório (seção "Análise de falha") e só então ofereça `/gerar-defeito` (aprovação explícita antes de escrever, como sempre). Falhas pela mesma causa seguem a regra de um único Bug do `/gerar-defeito`.
+   - **Evidência insuficiente ou falso positivo** (ex.: dado de teste, ambiente, expectativa do mapa) → não gere Bug; registre o motivo, reclassifique o cenário se for o caso (`NAO EXECUTADO` por ambiente/dado) e informe a usuária.
+   Pode rodar a análise ao fim do cenário ou, quando houver várias falhas, em lote no fim da execução (Step 5), mas **sempre antes** do Bug.
 
 ### 4.2b — Fidelidade ao protótipo (Figma): validação completa, toda divergência sinalizada, sempre com dois prints
 
@@ -276,7 +291,7 @@ Quando o cenário compara a tela entregue com o protótipo e o conector Figma es
 4. Gere a página `$CICLOS_DIR\US-<ID>\execucoes\divergencias-prototipo_<AAAA-MM-DD>.html` com um bloco por divergência (id D1, D2..., descrição objetiva do que difere e qual print é de qual lado: "Esperado (protótipo)" e "Dev"), mais a lista do que confere ("Conforme"). A página deve ser **autocontida**: embuta as imagens no próprio HTML (`src="data:image/png;base64,..."`), porque caminho relativo não abre em visualizadores que carregam só o arquivo (observado em 2026-10-26: "não consigo visualizar as imagens"). Mantenha os PNGs na pasta de evidências como cópia.
 5. Itens do próprio protótipo que a US manda ignorar (ex.: criar/excluir) não são divergência: cite-os numa nota. O resultado do cenário segue o texto do mapa (em geral "divergências registradas para validação da PM"); a decisão de entrar no escopo é da PM.
 6. **Toda vez que houver divergência de protótipo, gere o artefato HTML** (item 4), mesmo que haja uma só, e referencie-o na seção "Divergências de protótipo" do relatório. Modelo de referência (estrutura, estilo e blocos D1, D2...): `C:\skills-qualidade\ciclos-executados\US-163012\execucoes\divergencias-prototipo_2026-10-26.html`.
-7. **Defeito: um único Bug com todas as divergências de protótipo**, não um Bug por divergência. Motivo: muitas alterações de protótipo são pequenas e não precisam de tasks separadas. O Bug traz uma lista numerada (D1, D2...) com, para cada item, o esperado (protótipo) e o obtido (dev), e anexa **o HTML do item 4** mais os PNGs dos dois lados de cada divergência. Divergência que também é falha funcional (comportamento errado, não só aparência: ex.: campo que deveria ser multilinha, Esc que não fecha) continua com a análise de `/analise-falha` e, se a usuária preferir, pode ir em Bug próprio; na dúvida, pergunte antes de criar. A severidade sugerida do Bug único é a do item mais grave. A criação segue o `/gerar-defeito` (aprovação explícita antes de escrever).
+7. **Defeito: um único Bug com todas as divergências de protótipo**, não um Bug por divergência. Motivo: muitas alterações de protótipo são pequenas e não precisam de tasks separadas. O Bug traz uma lista numerada (D1, D2...) com, para cada item, o esperado (protótipo) e o obtido (dev), e anexa **o HTML do item 4** mais os PNGs dos dois lados de cada divergência. Divergência que também é falha funcional (comportamento errado, não só aparência: ex.: campo que deveria ser multilinha, Esc que não fecha) continua com a análise de `/analise-falha` e, se a usuária preferir, pode ir em Bug próprio; na dúvida, pergunte antes de criar. A severidade sugerida do Bug único é a do item mais grave. Antes de gerar o Bug, rode `/analise-falha` sobre as divergências (Step 4.2, item 9); a criação segue o `/gerar-defeito` (aprovação explícita antes de escrever).
 
 ### 4.3 — Ações de alto risco sinalizadas no Step 3
 
@@ -307,6 +322,7 @@ Se o sub-agente falhar (erro de ferramenta, timeout, resposta malformada), isso 
 # Execução — Mapa de Testes #<MAPA_ID> <Título>
 
 **Ambiente:** <ambiente> (<URL>)
+**Banco:** <SQL Server | Oracle> (base/instância) — pendente: <outro banco | nenhum>
 **História relacionada:** #<STORY_ID> <STORY_TITLE>
 ```
 
@@ -353,6 +369,10 @@ Se `$MODO == "B"`, acrescente logo abaixo do cabeçalho:
 ## Steps não executados (necessitam decisão humana)
 - <step>: <motivo>
 
+## Análise de falha (Step 4.2, item 9)
+
+Por cenário `Falhou` ou divergência de protótipo: resultado do `/analise-falha` (causa provável, componente, evidência suficiente sim/não) e decisão (Bug oferecido via `/gerar-defeito` | sem Bug, motivo). Sem esta seção preenchida, nenhum Bug é gerado.
+
 ## Divergências do double-check
 | # | Classificação original | Sugestão do sub-agente | Motivo |
 |---|---|---|---|
@@ -375,7 +395,18 @@ Grave esse comentário **mesmo se algum cenário falhou** (o marcador indica "o 
 
 Na coluna **Evidência**, para cada `Falhou`: caminho(s) de arquivo real(is) (screenshot local, ex. `.playwright-mcp\page-....png`) e/ou o resumo da evidência de rede (status HTTP, trecho do corpo) — nunca só a palavra "screenshot"/"network" sem o dado concreto. Essas evidências são o insumo que `/analise-falha` referencia e que `/gerar-defeito` anexa ao Bug — preserve os caminhos exatamente como retornados pelas tools, sem retranscrever.
 
-Se houver pelo menos um `Falhou`, finalize perguntando se o usuário quer prosseguir para `/analise-falha` (quando existir) sobre os steps que falharam — não encadear automaticamente.
+Se houver pelo menos um `Falhou` (ou divergência de protótipo), **rode `/analise-falha` sobre cada um antes de qualquer Bug** (Step 4.2, item 9) e inclua no relatório a seção "Análise de falha" (por cenário: causa provável, componente, evidência suficiente sim/não). Só depois pergunte à usuária se quer prosseguir para `/gerar-defeito` com os que a análise considerou com evidência suficiente — a criação do Bug nunca é encadeada sem essa análise nem sem aprovação explícita.
+
+---
+
+## Step 5.5 — Fim de 100% dos cenários em um banco: novo chat para o outro banco
+
+Aplica-se quando a US exige os dois bancos (Step 0.6, item 2) e `$BANCOS_PENDENTES` não está vazio.
+
+1. **100% finalizada** = todos os cenários do mapa têm resultado neste banco (`Passou`, `Falhou` já analisado pelo Step 4.2 item 9, ou `NAO EXECUTADO` justificado) e o relatório está gravado. Antes disso, não troque de banco.
+2. **Não troque o banco neste chat.** Grave no relatório: banco concluído, banco pendente e "todos os cenários devem ser repassados no <banco pendente>".
+3. **Abra um novo chat** (contexto limpo) e peça que ele execute, nesta ordem: `/validar-ambiente <ID>` indicando o banco pendente (a skill pergunta, confirma a base e faz a troca) e, depois do veredito, `/executar-teste <ID>` com **todos** os cenários no novo banco. Se houver ferramenta para iniciar sessão (`start_session`), use-a com esse roteiro como instrução; senão entregue à usuária o texto pronto para colar no novo chat: `/validar-ambiente <ID>` (banco: <pendente>) e, em seguida, `/executar-teste <ID>`.
+4. No novo chat, o relatório do banco anterior fica como referência; os resultados dos dois bancos são comparados no fim (divergência de resultado entre bancos é achado a analisar com `/analise-falha`).
 
 ---
 

@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa de Testes — US 162627 — Evento GA4 Recorte_Publicar</title>
+<style>
+:root{--bg:#f5f7f6;--card:#fff;--text:#1d2521;--muted:#5b6b63;--border:#dfe6e2;--accent:#00774b;--accent-d:#005a39;--head:#eef4f1;--code:#eef2ef;
+--done:#eafaf1;--done-b:#bfe8cf;--hip:#fff7e0;--hip-b:#f0d98a;--warn:#c77700;--group:#dcebe4;--track:#e4e9e6;
+--pos:#0f7a3c;--pos-bg:#e4f6ea;--neg:#b3261e;--neg-bg:#fbe9e7;--reg:#8a5a00;--reg-bg:#fff3dc;--neu:#3b4a43;--neu-bg:#e8eeeb}
+:root[data-theme="dark"]{--bg:#121715;--card:#1b2220;--text:#e4ebe7;--muted:#9fb0a7;--border:#2c3733;--accent:#3ecf8e;--accent-d:#7be3b4;--head:#222c28;--code:#26312d;
+--done:#16301f;--done-b:#24503a;--hip:#33290f;--hip-b:#5a4817;--warn:#e8a33d;--group:#1f2e28;--track:#2c3733;
+--pos:#7be3b4;--pos-bg:#173023;--neg:#ff9a92;--neg-bg:#3a1b19;--reg:#f0c36a;--reg-bg:#3a2f12;--neu:#c3d0c9;--neu-bg:#27322e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121715;--card:#1b2220;--text:#e4ebe7;--muted:#9fb0a7;--border:#2c3733;--accent:#3ecf8e;--accent-d:#7be3b4;--head:#222c28;--code:#26312d;
+--done:#16301f;--done-b:#24503a;--hip:#33290f;--hip-b:#5a4817;--warn:#e8a33d;--group:#1f2e28;--track:#2c3733;
+--pos:#7be3b4;--pos-bg:#173023;--neg:#ff9a92;--neg-bg:#3a1b19;--reg:#f0c36a;--reg-bg:#3a2f12;--neu:#c3d0c9;--neu-bg:#27322e}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI","Source Sans 3",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;padding-bottom:4rem}
+header{background:linear-gradient(135deg,#00774b,#005a39);color:#fff;padding:1.6rem 1rem 1.2rem}
+header .inner{max-width:1500px;margin:0 auto;padding:0 .5rem}
+header h1{margin:0 0 .5rem;font-size:1.45rem}
+header p{margin:.2rem 0;font-size:.9rem;opacity:.93}
+header code{background:rgba(255,255,255,.18);color:#fff}
+header a{color:#fff}
+nav.toc{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.8rem}
+nav.toc a{font-size:.78rem;background:rgba(255,255,255,.16);border-radius:999px;padding:.2rem .7rem;text-decoration:none}
+nav.toc a:hover{background:rgba(255,255,255,.3)}
+.wrap{max-width:1500px;margin:0 auto;padding:1rem 1.5rem}
+.bar{position:sticky;top:0;z-index:20;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;margin:0 0 1rem;display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.bar .count{font-weight:700;white-space:nowrap}
+.track{flex:1 1 200px;min-width:140px;height:10px;background:var(--track);border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0;background:var(--accent);transition:width .25s}
+.seg{display:flex;gap:.3rem;flex-wrap:wrap}
+.bar button,.bar label.btn{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:.3rem .8rem;font-size:.82rem;cursor:pointer;font-family:inherit}
+.bar button.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.bar button.warn{border-color:var(--warn);color:var(--warn)}
+.bar input[type=search]{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:.3rem .8rem;font-size:.85rem;min-width:170px;font-family:inherit}
+.bar input[type=file]{display:none}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;color:var(--accent-d);scroll-margin-top:90px}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem;scroll-margin-top:90px}
+h4{font-size:.98rem;margin:1.2rem 0 .4rem}
+hr{border:0;border-top:1px solid var(--border);margin:1.6rem 0}
+blockquote.note{margin:.6rem 0;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;padding:.1rem 1rem;font-size:.9rem;color:var(--muted)}
+p,li{font-size:.92rem}
+code{background:var(--code);padding:.05rem .3rem;border-radius:4px;font-size:.82em;font-family:"Cascadia Code",Consolas,monospace;overflow-wrap:anywhere}
+a{color:var(--accent-d)}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--card);margin:.6rem 0 1rem}
+table{border-collapse:collapse;width:100%}
+th,td{border:1px solid var(--border);padding:.55rem .6rem;vertical-align:top;text-align:left;font-size:.84rem;overflow-wrap:anywhere}
+thead th{background:var(--head);color:var(--accent-d);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;position:sticky;top:0}
+table.main{table-layout:fixed;min-width:1480px}
+table.compact{table-layout:auto}
+.col-check{width:64px;text-align:center}
+th.col-id,td.col-id{width:48px;font-weight:700;color:var(--accent-d)}
+.main .col-cenario{width:13%;font-weight:600}
+.main .col-config{width:19%}
+.main .col-acao{width:15%}
+.main .col-resultado{width:23%}
+.main .col-tipo,.main .col-tecnica,.main .col-dim{width:7%}
+.main .col-origem{width:10%}
+tr.group td{background:var(--group);color:var(--accent-d);font-weight:700;font-size:.82rem;letter-spacing:.03em;text-transform:uppercase;padding:.5rem .7rem}
+.gcount{float:right;font-weight:600;text-transform:none;color:var(--muted);font-size:.78rem}
+tr.row-hipotese{background:var(--hip)}
+tr.row-hipotese td{border-color:var(--hip-b)}
+tr.row-done{background:var(--done)}
+tr.row-done td{border-color:var(--done-b)}
+tr.row-done td.col-cenario,tr.row-done td.col-acao,tr.row-done td.col-resultado{opacity:.7}
+tr.row-done td.col-cenario{text-decoration:line-through;text-decoration-color:#7fbf9a}
+input.chk{width:20px;height:20px;cursor:pointer;accent-color:var(--accent)}
+.tag{display:inline-block;padding:.1rem .55rem;border-radius:999px;font-size:.72rem;font-weight:600;background:var(--neu-bg);color:var(--neu)}
+.tag-positivo{background:var(--pos-bg);color:var(--pos)}
+.tag-negativo{background:var(--neg-bg);color:var(--neg)}
+.tag-regressao{background:var(--reg-bg);color:var(--reg)}
+.hip-badge{display:inline-block;margin-right:.4rem;font-size:.68rem;background:var(--warn);color:#fff;border-radius:999px;padding:.03rem .5rem;vertical-align:1px}
+tr.hidden{display:none}
+.nojs{background:#fff3dc;color:#8a5a00;border-bottom:2px solid #c77700;padding:.7rem 1rem;font-size:.9rem;text-align:center}
+input.chk:disabled{cursor:not-allowed;opacity:.5}
+.empty{display:none;padding:1rem;color:var(--muted);text-align:center}
+footer{max-width:1500px;margin:2rem auto 0;padding:0 1.5rem;color:var(--muted);font-size:.8rem}
+@media (max-width:1000px){
+ .wrap{padding:.8rem 1rem}
+ .bar{position:static}
+ table.main{min-width:0}
+ .tbl-wrap{border:0;background:transparent}
+ table.cases,table.cases tbody,table.cases tr,table.cases td{display:block;width:100%}
+ table.cases thead{display:none}
+ table.cases tr[data-id]{background:var(--card);border:1px solid var(--border);border-radius:10px;margin:0 0 .8rem;padding:.3rem .2rem}
+ table.cases tr.row-hipotese{background:var(--hip)}
+ table.cases tr.row-done{background:var(--done)}
+ table.cases td{border:0;padding:.35rem .7rem;width:100%!important}
+ table.cases td::before{content:attr(data-label);display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+ table.cases td.col-check{text-align:left}
+ table.cases tr.group{margin:1rem 0 .4rem}
+ table.cases tr.group td::before{content:none}
+}
+@media print{.bar,nav.toc{display:none}}
+</style>
+</head>
+<body>
+<header><div class="inner"><h1>Mapa de Testes — US 162627 — Evento GA4 Recorte_Publicar</h1><p>Projeto: SHARE-4 | Sprint: OS 14669314 - OS 14501877 - Melhoria Recorte de Documentos | Card do mapa: <code>#166257</code></p><nav class="toc"><a href="#resumo">Resumo</a><a href="#tabela-completa">Tabela completa</a><a href="#pre-requisitos">Pré-requisitos consolidados</a></nav></div></header>
+<noscript><div class="nojs">JavaScript desativado ou bloqueado nesta visualização: os checkboxes ficam desabilitados. Abra o arquivo diretamente no Chrome ou no Edge (duplo clique no arquivo).</div></noscript>
+<div class="wrap">
+<div class="bar" role="region" aria-label="Progresso e filtros">
+  <span class="count" id="count">Ativando… (se esta mensagem não mudar, o script não está rodando: abra o arquivo em um navegador)</span>
+  <div class="track"><div class="fill" id="fill"></div></div>
+  <div class="seg">
+    <button type="button" class="active" data-filter="all">Todos</button>
+    <button type="button" data-filter="todo">Pendentes</button>
+    <button type="button" data-filter="done">Testados</button>
+  </div>
+  <input type="search" id="q" placeholder="Buscar cenário…" aria-label="Buscar cenário">
+  <button type="button" id="export" title="Baixa um JSON com os cenários marcados">Exportar marcações</button>
+  <label class="btn" title="Carrega um JSON exportado antes">Importar<input type="file" id="import" accept="application/json,.json"></label>
+  <button type="button" class="warn" id="reset">Limpar</button>
+</div>
+<h2 id="resumo">Resumo</h2>
+<p><strong>Objetivo:</strong> Disparar o evento GA4 ECM_Recorte_Publicar a cada documento publicado por recorte, para medir a adoção do Recorte de Documentos após o lançamento.</p><p><strong>Fonte técnica:</strong> Card Análise #166127 (Pontos de impacto = N/A; casos de teste do dev usados) e PR #30507 (smartshare-ecm-fe, confirmPublish() em split-documents.component.ts). REC-162627-01 aprovada pela usuária em 2026-11-06: evento de herança de perfis fora do escopo (título cita herança de perfis; US e PR só tratam do Recorte). Protótipo não consultado: a US não traz link de Figma. Rótulo el=clique segue o card do dev (APR-010); a US diz sem rótulo. Pendente com o dev: IDs GA4 dev/prod, conferência de nome/categoria na planilha, índices das dimensões. Os 5 arquivos .md do PR (stories/) são documentação de processo e não geraram cenário.</p><p><strong>Origem (siglas):</strong> CA = critério de aceite; CT = casos de teste do dev; PI = pontos de impacto do dev; Bug #id = histórico de defeitos.</p><p><strong>Histórico de defeitos considerado:</strong> Bug #126774 (Done): páginas rotacionadas nas thumbnails ao recortar e publicar. Virou o cenário 14. Nenhum outro defeito relacionado encontrado.</p><p><strong>Dimensões cobertas:</strong> Positivo, negativo, permissão, dados, concorrência e regressão cobertas. Permissão de publicar: N/A, a US não altera essa regra.</p><h4>Critérios de aceite</h4><ul><li>CA1: com o PBI #162626 em produção, publicar documento de recorte dispara ECM_Recorte_Publicar, categoria ECM/Recorte.</li><li>CA2: recorte com 2 ou mais documentos dispara 1 evento por documento publicado.</li><li>CA3: o evento carrega as 4 dimensões personalizadas (Usuario_Id, Usuario_Nome, D3 - Tipo de Usuário, Cliente_Nome).</li><li>CA4: falha ou indisponibilidade do GA4 não afeta a publicação, sem atraso ou bloqueio perceptível.</li><li>CA5: em desenvolvimento, o evento aparece na propriedade GA4 de dev, distinta da de produção.</li></ul>
+<h2 id="tabela-completa">Tabela completa (15 cenários)</h2>
+<div class="tbl-wrap"><table class="cases main"><thead><tr><th class="col-check">Testado</th><th class="col-id">#</th><th class="col-cenario">Cenário</th><th class="col-config">Configurações necessárias</th><th class="col-acao">Ação</th><th class="col-resultado">Resultado Esperado</th><th class="col-tipo">Tipo</th><th class="col-tecnica">Técnica</th><th class="col-dim">Dimensão</th><th class="col-origem">Origem</th></tr></thead><tbody><tr class="group"><td colspan="10"><span class="gname">FLUXO PRINCIPAL</span><span class="gcount"></span></td></tr><tr data-id="1"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="1" disabled aria-label="Marcar o cenário 1 como testado"></td><td class="col-id" data-label="#">1</td><td class="col-cenario" data-label="Cenário">Publicar recorte de 1 documento</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do PR #30507 (US #162627) implantado em DEV, com o PBI #162626 implantado<br>[USUARIO] usuário com permissão de publicar na pasta e cliente associado<br>[CONFIG] google_analytics_enabled ligado<br>[DADOS] PDF com 1 intervalo de recorte (1 documento resultante)<br>[INTEGRACAO] DevTools/Network para ver o hit e domínio de analytics bloqueável</td><td class="col-acao" data-label="Ação">Em smartshare/ecm/split-document, gerar o recorte, clicar em Publicar e confirmar no modal</td><td class="col-resultado" data-label="Resultado Esperado">1 hit com t=event, ec=ECM/Recorte, ea=ECM_Recorte_Publicar, el=clique</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA1, CT</td></tr><tr data-id="2"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="2" disabled aria-label="Marcar o cenário 2 como testado"></td><td class="col-id" data-label="#">2</td><td class="col-cenario" data-label="Cenário">Publicar recorte de 3 documentos</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do PR #30507 (US #162627) implantado em DEV, com o PBI #162626 implantado<br>[USUARIO] usuário com permissão de publicar na pasta e cliente associado<br>[CONFIG] google_analytics_enabled ligado<br>[DADOS] PDF com 3 intervalos de recorte (3 documentos resultantes)<br>[INTEGRACAO] DevTools/Network para ver o hit e domínio de analytics bloqueável</td><td class="col-acao" data-label="Ação">Gerar 3 documentos, publicar e confirmar</td><td class="col-resultado" data-label="Resultado Esperado">3 hits, 1 por documento, cada um com ec, ea e el do cenário 1</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">valor-limite</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA2, CT</td></tr><tr data-id="3"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="3" disabled aria-label="Marcar o cenário 3 como testado"></td><td class="col-id" data-label="#">3</td><td class="col-cenario" data-label="Cenário">Fluxo de publicação inalterado</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do PR #30507 (US #162627) implantado em DEV, com o PBI #162626 implantado<br>[USUARIO] usuário com permissão de publicar na pasta e cliente associado<br>[CONFIG] google_analytics_enabled ligado<br>[DADOS] PDF com 1 intervalo de recorte (1 documento resultante)</td><td class="col-acao" data-label="Ação">Publicar recorte de 1 documento</td><td class="col-resultado" data-label="Resultado Esperado">Toast de sucesso e retorno à pasta como antes</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">CT</td></tr><tr class="group"><td colspan="10"><span class="gname">FLUXO ALTERNATIVO</span><span class="gcount"></span></td></tr><tr data-id="4"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="4" disabled aria-label="Marcar o cenário 4 como testado"></td><td class="col-id" data-label="#">4</td><td class="col-cenario" data-label="Cenário">Cancelar no modal</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do PR #30507 (US #162627) implantado em DEV, com o PBI #162626 implantado<br>[USUARIO] usuário com permissão de publicar na pasta e cliente associado<br>[CONFIG] google_analytics_enabled ligado<br>[DADOS] PDF com 1 intervalo de recorte (1 documento resultante)<br>[INTEGRACAO] DevTools/Network para ver o hit e domínio de analytics bloqueável</td><td class="col-acao" data-label="Ação">Clicar em Publicar, abrir o modal e cancelar</td><td class="col-resultado" data-label="Resultado Esperado">0 hit, sem publicação</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">CT</td></tr><tr class="group"><td colspan="10"><span class="gname">VALIDAÇÕES DE CAMPOS</span><span class="gcount"></span></td></tr><tr data-id="5"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="5" disabled aria-label="Marcar o cenário 5 como testado"></td><td class="col-id" data-label="#">5</td><td class="col-cenario" data-label="Cenário">Campos obrigatórios vazios</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do PR #30507 (US #162627) implantado em DEV, com o PBI #162626 implantado<br>[USUARIO] usuário com permissão de publicar na pasta e cliente associado<br>[CONFIG] google_analytics_enabled ligado<br>[DADOS] recorte com campos obrigatórios dos intervalos sem preencher<br>[INTEGRACAO] DevTools/Network para ver o hit e domínio de analytics bloqueável</td><td class="col-acao" data-label="Ação">Confirmar a publicação com os campos obrigatórios dos intervalos vazios</td><td class="col-resultado" data-label="Resultado Esperado">Aviso de campos obrigatórios e 0 hit</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">CT</td></tr><tr class="group"><td colspan="10"><span class="gname">PERMISSÃO</span><span class="gcount"></span></td></tr><tr data-id="6"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="6" disabled aria-label="Marcar o cenário 6 como testado"></td><td class="col-id" data-label="#">6</td><td class="col-cenario" data-label="Cenário">Usuário sem cliente</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do PR #30507 (US #162627) implantado em DEV, com o PBI #162626 implantado<br>[USUARIO] usuário sem cliente associado<br>[DADOS] PDF com 1 intervalo de recorte (1 documento resultante)<br>[INTEGRACAO] DevTools/Network para ver o hit e domínio de analytics bloqueável</td><td class="col-acao" data-label="Ação">Publicar recorte</td><td class="col-resultado" data-label="Resultado Esperado">Publica normalmente e o evento não sai</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag">permissão</span></td><td class="col-origem" data-label="Origem">CT</td></tr><tr data-id="7"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="7" disabled aria-label="Marcar o cenário 7 como testado"></td><td class="col-id" data-label="#">7</td><td class="col-cenario" data-label="Cenário">GA desligado</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do PR #30507 (US #162627) implantado em DEV, com o PBI #162626 implantado<br>[USUARIO] usuário com permissão de publicar na pasta e cliente associado<br>[CONFIG] google_analytics_enabled desligado<br>[DADOS] PDF com 1 intervalo de recorte (1 documento resultante)<br>[INTEGRACAO] DevTools/Network para ver o hit e domínio de analytics bloqueável</td><td class="col-acao" data-label="Ação">Publicar recorte</td><td class="col-resultado" data-label="Resultado Esperado">Publica normalmente e o evento não sai</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">CT</td></tr><tr><td class="col-check" data-label="Testado"></td><td class="col-id" data-label="#">—</td><td class="col-cenario" data-label="Cenário">N/A — permissão de publicar não é alterada pela US</td><td class="col-config" data-label="Configurações necessárias">Nenhum específico</td><td class="col-acao" data-label="Ação">—</td><td class="col-resultado" data-label="Resultado Esperado">—</td><td class="col-tipo" data-label="Tipo">—</td><td class="col-tecnica" data-label="Técnica">—</td><td class="col-dim" data-label="Dimensão"><span class="tag">permissão</span></td><td class="col-origem" data-label="Origem">—</td></tr><tr class="group"><td colspan="10"><span class="gname">DADOS E CASOS DE BORDA</span><span class="gcount"></span></td></tr><tr data-id="8"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="8" disabled aria-label="Marcar o cenário 8 como testado"></td><td class="col-id" data-label="#">8</td><td class="col-cenario" data-label="Cenário">Dimensões no hit</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do PR #30507 (US #162627) implantado em DEV, com o PBI #162626 implantado<br>[USUARIO] usuário com permissão de publicar na pasta e cliente associado<br>[CONFIG] google_analytics_enabled ligado<br>[DADOS] PDF com 1 intervalo de recorte (1 documento resultante)<br>[INTEGRACAO] DevTools/Network para ver o hit e domínio de analytics bloqueável</td><td class="col-acao" data-label="Ação">Publicar e inspecionar o hit</td><td class="col-resultado" data-label="Resultado Esperado">Saem Usuario_Id, Usuario_Nome, Cliente_Nome e tipo de usuário, pelo sendEvent existente</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td><td class="col-origem" data-label="Origem">CA3, CT</td></tr><tr data-id="9"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="9" disabled aria-label="Marcar o cenário 9 como testado"></td><td class="col-id" data-label="#">9</td><td class="col-cenario" data-label="Cenário">Documento comum (sem recorte) não dispara o evento</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do PR #30507 (US #162627) implantado em DEV, com o PBI #162626 implantado<br>[USUARIO] usuário com permissão de publicar na pasta e cliente associado<br>[CONFIG] google_analytics_enabled ligado<br>[INTEGRACAO] DevTools/Network para ver o hit e domínio de analytics bloqueável</td><td class="col-acao" data-label="Ação">Publicar um documento pelo fluxo normal</td><td class="col-resultado" data-label="Resultado Esperado">Nenhum hit ECM_Recorte_Publicar</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">CA1</td></tr><tr class="group"><td colspan="10"><span class="gname">CONCORRÊNCIA</span><span class="gcount"></span></td></tr><tr data-id="10" class="row-hipotese"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="10" disabled aria-label="Marcar o cenário 10 como testado"></td><td class="col-id" data-label="#">10</td><td class="col-cenario" data-label="Cenário"><span class="hip-badge">hipótese</span>Duplo clique no botão do modal</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do PR #30507 (US #162627) implantado em DEV, com o PBI #162626 implantado<br>[USUARIO] usuário com permissão de publicar na pasta e cliente associado<br>[CONFIG] google_analytics_enabled ligado<br>[DADOS] PDF com 1 intervalo de recorte (1 documento resultante)<br>[INTEGRACAO] DevTools/Network para ver o hit e domínio de analytics bloqueável</td><td class="col-acao" data-label="Ação">Dar duplo clique em Confirmar</td><td class="col-resultado" data-label="Resultado Esperado">Registrar se duplica publicação e evento (2N); a US não define o esperado</td><td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag">concorrência</span></td><td class="col-origem" data-label="Origem">HIPOTESE: CT, hipótese</td></tr><tr class="group"><td colspan="10"><span class="gname">ERROS DE INTEGRAÇÃO / API</span><span class="gcount"></span></td></tr><tr data-id="11"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="11" disabled aria-label="Marcar o cenário 11 como testado"></td><td class="col-id" data-label="#">11</td><td class="col-cenario" data-label="Cenário">Falha no POST de um documento</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do PR #30507 (US #162627) implantado em DEV, com o PBI #162626 implantado<br>[USUARIO] usuário com permissão de publicar na pasta e cliente associado<br>[CONFIG] google_analytics_enabled ligado<br>[DADOS] PDF com 3 intervalos de recorte (3 documentos resultantes)<br>[INTEGRACAO] HIPOTESE: forma de forçar falha no POST de um documento (mecanismo não descrito no card)</td><td class="col-acao" data-label="Ação">Forçar falha no POST de 1 dos 3 documentos</td><td class="col-resultado" data-label="Resultado Esperado">Toast de erro; sem hit para o documento que falhou e para os não enviados; os anteriores já contaram</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">CT</td></tr><tr data-id="12"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="12" disabled aria-label="Marcar o cenário 12 como testado"></td><td class="col-id" data-label="#">12</td><td class="col-cenario" data-label="Cenário">Domínio de analytics bloqueado</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do PR #30507 (US #162627) implantado em DEV, com o PBI #162626 implantado<br>[USUARIO] usuário com permissão de publicar na pasta e cliente associado<br>[CONFIG] google_analytics_enabled ligado<br>[DADOS] PDF com 3 intervalos de recorte (3 documentos resultantes)<br>[INTEGRACAO] DevTools/Network para ver o hit e domínio de analytics bloqueável</td><td class="col-acao" data-label="Ação">Bloquear o domínio de analytics e publicar 3 documentos</td><td class="col-resultado" data-label="Resultado Esperado">Publica sem toast de erro e sem atraso perceptível (a US não define tempo); todos os documentos enviados</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">CA4, CT</td></tr><tr data-id="13" class="row-hipotese"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="13" disabled aria-label="Marcar o cenário 13 como testado"></td><td class="col-id" data-label="#">13</td><td class="col-cenario" data-label="Cenário"><span class="hip-badge">hipótese</span>Evento na propriedade de dev</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do PR #30507 (US #162627) implantado em DEV, com o PBI #162626 implantado<br>[USUARIO] usuário com permissão de publicar na pasta e cliente associado<br>[CONFIG] google_analytics_enabled ligado<br>[DADOS] PDF com 1 intervalo de recorte (1 documento resultante)<br>[INTEGRACAO] HIPOTESE: acesso à propriedade GA4 de dev (ID pendente)</td><td class="col-acao" data-label="Ação">Publicar em DEV e conferir no GA4</td><td class="col-resultado" data-label="Resultado Esperado">Evento na propriedade de dev, distinta da de prod (IDs pendentes)</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">HIPOTESE: CA5, hipótese</td></tr><tr class="group"><td colspan="10"><span class="gname">REGRESSÃO</span><span class="gcount"></span></td></tr><tr data-id="14"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="14" disabled aria-label="Marcar o cenário 14 como testado"></td><td class="col-id" data-label="#">14</td><td class="col-cenario" data-label="Cenário">Recorte com página rotacionada</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do PR #30507 (US #162627) implantado em DEV, com o PBI #162626 implantado<br>[USUARIO] usuário com permissão de publicar na pasta e cliente associado<br>[CONFIG] google_analytics_enabled ligado<br>[DADOS] PDF com página rotacionada (de ponta-cabeça)<br>[INTEGRACAO] DevTools/Network para ver o hit e domínio de analytics bloqueável</td><td class="col-acao" data-label="Ação">Rotacionar uma página, recortar e publicar</td><td class="col-resultado" data-label="Resultado Esperado">Publica com as páginas como no documento salvo e 1 hit por documento</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">Bug #126774</td></tr><tr class="group"><td colspan="10"><span class="gname">CASOS DE BORDA / HIPÓTESES</span><span class="gcount"></span></td></tr><tr data-id="15" class="row-hipotese"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="15" disabled aria-label="Marcar o cenário 15 como testado"></td><td class="col-id" data-label="#">15</td><td class="col-cenario" data-label="Cenário"><span class="hip-badge">hipótese</span>Mapeamento da dimensão D3</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build do PR #30507 (US #162627) implantado em DEV, com o PBI #162626 implantado<br>[USUARIO] usuário com permissão de publicar na pasta e cliente associado<br>[CONFIG] google_analytics_enabled ligado<br>[DADOS] PDF com 1 intervalo de recorte (1 documento resultante)<br>[INTEGRACAO] DevTools/Network para ver o hit e domínio de analytics bloqueável</td><td class="col-acao" data-label="Ação">Comparar os índices do hit com a planilha oficial</td><td class="col-resultado" data-label="Resultado Esperado">D3 = tipo de usuário. O código grava dimension3 = cliente e dimension4 = tipo; confirmar com o dev/PM</td><td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td><td class="col-tecnica" data-label="Técnica">tabela-decisão</td><td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td><td class="col-origem" data-label="Origem">HIPOTESE: CA3, hipótese</td></tr></tbody></table></div>
+<h2 id="pre-requisitos">Pré-requisitos de ambiente (consolidado)</h2>
+<ul><li>[AMBIENTE] build do PR #30507 (US #162627) implantado em DEV, com o PBI #162626 implantado — cenários: #1, #2, #3, #4, #5, #6, #7, #8, #9, #10, #11, #12, #13, #14, #15</li><li>[USUARIO] usuário com permissão de publicar na pasta e cliente associado — cenários: #1, #2, #3, #4, #5, #7, #8, #9, #10, #11, #12, #13, #14, #15</li><li>[CONFIG] google_analytics_enabled ligado — cenários: #1, #2, #3, #4, #5, #8, #9, #10, #11, #12, #13, #14, #15</li><li>[DADOS] PDF com 1 intervalo de recorte (1 documento resultante) — cenários: #1, #3, #4, #6, #7, #8, #10, #13, #15</li><li>[DADOS] PDF com 3 intervalos de recorte (3 documentos resultantes) — cenários: #2, #11, #12</li><li>[DADOS] recorte com campos obrigatórios dos intervalos sem preencher — cenários: #5</li><li>[USUARIO] usuário sem cliente associado — cenários: #6</li><li>[CONFIG] google_analytics_enabled desligado — cenários: #7</li><li>[INTEGRACAO] DevTools/Network para ver o hit e domínio de analytics bloqueável — cenários: #1, #2, #4, #5, #6, #7, #8, #9, #10, #12, #14, #15</li><li>[INTEGRACAO] HIPOTESE: forma de forçar falha no POST de um documento (mecanismo não descrito no card) — cenários: #11</li><li>[INTEGRACAO] HIPOTESE: acesso à propriedade GA4 de dev (ID pendente) — cenários: #13</li><li>[DADOS] PDF com página rotacionada (de ponta-cabeça) — cenários: #14</li></ul>
+</div>
+<footer>As marcações ficam salvas só neste navegador, por cenário. Use Exportar e Importar para levá-las a outra máquina.</footer>
+<script>
+(function(){
+try{
+  var KEY="mapa-teste-us-162627-evento-ga4-recorte-testados-v1";
+  var state={};
+  try{var raw=localStorage.getItem(KEY);if(raw)state=JSON.parse(raw)||{};}catch(e){}
+  var chks=[].slice.call(document.querySelectorAll('input.chk'));
+  chks.forEach(function(c){c.disabled=false;});
+  var mainRows=[].slice.call(document.querySelectorAll('table.main tbody tr[data-id]'));
+  var ids=mainRows.map(function(r){return r.dataset.id;});
+  var fill=document.getElementById('fill'),count=document.getElementById('count');
+  var filter='all',query='';
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function paint(id){
+    var on=!!state[id];
+    chks.forEach(function(c){if(c.dataset.id===id){c.checked=on;c.closest('tr').classList.toggle('row-done',on);}});
+  }
+  function groups(){
+    [].slice.call(document.querySelectorAll('table.main tbody')).forEach(function(tb){
+      var cur=null,tot=0,done=0;
+      function close(){if(cur)cur.querySelector('.gcount').textContent=done+' de '+tot+' testados';}
+      [].slice.call(tb.rows).forEach(function(r){
+        if(r.classList.contains('group')){close();cur=r;tot=0;done=0;}
+        else if(r.dataset.id){tot++;if(state[r.dataset.id])done++;}
+      });
+      close();
+    });
+  }
+  function progress(){
+    var d=ids.filter(function(i){return state[i];}).length;
+    count.textContent=d+' de '+ids.length+' testados ('+(ids.length?Math.round(d*100/ids.length):0)+'%)';
+    fill.style.width=(ids.length?d*100/ids.length:0)+'%';
+    groups();
+  }
+  function apply(){
+    var q=query.trim().toLowerCase();
+    [].slice.call(document.querySelectorAll('tr[data-id]')).forEach(function(r){
+      var done=!!state[r.dataset.id];
+      var ok=(filter==='all')||(filter==='done'&&done)||(filter==='todo'&&!done);
+      if(ok&&q)ok=r.textContent.toLowerCase().indexOf(q)>-1;
+      r.classList.toggle('hidden',!ok);
+    });
+    [].slice.call(document.querySelectorAll('tr.group')).forEach(function(g){
+      var n=g.nextElementSibling,any=false;
+      while(n&&!n.classList.contains('group')){if(n.dataset.id&&!n.classList.contains('hidden')){any=true;break;}n=n.nextElementSibling;}
+      g.classList.toggle('hidden',!any);
+    });
+  }
+  chks.forEach(function(c){c.addEventListener('change',function(){
+    var id=c.dataset.id;if(c.checked)state[id]=true;else delete state[id];
+    paint(id);progress();save();apply();
+  });});
+  ids.concat(chks.map(function(c){return c.dataset.id;})).forEach(paint);
+  progress();apply();
+  [].slice.call(document.querySelectorAll('[data-filter]')).forEach(function(b){b.addEventListener('click',function(){
+    filter=b.dataset.filter;
+    [].slice.call(document.querySelectorAll('[data-filter]')).forEach(function(x){x.classList.toggle('active',x===b);});
+    apply();
+  });});
+  document.getElementById('q').addEventListener('input',function(e){query=e.target.value;apply();});
+  document.getElementById('reset').addEventListener('click',function(){
+    if(!confirm('Desmarcar todos os cenários testados?'))return;
+    state={};save();chks.forEach(function(c){paint(c.dataset.id);});progress();apply();
+  });
+  document.getElementById('export').addEventListener('click',function(){
+    var data={arquivo:"mapa-teste-us-162627-evento-ga4-recorte.html",exportado_em:new Date().toISOString(),testados:Object.keys(state).sort(function(a,b){return a-b;})};
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+    a.download='marcacoes-mapa-teste.json';document.body.appendChild(a);a.click();a.remove();
+  });
+  document.getElementById('import').addEventListener('change',function(e){
+    var f=e.target.files[0];if(!f)return;
+    var r=new FileReader();
+    r.onload=function(){
+      try{
+        var d=JSON.parse(r.result);
+        if(!d||!Array.isArray(d.testados))throw new Error('formato');
+        if(!confirm('Substituir as marcações atuais por '+d.testados.length+' cenários testados do arquivo?'))return;
+        state={};d.testados.forEach(function(i){state[String(i)]=true;});
+        save();chks.forEach(function(c){paint(c.dataset.id);});progress();apply();
+      }catch(err){alert('Arquivo inválido: use um JSON exportado por esta página.');}
+      e.target.value='';
+    };
+    r.readAsText(f);
+  });
+}catch(err){var c0=document.getElementById('count');if(c0)c0.textContent='Erro no script: '+err.message;}
+})();
+</script>
+</body>
+</html>

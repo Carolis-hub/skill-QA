@@ -551,7 +551,7 @@ index 02df567..0584a90 100644
  3. Se a busca não encontrar nenhuma página relacionada, não conclua automaticamente que não existe documentação — chame `mcp__azure-devops__list_wiki_pages` para navegar a árvore e checar manualmente se a funcionalidade está descrita em uma página com nome que a busca de texto não capturou.
  
 diff --git a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/executar-teste.md b/skills-qa-smartshare/skills-qa-smartshare/skills/executar-teste.md
-index a34f35c..8ab3820 100644
+index a34f35c..b12593c 100644
 --- a/Skills-QA-Processo_2026-09-28/Skills-QA-Processo_2026-09-28/executar-teste.md
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/executar-teste.md
 @@ -7,8 +7,8 @@ Executar os testes da User Story do Azure DevOps a partir de **$ARGUMENTS**.
@@ -582,7 +582,7 @@ index a34f35c..8ab3820 100644
  ## Regra fundamental (guardrails)
  
  **As únicas razões válidas para não executar um cenário (`NAO EXECUTADO`) são estas três — nenhuma outra:**
-@@ -32,10 +42,18 @@ Dificuldade de execução, volume de trabalho, tempo gasto, "não tentei ainda"
+@@ -32,10 +42,21 @@ Dificuldade de execução, volume de trabalho, tempo gasto, "não tentei ainda"
  - **Nunca ofereça "pular"/"ignorar" um cenário como opção numa pergunta ao usuário (`AskUserQuestion` ou texto livre) sem antes ter mostrado, na mesma resposta, a tentativa real que você fez** (busca de dado alternativo já realizada e com que resultado, ou a pergunta explícita se há um caminho técnico — ex.: "o dev consegue validar isso na máquina dele, do jeito que resolveu outro cenário parecido?"). Perguntar ao usuário se algo vale a pena só é legítimo **depois** da tentativa; usar a pergunta como atalho para não tentar é a mesma falha disfarçada de outra forma.
  - **Nunca executar ação irreversível ou de alto risco sem confirmação explícita do usuário antes daquele step específico** (ex.: excluir, cancelar definitivamente, enviar comunicação real ao cliente, qualquer ação que não tenha volta). Isso não é `NAO EXECUTADO` — é uma pausa para confirmação; depois de confirmado, o step é executado normalmente.
  - **Nunca rodar contra ambiente de produção.** Se a URL resolvida para o ambiente informado parecer produção (sem `hom`/`homolog`/`hml`/`dev` no domínio, ou o usuário não confirmar que é ambiente de teste), parar e perguntar antes de navegar.
@@ -594,6 +594,9 @@ index a34f35c..8ab3820 100644
  
 +- **Nunca executar em ambiente com dados simulados (mock).** O teste só vale se o ambiente for o mais próximo possível do cenário real: tela ou endpoint que serve dado em memória, fixture ou resposta fixa não valida dado, persistência nem integração. Se o ambiente tem dado mockado, **não execute nenhum cenário** (Step 0.5). Não há exceção por pedido de "rodar mesmo assim": o caminho é corrigir o ambiente (integração com o BE) e revalidar com `/validar-ambiente`. Percebeu mock no meio da execução (registro que some ao recarregar, tela sem chamada de API de dados)? Pare na hora, marque o que falta como `NAO EXECUTADO` (problema de ambiente) e reporte.
 +
++- **Defeito/bug identificado: análise antes de gerar o Bug.** Sempre que um cenário `Falhou` ou um defeito for identificado durante a execução (inclusive divergência de protótipo, Step 4.2b), a skill **não chama `/gerar-defeito` direto**: primeiro roda `/analise-falha` (Skill `analise-falha`) sobre o(s) cenário(s) e só segue para o Bug se a análise concluir que há evidência suficiente (Step 4.2, item 9). Sem a análise registrada, nenhum Bug é gerado.
++- **Banco de dados (SQL Server × Oracle).** A execução ocorre em um banco por vez, o confirmado no `/validar-ambiente` (Step 0.6). Esta skill nunca troca o banco (isso é do `/validar-ambiente`). Teste que precisa valer nos dois bancos roda **todos** os cenários em **cada** banco, um banco por chat (Step 0.6 e Step 5.5).
++
 +---
 +
 +## Regra — US de BE: execução por API, sem tela
@@ -603,7 +606,7 @@ index a34f35c..8ab3820 100644
  ---
  
  ## Step 0 — Validar ambiente
-@@ -45,21 +63,33 @@ Dificuldade de execução, volume de trabalho, tempo gasto, "não tentei ainda"
+@@ -45,21 +66,41 @@ Dificuldade de execução, volume de trabalho, tempo gasto, "não tentei ainda"
  3. Se qualquer um dos dois estiver indisponível, pare e reporte qual servidor MCP falta.
  4. **Gate obrigatório de contexto — antes de qualquer navegação no browser:**
     - **Memória:** busque na memória (`Grep`/leitura de `MEMORY.md` e dos arquivos apontados por ele) por entradas relacionadas ao produto/domínio da US (ex.: nome do produto, da tela, do fluxo) — não confie só no que já veio auto-carregado no início da sessão; procure ativamente por palavras-chave específicas da US antes de começar a navegar. Isso vale mesmo se você "já lembra" o suficiente pra começar — memória associativa falha silenciosamente, busca ativa não.
@@ -625,6 +628,14 @@ index a34f35c..8ab3820 100644
 +
 +---
 +
++## Step 0.6 — Banco de dados da execução (SQL Server × Oracle)
++
++1. **Banco desta execução.** Leia o relatório mais recente de `/validar-ambiente` em `$CICLOS_DIR\US-<ID>\validacoes-ambiente\` (campo `banco:` do cabeçalho). Confirme com a usuária, em uma pergunta: "Banco desta execução: <SQL Server | Oracle>, base <nome/instância>?". Relatório sem `banco:`, ou a usuária informa outro banco → **pare** e peça para rodar `/validar-ambiente <ID>` (que pergunta o banco, confirma a base e faz a troca se preciso). Esta skill nunca altera a configuração do banco.
++2. **A US exige os dois bancos?** Sim quando o mapa/US citar SQL Server **e** Oracle, houver CA de paridade entre bancos, ou a usuária disser. Nesse caso, **todos** os cenários do mapa são executados em **cada** banco (não só os marcados como de banco), e o relatório registra o banco de cada resultado.
++3. Registre em `$BANCO_EXEC` o banco desta execução e em `$BANCOS_PENDENTES` o(s) que ainda faltam. Acrescente `**Banco:** <banco>` ao cabeçalho do relatório (Step 5).
++
++---
++
  ## Step 1 — Detectar modo e localizar o mapa de testes
  
  ```
@@ -640,7 +651,7 @@ index a34f35c..8ab3820 100644
  2. Olhe `System.WorkItemType`:
     - **`"Bug"`** → vá para **Modo B — Reteste Seletivo Pós-Bug** (abaixo) e não siga o resto deste Step.
     - **User Story/PBI**, ou `$itemId` já aponta direto para um card `"Criar Mapa de Teste"` → siga o **Modo A** logo abaixo.
-@@ -122,11 +152,11 @@ Acionado quando o ID informado é um Bug. Objetivo: em vez de escolher cegamente
+@@ -122,11 +163,11 @@ Acionado quando o ID informado é um Bug. Objetivo: em vez de escolher cegamente
  
  O `$DESCRIPTION_HTML` contém uma tabela (`<table>...</table>`) sob o cabeçalho "Cenarios de teste". Cada `<tr>` é uma linha:
  
@@ -656,7 +667,7 @@ index a34f35c..8ab3820 100644
  
  Ordene a execução priorizando `Dimensao = positivo` / `=== FLUXO PRINCIPAL ===` primeiro, como antes.
  
-@@ -153,10 +183,9 @@ Para cada cenário em `$SCENARIOS`, classifique antes de tentar executar:
+@@ -153,10 +194,9 @@ Para cada cenário em `$SCENARIOS`, classifique antes de tentar executar:
  |---|---|
  | Ação marcada `HIPOTESE:` ou resultado esperado contém "VERIFICAR COM DEV/PO" | **Não executar.** Marcar `NAO EXECUTADO — hipótese não validada, necessita decisão humana antes` |
  | Ação requer dado que não existe no ambiente (ex.: um grupo específico, um cliente específico) e você não tem como criá-lo com segurança, ou parece bloqueada por falta de acesso técnico (ex.: feature flag, permissão) | **Antes de marcar como não executado:** tentar pelo menos um caminho alternativo (outra tela/botão, dado já existente no ambiente) e perguntar explicitamente à usuária se existe uma forma de testar (ver Regra fundamental). Só depois dessa tentativa, se ela confirmar que não há caminho, marcar `NAO EXECUTADO — dado de teste ausente` |
@@ -669,7 +680,7 @@ index a34f35c..8ab3820 100644
  | Cenário de dimensão **negativo/borda** depende de simular falha técnica/infraestrutura (erro de integração, timeout, config específica) | **Consultar o Step 2.5 antes de tentar.** Se houver mecanismo confirmado (feature flag, mock, credencial inválida), usá-lo ativamente. Se não houver — documentado como ausente ou não encontrado — seguir a Regra fundamental (tentar alternativa + perguntar à usuária) antes de marcar `NAO EXECUTADO` |
  | Ambiente parece indisponível (erro de DNS, timeout, página de erro genérica ao navegar) | **Parar tudo** e reportar; não tentar adivinhar se o teste "passaria" |
  | Nenhuma das situações acima | Executar normalmente (Step 4) |
-@@ -165,24 +194,29 @@ Apresente essa triagem ao usuário **antes** de começar a executar, como uma li
+@@ -165,24 +205,29 @@ Apresente essa triagem ao usuário **antes** de começar a executar, como uma li
  
  ---
  
@@ -677,20 +688,25 @@ index a34f35c..8ab3820 100644
 +## Step 3.6 — Salvar o valor original de todo campo que o teste vai alterar (backup)
 +
 +Para cada cenário que **grava** sobre um valor que já existe (parâmetro, configuração, campo de cadastro), **antes da primeira escrita** guarde o valor atual, para devolvê-lo ao fim dos testes (Step 4.4). Vale também para cenários que o Step 3 liberou depois de uma confirmação de alto risco.
- 
--Aplica-se **somente** quando a US for sobre Cobrança Integrada (Cresol, banco 133, remessa/retorno CNAB) e algum cenário do mapa exigir um arquivo `.rem` CNAB240 ou CNAB400 como entrada (upload/import de remessa). Fora desse domínio, ignore esta seção — ela não se aplica.
++
 +1. **Liste** no plano da triagem (Step 3) cada item que será alterado: tela/identificador (ex.: parâmetro 109), cenários que o alteram e se o campo é comum ou **sensível/mascarado** (senha, token).
 +2. **Leia o valor atual, só leitura, na ordem:** (a) a própria tela ou API quando mostram o valor (campo comum: `GET` de consulta ou o campo preenchido); (b) campo mascarado: outra tela de **consulta** que exiba o valor (ex.: Detalhar no SmartShare Clássico) ou `SELECT` via MCP de banco somente leitura; (c) nenhuma fonte de leitura disponível → o valor não é recuperável: o cenário só segue com autorização explícita da usuária, que aceita perder o original (Step 4.3); sem ela, `NAO EXECUTADO` (categoria "escrita irreversível").
 +3. **Grave o backup** na seção "Valores originais (backup)" do `$AMBIENTE_CFG` (`C:\skills-qualidade\config\ambiente-teste.local.md`, fora do sync com o GitHub), via `Edit`, **anexando**: `Ambiente | US | Item (tela/identificador) | Valor original | Sensível (s/n) | Salvo em | Restaurado em`. Confirme o backup relendo a linha gravada **antes** de alterar o campo. **Nunca** copie o valor original (nem o de teste de campo sensível) para o relatório, o chat, o LOG-ACOES, o work item ou o repositório; no relatório vai só "valor original salvo no backup, linha N".
 +4. Backup não confirmado → **não altere** o campo.
  
--**Como identificar que se aplica:** título/descrição da US, ou a própria "Ação" do cenário no mapa de testes, mencionam "CNAB", "CNAB240", "CNAB400", "remessa" ou "importar remessa" no contexto de Cobrança Integrada.
+-Aplica-se **somente** quando a US for sobre Cobrança Integrada (Cresol, banco 133, remessa/retorno CNAB) e algum cenário do mapa exigir um arquivo `.rem` CNAB240 ou CNAB400 como entrada (upload/import de remessa). Fora desse domínio, ignore esta seção — ela não se aplica.
 +---
 +
 +## Step 4.4 — Restaurar os valores originais (ao fim da execução)
  
--Para cada cenário assim identificado, **antes de tentar executar a ação de upload** (ainda na fase de triagem do Step 3, não durante a execução):
+-**Como identificar que se aplica:** título/descrição da US, ou a própria "Ação" do cenário no mapa de testes, mencionam "CNAB", "CNAB240", "CNAB400", "remessa" ou "importar remessa" no contexto de Cobrança Integrada.
 +Depois do último cenário e **antes do Step 4.5/5**, e também quando a execução parar cedo (ambiente indisponível, credencial, decisão da usuária), devolva cada item do backup do Step 3.6:
+ 
+-Para cada cenário assim identificado, **antes de tentar executar a ação de upload** (ainda na fase de triagem do Step 3, não durante a execução):
++1. **Campo comum:** regrave o valor original pela mesma tela do teste, **reabra e compare** com o backup. Igual → preencha "Restaurado em" com a data/hora. Diferente ou falha → registre o item em "Valores a restaurar manualmente" do relatório.
++2. **Campo sensível/mascarado (senha, token):** a skill **não digita sozinha** um segredo que ela leu do sistema. Informe à usuária o caminho do backup e a linha, e peça que ela **cole o valor no campo** (ou cole o valor no chat para a skill restaurar, caso ela autorize). Depois da restauração, confirme o que for observável (ex.: a quantidade de caracteres mascarados igual à do original) e preencha "Restaurado em".
++3. **Não restaurável** (ex.: o valor original nunca foi lido, porque a usuária aceitou perder): registre como "Valor original perdido, aceito pela usuária em <data>".
++4. Item de backup restaurado e confirmado permanece na tabela (histórico); só o valor do campo sensível é apagado do arquivo depois da confirmação, deixando `<restaurado e apagado>`.
  
 -1. **Nunca gere o arquivo manualmente e nunca trate isso como "dado de teste ausente"** — chame a skill dedicada via `Skill` tool:
 -   - Remessa CNAB240 → skill `gerar-cnab240`.
@@ -700,11 +716,6 @@ index a34f35c..8ab3820 100644
 -4. Se o cenário pedir explicitamente um teste de **nome de arquivo duplicado** (rejeição por duplicidade), gere o arquivo normalmente e depois copie/renomeie para bater com um arquivo já existente — não peça para a skill desativar o sufixo de nome único.
 -5. Use o caminho de arquivo retornado pela skill como entrada de `mcp__playwright__browser_file_upload` no step correspondente do cenário (Step 4.2).
 -6. No relatório final (Step 5), registre qual arquivo CNAB foi gerado e usado em cada step (nome do arquivo) — é evidência de massa de teste, não só o resultado da ação.
-+1. **Campo comum:** regrave o valor original pela mesma tela do teste, **reabra e compare** com o backup. Igual → preencha "Restaurado em" com a data/hora. Diferente ou falha → registre o item em "Valores a restaurar manualmente" do relatório.
-+2. **Campo sensível/mascarado (senha, token):** a skill **não digita sozinha** um segredo que ela leu do sistema. Informe à usuária o caminho do backup e a linha, e peça que ela **cole o valor no campo** (ou cole o valor no chat para a skill restaurar, caso ela autorize). Depois da restauração, confirme o que for observável (ex.: a quantidade de caracteres mascarados igual à do original) e preencha "Restaurado em".
-+3. **Não restaurável** (ex.: o valor original nunca foi lido, porque a usuária aceitou perder): registre como "Valor original perdido, aceito pela usuária em <data>".
-+4. Item de backup restaurado e confirmado permanece na tabela (histórico); só o valor do campo sensível é apagado do arquivo depois da confirmação, deixando `<restaurado e apagado>`.
-+
 +---
  
 -Essas duas skills já encapsulam layout FEBRABAN, dígitos verificadores e convênio validados (2035/4497, CNPJ `11643817000102`) — nunca reescrever isso manualmente aqui; qualquer ajuste de convênio/ambiente é feito nelas, não duplicado nesta skill.
@@ -712,7 +723,7 @@ index a34f35c..8ab3820 100644
  
  ---
  
-@@ -190,9 +224,11 @@ Essas duas skills já encapsulam layout FEBRABAN, dígitos verificadores e conv
+@@ -190,9 +235,11 @@ Essas duas skills já encapsulam layout FEBRABAN, dígitos verificadores e conv
  
  ### 4.1 — Login
  
@@ -726,10 +737,15 @@ index a34f35c..8ab3820 100644
  
  1. `mcp__playwright__browser_navigate` para a URL de login.
  2. `mcp__playwright__browser_snapshot` para confirmar que a tela carregou.
-@@ -227,6 +263,21 @@ Para cada cenário, na ordem:
+@@ -226,6 +273,25 @@ Para cada cenário, na ordem:
+ 
     Para todo step `Falhou`, **registrar o caminho local do arquivo de screenshot** retornado por `browser_take_screenshot` (ex.: `.playwright-mcp\page-2026-09-04T18-09-58-660Z.png`) na linha da tabela do Step 5, não só a palavra "screenshot". Esse caminho é o que permite à `/gerar-defeito` anexar a evidência ao Bug depois — sem ele, a evidência visual se perde ao fim da conversa/sessão do navegador.
  8. Se a sessão expirar no meio da execução (indício: redirecionado para tela de login), refazer o login (Step 4.1) e **retomar do mesmo step**, registrando no log que houve reautenticação — isso não conta como falha do cenário.
- 
++9. **Defeito identificado → análise antes do Bug.** Ao classificar `Falhou` (ou identificar divergência de protótipo, Step 4.2b), registre o cenário, a evidência (screenshot, rede) e **rode `/analise-falha` (Skill `analise-falha`) antes de qualquer proposta de Bug**: ela determina causa provável, componente e se há evidência suficiente. Resultado da análise:
++   - **Evidência suficiente** → registre a análise no relatório (seção "Análise de falha") e só então ofereça `/gerar-defeito` (aprovação explícita antes de escrever, como sempre). Falhas pela mesma causa seguem a regra de um único Bug do `/gerar-defeito`.
++   - **Evidência insuficiente ou falso positivo** (ex.: dado de teste, ambiente, expectativa do mapa) → não gere Bug; registre o motivo, reclassifique o cenário se for o caso (`NAO EXECUTADO` por ambiente/dado) e informe a usuária.
++   Pode rodar a análise ao fim do cenário ou, quando houver várias falhas, em lote no fim da execução (Step 5), mas **sempre antes** do Bug.
++
 +### 4.2b — Fidelidade ao protótipo (Figma): validação completa, toda divergência sinalizada, sempre com dois prints
 +
 +Regra da usuária (2026-11-03): **a tela deve ser expressamente fiel ao protótipo e qualquer divergência deve ser sinalizada**, inclusive a pequena. Vale para cada cenário da categoria `=== FIDELIDADE AO PROTOTIPO ===` (um por quadro/estado) e para o cenário de "Paridade visual" de mapas antigos. Tolerância: ±1 px por arredondamento; qualquer outro desvio, de texto, medida, cor, ícone, ordem ou comportamento, é divergência. **`Passou` só com zero divergência e nenhum aspecto não verificado**; com divergência o resultado é `Falhou`; com aspecto que não deu para medir, o cenário **não** é `Passou`: registre `NAO EXECUTADO — verificação incompleta: <aspectos e motivo>`.
@@ -743,12 +759,19 @@ index a34f35c..8ab3820 100644
 +4. Gere a página `$CICLOS_DIR\US-<ID>\execucoes\divergencias-prototipo_<AAAA-MM-DD>.html` com um bloco por divergência (id D1, D2..., descrição objetiva do que difere e qual print é de qual lado: "Esperado (protótipo)" e "Dev"), mais a lista do que confere ("Conforme"). A página deve ser **autocontida**: embuta as imagens no próprio HTML (`src="data:image/png;base64,..."`), porque caminho relativo não abre em visualizadores que carregam só o arquivo (observado em 2026-10-26: "não consigo visualizar as imagens"). Mantenha os PNGs na pasta de evidências como cópia.
 +5. Itens do próprio protótipo que a US manda ignorar (ex.: criar/excluir) não são divergência: cite-os numa nota. O resultado do cenário segue o texto do mapa (em geral "divergências registradas para validação da PM"); a decisão de entrar no escopo é da PM.
 +6. **Toda vez que houver divergência de protótipo, gere o artefato HTML** (item 4), mesmo que haja uma só, e referencie-o na seção "Divergências de protótipo" do relatório. Modelo de referência (estrutura, estilo e blocos D1, D2...): `C:\skills-qualidade\ciclos-executados\US-163012\execucoes\divergencias-prototipo_2026-10-26.html`.
-+7. **Defeito: um único Bug com todas as divergências de protótipo**, não um Bug por divergência. Motivo: muitas alterações de protótipo são pequenas e não precisam de tasks separadas. O Bug traz uma lista numerada (D1, D2...) com, para cada item, o esperado (protótipo) e o obtido (dev), e anexa **o HTML do item 4** mais os PNGs dos dois lados de cada divergência. Divergência que também é falha funcional (comportamento errado, não só aparência: ex.: campo que deveria ser multilinha, Esc que não fecha) continua com a análise de `/analise-falha` e, se a usuária preferir, pode ir em Bug próprio; na dúvida, pergunte antes de criar. A severidade sugerida do Bug único é a do item mais grave. A criação segue o `/gerar-defeito` (aprovação explícita antes de escrever).
-+
++7. **Defeito: um único Bug com todas as divergências de protótipo**, não um Bug por divergência. Motivo: muitas alterações de protótipo são pequenas e não precisam de tasks separadas. O Bug traz uma lista numerada (D1, D2...) com, para cada item, o esperado (protótipo) e o obtido (dev), e anexa **o HTML do item 4** mais os PNGs dos dois lados de cada divergência. Divergência que também é falha funcional (comportamento errado, não só aparência: ex.: campo que deveria ser multilinha, Esc que não fecha) continua com a análise de `/analise-falha` e, se a usuária preferir, pode ir em Bug próprio; na dúvida, pergunte antes de criar. A severidade sugerida do Bug único é a do item mais grave. Antes de gerar o Bug, rode `/analise-falha` sobre as divergências (Step 4.2, item 9); a criação segue o `/gerar-defeito` (aprovação explícita antes de escrever).
+ 
  ### 4.3 — Ações de alto risco sinalizadas no Step 3
  
- Antes de cada uma, pare e pergunte: **"Confirma execução do step `<id>` (`<ação>`), que foi classificado como irreversível/alto risco?"**. Só prossiga com confirmação explícita para aquele step específico.
-@@ -280,12 +331,36 @@ Se `$MODO == "B"`, acrescente logo abaixo do cabeçalho:
+@@ -256,6 +322,7 @@ Se o sub-agente falhar (erro de ferramenta, timeout, resposta malformada), isso
+ # Execução — Mapa de Testes #<MAPA_ID> <Título>
+ 
+ **Ambiente:** <ambiente> (<URL>)
++**Banco:** <SQL Server | Oracle> (base/instância) — pendente: <outro banco | nenhum>
+ **História relacionada:** #<STORY_ID> <STORY_TITLE>
+ ```
+ 
+@@ -280,12 +347,40 @@ Se `$MODO == "B"`, acrescente logo abaixo do cabeçalho:
  ## Steps que pararam por ação de alto risco
  ...
  
@@ -774,6 +797,10 @@ index a34f35c..8ab3820 100644
  ## Steps não executados (necessitam decisão humana)
  - <step>: <motivo>
  
++## Análise de falha (Step 4.2, item 9)
++
++Por cenário `Falhou` ou divergência de protótipo: resultado do `/analise-falha` (causa provável, componente, evidência suficiente sim/não) e decisão (Bug oferecido via `/gerar-defeito` | sem Bug, motivo). Sem esta seção preenchida, nenhum Bug é gerado.
++
  ## Divergências do double-check
  | # | Classificação original | Sugestão do sub-agente | Motivo |
  |---|---|---|---|
@@ -785,7 +812,27 @@ index a34f35c..8ab3820 100644
  ```
  
  Se o Step 4.5 não encontrou nenhuma divergência, escreva `Nenhuma divergência encontrada — double-check confirmou todas as classificações.` no lugar da tabela. Se o double-check não pôde rodar (Step 4.5), escreva isso explicitamente aqui em vez de omitir a seção.
-@@ -311,7 +386,7 @@ execução parou cedo por bloqueio de ambiente/credencial) acrescente uma linha
+@@ -300,7 +395,18 @@ Grave esse comentário **mesmo se algum cenário falhou** (o marcador indica "o
+ 
+ Na coluna **Evidência**, para cada `Falhou`: caminho(s) de arquivo real(is) (screenshot local, ex. `.playwright-mcp\page-....png`) e/ou o resumo da evidência de rede (status HTTP, trecho do corpo) — nunca só a palavra "screenshot"/"network" sem o dado concreto. Essas evidências são o insumo que `/analise-falha` referencia e que `/gerar-defeito` anexa ao Bug — preserve os caminhos exatamente como retornados pelas tools, sem retranscrever.
+ 
+-Se houver pelo menos um `Falhou`, finalize perguntando se o usuário quer prosseguir para `/analise-falha` (quando existir) sobre os steps que falharam — não encadear automaticamente.
++Se houver pelo menos um `Falhou` (ou divergência de protótipo), **rode `/analise-falha` sobre cada um antes de qualquer Bug** (Step 4.2, item 9) e inclua no relatório a seção "Análise de falha" (por cenário: causa provável, componente, evidência suficiente sim/não). Só depois pergunte à usuária se quer prosseguir para `/gerar-defeito` com os que a análise considerou com evidência suficiente — a criação do Bug nunca é encadeada sem essa análise nem sem aprovação explícita.
++
++---
++
++## Step 5.5 — Fim de 100% dos cenários em um banco: novo chat para o outro banco
++
++Aplica-se quando a US exige os dois bancos (Step 0.6, item 2) e `$BANCOS_PENDENTES` não está vazio.
++
++1. **100% finalizada** = todos os cenários do mapa têm resultado neste banco (`Passou`, `Falhou` já analisado pelo Step 4.2 item 9, ou `NAO EXECUTADO` justificado) e o relatório está gravado. Antes disso, não troque de banco.
++2. **Não troque o banco neste chat.** Grave no relatório: banco concluído, banco pendente e "todos os cenários devem ser repassados no <banco pendente>".
++3. **Abra um novo chat** (contexto limpo) e peça que ele execute, nesta ordem: `/validar-ambiente <ID>` indicando o banco pendente (a skill pergunta, confirma a base e faz a troca) e, depois do veredito, `/executar-teste <ID>` com **todos** os cenários no novo banco. Se houver ferramenta para iniciar sessão (`start_session`), use-a com esse roteiro como instrução; senão entregue à usuária o texto pronto para colar no novo chat: `/validar-ambiente <ID>` (banco: <pendente>) e, em seguida, `/executar-teste <ID>`.
++4. No novo chat, o relatório do banco anterior fica como referência; os resultados dos dois bancos são comparados no fim (divergência de resultado entre bancos é achado a analisar com `/analise-falha`).
+ 
+ ---
+ 
+@@ -311,7 +417,7 @@ execução parou cedo por bloqueio de ambiente/credencial) acrescente uma linha
  em `~/.claude/docs/projetos/skills-qa/LOG-ACOES.md` (via `Edit`, nunca sobrescrevendo o arquivo):
  
  ```
@@ -794,7 +841,7 @@ index a34f35c..8ab3820 100644
  ```
  
  Se `$MODO == "B"` (reteste seletivo pós-bug), use este formato em vez do padrão acima:
-@@ -338,16 +413,17 @@ efeito no ambiente e deve ficar auditável.
+@@ -338,16 +444,17 @@ efeito no ambiente e deve ficar auditável.
  
  ## Troubleshooting
  
@@ -1321,10 +1368,10 @@ index 5aff133..4eefb54 100644
  
 diff --git a/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md b/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md
 new file mode 100644
-index 0000000..0b897e3
+index 0000000..e653f8a
 --- /dev/null
 +++ b/skills-qa-smartshare/skills-qa-smartshare/skills/validar-ambiente.md
-@@ -0,0 +1,356 @@
+@@ -0,0 +1,376 @@
 +---
 +description: Le o mapa de testes publicado no card "Criar Mapa de Teste" filho de uma User Story do Azure DevOps, extrai a coluna Pre-requisitos (formato [CATEGORIA] requisito), valida no ambiente de teste se cada requisito existe e, quando nao existir, CONFIGURA o ambiente (cria usuarios, processos, configuracoes, dados) pela UI. URLs do ambiente, URLs de telas necessarias, admin e usuarios vem de um arquivo de configuracao preenchido pela usuaria (C:\skills-qualidade\config\ambiente-teste.local.md); usuarios criados sao gravados nele. Entrega, por requisito, ATENDIDO / CONFIGURADO / NAO ATENDIDO / NAO VERIFICAVEL e, por cenario, EXECUTAVEL / PARCIAL / BLOQUEADO. Nao executa os cenarios e nunca atua fora de ambiente marcado como teste.
 +---
@@ -1352,6 +1399,7 @@ index 0000000..0b897e3
 +| Perfil | `workspace/management/configuracoes/perfil` | criar perfil |
 +| Área | sem tela própria localizada: é um seletor "Área principal" no cadastro de usuário | selecionar área existente |
 +| Papel | `workspace/management/configuracoes/papel` | criar papel |
++| Configuração do banco (webconfig) | `config/webconfig.aspx` | consultar e trocar o banco do ambiente (Step 0.3d); só por esta tela |
 +
 +Perfil, área e papel são **dependências do cadastro de usuário** (Step 4.5). Na UI observada em 2026-10-23 a área não tem tela própria: o cadastro de usuário tem os seletores "Área principal" e "Papel principal", que listam as existentes; o tipo de usuário "Administrador" é um campo do cadastro. Os caminhos de perfil e papel acima vieram da usuária e não foram abertos nessa observação: confirmar ao usar.
 +
@@ -1379,6 +1427,7 @@ index 0000000..0b897e3
 +- **Tentar antes de declarar `NAO VERIFICAVEL`/`NAO ATENDIDO`.** Razões válidas para `NAO VERIFICAVEL`: (1) falta de acesso (credencial, permissão, URL, MCP) depois de uma tentativa real; (2) requisito vago, sem número, `HIPOTESE:`; (3) só verificável por ação proibida acima. "Não tentei" não é motivo.
 +- **Credenciais só no `$AMBIENTE_CFG`.** Senha de admin e de usuário (informado ou criado) nunca vai ao relatório, ao chat, ao LOG-ACOES ou ao work item. Connection string e token idem.
 +- **Dúvida de conceito ou de como configurar: consultar o hub, senão sinalizar. Nunca inventar.** Termos do mapa que a skill não saiba definir (ex.: "o que é um usuário publicador?", "como crio um perfil?", qual permissão compõe um perfil, onde fica um parâmetro) seguem o Step 3.5. Sem definição no hub, KB ou memória, a skill **não chuta** perfil, permissão ou configuração: sinaliza à usuária e deixa o requisito `NAO VERIFICAVEL`/`NAO ATENDIDO`.
++- **Banco de dados: perguntar, confirmar a base e só trocar pela tela de configuração.** A cada execução a skill pergunta se o ambiente deve estar em **SQL Server** ou **Oracle** e confirma a base (Step 0.3c). Se o banco atual for outro, troca pelo procedimento do Step 0.3d (`config/webconfig.aspx` + conferência do `appsettings.json` do net8 + reinício da API), registrando como foi feito. Nunca troca o banco por `UPDATE`/script no banco, nunca em ambiente que não seja de teste, e credenciais do banco só vêm do `$AMBIENTE_CFG` (nunca neste arquivo, no relatório ou no chat).
 +- **Não reinterpretar o mapa.** Esta skill não cria, remove nem edita cenários ou pré-requisitos; se um pré-requisito parecer errado ou faltar, sinalize e deixe a correção para `/gerar-mapa-testes-v3`.
 +
 +- **Dado simulado (mock) invalida a validação.** O ambiente de teste deve ser o mais próximo possível do cenário real: tela ou endpoint que serve dado simulado (data service em memória, fixture, resposta fixa) não valida dado nem integração. A skill **sempre** verifica isso (Step 3.7) antes de configurar qualquer dado. Mock confirmado → **gera defeito imediatamente** (Step 3.7), por instrução da usuária de 2026-11-03, e o veredito nunca é `PRONTO`. Não "contorna" criando dado no mock.
@@ -1402,6 +1451,20 @@ index 0000000..0b897e3
 +   - **Não existe (primeira execução neste ambiente):** peça à usuária **uma única vez** um admin já existente do ambiente (login e senha informados no chat) apenas para criar o `Claude-adm`. Essa credencial de bootstrap é usada nesta execução e **não é gravada** em arquivo, relatório nem log. Com ela, crie o usuário `Claude-adm` pela tela de usuário (`$URL_BASE` + `workspace/management/configuracoes/usuario`), com o perfil de administrador do ambiente (se o perfil não for identificável, Step 3.5; não chute), senha aleatória de 16 caracteres gerada na hora (receita do Step 4.5) e e-mail, se obrigatório, no domínio de teste do ambiente. Reverifique (aparece no cadastro e o login com a senha gerada funciona) e grave no `$AMBIENTE_CFG`, via `Edit` (tabela "Administração": complete a linha `Claude-adm` marcada `A CRIAR`, ou anexe `ambiente | Claude-adm | senha | CRIADO | <data>` se não houver; nunca apague nem reescreva outras linhas).
 +   - Nas execuções seguintes e em `/executar-teste`, o `Claude-adm` é o admin padrão. Ele existe só para configurar o ambiente de teste: nunca o use para executar cenário nem o conceda a outro usuário.
 +   - Se a usuária não tiver admin de bootstrap ou o sistema recusar a criação (ex.: "Número de usuários disponíveis já foi alcançado", limite da licença): não tente liberar vaga desativando ou apagando usuários; registre o motivo na linha `Claude-adm` do `$AMBIENTE_CFG`, use o admin informado (ex.: `root`, registrado no arquivo **sem senha**; a senha é pedida no chat a cada execução) e rode só a verificação, sem criar usuários (requisitos [USUARIO] ausentes ficam `NAO ATENDIDO`).
++   **0.3c — Banco de dados (SQL Server ou Oracle): perguntar e confirmar a base.** Logo depois do login, **pergunte à usuária, em uma pergunta objetiva, qual banco o ambiente deve usar nesta execução: SQL Server ou Oracle** (não assuma da execução anterior nem do arquivo; consulte `aprendizados\INDICE.md` antes, regra transversal). Em seguida **confirme a base**, lendo **sem alterar nada**: (a) a tela `$URL_BASE` + `config/webconfig.aspx` (Provider, Servidor/Instância, Base de Dados; não clique em "Salvar") e (b) a connection string de `C:\projetos_selbetti\smartshare-net8\src\3 - Core\Project.Core.Api\appsettings.json` (leitura; mascare usuário e senha). Mostre à usuária o resultado (provider, servidor/instância, base, sem senha) e peça o "confirmo":
++   - **Banco atual = banco pedido, e as duas fontes concordam** → siga; registre `banco: <SQL Server | Oracle>` e a base confirmada.
++   - **Banco atual ≠ banco pedido, ou `webconfig.aspx` e `appsettings.json` discordam** → faça a troca (Step 0.3d), só depois do "sim" dela (é mudança de configuração do ambiente).
++   - **Teste que precisa valer nos dois bancos** (a US/mapa cita SQL Server e Oracle, ou CA de paridade): a skill prepara **um banco por vez**. Ao concluir 100% dos cenários em um banco, o `/executar-teste` (Step 5.5) abre um novo chat que roda `/validar-ambiente` para o outro banco e depois repassa **todos** os cenários. Nesta execução, valide apenas o banco informado e avise que o outro ficará para o novo chat.
++   Grave `banco:` no cabeçalho do relatório (Step 6).
++
++   **0.3d — Troca de banco (procedimento).** Parâmetros (provider, servidor/instância, base, usuário e senha do banco, caminho virtual, admin do SmartShare) vêm da seção **"Troca de banco"** do `$AMBIENTE_CFG` (linha do banco de destino); campo `<preencher>` ou linha ausente = informação ausente: peça à usuária exatamente esse campo e grave-o no arquivo (nunca em outro lugar). Passos:
++   1. **Registre o estado de origem** (provider/servidor/base atuais, sem senha), para poder voltar.
++   2. Navegue para `$URL_BASE` + `config/webconfig.aspx` e preencha: em **Banco de dados**, Provider, Servidor/Instância, Base de Dados, Usuário e Senha; em **SmartShare**, Caminho Virtual (ex.: `/smartshare/`), Usuário Administrador e Senha. **Oracle:** o campo Base de Dados fica **em branco** (desabilitado para Oracle); Provider `System.Data.OracleClient`. **SQL Server:** use os valores da linha SQL Server do arquivo (Base de Dados preenchida). Clique em **Salvar** e **confirme a mensagem de sucesso** (sem ela, a troca não vale: registre a mensagem do sistema e pare).
++   3. **Conferir o código do net8:** abra (somente leitura) `C:\projetos_selbetti\smartshare-net8\src\3 - Core\Project.Core.Api\appsettings.json` e valide que a connection string passou a apontar para o banco de destino (provider/servidor/instância/usuário; não copie a senha para o relatório). Não editou? Não altere o arquivo à mão: reporte a divergência.
++   4. **Reiniciar a API do net8**: a alteração só vale depois do reinício. Use o procedimento já registrado em aprendizado, se houver; senão peça à usuária para reiniciar a API (ou informar como) e **aguarde a confirmação**, registrando o método usado. Não siga antes do reinício.
++   5. **Reverificar:** repita a leitura do item 0.3c (webconfig + appsettings coerentes com o destino) e o login pela tela com o admin (`Claude-adm`/`root`, conforme Step 0.3b; observação do `$AMBIENTE_CFG`: usuário criado em um banco só autentica naquele banco). Sem login concluindo → `NAO ATENDIDO` com a mensagem; não tente contornar.
++   6. **Registrar o aprendizado da troca:** ao terminar (sucesso ou não), grave `C:\skills-qualidade\analises-diversas\aprendizados\APR-NNN_troca-de-banco-<origem>-para-<destino>.md` (e a linha em `INDICE.md`, conforme `README.md` da pasta) descrevendo **como a troca foi feita nesta execução, do seu jeito**: telas e campos tocados, ordem, o que o sistema respondeu, como a API foi reiniciada, tempo de espera, armadilhas e como o login foi reverificado. **Nunca grave senha ou connection string completa**. Nas execuções seguintes, leia esse aprendizado primeiro e siga-o, para a usuária não precisar repetir o passo a passo; se a prática mudou, atualize o mesmo aprendizado.
++   Estas instruções valem para qualquer direção (SQL Server → Oracle ou Oracle → SQL Server). Só se executa em ambiente de teste e com o "sim" da usuária.
 +4. Verifique que `mcp__playwright` está conectado. Se indisponível, **não pare**: tudo que depende da UI vira `NAO VERIFICAVEL` (motivo: browser indisponível) e nada é configurado.
 +5. Verifique se há MCP de banco somente leitura para o ambiente (nome a confirmar). Se não houver, a verificação segue pela UI; senão `NAO VERIFICAVEL` (sem acesso de leitura ao banco).
 +   **0.5b — Conector Figma.** Se algum requisito do mapa for de acesso ao protótipo (ex.: `[AMBIENTE] acesso ao protótipo Figma da US`) ou a US trouxer link do Figma, verifique se o **conector Figma** está conectado ao chat (ferramentas do servidor Figma, por exemplo `get_metadata`, `get_screenshot` e `whoami`; se estiverem como ferramentas adiadas, carregue-as com `ToolSearch`). Conector ausente → o requisito fica `NAO VERIFICAVEL (conector Figma não conectado)`; peça à usuária para conectá-lo ao chat. **Nunca** digite login/senha do Figma no navegador nem use credencial do `$AMBIENTE_CFG` para autenticar: a autenticação é da usuária, pelo conector.
@@ -1453,7 +1516,7 @@ index 0000000..0b897e3
 +
 +Antes de navegar, apresente à usuária:
 +
-+- ambiente, `$URL_BASE` informada e as URLs de tela (base + caminho) que serão usadas;
++- ambiente, `$URL_BASE` informada, as URLs de tela (base + caminho) que serão usadas e o **banco** confirmado no Step 0.3c (e a troca de banco, se for fazer);
 +- quantidade de cenários e de requisitos distintos, por categoria;
 +- como cada categoria será verificada e **o que será configurado caso falte** (tabela abaixo), com o que ficará `NAO VERIFICAVEL` de antemão.
 +
@@ -1581,6 +1644,7 @@ index 0000000..0b897e3
 +us: <ID>
 +mapa: <MAPA_ID>
 +ambiente: <ambiente> (<URL>)
++banco: <SQL Server | Oracle> (base/instância confirmada)
 +execucao: <$EXEC>
 +veredito: <PRONTO | PRONTO COM RESSALVAS | PARCIALMENTE PRONTO | NAO PRONTO>
 +configurado: <n itens configurados>
@@ -1592,7 +1656,7 @@ index 0000000..0b897e3
 +```
 +# Validação de ambiente — #<ID> <Título da US>
 +
-+Mapa: #<MAPA_ID> · Ambiente: <ambiente> (<URL>) · Execução: <$EXEC>
++Mapa: #<MAPA_ID> · Ambiente: <ambiente> (<URL>) · Banco: <SQL Server | Oracle> · Execução: <$EXEC>
 +**Veredito: <veredito>** — <N> cenários: <a> executáveis, <b> parciais, <c> bloqueados · <k> itens configurados
 +
 +## Requisitos (<M> distintos)
@@ -1657,6 +1721,9 @@ index 0000000..0b897e3
 +---
 +
 +## Troubleshooting
++
++- **Banco não confirmado ou webconfig e appsettings discordando:** não valide nem configure dado; resolva o banco primeiro (Step 0.3c/0.3d). Dados criados em um banco não existem no outro (usuários, processos): cada troca de banco exige nova validação do ambiente.
++- **Troca de banco sem reiniciar a API do net8:** a connection string do `appsettings.json` só é relida no reinício; login falhando logo após a troca costuma ser API ainda no banco antigo.
 +
 +- **Mapa sem coluna `Pre-requisitos` (8 colunas):** não há o que validar. Pare e sugira regerar com `/gerar-mapa-testes-v3`; nunca invente pré-requisitos.
 +- **Muitos cenários `Nenhum específico`:** é válido. Eles entram como `EXECUTAVEL`; só informe a contagem.
