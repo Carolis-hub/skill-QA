@@ -1,9 +1,9 @@
 ---
-version: 1.0
+version: 1.1
 description: Investiga uma falha de teste (de /executar-teste ou relatada manualmente) e determina causa provavel, componente relacionado e se ha evidencia suficiente para abrir um defeito no Azure DevOps. Nao cria nada — so decide se vale a pena seguir para /gerar-defeito.
 ---
 
-**Versão da skill: 1.0** (2026-11-09) · histórico em `CHANGELOG.md`
+**Versão da skill: 1.1** (2026-11-09) · histórico em `CHANGELOG.md`
 
 Analisar a falha a partir de **$ARGUMENTS**.
 
@@ -19,7 +19,7 @@ Este comando é a Skill 5 (QA Failure Analyst). Ele **não cria bug** — só de
 
 ## Regra transversal — Fidelidade à versão legada
 
-Vale para todas as skills. O legado é a referência para descobrir o comportamento existente (a US explícita e as mudanças aprovadas prevalecem). Leia **`C:\skills-qualidade\skills-qa-smartshare\skills-qa-smartshare\templates\DIRETRIZ_FIDELIDADE_LEGADO.md`** (fonte única; não replique o texto aqui) e aplique-a ao que esta skill faz: não presumir melhoria, investigar divergência legado × migrado e registrar exceção documentada.
+Vale para todas as skills. O legado é a referência para descobrir o comportamento existente (a US explícita e as mudanças aprovadas prevalecem). Leia **`C:\skills-qualidade\skills-qa-smartshare\templates\DIRETRIZ_FIDELIDADE_LEGADO.md`** (fonte única; não replique o texto aqui) e aplique-a ao que esta skill faz: não presumir melhoria, investigar divergência legado × migrado e registrar exceção documentada.
 
 ## Regra transversal — Dúvidas viram aprendizados
 

@@ -1,9 +1,9 @@
 ---
-version: 1.0
+version: 1.1
 description: Monta o registro estruturado de um defeito (Bug) a partir de uma analise de falha ja concluida e cria no Azure DevOps via MCP — sempre com confirmacao explicita do usuario antes de escrever. Severidade e sempre sugestao, nunca decisao automatica.
 ---
 
-**Versão da skill: 1.0** (2026-11-09) · histórico em `CHANGELOG.md`
+**Versão da skill: 1.1** (2026-11-09) · histórico em `CHANGELOG.md`
 
 Gerar o defeito a partir de **$ARGUMENTS**.
 
@@ -17,7 +17,7 @@ Este comando é a Skill 6 (Geração de Defeito). Ele **depende de uma análise 
 
 ## Regra transversal — Fidelidade à versão legada
 
-Vale para todas as skills. O legado é a referência para descobrir o comportamento existente (a US explícita e as mudanças aprovadas prevalecem). Leia **`C:\skills-qualidade\skills-qa-smartshare\skills-qa-smartshare\templates\DIRETRIZ_FIDELIDADE_LEGADO.md`** (fonte única; não replique o texto aqui) e aplique-a ao que esta skill faz: não presumir melhoria, investigar divergência legado × migrado e registrar exceção documentada.
+Vale para todas as skills. O legado é a referência para descobrir o comportamento existente (a US explícita e as mudanças aprovadas prevalecem). Leia **`C:\skills-qualidade\skills-qa-smartshare\templates\DIRETRIZ_FIDELIDADE_LEGADO.md`** (fonte única; não replique o texto aqui) e aplique-a ao que esta skill faz: não presumir melhoria, investigar divergência legado × migrado e registrar exceção documentada.
 
 ## Regra transversal — Dúvidas viram aprendizados
 
