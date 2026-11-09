@@ -3,6 +3,8 @@ version: 1.0
 description: Interpreta uma User Story do Azure DevOps (regra de negocio, criterios de aceite) e extrai objetivo, regras explicitas/implicitas, ambiguidades, dependencias e riscos, sem inventar informacao.
 ---
 
+**Versão da skill: 1.0** (2026-11-09) · histórico em `CHANGELOG.md`
+
 Analisar o negocio da historia do Azure DevOps a partir de **$ARGUMENTS**.
 
 Formato esperado: `[ID da historia] [nome do projeto (opcional)]`

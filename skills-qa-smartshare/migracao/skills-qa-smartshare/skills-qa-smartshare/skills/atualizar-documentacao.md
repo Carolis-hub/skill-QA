@@ -3,6 +3,8 @@ version: 1.0
 description: Identifica paginas da wiki do Azure DevOps impactadas por uma historia validada e propoe atualizacao (funcionalidade, regra de negocio, FAQ, exemplos, procedimentos) — sempre com aprovacao explicita, pagina por pagina, antes de publicar.
 ---
 
+**Versão da skill: 1.0** (2026-11-09) · histórico em `CHANGELOG.md`
+
 Atualizar a documentação a partir de **$ARGUMENTS**.
 
 Formato esperado: `[ID da história] [nome do projeto (opcional)] [nome da wiki (opcional)]`

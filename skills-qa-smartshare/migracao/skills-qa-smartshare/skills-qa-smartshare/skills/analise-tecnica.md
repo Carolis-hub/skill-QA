@@ -3,6 +3,8 @@ version: 1.0
 description: Le o card de Analise Tecnica (preenchido pelo dev) vinculado a uma historia do Azure DevOps, cruza com o PR vinculado quando existir, e mapeia classes/componentes impactados, dependencias e risco por camada.
 ---
 
+**Versão da skill: 1.0** (2026-11-09) · histórico em `CHANGELOG.md`
+
 Analisar o impacto tecnico da historia do Azure DevOps a partir de **$ARGUMENTS**.
 
 Formato esperado: `[ID da historia] [nome do projeto (opcional)]`

@@ -3,6 +3,8 @@ version: 1.0
 description: Le o mapa de testes publicado no card "Criar Mapa de Teste" filho de uma User Story do Azure DevOps, extrai a coluna Pre-requisitos (formato [CATEGORIA] requisito), valida no ambiente de teste se cada requisito existe e, quando nao existir, CONFIGURA o ambiente (cria usuarios, processos, configuracoes, dados) pela UI. URLs do ambiente, URLs de telas necessarias, admin e usuarios vem de um arquivo de configuracao preenchido pela usuaria (C:\skills-qualidade\config\ambiente-teste.local.md); usuarios criados sao gravados nele. Entrega, por requisito, ATENDIDO / CONFIGURADO / NAO ATENDIDO / NAO VERIFICAVEL e, por cenario, EXECUTAVEL / PARCIAL / BLOQUEADO. Nao executa os cenarios e nunca atua fora de ambiente marcado como teste.
 ---
 
+**Versão da skill: 1.0** (2026-11-09) · histórico em `CHANGELOG.md`
+
 Validar e preparar o ambiente para os testes da User Story do Azure DevOps a partir de **$ARGUMENTS**.
 
 Formato esperado: `[ID da User Story] [nome do projeto (opcional)] [ambiente (opcional, default: HMG)]`

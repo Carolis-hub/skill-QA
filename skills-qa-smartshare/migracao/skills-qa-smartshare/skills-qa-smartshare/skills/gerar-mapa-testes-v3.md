@@ -3,6 +3,8 @@ version: 1.0
 description: Generate a test case map from an Azure DevOps story and publish it directly into the Description field of the "Criar Mapa de Teste" card (child of the story), via MCP only — no Test Plan, no REST, no PAT. v3 — checklist obrigatorio de dimensoes (permissao/dados/concorrencia/regressao), tecnica formal de teste por cenario, historico de defeitos e reaproveitamento de /analise-negocio e /analise-tecnica. Baseado no v2 (encoding-hardened) apenas na parte de analise; a parte de publicacao foi reescrita para nao usar Test Plan.
 ---
 
+**Versão da skill: 1.0** (2026-11-09) · histórico em `CHANGELOG.md`
+
 Generate a test map from Azure DevOps story arguments **$ARGUMENTS**.
 
 Expected format: `[ID da história] [nome do projeto (opcional)]`

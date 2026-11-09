@@ -2,7 +2,7 @@
 
 Versões das skills em `skills/` e dos arquivos de apoio em `templates/`. O detalhe linha a linha de cada mudança está no [`REGISTRO_ALTERACOES.md`](REGISTRO_ALTERACOES.md) (ALT-001 em diante, por rodada).
 
-Como versionar daqui para frente: cada skill traz `version:` no cabeçalho (front matter). Mudou comportamento ou relatório de uma skill → registrar a ALT no `REGISTRO_ALTERACOES.md`, descrever aqui sob uma nova versão (`1.1`, `1.2`, ...; `2.0` para quebra de fluxo) e criar a tag git `vX.Y` no commit que fecha a versão.
+Como versionar daqui para frente: a versão fica no início de cada skill, em dois lugares que devem andar juntos: `version:` no cabeçalho (front matter) e a linha `**Versão da skill: X.Y** (data)` logo no começo do texto, que aparece quando a skill roda. Mudou comportamento ou relatório de uma skill → registrar a ALT no `REGISTRO_ALTERACOES.md`, descrever aqui sob uma nova versão (`1.1`, `1.2`, ...; `2.0` para quebra de fluxo) e atualizar os dois lugares nas skills alteradas. Não se usa tag git.
 
 ## 1.0 — 2026-11-09
 

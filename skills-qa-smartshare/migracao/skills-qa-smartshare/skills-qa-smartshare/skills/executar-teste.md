@@ -3,6 +3,8 @@ version: 1.0
 description: Executa de fato, via browser (MCP Playwright), os cenarios do mapa de testes publicado no card "Criar Mapa de Teste" filho de uma User Story do Azure DevOps, comparando resultado obtido vs esperado por cenario e parando para intervencao humana nos casos previstos (credencial, dado ausente, ambiente indisponivel, acao irreversivel). Tambem aceita o ID de um Bug ja corrigido para propor e rodar uma lista seletiva de reteste (regressao proporcional ao fix), em vez de reteste pontual raso ou mapa completo caro — e, quando chamada com o ID da propria US, detecta sozinha Bugs filhos corrigidos ainda sem reteste confirmado e oferece rodar esse reteste seletivo antes do mapa completo.
 ---
 
+**Versão da skill: 1.0** (2026-11-09) · histórico em `CHANGELOG.md`
+
 Executar os testes da User Story do Azure DevOps a partir de **$ARGUMENTS**.
 
 Formato esperado: `[ID da User Story OU ID de um Bug] [nome do projeto (opcional)] [ambiente (opcional, default: HMG)]`

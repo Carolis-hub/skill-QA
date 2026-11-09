@@ -3,6 +3,8 @@ version: 1.0
 description: Valida se uma release (conjunto de historias) esta pronta para producao — identifica impactos, seleciona regressao (automatizada + manual), executa, analisa falhas e recomenda Aprovada / Aprovada com ressalvas / Reprovada. Recomendacao, nao decisao automatica.
 ---
 
+**Versão da skill: 1.0** (2026-11-09) · histórico em `CHANGELOG.md`
+
 Homologar a release a partir de **$ARGUMENTS**.
 
 Formato esperado: `[ID1 ID2 ID3 ...]` (lista de IDs de história/PBI que compõem a release) **ou** `"[nome da iteration]"` (best-effort — busca histórias Resolved/Done nessa iteration).
