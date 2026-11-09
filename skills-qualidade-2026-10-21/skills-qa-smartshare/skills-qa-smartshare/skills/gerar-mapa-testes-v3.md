@@ -178,10 +178,10 @@ Consulta **somente leitura** ao código dos repositórios do hub SmartShare, ape
 
 ## Step 3.8 — Recomendações do Claude (se existirem)
 
-Procure o arquivo mais recente (maior `$EXEC` no nome) em `$CICLOS_DIR\US-<ID>\recomendacoes-qa\`. Se não existir, siga sem erro. Se existir, trate cada `REC-<ID>-NN` conforme o `Status`:
+Procure o arquivo `C:\skills-qualidade\pendencias-skills\US <ID>.txt` (gerado pela `/analise-tecnica`, uma linha por par `pendência -> recomendação [Status]`). Se não existir, ou se nenhuma linha tiver recomendação, siga sem erro. Se existir, trate cada recomendação (`REC-<ID>-NN`, com `NN` = número do item na lista) conforme o `[Status]`:
 
 - **Aprovada / Ajustada:** vale como 5ª fonte do Step 4.0, só para a pendência que ela resolve. O cenário derivado (Ação/Resultado Esperado, usando o texto ajustado quando houver) deve trazer, na célula de origem/justificativa, a marca **"Recomendação do Claude (REC-<ID>-NN), aprovada pela usuária em <data>, não definida na US"**.
-- **Pendente de aprovação:** **pergunte à usuária antes de gerar o mapa** se aprova, ajusta ou rejeita (nunca presuma). Sem resposta explícita, **não gere cenário com resultado esperado** a partir dela: liste na seção "Fonte técnica" como "REC-<ID>-NN pendente de aprovação (sem cenário)". Esta skill **não altera** o `Status` do arquivo; quem registra a decisão é a `/analise-negocio` ou a usuária.
+- **Pendente de aprovação:** **pergunte à usuária antes de gerar o mapa** se aprova, ajusta ou rejeita (nunca presuma). Sem resposta explícita, **não gere cenário com resultado esperado** a partir dela: liste na seção "Fonte técnica" como "REC-<ID>-NN pendente de aprovação (sem cenário)". Esta skill **não altera** o `[Status]` do arquivo; quem registra a decisão é a `/analise-tecnica` (ao receber a resposta da usuária) ou a própria usuária.
 - **Rejeitada:** ignore.
 
 Divergência em cenário marcado como recomendação **não vira defeito automaticamente**: antes, confirmar a regra com PM/PO (registrar isso na marca do cenário).

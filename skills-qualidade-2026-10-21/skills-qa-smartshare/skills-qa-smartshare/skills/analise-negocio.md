@@ -167,7 +167,7 @@ Itens já definidos de forma verificável (não bloqueiam): <lista ou "Nenhum">.
 <itens atribuídos a PM/PO/negócio/não informado, ou `Nenhum item a validar antes do desenvolvimento (descrição: "<frase literal>")`>
 ```
 
-Mesmo com a análise bloqueada, execute o Step 4.5 para os pontos de atenção do dev. Nada é criado, editado ou comentado no Azure DevOps (além da marcação do Step 1.5). Só conclua a análise (Step 4) quando o Step 3.5 não encontrar nenhuma pendência bloqueante.
+Mesmo com a análise bloqueada, apresente no chat os pontos de atenção do dev (Step 4.5). Nada é criado, editado ou comentado no Azure DevOps (além da marcação do Step 1.5). Só conclua a análise (Step 4) quando o Step 3.5 não encontrar nenhuma pendência bloqueante.
 
 ---
 
@@ -217,67 +217,29 @@ Só execute este passo se o Step 3.5 não tiver encontrado pendência bloqueante
 <itens de PM/PO/negócio/não informado, ou `Nenhum item a validar antes do desenvolvimento (descrição: "<frase literal>")`>
 ```
 
-Informe no fim do relatório os caminhos dos arquivos gerados nos Steps 4.5 e 5. Se houver informações ausentes, avise em uma linha que as recomendações serão dadas pela `/analise-tecnica`, depois da validação no hub. Finalize perguntando ao usuário se deseja prosseguir para a análise técnica (`/analise-tecnica`, quando existir) ou diretamente para o mapa de testes (`/gerar-mapa-testes-v2 <ID>`) — não encadeie automaticamente.
+Se houver informações ausentes, avise em uma linha que as recomendações serão dadas pela `/analise-tecnica`, depois da validação no hub. Finalize perguntando ao usuário se deseja prosseguir para a análise técnica (`/analise-tecnica`) ou diretamente para o mapa de testes (`/gerar-mapa-testes-v3 <ID>`) — não encadeie automaticamente.
 
 ---
 
-## Step 4.5 — Registrar os pontos de atenção do dev (executar sempre, inclusive quando o Step 3.5 bloqueia)
+## Step 4.5 — Pontos de atenção do dev: registrar só no chat (executar sempre, inclusive quando o Step 3.5 bloqueia)
 
-**Regra de registro (diretório único):** todo arquivo gravado por esta skill vai para o diretório fixo `$CICLOS_DIR` = `C:\skills-qualidade\ciclos-executados`, nunca para uma pasta relativa ao diretório de trabalho nem para dentro de `skills-qa-smartshare`. Se a sessão estiver em outro diretório, use mesmo assim o caminho absoluto; crie as subpastas se não existirem.
-
-Defina `$EXEC` = data e hora da execução no formato `AAAA-MM-DD_HHmm` (ex.: `2026-10-15_1432`), a mesma para os arquivos deste Step e do Step 5.
-
-Grave os pontos de atenção do dev (item 10 do Step 3) em `$CICLOS_DIR\US-<ID>\pendencias-dev\US-<ID>_<$EXEC>.md` (crie os diretórios se não existirem). **Nunca sobrescreva** arquivo de execução anterior: cada execução gera um arquivo novo. É o arquivo mais recente (maior `$EXEC` no nome) que `/analise-tecnica` usa para validar se tudo o que a US pediu ao dev foi respondido.
-
-Formato fixo:
-
-```
-# Pendências do dev — US #<ID> <Título>
-
-Gerado em: <AAAA-MM-DD> por /analise-negocio | Revisão da US (System.Rev): <rev>
-
-| ID | Item (transcrito da descrição) | Onde na US | CA que depende | Responsável declarado | Status |
-|---|---|---|---|---|---|
-| PD-<ID>-01 | <trecho literal> | <seção da descrição / CA n> | <CA n ou "—"> | <dev / back-end / time> | Aberto |
-```
+Os pontos de atenção do dev (item 10 do Step 3) são registrados **apenas no chat**, na seção "Pontos de atenção (respondidos pelo dev)" do relatório (Step 4) ou do relatório de bloqueio (Step 3.5). **Esta skill não grava nenhum arquivo** (nem de pendências, nem do relatório): o que vale é o que foi apresentado na conversa, e a `/analise-tecnica` lê esse relatório da própria conversa.
 
 - Um ID por item (`PD-<ID>-NN`), na ordem em que aparecem na descrição; transcreva literalmente, sem reinterpretar nem responder.
-- Inclua no cabeçalho a linha `Execução: <$EXEC>`.
-- `Status` sempre `Aberto` — quem atualiza é a `/analise-tecnica`, nunca esta skill.
-- Se não houver pontos de atenção, grave o arquivo mesmo assim com a linha `Nenhuma pendência atribuída ao dev na descrição da US.` no lugar da tabela, para a `/analise-tecnica` distinguir "sem pendências" de "análise de negócio não executada".
+- `Responsável declarado` e `CA que depende` seguem a tabela do Step 4. Não há coluna `Status`: quem verifica a resposta é a `/analise-tecnica`.
+- Se não houver pontos de atenção, escreva `Nenhum identificado` na seção, para a `/analise-tecnica` distinguir "sem pendências" de "análise de negócio não rodou".
 - Não grave nada no Azure DevOps (além da marcação do Step 1.5).
 
 ---
 
 ## Step 4.6 — Recomendações NÃO são emitidas nesta skill
 
-Esta skill **não gera `REC-...`, não grava a pasta `recomendacoes-qa` e não pergunta aprovação de recomendação.** A recomendação só pode ser dada **depois das duas análises (negócio e técnica) e depois de validar no hub** (comportamento do SmartShare clássico, somente leitura). Quem emite é a `/analise-tecnica` (Step 4.6 dela), que parte das "Informações ausentes" deste relatório e só recomenda o que continuar sem resposta depois do card do dev, do PR e do hub.
+Esta skill **não gera `REC-...`, não grava arquivo de recomendação e não pergunta aprovação de recomendação.** A recomendação só pode ser dada **depois das duas análises (negócio e técnica) e depois de validar no hub** (comportamento do SmartShare clássico, somente leitura). Quem emite é a `/analise-tecnica` (Step 4.6 dela), que parte das "Informações ausentes" deste relatório e só recomenda o que continuar sem resposta depois do card do dev, do PR e do hub.
 
 - Toda lacuna de negócio fica apenas como `Informação não encontrada / necessita validação` no relatório (Step 4).
 - Não proponha solução, "menor desvio" nem texto de regra no lugar da lacuna.
-- Recomendação já existente de execução anterior (`recomendacoes-qa`) não é lida, alterada nem aprovada aqui.
+- Recomendação já existente de execução anterior (arquivo `pendencias-skills` da `/analise-tecnica`) não é lida, alterada nem aprovada aqui.
 - Não grave nada no Azure DevOps (além da marcação do Step 1.5).
-
----
-
-## Step 5 — Salvar o relatório da análise (executar sempre)
-
-Grave **exatamente o que foi apresentado ao usuário** — o relatório do Step 4 ou o relatório de bloqueio do Step 3.5 — em `$CICLOS_DIR\US-<ID>\analises-negocio\US-<ID>_<$EXEC>.md` (mesmo `$EXEC` do Step 4.5; crie os diretórios se não existirem). **Nunca sobrescreva** execuções anteriores: cada execução gera um arquivo novo.
-
-Cabeçalho obrigatório no topo do arquivo, antes do relatório:
-
-```
----
-us: <ID>
-titulo: <título>
-execucao: <$EXEC>
-revisao_us: <System.Rev>
-resultado: Concluída | Bloqueada
-pendencias_dev: C:\skills-qualidade\ciclos-executados\US-<ID>\pendencias-dev\US-<ID>_<$EXEC>.md
----
-```
-
-Informe ao usuário, no fim, os caminhos dos arquivos gravados (análise e pendências do dev). Não grave nada no Azure DevOps (além da marcação do Step 1.5).
 
 ---
 

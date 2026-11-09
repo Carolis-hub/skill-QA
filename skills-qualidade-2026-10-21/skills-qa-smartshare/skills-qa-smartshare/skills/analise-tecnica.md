@@ -64,7 +64,7 @@ Antes de qualquer análise, é obrigatório localizar, entre os filhos (`Hierarc
 
 > ⏸️ **Análise técnica ainda não disponível.** A história #`<ID>` não possui um card filho do tipo `Análise` preenchido pelo dev. Esta etapa depende desse insumo — aguarde o dev registrar a análise técnica no Azure DevOps antes de rodar `/analise-tecnica` novamente.
 >
-> Enquanto isso, é possível seguir direto para `/gerar-mapa-testes-v2 <ID>`, que usa apenas a história (sem os pontos de impacto técnico) — mas o mapa ficará mais raso.
+> Enquanto isso, é possível seguir direto para `/gerar-mapa-testes-v3 <ID>`, que usa apenas a história (sem os pontos de impacto técnico) — mas o mapa ficará mais raso.
 
 Não tente compensar a ausência do card lendo o código diretamente por conta própria como substituto — isso muda a fonte de verdade combinada com o time (o dev é quem valida o que foi de fato alterado) e foge do escopo desta skill.
 
@@ -113,15 +113,15 @@ Se um arquivo do diff tocar em algo não mencionado em `$ANALISE_PONTOS`, sinali
 
 ## Step 2.5 — Validar as pendências do dev registradas pela análise de negócio
 
-Leia o arquivo **mais recente** (maior data/hora no nome) de `$CICLOS_DIR\US-<ID>\pendencias-dev\US-<ID>_*.md` (gerado por `/analise-negocio`; `$CICLOS_DIR` = `C:\skills-qualidade\ciclos-executados`, diretório único de registro, nunca relativo ao diretório de trabalho). Informe no relatório qual arquivo foi usado. Cada linha `PD-<ID>-NN` é algo que a US pediu ao dev para verificar, validar ou confirmar.
+Leia a seção "Pontos de atenção (respondidos pelo dev)" do relatório da `/analise-negocio` **desta conversa** (`/analise-negocio` não grava arquivo). Informe no relatório que a origem foi essa seção. Cada linha `PD-<ID>-NN` é algo que a US pediu ao dev para verificar, validar ou confirmar.
 
-- **Arquivo inexistente:** avise que `/analise-negocio` não foi executada (ou não registrou pendências) e que não foi possível validar as pendências do dev; siga com o restante da análise e registre isso em "Informações ausentes". Não reconstrua a lista por conta própria a partir da US.
-- **Arquivo com `Nenhuma pendência atribuída ao dev na descrição da US.`:** registre "sem pendências do dev a validar" e siga.
+- **Relatório da `/analise-negocio` ausente na conversa** (ou de outra US): avise que a análise de negócio não foi executada para esta US e que não foi possível validar as pendências do dev; siga com o restante da análise e registre isso em "Informações ausentes". Não reconstrua a lista por conta própria a partir da US.
+- **Seção com `Nenhum identificado`:** registre "sem pendências do dev a validar" e siga.
 - **Para cada item da tabela**, procure a resposta **somente** em `$ANALISE_PONTOS`, `$ANALISE_CASOS`, nos comentários da US e do card `Análise`, e no PR/diff (Step 2). Classifique:
   - **Respondida** — há resposta explícita e verificável; cite a evidência (campo do card, comentário ou `PR #<n>, arquivo <path>`).
   - **Parcial** — há menção, mas falta parte do que foi pedido (diga o que falta).
   - **Não respondida** — nada encontrado. Escreva `Informação não encontrada / necessita validação.`
-- Não responda o item por inferência própria nem pelo conhecimento do produto. Esta skill não altera o arquivo `pendencias-dev`; o resultado vai só no relatório (Step 4).
+- Não responda o item por inferência própria nem pelo conhecimento do produto. O resultado vai só no relatório (Step 4).
 - Itens **Parcial** ou **Não respondida** são **destaque** do relatório e devem ser avisados ao usuário antes de seguir para o mapa de testes; não bloqueiam a geração do relatório técnico.
 
 ---
@@ -213,10 +213,10 @@ Antes de montar o relatório, liste os pontos pendentes pelos mesmos critérios 
 ### Fora do escopo da US
 <apenas fato: arquivo + resumo de 1 linha do que mudou + "fora do escopo desta US". Sem análise de risco/recomendação aqui — é matéria da skill de revisão de branch/PR do time de dev (a criar), não desta análise.>
 
-## Validação das pendências do dev (origem: $CICLOS_DIR\US-<ID>\pendencias-dev\US-<ID>_<execução>.md)
+## Validação das pendências do dev (origem: relatório da /analise-negocio desta conversa)
 | ID | Item pedido ao dev | Situação (Respondida / Parcial / Não respondida) | Evidência ou o que falta |
 |---|---|---|---|
-(ou "sem pendências do dev a validar" / "arquivo não encontrado — /analise-negocio não registrou pendências")
+(ou "sem pendências do dev a validar" / "relatório da /analise-negocio não encontrado nesta conversa")
 
 ## Validação das pendências no clássico (hub)
 | Pendência | Resultado (Confirmado / Diverge / Lacuna) | Evidência (`arquivo:símbolo`, lida-no-codigo) | O que o clássico faz |
@@ -233,13 +233,13 @@ Antes de montar o relatório, liste os pontos pendentes pelos mesmos critérios 
 - Informação não encontrada / necessita validação: ...
 ```
 
-Se houver pendência, o Step 3.8 (validação no clássico) roda antes do relatório. Antes de finalizar, execute o Step 4.5 (registrar pendências) e o Step 4.6 (recomendações). Finalize perguntando se o usuário quer seguir para `/gerar-mapa-testes-v2 <ID>` — não encadeie automaticamente.
+Se houver pendência, o Step 3.8 (validação no clássico) roda antes do relatório. Antes de finalizar, execute o Step 4.5 (arquivo único de pendências e recomendações) e o Step 4.6 (recomendações, gravadas nesse mesmo arquivo). Finalize perguntando se o usuário quer seguir para `/gerar-mapa-testes-v3 <ID>` — não encadeie automaticamente.
 
 ---
 
-## Step 4.5 — Registrar pendências (arquivo separado)
+## Step 4.5 — Registrar pendências e recomendações (arquivo único)
 
-Ao terminar a validação da US, decida se existe pendência a registrar e, se existir, crie ou atualize um arquivo na pasta `pendencias-skills`.
+Ao terminar a validação da US, decida se existe pendência a registrar e, se existir, crie ou atualize **um único arquivo** na pasta `pendencias-skills`, que guarda cada pendência junto com a recomendação dela (Step 4.6). Não existe arquivo separado de recomendações.
 
 ### Quando criar
 - Crie o arquivo somente se a validação encontrar **pelo menos um ponto pendente**. Ponto pendente é qualquer um destes:
@@ -253,14 +253,14 @@ Ao terminar a validação da US, decida se existe pendência a registrar e, se e
   - telas, APIs, regras ou integrações impactadas sem identificação;
   - campos vazios (Alteração de Classe/Tela, Caso de Teste).
 - **Não são ponto pendente** (não entram no arquivo nem no relatório como pendência): estado dos cards `Analise Review` e `Code Review` (ex.: "New"), ausência de task de CR ou de Mapa, configuração de banco de dados e se a branch está implantada em ambiente dev.
-- Dúvidas de CA e de descrição que dependem de resposta do dev ou da PM (CA contraditório, "a confirmar", termo ambíguo) ficam **só no chat**, não entram no arquivo.
+- Dúvidas de CA e de descrição que dependem de resposta do dev ou da PM (CA contraditório, "a confirmar", termo ambíguo) ficam **só no chat**, não entram no arquivo, **exceto** a lacuna de negócio que o Step 4.6 transformar em recomendação: ela entra no arquivo, no par pendência -> recomendação.
 - Se **não houver nenhum ponto pendente**, **não crie** o arquivo.
 
 ### Onde e como
 - Caminho: `C:\skills-qualidade\pendencias-skills\US <ID>.txt` (caminho absoluto, nunca relativo ao diretório de trabalho). Crie a pasta se não existir.
 - Um arquivo por US. Se o arquivo da US já existir, **sobrescreva** com a lista atualizada, preservando o bloco "Resolvidos pela resposta do dev" e o bloco "Desconsiderados a pedido" já existentes. Nunca crie um segundo arquivo para a mesma US.
 - Texto puro, UTF-8, sem markdown.
-- Conteúdo **bem resumido**: só título, ID, dev e os itens pendentes, **uma linha por item**. Sem contexto longo, sem descrição da US, sem casos de teste.
+- Conteúdo **bem resumido**: só título, ID, dev e os itens (pendência e recomendação), **uma linha por item**. Sem contexto longo, sem descrição da US, sem casos de teste.
 
 Formato:
 
@@ -269,17 +269,22 @@ US <ID>
 Título: <título da US>
 Dev da análise: <nome do dev que fez a análise>
 
-Itens pendentes na análise:
-1. <pendência em uma linha>
-2. <pendência em uma linha>
+Pendências e recomendações:
+1. <pendência A> -> <recomendação A> [Pendente de aprovação]
+2. <pendência B> -> <recomendação B> [Pendente de aprovação]
+3. <pendência C> -> Sem recomendação (<motivo curto: ex. depende do dev, bloqueante de negócio, erro técnico>)
 ```
+
+- Cada linha é o par **pendência -> recomendação**. Pendência sem recomendação (a recomendação só existe para lacuna de negócio, Step 4.6) usa `-> Sem recomendação (<motivo>)`.
+- O rótulo da recomendação é `REC-<ID>-NN`, onde `NN` é o número do item na lista; ele não aparece na linha, é derivado da posição (a `/gerar-mapa-testes-v3` o usa ao citar a recomendação).
+- O sufixo `[Status]` da recomendação é um de: `Pendente de aprovação` | `Aprovada` | `Ajustada: <texto da usuária>` | `Rejeitada`.
 
 - Os itens são os mesmos destacados ao usuário no relatório e no aviso ao dev, escritos de forma curta. Quando o Step 3.8 validou o item no clássico, acrescente ao fim da linha `[clássico: confirmado | diverge | lacuna]`.
 - Se a tarefa não tem ID no Azure DevOps, use `Task <nº> - <assunto>.txt` e escreva "(sem ID no Azure DevOps)" no cabeçalho.
 
 ### Ciclo de vida
 - Quando o dev ou a PM responder, atualize o arquivo: tire os itens resolvidos da lista e mova-os para um bloco ao final, "Resolvidos pela resposta do dev (<data>)". Itens que a pessoa pediu para desconsiderar vão no bloco "Desconsiderados a pedido".
-- Se todos os itens forem resolvidos, avise a pessoa e **pergunte se o arquivo pode ser apagado**. Não apague sem confirmação.
+- A decisão da usuária sobre uma recomendação (Step 4.6) atualiza só o `[Status]` da linha. Se todos os itens forem resolvidos, avise a pessoa e **pergunte se o arquivo pode ser apagado**. Não apague sem confirmação.
 - No resumo final da execução, informe o caminho do arquivo criado ou atualizado. Se não criou arquivo, diga que não houve pendência.
 
 ---
@@ -288,36 +293,18 @@ Itens pendentes na análise:
 
 A recomendação (`REC-<ID>-NN`) só é dada **depois das duas análises (negócio e técnica) e depois da validação no hub (Step 3.8)**. Esta skill é a única que as emite; a `/analise-negocio` não gera recomendação.
 
-**Quando emitir:** leia a análise de negócio mais recente (`$CICLOS_DIR\US-<ID>\analises-negocio\US-<ID>_*.md`, maior data/hora no nome) e liste as "Informações ausentes" dela. Para cada uma, verifique, nesta ordem, se já tem resposta: (1) regra escrita na US, (2) protótipo (só front), (3) card `Análise` do dev e PR, (4) clássico via hub (Step 3.8, `lida-no-codigo`). **Só vira recomendação a lacuna que continuar sem resposta depois dessas fontes** (precedência do APR-001). Lacuna respondida por fonte anterior não gera `REC`: registre no relatório a fonte que respondeu. Se a análise de negócio não existir, não emita recomendação e avise a usuária para executá-la antes. Se o hub não foi consultado (Step 3.8 pulado por ausência), avise na linha da recomendação que a validação no hub não ocorreu.
+**Quando emitir:** leia o relatório da `/analise-negocio` **desta conversa** (ela não grava arquivo) e liste as "Informações ausentes" dela. Para cada uma, verifique, nesta ordem, se já tem resposta: (1) regra escrita na US, (2) protótipo (só front), (3) card `Análise` do dev e PR, (4) clássico via hub (Step 3.8, `lida-no-codigo`). **Só vira recomendação a lacuna que continuar sem resposta depois dessas fontes** (precedência do APR-001). Lacuna respondida por fonte anterior não gera `REC`: registre no relatório a fonte que respondeu. Se o relatório da análise de negócio não estiver na conversa, não emita recomendação e avise a usuária para executá-la antes. Se o hub não foi consultado (Step 3.8 pulado por ausência), avise na linha da recomendação que a validação no hub não ocorreu.
 
 **Como propor:** escolha o menor desvio do que a US já define e justifique citando o CA ou o trecho de origem. A recomendação é sempre **sugestão do Claude, não regra de negócio**; não proponha para pendência bloqueante de negócio (Step 3.5 da `/analise-negocio`).
 
-**Onde gravar:** `$CICLOS_DIR\US-<ID>\recomendacoes-qa\US-<ID>_<$EXEC>.md` (`$CICLOS_DIR` = `C:\skills-qualidade\ciclos-executados`; `$EXEC` = `AAAA-MM-DD_HHmm`; **nunca sobrescreva** arquivo anterior). Formato fixo:
-
-```
----
-us: <ID>
-origem: RECOMENDAÇÃO DO CLAUDE (QA), NÃO DECISÃO DA PM/PO
-execucao: <$EXEC>
-revisao_us: <System.Rev>
-analise_negocio: <caminho do arquivo usado>
-analise_tecnica: <esta execução>
-validacao_hub: Consultado | Não consultado (<motivo>)
----
-
-# Recomendações — US #<ID> <Título>
-
-| ID | Informação ausente | Recomendação | Justificativa (base na US) | Impacto no mapa | Status | Decisão da usuária |
-|---|---|---|---|---|---|---|
-| REC-<ID>-01 | ... | ... | ... | ... | Pendente de aprovação | — |
-```
+**Onde gravar:** no arquivo único do Step 4.5 (`C:\skills-qualidade\pendencias-skills\US <ID>.txt`), na mesma linha da pendência que a recomendação resolve, no formato `<pendência> -> <recomendação> [Status]`. Não crie pasta nem arquivo separado de recomendações. Cada recomendação traz a justificativa curta (CA ou trecho da US de origem) dentro da própria linha e vale sempre como **sugestão do Claude, não decisão da PM/PO**.
 
 **Regra de aprovação (inegociável):**
-- **Nunca aprove, ajuste ou rejeite uma recomendação por conta própria.** Todo item nasce `Pendente de aprovação`. Só vale resposta **explícita da usuária, no chat**, item a item ou em lote nomeado ("aprovo todas", "aprovo 01 a 04 e rejeito 05").
+- **Nunca aprove, ajuste ou rejeite uma recomendação por conta própria.** Toda recomendação nasce `[Pendente de aprovação]`. Só vale resposta **explícita da usuária, no chat**, item a item ou em lote nomeado ("aprovo todas", "aprovo 01 a 04 e rejeito 05").
 - Depois do relatório, **pergunte** quais aprova, ajusta ou rejeita (pode usar `AskUserQuestion`) e só então a pergunta de próximo passo. Silêncio, "ok" ou "prossiga" **não são aprovação**.
-- Resposta explícita → atualize só a linha do item: `Status` = `Aprovada` | `Ajustada` (grave o texto da usuária) | `Rejeitada`, e `Decisão da usuária` = `<AAAA-MM-DD>, <resposta em poucas palavras>`.
+- Resposta explícita → atualize só a linha do item: `[Status]` = `Aprovada` | `Ajustada: <texto da usuária>` | `Rejeitada`, acrescentando a data da decisão (`AAAA-MM-DD`) ao final da linha.
 - Recomendação aprovada **não é editada na US nem no Azure DevOps**; segue identificada como "recomendação aprovada pela usuária", nunca como regra original.
-- Sem lacuna a recomendar, não crie o arquivo e diga isso no resumo. Informe o caminho do arquivo gravado. Nada é gravado no Azure DevOps.
+- Sem lacuna a recomendar, o arquivo só traz as pendências (`-> Sem recomendação`), ou não existe se também não houve pendência; diga isso no resumo. Informe o caminho do arquivo criado ou atualizado. Nada é gravado no Azure DevOps.
 
 ---
 
