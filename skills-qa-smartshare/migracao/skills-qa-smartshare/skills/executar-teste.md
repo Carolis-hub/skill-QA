@@ -1,9 +1,9 @@
 ---
-version: 1.1
+version: 1.3
 description: Executa de fato, via browser (MCP Playwright), os cenarios do mapa de testes publicado no card "Criar Mapa de Teste" filho de uma User Story do Azure DevOps, comparando resultado obtido vs esperado por cenario e parando para intervencao humana nos casos previstos (credencial, dado ausente, ambiente indisponivel, acao irreversivel). Tambem aceita o ID de um Bug ja corrigido para propor e rodar uma lista seletiva de reteste (regressao proporcional ao fix), em vez de reteste pontual raso ou mapa completo caro — e, quando chamada com o ID da propria US, detecta sozinha Bugs filhos corrigidos ainda sem reteste confirmado e oferece rodar esse reteste seletivo antes do mapa completo.
 ---
 
-**Versão da skill: 1.1** (2026-11-09) · histórico em `CHANGELOG.md`
+**Versão da skill: 1.3** (2026-11-09) · histórico em `CHANGELOG.md`
 
 Executar os testes da User Story do Azure DevOps a partir de **$ARGUMENTS**.
 
@@ -33,6 +33,10 @@ Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendi
 3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
 4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
 5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
+
+## Regra transversal — Orçamento de tokens da fase
+
+Vale para `/validar-ambiente`, `/executar-teste`, `/analise-falha` e `/gerar-defeito`. Cada fase tem orçamento de **50 M de tokens** (leitura de cache incluída) ou **100 mensagens**, o que vier primeiro; a usuária pode trocar o valor. A skill não vê o próprio consumo: conte as mensagens da fase e use o valor do `/cost` quando a usuária o informar. Ao atingir o limite, termine o passo em andamento (nunca no meio de uma escrita ou ação irreversível), **avise uma vez** e sugira abrir sessão nova com o bastão. Formato do bastão e regras em `C:\skills-qualidade\skills-qa-smartshare\templates\ORCAMENTO_TOKENS.md` (leia só quando o limite for atingido).
 
 ## Regra fundamental (guardrails)
 
@@ -424,7 +428,7 @@ Grave esse comentário **mesmo se algum cenário falhou** (o marcador indica "o 
 
 Na coluna **Evidência**, para cada `Falhou`: caminho(s) de arquivo real(is) (screenshot local, ex. `.playwright-mcp\page-....png`) e/ou o resumo da evidência de rede (status HTTP, trecho do corpo) — nunca só a palavra "screenshot"/"network" sem o dado concreto. Essas evidências são o insumo que `/analise-falha` referencia e que `/gerar-defeito` anexa ao Bug — preserve os caminhos exatamente como retornados pelas tools, sem retranscrever.
 
-Se houver pelo menos um `Falhou` (ou divergência de protótipo), **rode `/analise-falha` sobre cada um antes de qualquer Bug** (Step 4.2, item 9) e inclua no relatório a seção "Análise de falha" (por cenário: causa provável, componente, evidência suficiente sim/não; ao final, a tabela "Bugs criados" com os itens que geraram Bug e o ID de cada um). Só depois pergunte à usuária se quer prosseguir para `/gerar-defeito` com os que a análise considerou com evidência suficiente — a criação do Bug nunca é encadeada sem essa análise nem sem aprovação explícita.
+Se houver pelo menos um `Falhou` (ou divergência de protótipo), **rode `/analise-falha` sobre cada um antes de qualquer Bug** (Step 4.2, item 9) e inclua no relatório a seção "Análise de falha" (por cenário: causa provável, componente, evidência suficiente sim/não; ao final, a tabela "Bugs criados" com os itens que geraram Bug e o ID de cada um). Só depois pergunte à usuária se quer prosseguir para `/gerar-defeito` com os que a análise considerou com evidência suficiente (a skill cria todos em lote, com uma aprovação para a lista) — a criação do Bug nunca é encadeada sem essa análise nem sem aprovação explícita.
 
 ---
 

@@ -1,13 +1,13 @@
 ---
-version: 1.1
-description: Monta o registro estruturado de um defeito (Bug) a partir de uma analise de falha ja concluida e cria no Azure DevOps via MCP — sempre com confirmacao explicita do usuario antes de escrever. Severidade e sempre sugestao, nunca decisao automatica.
+version: 1.3
+description: Monta o registro estruturado de um ou mais defeitos (Bugs) a partir de uma analise de falha ja concluida e cria todos no Azure DevOps via MCP, em lote — sempre com confirmacao explicita do usuario sobre a lista antes de escrever. Severidade e sempre sugestao, nunca decisao automatica.
 ---
 
-**Versão da skill: 1.1** (2026-11-09) · histórico em `CHANGELOG.md`
+**Versão da skill: 1.3** (2026-11-09) · histórico em `CHANGELOG.md`
 
-Gerar o defeito a partir de **$ARGUMENTS**.
+Gerar o(s) defeito(s) a partir de **$ARGUMENTS**.
 
-Formato esperado: `[ID da história ou Test Case] [nome do projeto (opcional)]`
+Formato esperado: `[ID da história ou Test Case] [nome do projeto (opcional)]`. Quando a execução deixou **vários** itens com veredito `SIM`, a skill trabalha todos de uma vez (**lote**): uma lista, uma aprovação, uma criação, um vínculo e um único script de anexos.
 
 Exemplo: `157538` ou `157538 "Nome do Projeto"`
 
@@ -29,6 +29,10 @@ Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendi
 4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
 5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
 
+## Regra transversal — Orçamento de tokens da fase
+
+Vale para `/validar-ambiente`, `/executar-teste`, `/analise-falha` e `/gerar-defeito`. Cada fase tem orçamento de **50 M de tokens** (leitura de cache incluída) ou **100 mensagens**, o que vier primeiro; a usuária pode trocar o valor. A skill não vê o próprio consumo: conte as mensagens da fase e use o valor do `/cost` quando a usuária o informar. Ao atingir o limite, termine o passo em andamento (nunca no meio de uma escrita ou ação irreversível), **avise uma vez** e sugira abrir sessão nova com o bastão. Formato do bastão e regras em `C:\skills-qualidade\skills-qa-smartshare\templates\ORCAMENTO_TOKENS.md` (leia só quando o limite for atingido).
+
 ## Pré-requisito bloqueante
 
 1. Se `/analise-falha` rodou nesta conversa para o mesmo ID e o veredito foi `NÃO`, **pare** e informe que a evidência ainda não é suficiente — não gere o defeito mesmo que o usuário peça, a menos que ele forneça agora informação nova que mude o veredito (nesse caso, rode o Step 2 do `/analise-falha` de novo mentalmente antes de prosseguir).
@@ -37,6 +41,8 @@ Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendi
 ---
 
 ## Step 0 — Reunir os dados do defeito
+
+**Lote:** monte os campos abaixo para **cada** item com veredito `SIM` da mesma execução (o relatório de `/analise-falha`, ou a seção "Análise de falha" do `/executar-teste`). Itens com veredito `NÃO` ficam fora. Depois de aplicar as regras de agrupamento mais adiante (mesmo comportamento = um Bug; divergências de protótipo = um Bug), o resultado é a lista `$LOTE` = D1, D2, ..., Dn; um lote de um item só segue o mesmo fluxo.
 
 A partir do relatório de `/analise-falha` (reaproveitar diretamente) ou do que o usuário forneceu agora, monte:
 
@@ -92,13 +98,18 @@ Se qualquer um desses campos não puder ser preenchido com uma fonte real, escre
 **Evidências:** ...
 ```
 
-**STOP HERE.** Pergunte: **"Aprovar criação deste Bug no Azure DevOps (projeto `<project>`)?"** e aguarde confirmação explícita. Não chame nenhuma ferramenta de escrita antes disso.
+**Em lote:** apresente primeiro uma tabela-resumo e, depois dela, os rascunhos um após o outro (D1, D2, ...), cada um no modelo acima:
+
+| # | Título | Cenário de origem | Severidade sugerida | Evidências (arquivos) |
+|---|---|---|---|---|
+
+**STOP HERE.** Faça **uma única pergunta**: **"Aprovar a criação destes <N> Bugs no Azure DevOps (projeto `<project>`)? Responda: todos, todos menos os itens <X>, ou indique o item a ajustar."** e aguarde confirmação explícita. Item ajustado volta à tabela para nova confirmação só dele; os já aprovados não esperam por ele. Não chame nenhuma ferramenta de escrita antes disso. A aprovação vale só para a lista mostrada: defeito que surgir depois exige nova aprovação.
 
 ---
 
-## Step 2 — Criar o Bug via MCP (só após aprovação)
+## Step 2 — Criar os Bugs via MCP (só após aprovação da lista)
 
-Chame `mcp__azure-devops__create_work_item` com:
+Para **cada Bug aprovado**, em sequência, chame `mcp__azure-devops__create_work_item` com:
 - `projectId`: conforme `$ARGUMENTS`, ou resolvido a partir do projeto da história de origem quando não informado
 - `workItemType`: `"Bug"`
 - `title` = título aprovado (com o prefixo `BUG -`)
@@ -110,81 +121,95 @@ Chame `mcp__azure-devops__create_work_item` com:
 
 ⚠️ **Por que `ReproSteps` e não `Description`:** o template de Bug do projeto de origem exibe `Microsoft.VSTS.TCM.ReproSteps` como o campo principal do card — `System.Description` existe mas fica pouco visível/pode nem aparecer na tela padrão. Descoberto em 2026-09-21 (US #161109, Bug #161659): o defeito foi criado só com `description` preenchido, a usuária abriu o card e não viu a explicação/passos, porque olhava o card real, onde `ReproSteps` estava vazio. Nunca usar o parâmetro `description` do `create_work_item` como único lugar do conteúdo — ele mapeia para `System.Description`, não para o campo visível no card. Se preferir, pode espelhar o mesmo conteúdo em `description` também (redundância inofensiva), mas `ReproSteps` via `additionalFields` é obrigatório.
 
-Capture o `$BUG_ID` retornado. **Antes de declarar sucesso no Step 4, chame `mcp__azure-devops__get_work_item` no `$BUG_ID` e confirme que `Microsoft.VSTS.TCM.ReproSteps` não está `null`/vazio** — não confie só no eco da chamada de criação.
+Guarde cada `$BUG_ID` retornado em `$BUGS` (item do lote → `$BUG_ID`). **Falha na criação de um Bug não interrompe os demais:** registre-a e siga com o resto. **Antes de declarar sucesso no Step 4, chame `mcp__azure-devops__get_work_item` em cada `$BUG_ID` e confirme que `Microsoft.VSTS.TCM.ReproSteps` não está `null`/vazio** — não confie só no eco da chamada de criação.
 
 ---
 
 ## Step 3 — Vincular à história (só após criação, com confirmação separada)
 
-Pergunte se deseja vincular o Bug à história de origem (`$STORY_ID`, se conhecida).
+Faça **uma única pergunta** para o lote: "Vincular os <N> Bugs (#<BUG_ID1>, #<BUG_ID2>, ...) à história de origem #<STORY_ID> como filhos?" (`$STORY_ID`, se conhecida).
 
 ⚠️ **O vínculo correto é filho (Hierarchy), não "Related".** No board do Azure DevOps, o menu de contexto do card da US (⋯ → "Add Bug") cria o Bug como **filho** da história — é esse vínculo que faz o ícone de bug (joaninha) aparecer nos badges do card, ao lado dos badges de Análise/Mapa de Teste (que também são filhos). Um link `Related` cria a relação, mas ela fica invisível na visão compacta do board — o Bug "desaparece" dentro da US para quem só olha o board.
 
-Se o usuário confirmar o vínculo, chame `mcp__azure-devops__wit_work_item_link_write` com `action: "link"`, `project`, e `updates: [{ "id": <BUG_ID>, "linkToId": <STORY_ID>, "type": "parent" }]` — isso cria o Bug como filho da história (equivalente ao "Add Bug" do board). Depois confirme no corpo da resposta que `relations` contém `"rel": "System.LinkTypes.Hierarchy-Reverse"` apontando para a história, com `"name": "Parent"`, antes de reportar sucesso.
+Se o usuário confirmar o vínculo, chame `mcp__azure-devops__wit_work_item_link_write` **uma vez**, com `action: "link"`, `project`, e `updates` com **um item por Bug**: `[{ "id": <BUG_ID1>, "linkToId": <STORY_ID>, "type": "parent" }, { "id": <BUG_ID2>, "linkToId": <STORY_ID>, "type": "parent" }, ...]` — isso cria cada Bug como filho da história (equivalente ao "Add Bug" do board). Depois confirme, para cada Bug, no corpo da resposta que `relations` contém `"rel": "System.LinkTypes.Hierarchy-Reverse"` apontando para a história, com `"name": "Parent"`, antes de reportar sucesso.
 
 Se por engano o Bug tiver sido criado/vinculado como `Related`, corrija: `wit_work_item_link_write` com `action: "unlink"`, `id: <BUG_ID>`, `type: "related"` para remover, e então repita o link acima com `type: "parent"`.
 
 ---
 
-## Step 3.5 — Anexar evidências ao Bug (se houver arquivo de evidência)
+## Step 3.5 — Anexar evidências aos Bugs (se houver arquivo de evidência)
 
-Se o Step 0 capturou caminho(s) de arquivo local (screenshot(s) do `/executar-teste`), anexe ao Bug recém-criado. **Não existe tool MCP de upload de anexo** (`wit_work_item_attachment` só faz *download*) — use REST direto, mesmo padrão de PAT já usado em `/gerar-mapa-testes-v2`.
+Se o Step 0 capturou caminho(s) de arquivo local (screenshot(s) do `/executar-teste`), anexe aos Bugs recém-criados. **Não existe tool MCP de upload de anexo** (`wit_work_item_attachment` só faz *download*) — use REST direto, com PAT.
 
-Não pergunte aprovação separada para isto — anexar a evidência que já embasou o Bug aprovado no Step 1 é parte da mesma criação, não uma ação nova.
+Não pergunte aprovação separada para isto — anexar a evidência que já embasou os Bugs aprovados no Step 1 é parte da mesma criação, não uma ação nova.
 
-Para cada arquivo de evidência, em um único bloco PowerShell:
+**Um único script PowerShell para o lote inteiro**: monte `$lote` com um item por Bug (`bugId` e `files`), rode uma vez e leia a saída. Um arquivo que serve a mais de um Bug é enviado **uma só vez** e ligado a cada Bug.
 
 ```powershell
 $org     = "selbettidev"
 $project = "$PROJECT"   # mesmo valor usado no Step 2
-$bugId   = "$BUG_ID"
-$filePath = "<caminho local do screenshot, ex.: .playwright-mcp\page-....png>"
 
-# Derive PAT from PERSONAL_ACCESS_TOKEN (mesmo padrão do gerar-mapa-testes-v2)
+# Um item por Bug do lote: ID criado no Step 2 e os caminhos locais de evidência desse Bug
+$lote = @(
+  @{ bugId = "<BUG_ID1>"; files = @("<caminho 1>", "<caminho 2>") },
+  @{ bugId = "<BUG_ID2>"; files = @("<caminho 3>") }
+)
+
+# PAT a partir de PERSONAL_ACCESS_TOKEN
 $encoded = $env:PERSONAL_ACCESS_TOKEN
 $decoded = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($encoded))
 $pat = ($decoded -split ':', 2)[1]
 $base64 = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$pat"))
 $authHeader = @{ Authorization = "Basic $base64" }
-
-# 1. Upload do arquivo como anexo "solto" (ainda não ligado a nenhum work item)
-$fileName = Split-Path $filePath -Leaf
-$uploadUri = "https://dev.azure.com/$org/$([Uri]::EscapeDataString($project))/_apis/wit/attachments?fileName=$([Uri]::EscapeDataString($fileName))&api-version=7.1"
-$attachment = Invoke-RestMethod -Uri $uploadUri -Headers $authHeader -Method Post -InFile $filePath -ContentType "application/octet-stream"
-Write-Output "ATTACHMENT_URL=$($attachment.url)"
-
-# 2. Vincular o anexo ao Bug via JSON Patch (relation rel=AttachedFile)
-$patchBody = @(@{ op = "add"; path = "/relations/-"; value = @{ rel = "AttachedFile"; url = $attachment.url; attributes = @{ comment = "Evidencia capturada durante /executar-teste" } } }) | ConvertTo-Json -Depth 5
 $patchHeaders = $authHeader + @{ "Content-Type" = "application/json-patch+json" }
-Invoke-RestMethod -Uri "https://dev.azure.com/$org/$([Uri]::EscapeDataString($project))/_apis/wit/workitems/$bugId`?api-version=7.1" -Headers $patchHeaders -Method Patch -Body $patchBody | Out-Null
-Write-Output "ATTACHED_TO_BUG=$bugId"
+
+$enviados = @{}   # caminho -> url do anexo (evita reenviar o mesmo arquivo)
+foreach ($item in $lote) {
+  foreach ($filePath in $item.files) {
+    try {
+      if (-not $enviados.ContainsKey($filePath)) {
+        $fileName = Split-Path $filePath -Leaf
+        $uploadUri = "https://dev.azure.com/$org/$([Uri]::EscapeDataString($project))/_apis/wit/attachments?fileName=$([Uri]::EscapeDataString($fileName))&api-version=7.1"
+        $enviados[$filePath] = (Invoke-RestMethod -Uri $uploadUri -Headers $authHeader -Method Post -InFile $filePath -ContentType "application/octet-stream").url
+      }
+      $patchBody = @(@{ op = "add"; path = "/relations/-"; value = @{ rel = "AttachedFile"; url = $enviados[$filePath]; attributes = @{ comment = "Evidencia capturada durante /executar-teste" } } }) | ConvertTo-Json -Depth 5
+      Invoke-RestMethod -Uri "https://dev.azure.com/$org/$([Uri]::EscapeDataString($project))/_apis/wit/workitems/$($item.bugId)?api-version=7.1" -Headers $patchHeaders -Method Patch -Body $patchBody | Out-Null
+      Write-Output "ATTACHED bug=$($item.bugId) file=$filePath"
+    } catch {
+      Write-Output "FAILED bug=$($item.bugId) file=$filePath erro=$($_.Exception.Message)"
+    }
+  }
+}
 ```
 
-Repita para cada arquivo de evidência distinto. Se `Invoke-RestMethod` falhar (ex.: PAT sem escopo de anexos, arquivo não encontrado no caminho informado), não bloqueie a criação do Bug — ele já existe e está vinculado à história; apenas registre no relatório final que o anexo não pôde ser enviado e por quê.
+Uma falha em um arquivo (PAT sem escopo de anexos, arquivo não encontrado no caminho informado) não interrompe os demais nem bloqueia os Bugs, que já existem e estão vinculados à história; registre no relatório final, por Bug, o que foi anexado e o que falhou, com o motivo.
 
 ---
 
 ## Step 4 — Confirmar e reportar
 
+Uma tabela para o lote (uma linha por Bug), e a lista do que não foi criado, com o motivo:
+
 ```
-**Bug criado:** #<BUG_ID>
-**Link:** https://dev.azure.com/selbettidev/<project>/_workitems/edit/<BUG_ID>
-**Vinculado à história:** #<STORY_ID> (ou "não vinculado — usuário optou por não vincular agora")
-**Evidências anexadas:** <lista de arquivos anexados, ou "nenhuma — motivo">
+| Item do lote | Bug | Link | Vinculado à história | Evidências anexadas |
+|---|---|---|---|---|
+| <D1: título curto> | #<BUG_ID> | https://dev.azure.com/selbettidev/<project>/_workitems/edit/<BUG_ID> | #<STORY_ID> (ou "não vinculado — usuário optou por não vincular agora") | <lista de arquivos, ou "nenhuma — motivo"> |
 ```
+
+Itens não aprovados ou cuja criação falhou entram abaixo da tabela, em `Não criados:`, com o motivo. Se o `/executar-teste` está aberto na conversa, a tabela "Bugs criados" da seção "Análise de falha" do relatório recebe o ID de cada item.
 
 ---
 
 ## Step 5 — Registrar no log de ações (governança)
 
-Depois de reportar o sucesso, acrescente uma linha ao final da tabela em
+Depois de reportar o sucesso, acrescente **uma linha por Bug** (rastreabilidade individual) ao final da tabela em
 `~/.claude/docs/projetos/skills-qa/LOG-ACOES.md` (via `Edit`, nunca sobrescrevendo o arquivo):
 
 ```
 | <data/hora atual, ex.: via `Get-Date -Format "yyyy-MM-dd HH:mm"`> | `/gerar-defeito` | Criação de Bug + vínculo à história | Bug #<BUG_ID> → US #<STORY_ID> | Sucesso | <nome do usuário que aprovou no chat> | <resumo de 1 linha do bug + se evidência foi anexada> |
 ```
 
-Se o Bug foi criado mas o vínculo ou o anexo de evidência falhou (ver Troubleshooting), registre
+Se um Bug foi criado mas o vínculo ou o anexo de evidência falhou (ver Troubleshooting), registre
 mesmo assim — com `Resultado` descrevendo o que funcionou e o que não (ex.: "Sucesso parcial —
 Bug criado, anexo falhou por falta de PAT"). Nunca pule este passo silenciosamente; se a escrita
 no log falhar, avise no relatório ao usuário, mas isso não desfaz a criação do Bug.
@@ -197,3 +222,5 @@ no log falhar, avise no relatório ao usuário, mas isso não desfaz a criação
 - Nunca decidir a severidade final sozinho — sempre apresentar como sugestão e deixar claro que é editável.
 - Se `create_work_item` falhar por campo obrigatório do projeto não preenchido (ex.: Area Path, Iteration Path específicos de Bug), preencher com os mesmos valores da história de origem, não com um default genérico.
 - Se `$env:PERSONAL_ACCESS_TOKEN` não estiver definido no Step 3.5, não trate como erro bloqueante — o Bug já foi criado e vinculado; apenas informe que a evidência não pôde ser anexada automaticamente por falta do PAT, e que o usuário pode anexar manualmente pela UI do Azure DevOps.
+- Em lote, falha de criação, de vínculo ou de anexo de um Bug **não** desfaz nem interrompe os outros: conclua o lote, reporte item a item e deixe o refazer para depois, só do que falhou (nova aprovação só se o texto do Bug mudar).
+- Nunca crie um Bug do lote que a usuária tenha retirado ("todos menos X") nem amplie a lista depois da aprovação: defeito novo vira novo lote, com nova aprovação.

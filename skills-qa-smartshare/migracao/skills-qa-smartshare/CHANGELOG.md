@@ -4,6 +4,14 @@ Versões das skills em `skills/` e dos arquivos de apoio em `templates/`. O deta
 
 Como versionar daqui para frente: a versão fica no início de cada skill, em dois lugares que devem andar juntos: `version:` no cabeçalho (front matter) e a linha `**Versão da skill: X.Y** (data)` logo no começo do texto, que aparece quando a skill roda. Mudou comportamento ou relatório de uma skill → registrar a ALT no `REGISTRO_ALTERACOES.md`, descrever aqui sob uma nova versão (`1.1`, `1.2`, ...; `2.0` para quebra de fluxo) e atualizar os dois lugares nas skills alteradas. Não se usa tag git.
 
+## 1.3 — 2026-11-09
+
+Menos tokens nas fases de execução (a leitura de cache foi ~95% do consumo medido em 09/11). Afeta `validar-ambiente`, `executar-teste`, `analise-falha` e `gerar-defeito`, que passam à versão 1.3.
+- **Orçamento de tokens da fase:** cada uma das 4 skills tem o limite de 50 M de tokens ou 100 mensagens por fase; ao atingir, a skill termina o passo em andamento, avisa uma vez e entrega um bastão para abrir sessão nova. Regras e formato em `templates/ORCAMENTO_TOKENS.md` (ALT-142).
+- **Defeitos em lote no `gerar-defeito`:** todos os itens com veredito SIM da execução viram uma lista, com uma única aprovação, criação em sequência, um único vínculo à história e um único script de anexos para todos os Bugs; a falha de um Bug não interrompe os demais; o log segue com uma linha por Bug (ALT-143).
+
+Regra de versão por skill: a versão exibida em cada skill é a do último release em que ela mudou; as skills que não mudaram ficam na versão anterior.
+
 ## 1.2 — 2026-11-09
 
 Só `gerar-mapa-testes-v3` (as outras 9 skills seguem na 1.1): removida a seção "O que muda em relação ao v2", de ~1,5 mil tokens, que era histórico. As regras que ela listava continuam nos Steps próprios (2, 3, 3.5, 3.9, 3.10, 4.0, 4.2b, 4.4, 5, 5b e 6.5). Não muda comportamento (ALT-141).

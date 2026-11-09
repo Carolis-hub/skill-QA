@@ -1,9 +1,9 @@
 ---
-version: 1.1
+version: 1.3
 description: Investiga uma falha de teste (de /executar-teste ou relatada manualmente) e determina causa provavel, componente relacionado e se ha evidencia suficiente para abrir um defeito no Azure DevOps. Nao cria nada — so decide se vale a pena seguir para /gerar-defeito.
 ---
 
-**Versão da skill: 1.1** (2026-11-09) · histórico em `CHANGELOG.md`
+**Versão da skill: 1.3** (2026-11-09) · histórico em `CHANGELOG.md`
 
 Analisar a falha a partir de **$ARGUMENTS**.
 
@@ -30,6 +30,10 @@ Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendi
 3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
 4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
 5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
+
+## Regra transversal — Orçamento de tokens da fase
+
+Vale para `/validar-ambiente`, `/executar-teste`, `/analise-falha` e `/gerar-defeito`. Cada fase tem orçamento de **50 M de tokens** (leitura de cache incluída) ou **100 mensagens**, o que vier primeiro; a usuária pode trocar o valor. A skill não vê o próprio consumo: conte as mensagens da fase e use o valor do `/cost` quando a usuária o informar. Ao atingir o limite, termine o passo em andamento (nunca no meio de uma escrita ou ação irreversível), **avise uma vez** e sugira abrir sessão nova com o bastão. Formato do bastão e regras em `C:\skills-qualidade\skills-qa-smartshare\templates\ORCAMENTO_TOKENS.md` (leia só quando o limite for atingido).
 
 ## Regra fundamental
 
