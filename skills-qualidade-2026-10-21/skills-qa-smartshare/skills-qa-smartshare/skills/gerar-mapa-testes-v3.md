@@ -170,6 +170,7 @@ Consulta **somente leitura** ao código dos repositórios do hub SmartShare, ape
 
 - **Localizar o hub:** variável `SMARTSHARE_HUB`; se ausente, `C:\GIT\smartshare-hub`. Se não existir, **pule sem erro** e siga.
 - Use o código para detalhar nomes de campos/telas, mensagens, validações e valores reais. 
+- **Regra do Clássico:** ao ler o legado (SmartShare clássico), carregue a skill `analyse-legacy-smartshare` (raiz do workspace) e siga a seção "Como ler o legado" da `DIRETRIZ_FIDELIDADE_LEGADO.md`: host de referência `SmartShareWeb`; busque com `git -C SmartShare grep`, porque a busca comum não enxerga essa pasta; nunca use código comentado como regra. Comandos de leitura do git (`grep`, `log`, `blame`) não violam a regra abaixo.
 - **Regra fixa: não alterar nada no hub.** O hub (`SMARTSHARE_HUB` ou `C:\GIT\smartshare-hub`) é somente leitura: nenhum checkout, pull, fetch com alteração de branch, commit, push, edição, criação ou remoção de arquivo, nem execução de build, script ou comando que escreva no diretório.
 - **Não crie cenário novo a partir do código.** Cenários só nascem das 4 fontes do Step 4.0; o código apenas refina a redação dos já existentes.
 

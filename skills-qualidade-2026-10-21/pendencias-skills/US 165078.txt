@@ -1,0 +1,12 @@
+US 165078
+Título: UNIMED FEDERAÇÃO — Ampliar o limite de caracteres do campo DS_DESTINO_VALOR (banco + interface)
+Dev da análise: Pedro Fellipe Roque Rocha
+
+Itens pendentes na análise:
+1. PD-165078-01: card não conclui se o limite de 1000 tem impacto (lista impactos, sem conclusão) [Parcial]
+2. PD-165078-03: Oracle sem CHAR depende do NLS_LENGTH_SEMANTICS; BYTE x CHAR com acentos segue sem decisão [Parcial]
+3. PD-165078-04: metadado de tamanho do BPM2 (Share 4): card e PR não tratam [Não respondida]
+4. PD-165078-05: execução do fluxo no Agent do Share 4 não confirmada no card nem no PR; Clássico confirmado em ServiceTask.cs [clássico: confirmado] [Parcial]
+5. Campo virou textarea e aceita quebra de linha; execução faz Split(',') em ServiceTask.cs:138 e o tratamento de quebra/espaço no retorno não foi confirmado [clássico: lacuna]
+6. Scripts da versão 3.56.10 (Database/Desenvolvimento/2.0 Cargas.sql:1133 e Database/Oracle/2.Carga.sql:4460) fixam a coluna em 150; ordem de execução frente aos novos 0.2/0.3 PreEstrutura não confirmada [clássico: lacuna]
+7. PR 30548: descrição diz só "MaxLength 150 -> 1000", mas a branch tem textarea (card correto); lista de arquivos do diff não obtida, só 3 dos 8 arquivos do card conferidos

@@ -22,6 +22,19 @@ O legado revela o comportamento existente, mas **não substitui** requisito expl
 5. **Investigar divergências:** divergência legado × migrado é investigada (intencional ou regressão?) antes de virar defeito ou ser aceita.
 6. **Documentar exceções:** mudança funcional prevista é registrada com justificativa; o novo comportamento vira a referência.
 
+## Como ler o legado (SmartShare clássico)
+
+Vale para toda leitura do código do Clássico, em qualquer skill. Origem: US 164849, 2026-11-06, quando uma afirmação sobre o Clássico saiu errada por leitura da cópia errada.
+
+1. **Carregue a skill `analyse-legacy-smartshare`** (raiz do workspace, `$SMARTSHARE_HUB/.claude/skills/`) antes de concluir qualquer regra do Clássico: ela traz o host, os padrões e as armadilhas. Antes de reabrir uma tela, veja o cache de diagnósticos `SmartShare/.claude/docs/analises-realizadas/`.
+2. **Host de referência = `SmartShare/SmartShareWeb`.** `WebApplication` e `BPMWebSite` são cópias e podem estar desatualizadas (o `TipoIndiceForm` de `WebApplication` não muda desde 2019). Uma citação só vale com caminho em `SmartShareWeb`; se o trecho só existir na cópia, escreva "só na cópia" e confira no host.
+3. **Busque com `git -C <hub>/SmartShare grep -n "<termo>" -- '*.cs' '*.aspx' '*.ascx'`.** A busca comum (Grep) respeita o `.gitignore` do Clássico (`/SmartShareWeb`, linha 171) e **não lista** essa pasta: uma busca ampla sem resultado do `SmartShareWeb` não prova que o texto não existe lá. Alternativa: apontar o caminho direto para `SmartShare/SmartShareWeb`. `git grep`, `git log` e `git blame` só leem, então não violam a regra de hub somente leitura.
+4. **Ausência exige duas buscas independentes** (`git grep` e Glob pelo nome do arquivo), nas duas cópias, antes de afirmar "não existe", "sem chamador" ou "não filtra".
+5. **Se a US ou o dev contradiz a sua leitura, desconfie primeiro da leitura** (provável leitura incompleta) e só depois da US.
+6. **Origem e idade:** a regra que sustenta um veredito leva `git log -S"<trecho>"` e `git blame` (data e commit). Arquivo sem commit recente na cópia é sinal de cópia velha.
+7. **Verificação cruzada antes de enviar a terceiros** (PM, Bug, comentário no Azure DevOps): um sub-agente (modelo `sonnet`) confere só as afirmações sobre o Clássico, separando "lido no host" de "lido na cópia". Sem essa conferência, a afirmação sai como `lacuna`.
+8. **Nunca use código comentado como regra.** Só vale o código executável. Descarte linhas iniciadas por `//` ou `'`, blocos `/* */`, `<%-- --%>`, `<!-- -->` e trechos sob `#if false`. Um comentário só entra como **contexto** (por que algo foi desativado), nunca como esperado ou critério de aceite. Validação antes de citar `arquivo:linha`: abra o trecho (cerca de 5 linhas antes e depois) e confirme que a linha **não** está dentro de comentário, inclusive de bloco, que a busca por linha não detecta. Exemplo real: `SmartShareWeb/Gerenciamento/TipoIndiceForm.ascx.cs:881` traz comentada a consulta antiga sem filtro, logo acima da consulta viva que filtra por perfil; ler a comentada inverteria a regra. Resultado de busca que cai em comentário é descartado, e o fato de o trecho existir apenas comentado vale como `lacuna`, não como evidência.
+
 ## Como cada skill aplica
 
 - Análises (`analise-negocio`, `analise-tecnica`): registrar o que o legado faz quando a US é omissa e sinalizar divergência; sem validar no legado, marcar "legado não consultado".
