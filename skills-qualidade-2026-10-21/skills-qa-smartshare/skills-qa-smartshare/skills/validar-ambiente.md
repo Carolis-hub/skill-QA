@@ -269,16 +269,28 @@ Para cada cenário, combine o status dos seus requisitos:
 
 ---
 
-## Step 6 — Relatório (só no chat)
+## Step 6 — Relatório e persistência
 
-Apresente o relatório **apenas no chat**. Esta skill **não grava arquivo de relatório** (nem front matter, nem `$EXEC`, nem pasta `validacoes-ambiente`): o que vale é o que foi apresentado na conversa, e o `/executar-teste` lê esse relatório da própria conversa. Em outra conversa, o `/executar-teste` não encontra o relatório e pede para rodar `/validar-ambiente` de novo.
+Defina `$EXEC` = data e hora no formato `AAAA-MM-DD_HHmm`. Apresente no chat e grave **exatamente o mesmo conteúdo** em `$CICLOS_DIR\US-<ID>\validacoes-ambiente\US-<ID>_<$EXEC>.md`, com `$CICLOS_DIR` = `C:\skills-qualidade\ciclos-executados`, diretório único de registro, nunca relativo ao diretório de trabalho nem dentro de `skills-qa-smartshare` (crie os diretórios se não existirem; **nunca sobrescreva** uma validação anterior). Front matter:
+
+```
+---
+us: <ID>
+mapa: <MAPA_ID>
+ambiente: <ambiente> (<URL>)
+banco: <SQL Server | Oracle> (base/instância confirmada)
+execucao: <$EXEC>
+veredito: <PRONTO | PRONTO COM RESSALVAS | PARCIALMENTE PRONTO | NAO PRONTO>
+configurado: <n itens configurados>
+---
+```
 
 Modelo do relatório:
 
 ```
 # Validação de ambiente — #<ID> <Título da US>
 
-Mapa: #<MAPA_ID> · Ambiente: <ambiente> (<URL>) · Banco: <SQL Server | Oracle> · Data/hora: <AAAA-MM-DD HH:mm>
+Mapa: #<MAPA_ID> · Ambiente: <ambiente> (<URL>) · Banco: <SQL Server | Oracle> · Execução: <$EXEC>
 **Veredito: <veredito>** — <N> cenários: <a> executáveis, <b> parciais, <c> bloqueados · <k> itens configurados
 
 ## Requisitos (<M> distintos)
@@ -337,7 +349,7 @@ Esta skill **não altera nenhum work item** nem posta comentário (e o comentár
 Acrescente uma linha ao final da tabela em `~/.claude/docs/projetos/skills-qa/LOG-ACOES.md` (via `Edit`, nunca sobrescrevendo o arquivo):
 
 ```
-| <data/hora atual, ex.: `Get-Date -Format "yyyy-MM-dd HH:mm"`> | `/validar-ambiente` | Validação e configuração de ambiente de teste | US #<ID> / mapa #<MAPA_ID> | <Sucesso \| Parcial \| Falha> | <usuária> | veredito: <veredito>; <a>/<b>/<c> cenários exec./parc./bloq.; relatório: apresentado no chat; itens configurados: <k> (usuários: <n>) |
+| <data/hora atual, ex.: `Get-Date -Format "yyyy-MM-dd HH:mm"`> | `/validar-ambiente` | Validação e configuração de ambiente de teste | US #<ID> / mapa #<MAPA_ID> | <Sucesso \| Parcial \| Falha> | <usuária> | veredito: <veredito>; <a>/<b>/<c> cenários exec./parc./bloq.; relatório: <caminho>; itens configurados: <k> (usuários: <n>) |
 ```
 
 ---
@@ -365,7 +377,7 @@ Acrescente uma linha ao final da tabela em `~/.claude/docs/projetos/skills-qa/LO
 - **Usuário do arquivo apagado do ambiente ou com login falho:** não reutilizar nem redefinir senha; criar outro e anotar na linha antiga.
 - **`$AMBIENTE_CFG` guarda senha em texto:** intencional e restrito a ambiente de teste; o arquivo fica fora do sync com o GitHub.
 - **Ambiente indisponível ou instável:** veredito `NAO PRONTO`, motivo no relatório; não classifique requisitos individualmente por palpite.
-- **Resultado muda entre execuções** (ambiente mutável): o relatório do chat vale para o momento em que foi apresentado (traz a data/hora no cabeçalho), e cada validação nova substitui a anterior na conversa. Recomende revalidar logo antes de `/executar-teste` se houve mudança no ambiente.
+- **Resultado muda entre execuções** (ambiente mutável): por isso cada validação é gravada com `$EXEC` e nunca sobrescrita; o relatório vale para o momento em que foi feito. Recomende revalidar logo antes de `/executar-teste` se houve mudança no ambiente.
 - **Divergência entre a tabela e a seção consolidada do mapa:** a tabela de cenários prevalece; sinalize em "Observações".
 - **Mapa com mais de um card "Criar Mapa de Teste":** sempre perguntar qual usar; nunca escolher sozinho sem confirmação.
 - **Tela só carrega shell, i18n e arquivos estáticos e nenhuma chamada de dado:** é o indício mais forte de mock (Step 3.7). Confirme com a persistência (F5) antes de gerar o defeito; uma única evidência não basta.
