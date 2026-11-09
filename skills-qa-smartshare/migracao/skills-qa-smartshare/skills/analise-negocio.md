@@ -1,9 +1,9 @@
 ---
-version: 1.1
+version: 1.4
 description: Interpreta uma User Story do Azure DevOps (regra de negocio, criterios de aceite) e extrai objetivo, regras explicitas/implicitas, ambiguidades, dependencias e riscos, sem inventar informacao.
 ---
 
-**Versão da skill: 1.1** (2026-11-09) · histórico em `CHANGELOG.md`
+**Versão da skill: 1.4** (2026-11-09) · histórico em `CHANGELOG.md`
 
 Analisar o negocio da historia do Azure DevOps a partir de **$ARGUMENTS**.
 
@@ -245,6 +245,18 @@ Esta skill **não gera `REC-...`, não grava arquivo de recomendação e não pe
 - Não grave nada no Azure DevOps (além da marcação do Step 1.5).
 
 ---
+
+## Step final — Registrar a execução na planilha
+
+Ao terminar, mesmo que a skill tenha parado cedo, acrescente **uma linha** à planilha de execuções, em **uma única chamada** e sem reler o arquivo (assim custa poucos tokens). Campos, nesta ordem, separados por `;`: `data_hora;skill;us;titulo;mensagens;tokens_m;cenarios;passou;falhou;bugs;bug_ids;orcamento;observacao`. Campo que a skill não conhece fica vazio; o texto não leva `;` nem quebra de linha. `tokens_m` é o consumo que a usuária informar do `/cost`, em milhões, e fica vazio quando ela não informar: nunca estime. Definições em `C:\skills-qualidade\skills-qa-smartshare\templates\REGISTRO_EXECUCOES.md` (leia só em caso de dúvida).
+
+```powershell
+$f = "C:\skills-qualidade\registro\registro-execucoes.csv"
+if (-not (Test-Path $f)) { New-Item -ItemType Directory -Force (Split-Path $f) | Out-Null; Set-Content $f "data_hora;skill;us;titulo;mensagens;tokens_m;cenarios;passou;falhou;bugs;bug_ids;orcamento;observacao" -Encoding UTF8 }
+Add-Content $f "$(Get-Date -Format 'yyyy-MM-dd HH:mm');analise-negocio;<US>;<titulo>;<mensagens>;<tokens_m>;<cenarios>;<passou>;<falhou>;<bugs>;<bug_ids>;<orcamento>;<observacao>" -Encoding UTF8
+```
+
+Nesta skill: `cenarios`, `passou`, `falhou`, `bugs` e `bug_ids` ficam vazios; `observacao` = `Concluída` ou `Bloqueada`.
 
 ## Troubleshooting
 

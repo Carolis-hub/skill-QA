@@ -1,9 +1,9 @@
 ---
-version: 1.1
+version: 1.4
 description: Le o card de Analise Tecnica (preenchido pelo dev) vinculado a uma historia do Azure DevOps, cruza com o PR vinculado quando existir, e mapeia classes/componentes impactados, dependencias e risco por camada.
 ---
 
-**Versão da skill: 1.1** (2026-11-09) · histórico em `CHANGELOG.md`
+**Versão da skill: 1.4** (2026-11-09) · histórico em `CHANGELOG.md`
 
 Analisar o impacto tecnico da historia do Azure DevOps a partir de **$ARGUMENTS**.
 
@@ -310,6 +310,18 @@ A recomendação (`REC-<ID>-NN`) só é dada **depois das duas análises (negóc
 - Sem lacuna a recomendar, o arquivo só traz as pendências (`-> Sem recomendação`), ou não existe se também não houve pendência; diga isso no resumo. Informe o caminho do arquivo criado ou atualizado. Nada é gravado no Azure DevOps.
 
 ---
+
+## Step final — Registrar a execução na planilha
+
+Ao terminar, mesmo que a skill tenha parado cedo, acrescente **uma linha** à planilha de execuções, em **uma única chamada** e sem reler o arquivo (assim custa poucos tokens). Campos, nesta ordem, separados por `;`: `data_hora;skill;us;titulo;mensagens;tokens_m;cenarios;passou;falhou;bugs;bug_ids;orcamento;observacao`. Campo que a skill não conhece fica vazio; o texto não leva `;` nem quebra de linha. `tokens_m` é o consumo que a usuária informar do `/cost`, em milhões, e fica vazio quando ela não informar: nunca estime. Definições em `C:\skills-qualidade\skills-qa-smartshare\templates\REGISTRO_EXECUCOES.md` (leia só em caso de dúvida).
+
+```powershell
+$f = "C:\skills-qualidade\registro\registro-execucoes.csv"
+if (-not (Test-Path $f)) { New-Item -ItemType Directory -Force (Split-Path $f) | Out-Null; Set-Content $f "data_hora;skill;us;titulo;mensagens;tokens_m;cenarios;passou;falhou;bugs;bug_ids;orcamento;observacao" -Encoding UTF8 }
+Add-Content $f "$(Get-Date -Format 'yyyy-MM-dd HH:mm');analise-tecnica;<US>;<titulo>;<mensagens>;<tokens_m>;<cenarios>;<passou>;<falhou>;<bugs>;<bug_ids>;<orcamento>;<observacao>" -Encoding UTF8
+```
+
+Nesta skill: `cenarios`, `passou`, `falhou`, `bugs` e `bug_ids` ficam vazios; `observacao` = número de pendências e de recomendações.
 
 ## Troubleshooting
 

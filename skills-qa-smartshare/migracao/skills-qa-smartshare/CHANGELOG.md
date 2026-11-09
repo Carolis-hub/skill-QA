@@ -4,6 +4,13 @@ Versões das skills em `skills/` e dos arquivos de apoio em `templates/`. O deta
 
 Como versionar daqui para frente: a versão fica no início de cada skill, em dois lugares que devem andar juntos: `version:` no cabeçalho (front matter) e a linha `**Versão da skill: X.Y** (data)` logo no começo do texto, que aparece quando a skill roda. Mudou comportamento ou relatório de uma skill → registrar a ALT no `REGISTRO_ALTERACOES.md`, descrever aqui sob uma nova versão (`1.1`, `1.2`, ...; `2.0` para quebra de fluxo) e atualizar os dois lugares nas skills alteradas. Não se usa tag git.
 
+## 1.4 — 2026-11-09
+
+Registro automático das execuções, com custo baixo. Afeta `analise-negocio`, `analise-tecnica`, `gerar-mapa-testes-v3`, `validar-ambiente`, `executar-teste`, `analise-falha` e `gerar-defeito`, que passam à versão 1.4.
+- **Step final em cada uma:** acrescenta uma linha à planilha `C:\skills-qualidade\registro\registro-execucoes.csv` (data e hora, skill, US, título, mensagens, tokens informados, cenários, passou, falhou, bugs, IDs, orçamento, observação) em uma única chamada, sem reler o arquivo. Colunas em `templates/REGISTRO_EXECUCOES.md` (ALT-144).
+- O CSV abre direto no Excel (separador `;`) e alimenta a tabela "Registro das execuções" do relatório semanal, que é atualizada enviando o arquivo todo terça.
+- `tokens_m` só é preenchido com o `/cost` que a usuária informar; nunca é estimado.
+
 ## 1.3 — 2026-11-09
 
 Menos tokens nas fases de execução (a leitura de cache foi ~95% do consumo medido em 09/11). Afeta `validar-ambiente`, `executar-teste`, `analise-falha` e `gerar-defeito`, que passam à versão 1.3.

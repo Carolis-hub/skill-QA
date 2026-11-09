@@ -1,9 +1,9 @@
 ---
-version: 1.3
+version: 1.4
 description: Investiga uma falha de teste (de /executar-teste ou relatada manualmente) e determina causa provavel, componente relacionado e se ha evidencia suficiente para abrir um defeito no Azure DevOps. Nao cria nada — so decide se vale a pena seguir para /gerar-defeito.
 ---
 
-**Versão da skill: 1.3** (2026-11-09) · histórico em `CHANGELOG.md`
+**Versão da skill: 1.4** (2026-11-09) · histórico em `CHANGELOG.md`
 
 Analisar a falha a partir de **$ARGUMENTS**.
 
@@ -106,6 +106,18 @@ Se o veredito for `SIM`, pergunte ao usuário se deseja prosseguir para `/gerar-
 Se for `NÃO`, explique exatamente o que precisaria ser coletado (ex.: reproduzir de novo com evidência, confirmar regra com o PO, aguardar PR).
 
 ---
+
+## Step final — Registrar a execução na planilha
+
+Ao terminar, mesmo que a skill tenha parado cedo, acrescente **uma linha** à planilha de execuções, em **uma única chamada** e sem reler o arquivo (assim custa poucos tokens). Campos, nesta ordem, separados por `;`: `data_hora;skill;us;titulo;mensagens;tokens_m;cenarios;passou;falhou;bugs;bug_ids;orcamento;observacao`. Campo que a skill não conhece fica vazio; o texto não leva `;` nem quebra de linha. `tokens_m` é o consumo que a usuária informar do `/cost`, em milhões, e fica vazio quando ela não informar: nunca estime. Definições em `C:\skills-qualidade\skills-qa-smartshare\templates\REGISTRO_EXECUCOES.md` (leia só em caso de dúvida).
+
+```powershell
+$f = "C:\skills-qualidade\registro\registro-execucoes.csv"
+if (-not (Test-Path $f)) { New-Item -ItemType Directory -Force (Split-Path $f) | Out-Null; Set-Content $f "data_hora;skill;us;titulo;mensagens;tokens_m;cenarios;passou;falhou;bugs;bug_ids;orcamento;observacao" -Encoding UTF8 }
+Add-Content $f "$(Get-Date -Format 'yyyy-MM-dd HH:mm');analise-falha;<US>;<titulo>;<mensagens>;<tokens_m>;<cenarios>;<passou>;<falhou>;<bugs>;<bug_ids>;<orcamento>;<observacao>" -Encoding UTF8
+```
+
+Nesta skill: `cenarios` = falhas analisadas; `passou`, `falhou`, `bugs` e `bug_ids` vazios; `orcamento` = `ok` ou `excedido`; `observacao` = vereditos (ex.: `#27 NÃO`).
 
 ## Troubleshooting
 

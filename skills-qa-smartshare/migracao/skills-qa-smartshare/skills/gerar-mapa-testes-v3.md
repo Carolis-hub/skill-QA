@@ -1,9 +1,9 @@
 ---
-version: 1.2
+version: 1.4
 description: Generate a test case map from an Azure DevOps story and publish it directly into the Description field of the "Criar Mapa de Teste" card (child of the story), via MCP only — no Test Plan, no REST, no PAT. v3 — checklist obrigatorio de dimensoes (permissao/dados/concorrencia/regressao), tecnica formal de teste por cenario, historico de defeitos e reaproveitamento de /analise-negocio e /analise-tecnica. Baseado no v2 (encoding-hardened) apenas na parte de analise; a parte de publicacao foi reescrita para nao usar Test Plan.
 ---
 
-**Versão da skill: 1.2** (2026-11-09) · histórico em `CHANGELOG.md`
+**Versão da skill: 1.4** (2026-11-09) · histórico em `CHANGELOG.md`
 
 Generate a test map from Azure DevOps story arguments **$ARGUMENTS**.
 
@@ -503,6 +503,18 @@ rodou, mencione também quantas hipóteses foram notificadas via comentário na 
 falhou, se for o caso).
 
 ---
+
+## Step final — Registrar a execução na planilha
+
+Ao terminar, mesmo que a skill tenha parado cedo, acrescente **uma linha** à planilha de execuções, em **uma única chamada** e sem reler o arquivo (assim custa poucos tokens). Campos, nesta ordem, separados por `;`: `data_hora;skill;us;titulo;mensagens;tokens_m;cenarios;passou;falhou;bugs;bug_ids;orcamento;observacao`. Campo que a skill não conhece fica vazio; o texto não leva `;` nem quebra de linha. `tokens_m` é o consumo que a usuária informar do `/cost`, em milhões, e fica vazio quando ela não informar: nunca estime. Definições em `C:\skills-qualidade\skills-qa-smartshare\templates\REGISTRO_EXECUCOES.md` (leia só em caso de dúvida).
+
+```powershell
+$f = "C:\skills-qualidade\registro\registro-execucoes.csv"
+if (-not (Test-Path $f)) { New-Item -ItemType Directory -Force (Split-Path $f) | Out-Null; Set-Content $f "data_hora;skill;us;titulo;mensagens;tokens_m;cenarios;passou;falhou;bugs;bug_ids;orcamento;observacao" -Encoding UTF8 }
+Add-Content $f "$(Get-Date -Format 'yyyy-MM-dd HH:mm');gerar-mapa-testes-v3;<US>;<titulo>;<mensagens>;<tokens_m>;<cenarios>;<passou>;<falhou>;<bugs>;<bug_ids>;<orcamento>;<observacao>" -Encoding UTF8
+```
+
+Nesta skill: `cenarios` = cenários do mapa publicado; `passou`, `falhou`, `bugs` e `bug_ids` vazios; `observacao` = `criação` ou `atualização` do card e o ID dele.
 
 ## Troubleshooting
 

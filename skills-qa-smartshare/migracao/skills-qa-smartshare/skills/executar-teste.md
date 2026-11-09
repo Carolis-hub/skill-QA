@@ -1,9 +1,9 @@
 ---
-version: 1.3
+version: 1.4
 description: Executa de fato, via browser (MCP Playwright), os cenarios do mapa de testes publicado no card "Criar Mapa de Teste" filho de uma User Story do Azure DevOps, comparando resultado obtido vs esperado por cenario e parando para intervencao humana nos casos previstos (credencial, dado ausente, ambiente indisponivel, acao irreversivel). Tambem aceita o ID de um Bug ja corrigido para propor e rodar uma lista seletiva de reteste (regressao proporcional ao fix), em vez de reteste pontual raso ou mapa completo caro — e, quando chamada com o ID da propria US, detecta sozinha Bugs filhos corrigidos ainda sem reteste confirmado e oferece rodar esse reteste seletivo antes do mapa completo.
 ---
 
-**Versão da skill: 1.3** (2026-11-09) · histórico em `CHANGELOG.md`
+**Versão da skill: 1.4** (2026-11-09) · histórico em `CHANGELOG.md`
 
 Executar os testes da User Story do Azure DevOps a partir de **$ARGUMENTS**.
 
@@ -481,6 +481,18 @@ efeito no ambiente e deve ficar auditável.
 - Não lida com CAPTCHA, 2FA ou fluxos de autenticação fora do padrão usuário/senha simples.
 
 ---
+
+## Step final — Registrar a execução na planilha
+
+Ao terminar, mesmo que a skill tenha parado cedo, acrescente **uma linha** à planilha de execuções, em **uma única chamada** e sem reler o arquivo (assim custa poucos tokens). Campos, nesta ordem, separados por `;`: `data_hora;skill;us;titulo;mensagens;tokens_m;cenarios;passou;falhou;bugs;bug_ids;orcamento;observacao`. Campo que a skill não conhece fica vazio; o texto não leva `;` nem quebra de linha. `tokens_m` é o consumo que a usuária informar do `/cost`, em milhões, e fica vazio quando ela não informar: nunca estime. Definições em `C:\skills-qualidade\skills-qa-smartshare\templates\REGISTRO_EXECUCOES.md` (leia só em caso de dúvida).
+
+```powershell
+$f = "C:\skills-qualidade\registro\registro-execucoes.csv"
+if (-not (Test-Path $f)) { New-Item -ItemType Directory -Force (Split-Path $f) | Out-Null; Set-Content $f "data_hora;skill;us;titulo;mensagens;tokens_m;cenarios;passou;falhou;bugs;bug_ids;orcamento;observacao" -Encoding UTF8 }
+Add-Content $f "$(Get-Date -Format 'yyyy-MM-dd HH:mm');executar-teste;<US>;<titulo>;<mensagens>;<tokens_m>;<cenarios>;<passou>;<falhou>;<bugs>;<bug_ids>;<orcamento>;<observacao>" -Encoding UTF8
+```
+
+Nesta skill: `cenarios` = cenários executados; `passou` e `falhou` do placar; `bugs` e `bug_ids` vazios (quem cria é o `/gerar-defeito`); `orcamento` = `ok` ou `excedido`; `observacao` = banco e modo (A ou B).
 
 ## Troubleshooting
 
