@@ -1,4 +1,5 @@
 ---
+version: 1.0
 description: Interpreta uma User Story do Azure DevOps (regra de negocio, criterios de aceite) e extrai objetivo, regras explicitas/implicitas, ambiguidades, dependencias e riscos, sem inventar informacao.
 ---
 

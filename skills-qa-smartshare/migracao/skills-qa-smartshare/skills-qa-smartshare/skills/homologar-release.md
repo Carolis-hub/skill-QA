@@ -1,4 +1,5 @@
 ---
+version: 1.0
 description: Valida se uma release (conjunto de historias) esta pronta para producao — identifica impactos, seleciona regressao (automatizada + manual), executa, analisa falhas e recomenda Aprovada / Aprovada com ressalvas / Reprovada. Recomendacao, nao decisao automatica.
 ---
 

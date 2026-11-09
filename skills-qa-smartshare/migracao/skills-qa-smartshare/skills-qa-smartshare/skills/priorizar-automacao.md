@@ -1,4 +1,5 @@
 ---
+version: 1.0
 description: Classifica cenarios de teste (alta/media/baixa prioridade de automacao) e promove os de alta prioridade de tests/user-stories/ para tests/regressao/ no projeto automacao.teste, sempre com aprovacao antes de escrever e execucao real do spec antes de declarar sucesso.
 ---
 

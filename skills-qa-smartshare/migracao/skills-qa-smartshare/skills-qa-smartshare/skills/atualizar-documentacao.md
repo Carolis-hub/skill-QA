@@ -1,4 +1,5 @@
 ---
+version: 1.0
 description: Identifica paginas da wiki do Azure DevOps impactadas por uma historia validada e propoe atualizacao (funcionalidade, regra de negocio, FAQ, exemplos, procedimentos) — sempre com aprovacao explicita, pagina por pagina, antes de publicar.
 ---
 

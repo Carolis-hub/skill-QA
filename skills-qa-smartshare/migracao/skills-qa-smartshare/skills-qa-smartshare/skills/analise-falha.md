@@ -1,4 +1,5 @@
 ---
+version: 1.0
 description: Investiga uma falha de teste (de /executar-teste ou relatada manualmente) e determina causa provavel, componente relacionado e se ha evidencia suficiente para abrir um defeito no Azure DevOps. Nao cria nada — so decide se vale a pena seguir para /gerar-defeito.
 ---
 

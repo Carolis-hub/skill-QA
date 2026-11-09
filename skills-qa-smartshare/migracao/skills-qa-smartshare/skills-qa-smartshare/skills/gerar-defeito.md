@@ -1,4 +1,5 @@
 ---
+version: 1.0
 description: Monta o registro estruturado de um defeito (Bug) a partir de uma analise de falha ja concluida e cria no Azure DevOps via MCP — sempre com confirmacao explicita do usuario antes de escrever. Severidade e sempre sugestao, nunca decisao automatica.
 ---
 

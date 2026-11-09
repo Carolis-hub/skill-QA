@@ -1,4 +1,5 @@
 ---
+version: 1.0
 description: Le o card de Analise Tecnica (preenchido pelo dev) vinculado a uma historia do Azure DevOps, cruza com o PR vinculado quando existir, e mapeia classes/componentes impactados, dependencias e risco por camada.
 ---
 
