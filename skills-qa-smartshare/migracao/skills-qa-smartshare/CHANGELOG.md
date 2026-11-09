@@ -4,6 +4,10 @@ Versões das skills em `skills/` e dos arquivos de apoio em `templates/`. O deta
 
 Como versionar daqui para frente: a versão fica no início de cada skill, em dois lugares que devem andar juntos: `version:` no cabeçalho (front matter) e a linha `**Versão da skill: X.Y** (data)` logo no começo do texto, que aparece quando a skill roda. Mudou comportamento ou relatório de uma skill → registrar a ALT no `REGISTRO_ALTERACOES.md`, descrever aqui sob uma nova versão (`1.1`, `1.2`, ...; `2.0` para quebra de fluxo) e atualizar os dois lugares nas skills alteradas. Não se usa tag git.
 
+## 1.2 — 2026-11-09
+
+Só `gerar-mapa-testes-v3` (as outras 9 skills seguem na 1.1): removida a seção "O que muda em relação ao v2", de ~1,5 mil tokens, que era histórico. As regras que ela listava continuam nos Steps próprios (2, 3, 3.5, 3.9, 3.10, 4.0, 4.2b, 4.4, 5, 5b e 6.5). Não muda comportamento (ALT-141).
+
 ## 1.1 — 2026-11-09
 
 Mudança de caminho, sem mudança de comportamento. O aninhamento duplo `skills-qa-smartshare\skills-qa-smartshare` foi removido: as skills, os `templates` e os documentos de gestão agora ficam direto em `C:\skills-qualidade\skills-qa-smartshare\`. Nas 10 skills, o caminho da diretriz de fidelidade ao legado e o `$TEMPLATES_DIR` do `gerar-mapa-testes-v3` passaram de `...\skills-qa-smartshare\skills-qa-smartshare\templates` para `...\skills-qa-smartshare\templates` (ALT-140). **No ambiente local, a pasta tem de ser movida junto**; do contrário as skills não acham `DIRETRIZ_FIDELIDADE_LEGADO.md`.

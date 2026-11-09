@@ -1,9 +1,9 @@
 ---
-version: 1.1
+version: 1.2
 description: Generate a test case map from an Azure DevOps story and publish it directly into the Description field of the "Criar Mapa de Teste" card (child of the story), via MCP only — no Test Plan, no REST, no PAT. v3 — checklist obrigatorio de dimensoes (permissao/dados/concorrencia/regressao), tecnica formal de teste por cenario, historico de defeitos e reaproveitamento de /analise-negocio e /analise-tecnica. Baseado no v2 (encoding-hardened) apenas na parte de analise; a parte de publicacao foi reescrita para nao usar Test Plan.
 ---
 
-**Versão da skill: 1.1** (2026-11-09) · histórico em `CHANGELOG.md`
+**Versão da skill: 1.2** (2026-11-09) · histórico em `CHANGELOG.md`
 
 Generate a test map from Azure DevOps story arguments **$ARGUMENTS**.
 
@@ -30,31 +30,6 @@ Vale para todas as skills. Pasta: `C:\skills-qualidade\analises-diversas\aprendi
 3. Nunca gravar segredo (senha, token, chave): registrar só "informado no chat, não gravado".
 4. Resposta que contradiz um aprendizado: atualizar, marcar o antigo `Substituído por APR-NNN`.
 5. O aprendizado **não dispensa** confirmação de ação irreversível ou de escrita, aprovação de recomendação (`REC-...`) nem os guardrails desta skill: nesses casos a skill pergunta, podendo citar o aprendizado como contexto.
-
-## O que muda em relação ao v2
-
-1. **Alvo de publicação diferente**: o mapa vai para a Descrição (HTML) do card "Criar Mapa de Teste" filho da história, não para um Test Case dentro de um Test Plan. Sem Test Plan, sem suíte, sem REST, sem PAT.
-2. **Checklist obrigatório de dimensões** por regra condicional (Step 4) — positivo / negativo / permissão / dados / concorrência / regressão, em vez de deixar a cobertura a critério livre do modelo.
-3. **Técnica formal de teste por cenário** (Step 4) — valor-limite, tabela-decisão, partição-equivalência ou exploratório, registrada explicitamente por linha.
-4. **Categoria `REGRESSAO` de primeira classe**, alimentada pelo card `Análise` e pelo histórico de defeitos.
-5. **Consulta a histórico de defeitos** (Step 3.5) via `search_work_items`.
-6. **Reaproveitamento de `/analise-negocio` e `/analise-tecnica`** quando já tiverem rodado na mesma conversa (Step 3), em vez de sempre re-derivar tudo dos campos brutos.
-7. **Verificação do card "Criar Mapa de Teste" antes de publicar** (Step 2): localiza o card existente, cria um novo se não existir, e nunca sobrescreve um card com conteúdo sem confirmação explícita.
-8. **Tabela HTML com larguras de coluna proporcionais e categoria em linha separadora própria** (Step 5) — corrige o problema visual observado quando uma tabela colada do Word (colunas todas iguais, ~70px) foi publicada manualmente no card 160129: frases longas quebravam no meio, inclusive dentro do próprio rótulo da categoria.
-9. **Notificação de hipóteses em aberto** (Step 6.5, 2026-09-15) — se o mapa aprovado tiver algum cenário `HIPOTESE:`, a skill posta um comentário na história (não no card do mapa) listando cada uma e pedindo confirmação de dev/PO. Não bloqueia a publicação nem a execução — é só visibilidade, para essas perguntas não ficarem "perdidas" dentro da tabela do card. As hipóteses continuam normalmente dentro do mapa (não saem de lá); o comentário aponta para o mapa, não o substitui.
-10. **Escopo de origem restrito a 4 fontes** (Step 4.0, 2026-09-22) — decisão do time, herdada do produto anterior, após a US #138559: mapas anteriores puxavam cenário de qualquer trecho da narrativa investigativa da análise técnica (revalidações de infra, achados de performance em outro repositório, notas de investigação do dev para ele mesmo), o que gerava cenários difíceis/impossíveis de executar por irem além do que a própria história pede. A partir de agora, todo cenário do mapa precisa rastrear a uma destas 4 fontes: Instruções QA da história, Critérios de Aceite da história, `Custom.Pontosdeimpacto` (Pontos de Impacto do dev) ou `Custom.CasodeTeste` (Casos de Teste do dev). A narrativa completa da análise técnica (`System.Description` do card `Análise`, ou as seções sintetizadas de `/analise-tecnica` que vêm dela — Dependências, Integrações potencialmente impactadas, Discrepâncias, etc.) serve para dar contexto ao redigir a Ação/Resultado Esperado de um cenário já justificado por uma das 4 fontes, mas nunca para justificar sozinha a existência de um cenário novo. Ver Step 4.1 e 4.3.
-
-11. **Coluna `Pré-requisitos` por cenário** (Step 4.2b, 2026-10-20) — cada linha da tabela passa a declarar o que o **ambiente** precisa ter para o teste ser executável (ex.: processo configurado com 2 atividades de usuário, perfil de usuário específico, massa de dados, feature flag). A coluna é escrita em formato padronizado (`[CATEGORIA] requisito verificável`) para que uma skill posterior leia o mapa, inspecione o ambiente e valide se ele suporta a execução de cada cenário antes de `/executar-teste`. Esta skill apenas **declara** os pré-requisitos — não consulta nem valida o ambiente.
-
-12. **HTML interativo local do mapa** (Step 5b, 2026-10-21) — além do HTML publicado no card, a skill grava em `$CICLOS_DIR\US-<ID>\mapas-teste\` uma versão interativa (checkbox "Testado" com progresso, filtros, busca, exportar/importar marcações, tema claro/escuro, layout para celular), montada a partir do template versionado `$TEMPLATES_DIR\mapa-teste-viewer.template.html`. O conteúdo é o mesmo do mapa aprovado; só muda a apresentação. Não é publicado no Azure DevOps.
-
-13. **Consulta ao protótipo (Figma) em US de FE** (Step 3.9, novo) — quando a história é de front-end e a descrição traz link de protótipo Figma, a skill lê o protótipo (somente leitura) para validar **mensagens/textos** e **paridade** (colunas, ações, botões, estados). Os textos literais entram no Resultado Esperado dos cenários já justificados pelas fontes do Step 4.0, e o mapa ganha **cenários de fidelidade ao protótipo, um por quadro e estado** (item 14), que `/executar-teste` (Step 4.2b) executa por completo.
-
-14. **Fidelidade expressa ao protótipo (Figma) em US de FE** (Step 3.9 e categoria 10 do Step 4.3, 2026-11-03, pedido da usuária) — a tela deve ser **expressamente fiel ao protótipo** e **qualquer divergência deve ser sinalizada**, inclusive a pequena. Em vez de um único cenário de paridade, o mapa traz **um cenário de fidelidade por quadro e estado do protótipo que a US cobre** (inventário de quadros), com uma especificação de design extraída do Figma (textos, tipografia, cores, espaçamentos, bordas, raios, tamanhos, ícones, estados). A execução compara tudo isso (Step 4.2b do `/executar-teste`) e só dá `Passou` com zero divergência.
-
-15. **US de BE não tem cenário nem dependência de front** (Step 3.10 e regra do Step 4.4, 2026-11-05, pedido da usuária) — em US de back-end, o mapa verifica só **API (requisição/resposta) e dados (banco/log)**. Nenhum cenário, pré-requisito ou dependência pode exigir tela, formulário, botão, tooltip, aviso de saída, layout, protótipo (Figma) nem o Clássico/Portal/outro front como interface. O que for de FE na US vira nota `Fora do escopo do mapa (FE)` em "Fonte técnica", não cenário.
-
----
 
 ## Encoding Policy (read before executing any step)
 
