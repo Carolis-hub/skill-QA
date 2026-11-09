@@ -392,6 +392,13 @@ Se `$MODO == "B"`, acrescente logo abaixo do cabeçalho:
 
 Por cenário `Falhou` ou divergência de protótipo: resultado do `/analise-falha` (causa provável, componente, evidência suficiente sim/não) e decisão (Bug oferecido via `/gerar-defeito` | sem Bug, motivo). Sem esta seção preenchida, nenhum Bug é gerado.
 
+Feche a seção com a tabela **Bugs criados**, com os itens (cenários `Falhou` ou divergências de protótipo) que geraram Bug e o ID de cada um:
+
+| Item (# do cenário / Id da divergência) | Bug (ID) | Título do Bug |
+|---|---|---|
+
+Preencha com o ID real devolvido pelo `/gerar-defeito` depois que o Bug for criado (Bug único para várias divergências de protótipo: repita o mesmo ID em cada item coberto). Item sem Bug não entra na tabela; se nenhum Bug foi criado, escreva `Nenhum Bug criado`. Se o Bug ainda não foi criado quando o relatório é apresentado, escreva `Bug pendente de aprovação` no lugar do ID e atualize a tabela (e o relatório já anexado, se houver) assim que o ID existir. Nunca invente nem estime um ID.
+
 ## Divergências do double-check
 | # | Classificação original | Sugestão do sub-agente | Motivo |
 |---|---|---|---|
@@ -414,7 +421,7 @@ Grave esse comentário **mesmo se algum cenário falhou** (o marcador indica "o 
 
 Na coluna **Evidência**, para cada `Falhou`: caminho(s) de arquivo real(is) (screenshot local, ex. `.playwright-mcp\page-....png`) e/ou o resumo da evidência de rede (status HTTP, trecho do corpo) — nunca só a palavra "screenshot"/"network" sem o dado concreto. Essas evidências são o insumo que `/analise-falha` referencia e que `/gerar-defeito` anexa ao Bug — preserve os caminhos exatamente como retornados pelas tools, sem retranscrever.
 
-Se houver pelo menos um `Falhou` (ou divergência de protótipo), **rode `/analise-falha` sobre cada um antes de qualquer Bug** (Step 4.2, item 9) e inclua no relatório a seção "Análise de falha" (por cenário: causa provável, componente, evidência suficiente sim/não). Só depois pergunte à usuária se quer prosseguir para `/gerar-defeito` com os que a análise considerou com evidência suficiente — a criação do Bug nunca é encadeada sem essa análise nem sem aprovação explícita.
+Se houver pelo menos um `Falhou` (ou divergência de protótipo), **rode `/analise-falha` sobre cada um antes de qualquer Bug** (Step 4.2, item 9) e inclua no relatório a seção "Análise de falha" (por cenário: causa provável, componente, evidência suficiente sim/não; ao final, a tabela "Bugs criados" com os itens que geraram Bug e o ID de cada um). Só depois pergunte à usuária se quer prosseguir para `/gerar-defeito` com os que a análise considerou com evidência suficiente — a criação do Bug nunca é encadeada sem essa análise nem sem aprovação explícita.
 
 ---
 
