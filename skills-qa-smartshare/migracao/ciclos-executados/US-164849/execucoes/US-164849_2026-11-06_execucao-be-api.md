@@ -132,5 +132,5 @@ Sub-agente independente (sem acesso ao navegador nem à API): **56 de 59 confirm
 | 60 | Passou | Passou* | A checagem de termos sensíveis foi feita só em #57 e #58, não em #59; o 504 do nginx do Achado A não traz mensagem padronizada | Procede: a mensagem do #59 é genérica à vista, mas sem varredura; o 504 é falha técnica sem mensagem padronizada. Tratar como Passou* |
 
 ## Perguntas pendentes
-1. #53 (resolvido em 2026-11-06 com autorização da usuária): foram criados o perfil 12027 e o usuário `qa.semconexao.us164849` (cd 9022, Administrador autorizado pela usuária para este teste, credencial só no `ambiente-teste.local.md`). Resultado: Falhou, com a regra legada a confirmar (a lista de conexões inclui as dos perfis pais via navegação). A decisão agora é abrir `/analise-falha` para o #53. **Atualização (2026-11-06):** a PM definiu a opção B (só o próprio perfil); Bug #166286 criado e vinculado à US 164849. Falta testar a alteração de índice cuja conexão está ligada só a um perfil pai (CA43).
-2. Os achados A e B viram Bug (`/analise-falha`)?
+1. #53: **resolvido.** A PM definiu a opção B (só o próprio perfil) e o Bug **#166286** já foi aberto, filho da US 164849. Falta testar a alteração de índice cuja conexão está ligada só a um perfil pai (CA43).
+2. Achados A e B: o **A virou o Bug #166262** (Testar SQL não interpreta `<retcoluna>`); o **B foi retirado** (latência causada pelo depurador, não pela aplicação).

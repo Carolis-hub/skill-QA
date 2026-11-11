@@ -1,0 +1,279 @@
+<!doctype html>
+<!--
+TEMPLATE do mapa de testes interativo (gerado por /gerar-mapa-testes-v3, Step 5b).
+Baseado no modelo de US-162122. NAO editar o CSS/JS por US: substitua apenas os placeholders {{...}}.
+
+Placeholders:
+  {{TITULO}}          "Mapa de Testes — US <ID> — <titulo curto da historia>"
+  {{PROJETO}}         System.TeamProject
+  {{SPRINT}}          iteracao da historia (nome final do caminho)
+  {{CARD_MAPA_ID}}    ID do card "Criar Mapa de Teste" (sem o #)
+  {{RESUMO_HTML}}     paragrafos Objetivo / Fonte tecnica / Origem (siglas) / Historico de defeitos / Dimensoes cobertas + <h4>Criterios de aceite</h4><ul>...</ul>
+  {{TOTAL}}           numero de cenarios
+  {{LINHAS_HTML}}     linhas do <tbody> (formato abaixo)
+  {{PREREQ_HTML}}     <li>[CATEGORIA] requisito — cenários: #ids</li> (um por requisito distinto)
+  {{CHAVE_STORAGE}}   mapa-teste-us-<ID>-<slug>-testados-v1
+  {{ARQUIVO_EXPORT}}  mapa-teste-us-<ID>-<slug>.html
+
+Linha de categoria:
+  <tr class="group"><td colspan="10"><span class="gname">NOME COM ACENTOS</span><span class="gcount"></span></td></tr>
+Linha de cenario (ordem das 10 colunas; data-label e classes col-* sao obrigatorios):
+  <tr data-id="N"[ class="row-hipotese"]>
+   <td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="N" disabled aria-label="Marcar o cenário N como testado"></td>
+   <td class="col-id" data-label="#">N</td>
+   <td class="col-cenario" data-label="Cenário">[<span class="hip-badge">hipótese</span>]texto</td>
+   <td class="col-config" data-label="Configurações necessárias">[CATEGORIA] item<br>[CATEGORIA] item</td>
+   <td class="col-acao" data-label="Ação">...</td>
+   <td class="col-resultado" data-label="Resultado Esperado">...</td>
+   <td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo|tag-negativo|tag">tipo</span></td>
+   <td class="col-tecnica" data-label="Técnica">...</td>
+   <td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo|tag-negativo|tag-regressao|tag">dimensão</span></td>
+   <td class="col-origem" data-label="Origem">CA2, CT</td>
+  </tr>
+Todo texto dentro das celulas deve ter &, <, > escapados. Linha N/A: tipo e tecnica = "—".
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa de Testes — US 166234 — Detalhamento do gráfico Tamanho do repositório por tipo</title>
+<style>
+:root{--bg:#f5f7f6;--card:#fff;--text:#1d2521;--muted:#5b6b63;--border:#dfe6e2;--accent:#00774b;--accent-d:#005a39;--head:#eef4f1;--code:#eef2ef;
+--done:#eafaf1;--done-b:#bfe8cf;--hip:#fff7e0;--hip-b:#f0d98a;--warn:#c77700;--group:#dcebe4;--track:#e4e9e6;
+--pos:#0f7a3c;--pos-bg:#e4f6ea;--neg:#b3261e;--neg-bg:#fbe9e7;--reg:#8a5a00;--reg-bg:#fff3dc;--neu:#3b4a43;--neu-bg:#e8eeeb}
+:root[data-theme="dark"]{--bg:#121715;--card:#1b2220;--text:#e4ebe7;--muted:#9fb0a7;--border:#2c3733;--accent:#3ecf8e;--accent-d:#7be3b4;--head:#222c28;--code:#26312d;
+--done:#16301f;--done-b:#24503a;--hip:#33290f;--hip-b:#5a4817;--warn:#e8a33d;--group:#1f2e28;--track:#2c3733;
+--pos:#7be3b4;--pos-bg:#173023;--neg:#ff9a92;--neg-bg:#3a1b19;--reg:#f0c36a;--reg-bg:#3a2f12;--neu:#c3d0c9;--neu-bg:#27322e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121715;--card:#1b2220;--text:#e4ebe7;--muted:#9fb0a7;--border:#2c3733;--accent:#3ecf8e;--accent-d:#7be3b4;--head:#222c28;--code:#26312d;
+--done:#16301f;--done-b:#24503a;--hip:#33290f;--hip-b:#5a4817;--warn:#e8a33d;--group:#1f2e28;--track:#2c3733;
+--pos:#7be3b4;--pos-bg:#173023;--neg:#ff9a92;--neg-bg:#3a1b19;--reg:#f0c36a;--reg-bg:#3a2f12;--neu:#c3d0c9;--neu-bg:#27322e}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI","Source Sans 3",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;padding-bottom:4rem}
+header{background:linear-gradient(135deg,#00774b,#005a39);color:#fff;padding:1.6rem 1rem 1.2rem}
+header .inner{max-width:1500px;margin:0 auto;padding:0 .5rem}
+header h1{margin:0 0 .5rem;font-size:1.45rem}
+header p{margin:.2rem 0;font-size:.9rem;opacity:.93}
+header code{background:rgba(255,255,255,.18);color:#fff}
+header a{color:#fff}
+nav.toc{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.8rem}
+nav.toc a{font-size:.78rem;background:rgba(255,255,255,.16);border-radius:999px;padding:.2rem .7rem;text-decoration:none}
+nav.toc a:hover{background:rgba(255,255,255,.3)}
+.wrap{max-width:1500px;margin:0 auto;padding:1rem 1.5rem}
+.bar{position:sticky;top:0;z-index:20;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;margin:0 0 1rem;display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.bar .count{font-weight:700;white-space:nowrap}
+.track{flex:1 1 200px;min-width:140px;height:10px;background:var(--track);border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0;background:var(--accent);transition:width .25s}
+.seg{display:flex;gap:.3rem;flex-wrap:wrap}
+.bar button,.bar label.btn{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:.3rem .8rem;font-size:.82rem;cursor:pointer;font-family:inherit}
+.bar button.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.bar button.warn{border-color:var(--warn);color:var(--warn)}
+.bar input[type=search]{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:.3rem .8rem;font-size:.85rem;min-width:170px;font-family:inherit}
+.bar input[type=file]{display:none}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;color:var(--accent-d);scroll-margin-top:90px}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem;scroll-margin-top:90px}
+h4{font-size:.98rem;margin:1.2rem 0 .4rem}
+hr{border:0;border-top:1px solid var(--border);margin:1.6rem 0}
+blockquote.note{margin:.6rem 0;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;padding:.1rem 1rem;font-size:.9rem;color:var(--muted)}
+p,li{font-size:.92rem}
+code{background:var(--code);padding:.05rem .3rem;border-radius:4px;font-size:.82em;font-family:"Cascadia Code",Consolas,monospace;overflow-wrap:anywhere}
+a{color:var(--accent-d)}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--card);margin:.6rem 0 1rem}
+table{border-collapse:collapse;width:100%}
+th,td{border:1px solid var(--border);padding:.55rem .6rem;vertical-align:top;text-align:left;font-size:.84rem;overflow-wrap:anywhere}
+thead th{background:var(--head);color:var(--accent-d);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;position:sticky;top:0}
+table.main{table-layout:fixed;min-width:1480px}
+table.compact{table-layout:auto}
+.col-check{width:64px;text-align:center}
+th.col-id,td.col-id{width:48px;font-weight:700;color:var(--accent-d)}
+.main .col-cenario{width:13%;font-weight:600}
+.main .col-config{width:19%}
+.main .col-acao{width:15%}
+.main .col-resultado{width:23%}
+.main .col-tipo,.main .col-tecnica,.main .col-dim{width:7%}
+.main .col-origem{width:10%}
+tr.group td{background:var(--group);color:var(--accent-d);font-weight:700;font-size:.82rem;letter-spacing:.03em;text-transform:uppercase;padding:.5rem .7rem}
+.gcount{float:right;font-weight:600;text-transform:none;color:var(--muted);font-size:.78rem}
+tr.row-hipotese{background:var(--hip)}
+tr.row-hipotese td{border-color:var(--hip-b)}
+tr.row-done{background:var(--done)}
+tr.row-done td{border-color:var(--done-b)}
+tr.row-done td.col-cenario,tr.row-done td.col-acao,tr.row-done td.col-resultado{opacity:.7}
+tr.row-done td.col-cenario{text-decoration:line-through;text-decoration-color:#7fbf9a}
+input.chk{width:20px;height:20px;cursor:pointer;accent-color:var(--accent)}
+.tag{display:inline-block;padding:.1rem .55rem;border-radius:999px;font-size:.72rem;font-weight:600;background:var(--neu-bg);color:var(--neu)}
+.tag-positivo{background:var(--pos-bg);color:var(--pos)}
+.tag-negativo{background:var(--neg-bg);color:var(--neg)}
+.tag-regressao{background:var(--reg-bg);color:var(--reg)}
+.hip-badge{display:inline-block;margin-right:.4rem;font-size:.68rem;background:var(--warn);color:#fff;border-radius:999px;padding:.03rem .5rem;vertical-align:1px}
+tr.hidden{display:none}
+.nojs{background:#fff3dc;color:#8a5a00;border-bottom:2px solid #c77700;padding:.7rem 1rem;font-size:.9rem;text-align:center}
+input.chk:disabled{cursor:not-allowed;opacity:.5}
+.empty{display:none;padding:1rem;color:var(--muted);text-align:center}
+footer{max-width:1500px;margin:2rem auto 0;padding:0 1.5rem;color:var(--muted);font-size:.8rem}
+@media (max-width:1000px){
+ .wrap{padding:.8rem 1rem}
+ .bar{position:static}
+ table.main{min-width:0}
+ .tbl-wrap{border:0;background:transparent}
+ table.cases,table.cases tbody,table.cases tr,table.cases td{display:block;width:100%}
+ table.cases thead{display:none}
+ table.cases tr[data-id]{background:var(--card);border:1px solid var(--border);border-radius:10px;margin:0 0 .8rem;padding:.3rem .2rem}
+ table.cases tr.row-hipotese{background:var(--hip)}
+ table.cases tr.row-done{background:var(--done)}
+ table.cases td{border:0;padding:.35rem .7rem;width:100%!important}
+ table.cases td::before{content:attr(data-label);display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+ table.cases td.col-check{text-align:left}
+ table.cases tr.group{margin:1rem 0 .4rem}
+ table.cases tr.group td::before{content:none}
+}
+@media print{.bar,nav.toc{display:none}}
+</style>
+</head>
+<body>
+<header><div class="inner"><h1>Mapa de Testes — US 166234 — Detalhamento do gráfico Tamanho do repositório por tipo</h1><p>Projeto: SHARE-4 | Sprint: SHARE-4 | Card do mapa: <code>#166390</code></p><nav class="toc"><a href="#resumo">Resumo</a><a href="#tabela-completa">Tabela completa</a><a href="#pre-requisitos">Pré-requisitos consolidados</a></nav></div></header>
+<noscript><div class="nojs">JavaScript desativado ou bloqueado nesta visualização: os checkboxes ficam desabilitados. Abra o arquivo diretamente no Chrome ou no Edge (duplo clique no arquivo).</div></noscript>
+<div class="wrap">
+<div class="bar" role="region" aria-label="Progresso e filtros">
+  <span class="count" id="count">Ativando… (se esta mensagem não mudar, o script não está rodando: abra o arquivo em um navegador)</span>
+  <div class="track"><div class="fill" id="fill"></div></div>
+  <div class="seg">
+    <button type="button" class="active" data-filter="all">Todos</button>
+    <button type="button" data-filter="todo">Pendentes</button>
+    <button type="button" data-filter="done">Testados</button>
+  </div>
+  <input type="search" id="q" placeholder="Buscar cenário…" aria-label="Buscar cenário">
+  <button type="button" id="export" title="Baixa um JSON com os cenários marcados">Exportar marcações</button>
+  <label class="btn" title="Carrega um JSON exportado antes">Importar<input type="file" id="import" accept="application/json,.json"></label>
+  <button type="button" class="warn" id="reset">Limpar</button>
+</div>
+<h2 id="resumo">Resumo</h2>
+<h2 id="resumo">Resumo</h2><p><strong>Objetivo.</strong> Permitir que o gestor do acervo ECM clique na barra de um tipo no gráfico Tamanho do repositório por tipo e veja, no painel lateral, os documentos que compõem o valor da barra, do maior para o menor, com soma igual à barra. Substitui o CA-09 (Sem clique) do PBI 163958.</p><p><strong>Fonte técnica.</strong> Card Análise #166305 (Felipe Kuhnen, Done): contexto 10 (StorageByType) nas rotas RelatedDocuments e /Count, SQL de agregação por documento, clique e teclado no gráfico (smartshare-analytics). Sem PR vinculado; código não corroborado no hub (branch remota sem os commits). Divergência: tamanho soma só versões (30 MB), a US pede versões + anexos (32 MB); decisão do dev prevalece (APR-010), PM não confirmou. Fora do escopo desta US: gate de administrador (PBI 166114) e ação de abrir (PBI 166098), ambos não implementados. Protótipo Figma não consultado: a US não traz link. Recomendações: REC-166234-02 aprovada; REC-166234-01 e -03 como hipótese.</p><p><strong>Origem (siglas).</strong> CA = Critérios de Aceite · CT = Casos de Teste do dev · PI = Pontos de Impacto do dev · hipótese = não confirmada.</p><p><strong>Histórico de defeitos considerado.</strong> Busca de bugs sem resultado relacionado (o único retorno, Bug #161424 Não carrega tela principal ECM, é de outra área e não gerou cenário).</p><p><strong>Dimensões cobertas.</strong> Classificação FE + BE + API. Cobertas: positivo, negativo, permissão, dados, regressão. Concorrência N/A (consulta somente leitura). Tipos: funcional, acessibilidade (teclado), banco de dados, integração, contrato, tratamento de erros, autorização; desempenho só como hipótese. Descartados: carga, estresse, visual regression e responsividade (sem fonte que peça).</p><h4>Critérios de aceite</h4><ul><li>CA-01 Clique abre o painel</li><li>CA-02 Soma igual à barra</li><li>CA-03 Tamanho com versões e anexos</li><li>CA-04 Documentos não publicados</li><li>CA-05 Ordenação</li><li>CA-06 Período não interfere</li><li>CA-07 Documento sem permissão</li><li>CA-08 Regressão de permissão</li><li>CA-09 Tooltip mantido</li><li>CA-10 Tipo com muitos documentos</li><li>CA-11 Teclado</li></ul>
+<h2 id="tabela-completa">Tabela completa (26 cenários)</h2>
+<div class="tbl-wrap"><table class="cases main"><thead><tr><th class="col-check">Testado</th><th class="col-id">#</th><th class="col-cenario">Cenário</th><th class="col-config">Configurações necessárias</th><th class="col-acao">Ação</th><th class="col-resultado">Resultado Esperado</th><th class="col-tipo">Tipo</th><th class="col-tecnica">Técnica</th><th class="col-dim">Dimensão</th><th class="col-origem">Origem</th></tr></thead><tbody><tr class="group"><td colspan="10"><span class="gname">FLUXO PRINCIPAL</span><span class="gcount"></span></td></tr>
+<tr data-id="1"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="1" disabled aria-label="Marcar o cenário 1 como testado"></td><td class="col-id" data-label="#">1</td><td class="col-cenario" data-label="Cenário">Clique abre o painel</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[USUARIO] usuário com acesso ao Dashboard ECM, aba Armazenamento (st_visao_dashboard)<br>[DADOS] tipo Contrato com documentos, incluindo um com 3 versões de 10 MB e um nunca publicado</td><td class="col-acao" data-label="Ação">Clicar na barra Contrato.</td><td class="col-resultado" data-label="Resultado Esperado">Abre o painel lateral &quot;Documentos relacionados&quot; com os documentos do tipo Contrato.</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA1</td></tr>
+<tr data-id="2" class="row-hipotese"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="2" disabled aria-label="Marcar o cenário 2 como testado"></td><td class="col-id" data-label="#">2</td><td class="col-cenario" data-label="Cenário"><span class="hip-badge">hipótese</span>Soma da lista igual à barra</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[USUARIO] usuário com acesso ao Dashboard ECM, aba Armazenamento (st_visao_dashboard)<br>[DADOS] tipo Contrato com documentos, incluindo um com 3 versões de 10 MB e um nunca publicado</td><td class="col-acao" data-label="Ação">Somar o <code>fileSizeKb</code> de todas as páginas do painel e comparar com o <code>totalSizeKb</code> da barra (<code>StorageSizeByType</code>).</td><td class="col-resultado" data-label="Resultado Esperado">Soma idêntica ao valor da barra. HIPOTESE: formato e unidade exibidos na tela (REC-166234-03, a confirmar com o dev).</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA2, CT, hipótese</td></tr>
+<tr data-id="3"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="3" disabled aria-label="Marcar o cenário 3 como testado"></td><td class="col-id" data-label="#">3</td><td class="col-cenario" data-label="Cenário">Tamanho do documento soma as versões</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[DADOS] tipo Contrato com documentos, incluindo um com 3 versões de 10 MB e um nunca publicado</td><td class="col-acao" data-label="Ação">Abrir o painel e localizar o documento com 3 versões de 10 MB.</td><td class="col-resultado" data-label="Resultado Esperado">Aparece com 30 MB, conforme decisão do dev (card #166305). Diverge do CA-03 da US (32 MB, com anexo); a PM ainda não confirmou.</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">valor-limite</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA3, PI</td></tr>
+<tr data-id="4"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="4" disabled aria-label="Marcar o cenário 4 como testado"></td><td class="col-id" data-label="#">4</td><td class="col-cenario" data-label="Cenário">Documento nunca publicado entra na lista</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[DADOS] tipo Contrato com documentos, incluindo um com 3 versões de 10 MB e um nunca publicado</td><td class="col-acao" data-label="Ação">Abrir o painel da barra Contrato.</td><td class="col-resultado" data-label="Resultado Esperado">O documento nunca publicado aparece na lista.</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA4</td></tr>
+<tr data-id="5"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="5" disabled aria-label="Marcar o cenário 5 como testado"></td><td class="col-id" data-label="#">5</td><td class="col-cenario" data-label="Cenário">Ordenação do maior para o menor</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[USUARIO] usuário com acesso ao Dashboard ECM, aba Armazenamento (st_visao_dashboard)<br>[DADOS] tipo Contrato com documentos, incluindo um com 3 versões de 10 MB e um nunca publicado</td><td class="col-acao" data-label="Ação">Abrir o painel e ler a coluna Tamanho.</td><td class="col-resultado" data-label="Resultado Esperado">Ordem decrescente por tamanho, com desempate por <code>documentId</code> crescente.</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">valor-limite</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA5, CT</td></tr>
+<tr data-id="6"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="6" disabled aria-label="Marcar o cenário 6 como testado"></td><td class="col-id" data-label="#">6</td><td class="col-cenario" data-label="Cenário">Período não interfere</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[USUARIO] usuário com acesso ao Dashboard ECM, aba Armazenamento (st_visao_dashboard)<br>[DADOS] tipo Contrato com documentos, incluindo um com 3 versões de 10 MB e um nunca publicado</td><td class="col-acao" data-label="Ação">Alterar o filtro de período, clicar na barra e inspecionar o body das chamadas de lista e <code>/Count</code>.</td><td class="col-resultado" data-label="Resultado Esperado">Body sem <code>startDateFrom</code>/<code>startDateTo</code>; a lista é a mesma em qualquer período.</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">tabela-decisão</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA6, CT</td></tr>
+<tr data-id="7"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="7" disabled aria-label="Marcar o cenário 7 como testado"></td><td class="col-id" data-label="#">7</td><td class="col-cenario" data-label="Cenário">Teclado equivale ao clique</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[USUARIO] usuário com acesso ao Dashboard ECM, aba Armazenamento (st_visao_dashboard)</td><td class="col-acao" data-label="Ação">Setas, Home e End navegam pelas barras; Enter ou Espaço abrem o painel; Esc fecha.</td><td class="col-resultado" data-label="Resultado Esperado">O painel abre como no clique; o foco volta ao gráfico ao fechar; com zoom, a navegação fica presa ao trecho visível.</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">CA11, CT</td></tr>
+<tr data-id="8"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="8" disabled aria-label="Marcar o cenário 8 como testado"></td><td class="col-id" data-label="#">8</td><td class="col-cenario" data-label="Cenário">Tooltip mantido</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[USUARIO] usuário com acesso ao Dashboard ECM, aba Armazenamento (st_visao_dashboard)</td><td class="col-acao" data-label="Ação">Passar o mouse e dar foco numa barra.</td><td class="col-resultado" data-label="Resultado Esperado">Mostra tipo, tamanho e percentual do total, como antes.</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">CA9, CT</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">FLUXO ALTERNATIVO</span><span class="gcount"></span></td></tr>
+<tr data-id="9" class="row-hipotese"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="9" disabled aria-label="Marcar o cenário 9 como testado"></td><td class="col-id" data-label="#">9</td><td class="col-cenario" data-label="Cenário"><span class="hip-badge">hipótese</span>Documento sem linha de tamanho</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[USUARIO] usuário com acesso ao Dashboard ECM, aba Armazenamento (st_visao_dashboard)<br>[DADOS] HIPOTESE: documento sem registro em VERSAO_DOCUMENTO_INFORMATION</td><td class="col-acao" data-label="Ação">Abrir o painel do tipo que contém o documento.</td><td class="col-resultado" data-label="Resultado Esperado">O documento aparece com 0 KB e a soma da lista não muda.</td><td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td><td class="col-origem" data-label="Origem">CT, hipótese</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">VALIDAÇÕES DE CAMPOS</span><span class="gcount"></span></td></tr>
+<tr data-id="10"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="10" disabled aria-label="Marcar o cenário 10 como testado"></td><td class="col-id" data-label="#">10</td><td class="col-cenario" data-label="Cenário">Contexto 10 junto com outro contexto</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[USUARIO] usuário com acesso ao Dashboard ECM, aba Armazenamento (st_visao_dashboard)</td><td class="col-acao" data-label="Ação">Chamar <code>RelatedDocuments</code> com <code>storageDocumentTypeId</code> e outro contexto no mesmo request.</td><td class="col-resultado" data-label="Resultado Esperado">Resposta 400.</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">CT</td></tr>
+<tr data-id="11"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="11" disabled aria-label="Marcar o cenário 11 como testado"></td><td class="col-id" data-label="#">11</td><td class="col-cenario" data-label="Cenário">storageDocumentTypeId menor ou igual a 0</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[USUARIO] usuário com acesso ao Dashboard ECM, aba Armazenamento (st_visao_dashboard)</td><td class="col-acao" data-label="Ação">Chamar a API com 0 e com -1; no front, tentar abrir o painel de barra com tipo de id menor ou igual a 0.</td><td class="col-resultado" data-label="Resultado Esperado">A API devolve 400 e a barra não abre o painel.</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">valor-limite</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-negativo">negativo</span></td><td class="col-origem" data-label="Origem">CT</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">PERMISSÃO</span><span class="gcount"></span></td></tr>
+<tr data-id="12"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="12" disabled aria-label="Marcar o cenário 12 como testado"></td><td class="col-id" data-label="#">12</td><td class="col-cenario" data-label="Cenário">Documento sem permissão aparece na lista</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[DADOS] tipo Contrato com documentos, incluindo um com 3 versões de 10 MB e um nunca publicado<br>[USUARIO] usuário sem permissão de visualizar o tipo Contrato</td><td class="col-acao" data-label="Ação">Com o usuário sem permissão no tipo, clicar na barra Contrato.</td><td class="col-resultado" data-label="Resultado Esperado">Os documentos aparecem na lista, com nome e metadados.</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">tabela-decisão</td><td class="col-dim" data-label="Dimensão"><span class="tag">permissão</span></td><td class="col-origem" data-label="Origem">CA7, CT</td></tr>
+<tr data-id="13"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="13" disabled aria-label="Marcar o cenário 13 como testado"></td><td class="col-id" data-label="#">13</td><td class="col-cenario" data-label="Cenário">Abrir documento sem e com permissão</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[DADOS] tipo Contrato com documentos, incluindo um com 3 versões de 10 MB e um nunca publicado<br>[USUARIO] usuário sem permissão de visualizar o tipo Contrato<br>[CONFIG] PBI 166098 (ação de abrir documento) implantado</td><td class="col-acao" data-label="Ação">Abrir um documento pelo painel com cada perfil (sem e com permissão no tipo).</td><td class="col-resultado" data-label="Resultado Esperado">Dependente do PBI 166098 (ação de abrir não implementada nesta US); não executável até lá. Recomendação do Claude (REC-166234-02), aprovada pela usuária em 2026-11-09, não definida na US.</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">tabela-decisão</td><td class="col-dim" data-label="Dimensão"><span class="tag">permissão</span></td><td class="col-origem" data-label="Origem">CA7, CA8</td></tr>
+<tr data-id="14"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="14" disabled aria-label="Marcar o cenário 14 como testado"></td><td class="col-id" data-label="#">14</td><td class="col-cenario" data-label="Cenário">Usuário sem st_visao_dashboard</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[USUARIO] usuário sem a permissão st_visao_dashboard</td><td class="col-acao" data-label="Ação">Chamar a API do contexto 10.</td><td class="col-resultado" data-label="Resultado Esperado">Resposta 403.</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag">permissão</span></td><td class="col-origem" data-label="Origem">CT</td></tr>
+<tr data-id="15" class="row-hipotese"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="15" disabled aria-label="Marcar o cenário 15 como testado"></td><td class="col-id" data-label="#">15</td><td class="col-cenario" data-label="Cenário"><span class="hip-badge">hipótese</span>Acesso por usuário não administrador</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[USUARIO] HIPOTESE: usuário não administrador</td><td class="col-acao" data-label="Ação">Acessar a aba Armazenamento e o painel.</td><td class="col-resultado" data-label="Resultado Esperado">HIPOTESE: bloqueado pelo gate do PBI 166114, que não existe hoje no net8 (card #166305); resultado a confirmar com o dev.</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag">permissão</span></td><td class="col-origem" data-label="Origem">PI, hipótese</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">DADOS E CASOS DE BORDA</span><span class="gcount"></span></td></tr>
+<tr data-id="16"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="16" disabled aria-label="Marcar o cenário 16 como testado"></td><td class="col-id" data-label="#">16</td><td class="col-cenario" data-label="Cenário">Tipo com mais de 50 documentos</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[DADOS] tipo com mais de 50 documentos</td><td class="col-acao" data-label="Ação">Rolar o painel (infinite scroll de 50 itens por página).</td><td class="col-resultado" data-label="Resultado Esperado">Ordem estável entre páginas, sem repetição nem perda; soma total igual à barra.</td><td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td><td class="col-tecnica" data-label="Técnica">valor-limite</td><td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td><td class="col-origem" data-label="Origem">CA5, CT</td></tr>
+<tr data-id="17" class="row-hipotese"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="17" disabled aria-label="Marcar o cenário 17 como testado"></td><td class="col-id" data-label="#">17</td><td class="col-cenario" data-label="Cenário"><span class="hip-badge">hipótese</span>Tipo com milhares de documentos</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[DADOS] tipo com milhares de documentos</td><td class="col-acao" data-label="Ação">Clicar na barra e medir o tempo até o painel abrir.</td><td class="col-resultado" data-label="Resultado Esperado">HIPOTESE: critério de tempo é o máximo aceitável (APR-002), medido nos outros painéis, sem travar a aba (REC-166234-01 como hipótese).</td><td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td><td class="col-tecnica" data-label="Técnica">valor-limite</td><td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td><td class="col-origem" data-label="Origem">CA10, PI, hipótese</td></tr>
+<tr data-id="18"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="18" disabled aria-label="Marcar o cenário 18 como testado"></td><td class="col-id" data-label="#">18</td><td class="col-cenario" data-label="Cenário">Execução em SQL Server e em Oracle</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[AMBIENTE] um ambiente SQL Server e um ambiente Oracle, ambos com a US implantada</td><td class="col-acao" data-label="Ação">Repetir os cenários 1, 2, 5 e 16 em cada banco.</td><td class="col-resultado" data-label="Resultado Esperado">Mesmo resultado nos dois bancos; execução completa em cada um.</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">partição-equivalência</td><td class="col-dim" data-label="Dimensão"><span class="tag">dados</span></td><td class="col-origem" data-label="Origem">PI, CT</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">CONCORRÊNCIA</span><span class="gcount"></span></td></tr>
+<tr data-id="19"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="19" disabled aria-label="Marcar o cenário 19 como testado"></td><td class="col-id" data-label="#">19</td><td class="col-cenario" data-label="Cenário">Não aplicável</td><td class="col-config" data-label="Configurações necessárias">Nenhum específico</td><td class="col-acao" data-label="Ação">—</td><td class="col-resultado" data-label="Resultado Esperado">N/A — consulta somente leitura, sem recurso disputado.</td><td class="col-tipo" data-label="Tipo"><span class="tag">—</span></td><td class="col-tecnica" data-label="Técnica">—</td><td class="col-dim" data-label="Dimensão"><span class="tag">concorrência</span></td><td class="col-origem" data-label="Origem">—</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">ERROS DE INTEGRAÇÃO / API</span><span class="gcount"></span></td></tr>
+<tr data-id="20"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="20" disabled aria-label="Marcar o cenário 20 como testado"></td><td class="col-id" data-label="#">20</td><td class="col-cenario" data-label="Cenário">Evento de analytics</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[USUARIO] usuário com acesso ao Dashboard ECM, aba Armazenamento (st_visao_dashboard)</td><td class="col-acao" data-label="Ação">Abrir o painel e inspecionar o evento <code>ecm_drilldown_opened</code>.</td><td class="col-resultado" data-label="Resultado Esperado">Leva <code>storage_document_type_id</code> e não leva o período. O dono do catálogo ainda deve confirmar.</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-positivo">positivo</span></td><td class="col-origem" data-label="Origem">PI</td></tr>
+<tr class="group"><td colspan="10"><span class="gname">REGRESSÃO</span><span class="gcount"></span></td></tr>
+<tr data-id="21"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="21" disabled aria-label="Marcar o cenário 21 como testado"></td><td class="col-id" data-label="#">21</td><td class="col-cenario" data-label="Cenário">Painel dos contextos 1 a 9</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[USUARIO] usuário com acesso ao Dashboard ECM, aba Armazenamento (st_visao_dashboard)</td><td class="col-acao" data-label="Ação">Abrir o painel pelos outros gráficos (ex.: Documentos por tipo).</td><td class="col-resultado" data-label="Resultado Esperado">Mesmo filtro, mesma ordem e período aplicado; itens com <code>documentId</code> e <code>fileSizeKb</code> a mais.</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">PI</td></tr>
+<tr data-id="22"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="22" disabled aria-label="Marcar o cenário 22 como testado"></td><td class="col-id" data-label="#">22</td><td class="col-cenario" data-label="Cenário">Permissão nos contextos 1 a 9</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[USUARIO] usuário sem permissão de visualizar o tipo Contrato</td><td class="col-acao" data-label="Ação">Abrir o painel pelos outros gráficos com o usuário sem permissão.</td><td class="col-resultado" data-label="Resultado Esperado">Continua filtrando por permissão (<code>DocumentReadPermissionExists</code> como WHERE).</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-negativo">negativo</span></td><td class="col-tecnica" data-label="Técnica">tabela-decisão</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">PI</td></tr>
+<tr data-id="23"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="23" disabled aria-label="Marcar o cenário 23 como testado"></td><td class="col-id" data-label="#">23</td><td class="col-cenario" data-label="Cenário">Gráfico de volumetria com helper comum</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[USUARIO] usuário com acesso ao Dashboard ECM, aba Armazenamento (st_visao_dashboard)</td><td class="col-acao" data-label="Ação">Usar teclado e zoom no gráfico de volumetria de publicações.</td><td class="col-resultado" data-label="Resultado Esperado">Comportamento visível igual ao anterior.</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">PI, CT</td></tr>
+<tr data-id="24"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="24" disabled aria-label="Marcar o cenário 24 como testado"></td><td class="col-id" data-label="#">24</td><td class="col-cenario" data-label="Cenário">Tab depois de clique de mouse</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[USUARIO] usuário com acesso ao Dashboard ECM, aba Armazenamento (st_visao_dashboard)</td><td class="col-acao" data-label="Ação">Clicar no gráfico e usar Tab.</td><td class="col-resultado" data-label="Resultado Esperado">Reativa o ponto do gráfico.</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">CT</td></tr>
+<tr data-id="25"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="25" disabled aria-label="Marcar o cenário 25 como testado"></td><td class="col-id" data-label="#">25</td><td class="col-cenario" data-label="Cenário">Zoom e item ativo fora da janela</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[USUARIO] usuário com acesso ao Dashboard ECM, aba Armazenamento (st_visao_dashboard)</td><td class="col-acao" data-label="Ação">Aplicar zoom com o item ativo fora do trecho visível.</td><td class="col-resultado" data-label="Resultado Esperado">O item ativo é puxado para a borda da janela.</td><td class="col-tipo" data-label="Tipo"><span class="tag">borda</span></td><td class="col-tecnica" data-label="Técnica">valor-limite</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">CT</td></tr>
+<tr data-id="26"><td class="col-check" data-label="Testado"><input type="checkbox" class="chk" data-id="26" disabled aria-label="Marcar o cenário 26 como testado"></td><td class="col-id" data-label="#">26</td><td class="col-cenario" data-label="Cenário">Substitui o &quot;sem clique&quot; do PBI 163958</td><td class="col-config" data-label="Configurações necessárias">[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2)<br>[USUARIO] usuário com acesso ao Dashboard ECM, aba Armazenamento (st_visao_dashboard)</td><td class="col-acao" data-label="Ação">Clicar numa barra do gráfico Tamanho do repositório por tipo.</td><td class="col-resultado" data-label="Resultado Esperado">Abre o painel (esta US substitui o CA-09 &quot;Sem clique&quot; do PBI 163958).</td><td class="col-tipo" data-label="Tipo"><span class="tag tag-positivo">positivo</span></td><td class="col-tecnica" data-label="Técnica">exploratório</td><td class="col-dim" data-label="Dimensão"><span class="tag tag-regressao">regressão</span></td><td class="col-origem" data-label="Origem">CA1</td></tr></tbody></table></div>
+<h2 id="pre-requisitos">Pré-requisitos de ambiente (consolidado)</h2>
+<ul><li>[AMBIENTE] build da US 166234 implantado (API net8 e smartshare-analytics, branch feature/melhorias-dashboard/ecm-fase2) — cenários: #1, #2, #3, #4, #5, #6, #7, #8, #9, #10, #11, #12, #13, #14, #15, #16, #17, #18, #20, #21, #22, #23, #24, #25, #26</li><li>[USUARIO] usuário com acesso ao Dashboard ECM, aba Armazenamento (st_visao_dashboard) — cenários: #1, #2, #5, #6, #7, #8, #9, #10, #11, #20, #21, #23, #24, #25, #26</li><li>[DADOS] tipo Contrato com documentos, incluindo um com 3 versões de 10 MB e um nunca publicado — cenários: #1, #2, #3, #4, #5, #6, #12, #13</li><li>[DADOS] HIPOTESE: documento sem registro em VERSAO_DOCUMENTO_INFORMATION — cenários: #9</li><li>[USUARIO] usuário sem permissão de visualizar o tipo Contrato — cenários: #12, #13, #22</li><li>[CONFIG] PBI 166098 (ação de abrir documento) implantado — cenários: #13</li><li>[USUARIO] usuário sem a permissão st_visao_dashboard — cenários: #14</li><li>[USUARIO] HIPOTESE: usuário não administrador — cenários: #15</li><li>[DADOS] tipo com mais de 50 documentos — cenários: #16</li><li>[DADOS] tipo com milhares de documentos — cenários: #17</li><li>[AMBIENTE] um ambiente SQL Server e um ambiente Oracle, ambos com a US implantada — cenários: #18</li></ul>
+</div>
+<footer>As marcações ficam salvas só neste navegador, por cenário. Use Exportar e Importar para levá-las a outra máquina.</footer>
+<script>
+(function(){
+try{
+  var KEY="mapa-teste-us-166234-tamanho-repositorio-por-tipo-testados-v1";
+  var state={};
+  try{var raw=localStorage.getItem(KEY);if(raw)state=JSON.parse(raw)||{};}catch(e){}
+  var chks=[].slice.call(document.querySelectorAll('input.chk'));
+  chks.forEach(function(c){c.disabled=false;});
+  var mainRows=[].slice.call(document.querySelectorAll('table.main tbody tr[data-id]'));
+  var ids=mainRows.map(function(r){return r.dataset.id;});
+  var fill=document.getElementById('fill'),count=document.getElementById('count');
+  var filter='all',query='';
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function paint(id){
+    var on=!!state[id];
+    chks.forEach(function(c){if(c.dataset.id===id){c.checked=on;c.closest('tr').classList.toggle('row-done',on);}});
+  }
+  function groups(){
+    [].slice.call(document.querySelectorAll('table.main tbody')).forEach(function(tb){
+      var cur=null,tot=0,done=0;
+      function close(){if(cur)cur.querySelector('.gcount').textContent=done+' de '+tot+' testados';}
+      [].slice.call(tb.rows).forEach(function(r){
+        if(r.classList.contains('group')){close();cur=r;tot=0;done=0;}
+        else if(r.dataset.id){tot++;if(state[r.dataset.id])done++;}
+      });
+      close();
+    });
+  }
+  function progress(){
+    var d=ids.filter(function(i){return state[i];}).length;
+    count.textContent=d+' de '+ids.length+' testados ('+(ids.length?Math.round(d*100/ids.length):0)+'%)';
+    fill.style.width=(ids.length?d*100/ids.length:0)+'%';
+    groups();
+  }
+  function apply(){
+    var q=query.trim().toLowerCase();
+    [].slice.call(document.querySelectorAll('tr[data-id]')).forEach(function(r){
+      var done=!!state[r.dataset.id];
+      var ok=(filter==='all')||(filter==='done'&&done)||(filter==='todo'&&!done);
+      if(ok&&q)ok=r.textContent.toLowerCase().indexOf(q)>-1;
+      r.classList.toggle('hidden',!ok);
+    });
+    [].slice.call(document.querySelectorAll('tr.group')).forEach(function(g){
+      var n=g.nextElementSibling,any=false;
+      while(n&&!n.classList.contains('group')){if(n.dataset.id&&!n.classList.contains('hidden')){any=true;break;}n=n.nextElementSibling;}
+      g.classList.toggle('hidden',!any);
+    });
+  }
+  chks.forEach(function(c){c.addEventListener('change',function(){
+    var id=c.dataset.id;if(c.checked)state[id]=true;else delete state[id];
+    paint(id);progress();save();apply();
+  });});
+  ids.concat(chks.map(function(c){return c.dataset.id;})).forEach(paint);
+  progress();apply();
+  [].slice.call(document.querySelectorAll('[data-filter]')).forEach(function(b){b.addEventListener('click',function(){
+    filter=b.dataset.filter;
+    [].slice.call(document.querySelectorAll('[data-filter]')).forEach(function(x){x.classList.toggle('active',x===b);});
+    apply();
+  });});
+  document.getElementById('q').addEventListener('input',function(e){query=e.target.value;apply();});
+  document.getElementById('reset').addEventListener('click',function(){
+    if(!confirm('Desmarcar todos os cenários testados?'))return;
+    state={};save();chks.forEach(function(c){paint(c.dataset.id);});progress();apply();
+  });
+  document.getElementById('export').addEventListener('click',function(){
+    var data={arquivo:"mapa-teste-us-166234-tamanho-repositorio-por-tipo.html",exportado_em:new Date().toISOString(),testados:Object.keys(state).sort(function(a,b){return a-b;})};
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+    a.download='marcacoes-mapa-teste.json';document.body.appendChild(a);a.click();a.remove();
+  });
+  document.getElementById('import').addEventListener('change',function(e){
+    var f=e.target.files[0];if(!f)return;
+    var r=new FileReader();
+    r.onload=function(){
+      try{
+        var d=JSON.parse(r.result);
+        if(!d||!Array.isArray(d.testados))throw new Error('formato');
+        if(!confirm('Substituir as marcações atuais por '+d.testados.length+' cenários testados do arquivo?'))return;
+        state={};d.testados.forEach(function(i){state[String(i)]=true;});
+        save();chks.forEach(function(c){paint(c.dataset.id);});progress();apply();
+      }catch(err){alert('Arquivo inválido: use um JSON exportado por esta página.');}
+      e.target.value='';
+    };
+    r.readAsText(f);
+  });
+}catch(err){var c0=document.getElementById('count');if(c0)c0.textContent='Erro no script: '+err.message;}
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agente de QA - Alinhamento Share</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#1d2330;--mut:#667085;--bd:#e3e6ec;--pri:#2457c5;--ok:#1a7f4b;--okbg:#e2f5ea;--warn:#a35d00;--warnbg:#fdf0d8;--bad:#b42318;--badbg:#fde7e4;--gray:#475467;--graybg:#eceff3}
+@media (prefers-color-scheme:dark){:root{--bg:#12151c;--card:#1b2029;--tx:#e8ebf2;--mut:#9aa4b5;--bd:#2c3340;--pri:#7aa2ff;--ok:#5fd394;--okbg:#17382a;--warn:#f0b35a;--warnbg:#3b2b10;--bad:#ff8f84;--badbg:#42201c;--gray:#b5bdcc;--graybg:#272d38}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,Segoe UI,Roboto,sans-serif}
+main{max-width:1000px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:26px;margin:0 0 4px}
+.sub{color:var(--mut);margin:0 0 24px}
+section{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:20px;margin-bottom:18px}
+h2{font-size:18px;margin:0 0 4px}
+h2 span{color:var(--pri);margin-right:6px}
+.hint{color:var(--mut);font-size:13px;margin:0 0 14px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--bd);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--mut)}
+tr:last-child td{border-bottom:0}
+.tw{overflow-x:auto}
+.badge{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap}
+.ok{background:var(--okbg);color:var(--ok)}.warn{background:var(--warnbg);color:var(--warn)}.bad{background:var(--badbg);color:var(--bad)}.na{background:var(--graybg);color:var(--gray)}
+.bar{height:8px;background:var(--graybg);border-radius:99px;overflow:hidden;min-width:90px}
+.bar i{display:block;height:100%;background:var(--pri)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}
+.kpi{border:1px solid var(--bd);border-radius:10px;padding:12px 14px}
+.kpi b{display:block;font-size:28px;line-height:1.1;color:var(--pri)}
+.kpi small{color:var(--mut)}
+ul{margin:6px 0 0;padding-left:20px}li{margin:4px 0}
+.note{font-size:13px;color:var(--mut);margin-top:12px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.todo{background:var(--warnbg);color:var(--warn);padding:1px 6px;border-radius:4px;font-size:12px}
+@media print{body{background:#fff}section{break-inside:avoid}}
+</style>
+</head>
+<body>
+<main>
+<h1>Agente de QA - Alinhamento das frentes do Share</h1>
+<p class="sub">Posição de 03/11/2026 · Responsável: Caroline Oliveira · Base: ciclos executados de 20/10 a 03/11 e Azure DevOps (SHARE-4)</p>
+
+<section>
+<h2><span>1.</span>Skills do Agente de QA e status</h2>
+<p class="hint">Cadeia: análise de negócio e técnica → mapa de testes → validação de ambiente → execução → análise de defeito → geração de defeito.</p>
+<div class="tw"><table>
+<thead><tr><th>Skill</th><th>Função</th><th>Status</th><th>Observação</th></tr></thead>
+<tbody>
+<tr><td><b>Análise de negócio</b></td><td>Extrai regras, ambiguidades e riscos da US</td><td><div class="bar"><i style="width:100%"></i></div> <span class="badge ok">100%</span></td><td>Estável.</td></tr>
+<tr><td><b>Análise técnica</b></td><td>Cruza card do dev e PR; mapeia impacto por camada</td><td><div class="bar"><i style="width:100%"></i></div> <span class="badge ok">100%</span></td><td>Depende do preenchimento do card pelo dev (ver inconvenientes).</td></tr>
+<tr><td><b>Gerar mapa de testes</b></td><td>Publica o mapa no card "Criar Mapa de Teste"</td><td><div class="bar"><i style="width:80%"></i></div> <span class="badge warn">80%</span></td><td>Ainda faço ressalvas, dependendo da US.</td></tr>
+<tr><td><b>Validar ambiente</b> <span class="badge na">novo</span></td><td>Valida pré-requisitos do mapa e configura o ambiente de teste</td><td><div class="bar"><i style="width:40%"></i></div> <span class="badge warn">40%</span></td><td>Executada poucas vezes.</td></tr>
+<tr><td><b>Executar mapa de testes</b></td><td>Executa os cenários via browser e compara obtido x esperado</td><td><span class="todo">preencher %</span></td><td>Usada em 2 US (#163012 e #164996). Ainda preciso intervir na execução.</td></tr>
+<tr><td><b>Análise de defeito</b></td><td>Decide causa provável e se há evidência para abrir Bug</td><td><span class="todo">preencher %</span></td><td>Em validação desde a semana de 19/10.</td></tr>
+<tr><td><b>Gerar defeito</b></td><td>Monta e cria o Bug no ADO, com confirmação</td><td><span class="todo">preencher %</span></td><td>Em validação desde a semana de 19/10. 9 dos 16 bugs das US com mapa foram gerados pela skill.</td></tr>
+</tbody></table></div>
+</section>
+
+<section>
+<h2><span>2.</span>Indicadores: mapas e bugs</h2>
+<p class="hint">Não considera nenhum teste executado manualmente.</p>
+<div class="kpis">
+<div class="kpi"><b>27</b><small>Mapas criados (36 menos 9 desconsiderados)</small></div>
+<div class="kpi"><b>2</b><small>Mapas executados pela skill (#163012 e #164996)</small></div>
+<div class="kpi"><b>6</b><small>Mapas executados por outros meios</small></div>
+<div class="kpi"><b>14</b><small>Bugs abertos por Caroline</small></div>
+<div class="kpi"><b>16</b><small>Bugs de todas as pessoas nas US com mapa da skill</small></div>
+</div>
+<div class="tw"><table>
+<thead><tr><th>Indicador</th><th>Quantidade</th></tr></thead>
+<tbody>
+<tr><td>Mapas criados</td><td>27 US com mapa de testes (36 menos as 9 desconsideradas)</td></tr>
+<tr><td>Mapas executados (skill)</td><td>2 US com mapa feito pela skill (#163012 e #164996). O checklist de liberação #165526 (mapa do CSV) fica à parte.</td></tr>
+<tr><td>Mapas executados (outros)</td><td>6 US com mapa criado e tarefa Teste em Done no ADO, sem execução pela skill nos ciclos: #157853, #162122, #162412, #162683, #163010 e #164414</td></tr>
+<tr><td>Mapas sem execução</td><td>19 (15 com tarefa Teste em New, 3 sem tarefa Teste, 1 sem tarefas no ADO)</td></tr>
+<tr><td>Bugs abertos por Caroline</td><td>14 (11 nas US com mapa e 3 nas US do instalador, sem mapa)</td></tr>
+<tr><td>Bugs de todas as pessoas nas US com mapa da skill</td><td>16 (11 de Caroline e 5 de outras pessoas)</td></tr>
+</tbody></table></div>
+<div class="cols" style="margin-top:16px">
+<div>
+<b>Origem dos 16 bugs</b>
+<ul>
+<li>9 localizados pela skill (gerar defeito)</li>
+<li>2 manuais de Caroline (#165160, #165161)</li>
+<li>5 de outras pessoas (Pedro Roque, Rodrigo Neves, Thiago Gon)</li>
+</ul>
+</div>
+<div>
+<b>Aderência ao mapa</b>
+<ul>
+<li>11 de 16 bugs estão citados no mapa da própria US</li>
+<li>Os 5 bugs de outras pessoas correspondem a cenários ou ao histórico do mapa</li>
+<li>3 bugs da skill ficaram fora do mapa (2 divergências de protótipo, 1 guardrail do ambiente)</li>
+</ul>
+</div>
+</div>
+<p class="note">Desconsiderados: mapas do instalador (#154487, #157656, #157657 e US da Feature #158043) e, dos bugs, os das US sem mapa.</p>
+</section>
+
+<section>
+<h2><span>3.</span>Ciclo completo por US executada</h2>
+<div class="tw"><table>
+<thead><tr><th>US</th><th>Análise negócio</th><th>Mapa</th><th>Valid. ambiente</th><th>Execução</th><th>Análise falha</th><th>Defeito</th><th>Ciclo</th></tr></thead>
+<tbody>
+<tr><td>#163012 Gerenciamento de parâmetros (FE)</td><td>Sim</td><td>Sim</td><td>Sim</td><td>Sim</td><td>Sim</td><td>4 bugs</td><td><span class="badge ok">Completo</span></td></tr>
+<tr><td>#164996 Opções do índice (FE)</td><td>Sim</td><td>Sim</td><td>Sim</td><td>Sim</td><td>No relatório de execução</td><td>5 bugs</td><td><span class="badge warn">Completo, com ressalva</span></td></tr>
+</tbody></table></div>
+</section>
+
+<section>
+<h2><span>4.</span>Status por frente do SmartShare</h2>
+<p class="hint">Quais skills foram testadas e o que não foi feito. Agrupamento inicial pelos títulos das US; ajustar conforme a divisão oficial das frentes.</p>
+<div class="tw"><table>
+<thead><tr><th>Frente</th><th>US com mapa (exemplos)</th><th>Skills testadas</th><th>O que não foi feito</th></tr></thead>
+<tbody>
+<tr><td><b>Migração</b> (telas de gerenciamento)</td><td>#163012, #164996, #163010, #164248, #164847 a #164852</td><td>Todas, com ciclo completo em 2 US. Validação de execução, análise de defeito e gerar defeito iniciada na semana de 19/10.</td><td>Ainda preciso intervir na execução. A maioria dos mapas (tarefa Teste em New) não foi executada. Faltam tarefas de Teste e US em alguns casos (#164997, #164998, #165177).</td></tr>
+<tr><td><b>Login / Share 4</b></td><td>#162412, #162683, #164414</td><td>Análises e mapa.</td><td>Execução pela skill (testadas por outros meios, sem bug aberto).</td></tr>
+<tr><td><b>BPM / ECM</b></td><td>#161897, #161357, #162122, #157853</td><td>Análises e mapa. Mapas usados no teste de outras pessoas.</td><td>Execução pela skill. Bugs abertos por terceiros (#165097, #165347, #165361, #163763, #164268).</td></tr>
+<tr><td><b>Instalador</b></td><td>Desconsiderado</td><td>-</td><td>Fora do escopo dos indicadores.</td></tr>
+<tr><td><b>Frentes sem US</b></td><td>-</td><td>-</td><td>Skills não aplicáveis sem US (ver inconvenientes). <span class="todo">listar as frentes</span></td></tr>
+</tbody></table></div>
+</section>
+
+<section>
+<h2><span>5.</span>Inconvenientes no time: pessoas e/ou processo</h2>
+<ul>
+<li><b>Processo:</b> análises despadronizadas de forma geral (card de análise técnica, critérios de aceite e nível de detalhe variam entre US).</li>
+<li><b>Processo:</b> algumas frentes não possuem US, o que impede iniciar a cadeia de skills.</li>
+<li><b>Processo:</b> 15 mapas com tarefa Teste em New e 3 US sem tarefa Teste, sem sequência de execução definida.</li>
+<li><b>Pessoas:</b> a skill ainda depende de intervenção minha na execução.</li>
+</ul>
+</section>
+
+<section>
+<h2><span>6.</span>Pontos de melhoria no processo</h2>
+<ul>
+<li>Atualizar todos sobre o funcionamento do processo, para que o time inteiro esteja alinhado.</li>
+<li>Padronizar as análises (modelo de análise técnica e de US).</li>
+<li>Garantir uma US por frente, com tarefa Teste criada.</li>
+<li>Definir quem executa e quando, e registrar a execução (hoje 6 US foram testadas sem relatório da skill).</li>
+<li>Executar mais vezes a validação de ambiente para ganhar maturidade (hoje em 40%).</li>
+</ul>
+</section>
+
+<section>
+<h2><span>7.</span>Demais informações relevantes</h2>
+<ul>
+<li>Todos os 5 bugs de outras pessoas estão ligados ao mapa, o que indica que o mapa cobre os pontos reais de falha.</li>
+<li>Cenário #18 da #163012 (Esc não fecha o modal) falhou e está sem Bug aberto.</li>
+<li>O #164996 teve bug por guardrail do ambiente (#165721), mostrando o valor da validação de ambiente.</li>
+<li>Os números não incluem testes executados manualmente.</li>
+</ul>
+</section>
+</main>
+</body>
+</html>
