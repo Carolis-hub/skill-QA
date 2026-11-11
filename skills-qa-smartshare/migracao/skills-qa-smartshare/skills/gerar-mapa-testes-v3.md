@@ -1,9 +1,9 @@
 ---
-version: 1.2
+version: 1.3
 description: Generate a test case map from an Azure DevOps story and publish it directly into the Description field of the "Criar Mapa de Teste" card (child of the story), via MCP only — no Test Plan, no REST, no PAT. v3 — checklist obrigatorio de dimensoes (permissao/dados/concorrencia/regressao), tecnica formal de teste por cenario, historico de defeitos e reaproveitamento de /analise-negocio e /analise-tecnica. Baseado no v2 (encoding-hardened) apenas na parte de analise; a parte de publicacao foi reescrita para nao usar Test Plan.
 ---
 
-**Versão da skill: 1.2** (2026-11-09) · histórico em `CHANGELOG.md`
+**Versão da skill: 1.3** (2026-11-11) · histórico em `CHANGELOG.md`
 
 Generate a test map from Azure DevOps story arguments **$ARGUMENTS**.
 
@@ -501,6 +501,15 @@ Se o estado do card foi para `Committed`, a tag `agenteqa` foi adicionada (Step 
 coluna Observações (ex.: "sobrescreveu mapa anterior do card, com confirmação do usuário"). Se o Step 6.5
 rodou, mencione também quantas hipóteses foram notificadas via comentário na história (ou que o comentário
 falhou, se for o caso).
+
+---
+
+## Fim da etapa — sugerir limpar o contexto
+
+Ao concluir esta skill (relatório gravado e log registrado, quando houver), termine a resposta com **uma linha** para a usuária: o que a próxima etapa precisa já está em arquivo (`$CICLOS_DIR\US-<ID>\...`) ou no Azure DevOps, então ela pode rodar `/clear` (ou `/compact`, se quiser manter o fio da conversa) antes de /validar-ambiente <ID>. Motivo: o contexto da sessão é relido a cada resposta; carregar esta skill e as das etapas seguintes na mesma sessão multiplica o consumo de tokens.
+
+- Não execute `/clear` nem `/compact` por conta própria (são comandos da usuária) e não encadeie a próxima skill automaticamente.
+- Se algo necessário à próxima etapa só existe na conversa (decisão, resposta da usuária, evidência), grave-o no relatório **antes** de sugerir a limpeza.
 
 ---
 

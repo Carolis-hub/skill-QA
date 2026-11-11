@@ -1,9 +1,9 @@
 ---
-version: 1.1
+version: 1.3
 description: Interpreta uma User Story do Azure DevOps (regra de negocio, criterios de aceite) e extrai objetivo, regras explicitas/implicitas, ambiguidades, dependencias e riscos, sem inventar informacao.
 ---
 
-**Versão da skill: 1.1** (2026-11-09) · histórico em `CHANGELOG.md`
+**Versão da skill: 1.3** (2026-11-11) · histórico em `CHANGELOG.md`
 
 Analisar o negocio da historia do Azure DevOps a partir de **$ARGUMENTS**.
 
@@ -243,6 +243,15 @@ Esta skill **não gera `REC-...`, não grava arquivo de recomendação e não pe
 - Não proponha solução, "menor desvio" nem texto de regra no lugar da lacuna.
 - Recomendação já existente de execução anterior (arquivo `pendencias-skills` da `/analise-tecnica`) não é lida, alterada nem aprovada aqui.
 - Não grave nada no Azure DevOps (além da marcação do Step 1.5).
+
+---
+
+## Fim da etapa — sugerir limpar o contexto
+
+Ao concluir esta skill (relatório gravado e log registrado, quando houver), termine a resposta com **uma linha** para a usuária: o que a próxima etapa precisa já está em arquivo (`$CICLOS_DIR\US-<ID>\...`) ou no Azure DevOps, então ela pode rodar `/clear` (ou `/compact`, se quiser manter o fio da conversa) antes de /analise-tecnica <ID>. Motivo: o contexto da sessão é relido a cada resposta; carregar esta skill e as das etapas seguintes na mesma sessão multiplica o consumo de tokens.
+
+- Não execute `/clear` nem `/compact` por conta própria (são comandos da usuária) e não encadeie a próxima skill automaticamente.
+- Se algo necessário à próxima etapa só existe na conversa (decisão, resposta da usuária, evidência), grave-o no relatório **antes** de sugerir a limpeza.
 
 ---
 

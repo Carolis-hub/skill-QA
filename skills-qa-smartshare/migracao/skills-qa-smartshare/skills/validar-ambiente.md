@@ -1,9 +1,9 @@
 ---
-version: 1.1
+version: 1.3
 description: Le o mapa de testes publicado no card "Criar Mapa de Teste" filho de uma User Story do Azure DevOps, extrai a coluna Pre-requisitos (formato [CATEGORIA] requisito), valida no ambiente de teste se cada requisito existe e, quando nao existir, CONFIGURA o ambiente (cria usuarios, processos, configuracoes, dados) pela UI. URLs do ambiente, URLs de telas necessarias, admin e usuarios vem de um arquivo de configuracao preenchido pela usuaria (C:\skills-qualidade\config\ambiente-teste.local.md); usuarios criados sao gravados nele. Entrega, por requisito, ATENDIDO / CONFIGURADO / NAO ATENDIDO / NAO VERIFICAVEL e, por cenario, EXECUTAVEL / PARCIAL / BLOQUEADO. Nao executa os cenarios e nunca atua fora de ambiente marcado como teste.
 ---
 
-**Versão da skill: 1.1** (2026-11-09) · histórico em `CHANGELOG.md`
+**Versão da skill: 1.3** (2026-11-11) · histórico em `CHANGELOG.md`
 
 Validar e preparar o ambiente para os testes da User Story do Azure DevOps a partir de **$ARGUMENTS**.
 
@@ -354,6 +354,15 @@ Acrescente uma linha ao final da tabela em `~/.claude/docs/projetos/skills-qa/LO
 ```
 | <data/hora atual, ex.: `Get-Date -Format "yyyy-MM-dd HH:mm"`> | `/validar-ambiente` | Validação e configuração de ambiente de teste | US #<ID> / mapa #<MAPA_ID> | <Sucesso \| Parcial \| Falha> | <usuária> | veredito: <veredito>; <a>/<b>/<c> cenários exec./parc./bloq.; relatório: <caminho>; itens configurados: <k> (usuários: <n>) |
 ```
+
+---
+
+## Fim da etapa — sugerir limpar o contexto
+
+Ao concluir esta skill (relatório gravado e log registrado, quando houver), termine a resposta com **uma linha** para a usuária: o que a próxima etapa precisa já está em arquivo (`$CICLOS_DIR\US-<ID>\...`) ou no Azure DevOps, então ela pode rodar `/clear` (ou `/compact`, se quiser manter o fio da conversa) antes de /executar-teste <ID>. Motivo: o contexto da sessão é relido a cada resposta; carregar esta skill e as das etapas seguintes na mesma sessão multiplica o consumo de tokens.
+
+- Não execute `/clear` nem `/compact` por conta própria (são comandos da usuária) e não encadeie a próxima skill automaticamente.
+- Se algo necessário à próxima etapa só existe na conversa (decisão, resposta da usuária, evidência), grave-o no relatório **antes** de sugerir a limpeza.
 
 ---
 

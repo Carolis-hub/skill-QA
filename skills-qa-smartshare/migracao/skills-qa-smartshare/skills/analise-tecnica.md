@@ -1,9 +1,9 @@
 ---
-version: 1.1
+version: 1.3
 description: Le o card de Analise Tecnica (preenchido pelo dev) vinculado a uma historia do Azure DevOps, cruza com o PR vinculado quando existir, e mapeia classes/componentes impactados, dependencias e risco por camada.
 ---
 
-**Versão da skill: 1.1** (2026-11-09) · histórico em `CHANGELOG.md`
+**Versão da skill: 1.3** (2026-11-11) · histórico em `CHANGELOG.md`
 
 Analisar o impacto tecnico da historia do Azure DevOps a partir de **$ARGUMENTS**.
 
@@ -308,6 +308,15 @@ A recomendação (`REC-<ID>-NN`) só é dada **depois das duas análises (negóc
 - Resposta explícita → atualize só a linha do item: `[Status]` = `Aprovada` | `Ajustada: <texto da usuária>` | `Rejeitada`, acrescentando a data da decisão (`AAAA-MM-DD`) ao final da linha.
 - Recomendação aprovada **não é editada na US nem no Azure DevOps**; segue identificada como "recomendação aprovada pela usuária", nunca como regra original.
 - Sem lacuna a recomendar, o arquivo só traz as pendências (`-> Sem recomendação`), ou não existe se também não houve pendência; diga isso no resumo. Informe o caminho do arquivo criado ou atualizado. Nada é gravado no Azure DevOps.
+
+---
+
+## Fim da etapa — sugerir limpar o contexto
+
+Ao concluir esta skill (relatório gravado e log registrado, quando houver), termine a resposta com **uma linha** para a usuária: o que a próxima etapa precisa já está em arquivo (`$CICLOS_DIR\US-<ID>\...`) ou no Azure DevOps, então ela pode rodar `/clear` (ou `/compact`, se quiser manter o fio da conversa) antes de /gerar-mapa-testes-v3 <ID>. Motivo: o contexto da sessão é relido a cada resposta; carregar esta skill e as das etapas seguintes na mesma sessão multiplica o consumo de tokens.
+
+- Não execute `/clear` nem `/compact` por conta própria (são comandos da usuária) e não encadeie a próxima skill automaticamente.
+- Se algo necessário à próxima etapa só existe na conversa (decisão, resposta da usuária, evidência), grave-o no relatório **antes** de sugerir a limpeza.
 
 ---
 

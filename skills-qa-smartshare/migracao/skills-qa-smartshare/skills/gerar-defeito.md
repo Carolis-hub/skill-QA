@@ -1,9 +1,9 @@
 ---
-version: 1.1
+version: 1.3
 description: Monta o registro estruturado de um defeito (Bug) a partir de uma analise de falha ja concluida e cria no Azure DevOps via MCP — sempre com confirmacao explicita do usuario antes de escrever. Severidade e sempre sugestao, nunca decisao automatica.
 ---
 
-**Versão da skill: 1.1** (2026-11-09) · histórico em `CHANGELOG.md`
+**Versão da skill: 1.3** (2026-11-11) · histórico em `CHANGELOG.md`
 
 Gerar o defeito a partir de **$ARGUMENTS**.
 
@@ -188,6 +188,15 @@ Se o Bug foi criado mas o vínculo ou o anexo de evidência falhou (ver Troubles
 mesmo assim — com `Resultado` descrevendo o que funcionou e o que não (ex.: "Sucesso parcial —
 Bug criado, anexo falhou por falta de PAT"). Nunca pule este passo silenciosamente; se a escrita
 no log falhar, avise no relatório ao usuário, mas isso não desfaz a criação do Bug.
+
+---
+
+## Fim da etapa — sugerir limpar o contexto
+
+Ao concluir esta skill (relatório gravado e log registrado, quando houver), termine a resposta com **uma linha** para a usuária: o que a próxima etapa precisa já está em arquivo (`$CICLOS_DIR\US-<ID>\...`) ou no Azure DevOps, então ela pode rodar `/clear` (ou `/compact`, se quiser manter o fio da conversa) antes de a próxima falha ou a próxima US. Motivo: o contexto da sessão é relido a cada resposta; carregar esta skill e as das etapas seguintes na mesma sessão multiplica o consumo de tokens.
+
+- Não execute `/clear` nem `/compact` por conta própria (são comandos da usuária) e não encadeie a próxima skill automaticamente.
+- Se algo necessário à próxima etapa só existe na conversa (decisão, resposta da usuária, evidência), grave-o no relatório **antes** de sugerir a limpeza.
 
 ---
 

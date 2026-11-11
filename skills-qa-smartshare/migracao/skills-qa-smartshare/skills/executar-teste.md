@@ -1,9 +1,9 @@
 ---
-version: 1.1
+version: 1.3
 description: Executa de fato, via browser (MCP Playwright), os cenarios do mapa de testes publicado no card "Criar Mapa de Teste" filho de uma User Story do Azure DevOps, comparando resultado obtido vs esperado por cenario e parando para intervencao humana nos casos previstos (credencial, dado ausente, ambiente indisponivel, acao irreversivel). Tambem aceita o ID de um Bug ja corrigido para propor e rodar uma lista seletiva de reteste (regressao proporcional ao fix), em vez de reteste pontual raso ou mapa completo caro — e, quando chamada com o ID da propria US, detecta sozinha Bugs filhos corrigidos ainda sem reteste confirmado e oferece rodar esse reteste seletivo antes do mapa completo.
 ---
 
-**Versão da skill: 1.1** (2026-11-09) · histórico em `CHANGELOG.md`
+**Versão da skill: 1.3** (2026-11-11) · histórico em `CHANGELOG.md`
 
 Executar os testes da User Story do Azure DevOps a partir de **$ARGUMENTS**.
 
@@ -475,6 +475,17 @@ efeito no ambiente e deve ficar auditável.
 
 - Este comando **não** cria Test Run nem atualiza o card "Criar Mapa de Teste" no Azure DevOps — só reporta no chat. Publicar resultado formal de execução fica para uma iteração futura, se for necessário.
 - Não lida com CAPTCHA, 2FA ou fluxos de autenticação fora do padrão usuário/senha simples.
+
+---
+
+## Fim da etapa — sugerir limpar o contexto
+
+Ao concluir esta skill (relatório gravado e log registrado, quando houver), termine a resposta com **uma linha** para a usuária: o que a próxima etapa precisa já está em arquivo (`$CICLOS_DIR\US-<ID>\...`) ou no Azure DevOps, então ela pode rodar `/clear` (ou `/compact`, se quiser manter o fio da conversa) antes de /analise-falha (se houver falha) ou o próximo passo do relatório. Motivo: o contexto da sessão é relido a cada resposta; carregar esta skill e as das etapas seguintes na mesma sessão multiplica o consumo de tokens.
+
+- Não execute `/clear` nem `/compact` por conta própria (são comandos da usuária) e não encadeie a próxima skill automaticamente.
+- Se algo necessário à próxima etapa só existe na conversa (decisão, resposta da usuária, evidência), grave-o no relatório **antes** de sugerir a limpeza.
+- **Execução longa** (dezenas de cenários): ao gravar cada relatório parcial, sugira `/compact` e retome a partir do relatório gravado.
+- Quando o Step 5.5 abrir novo chat para o outro banco, o novo chat já começa limpo; não é preciso sugerir `/clear` neste.
 
 ---
 
