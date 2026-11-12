@@ -1,9 +1,9 @@
 ---
-version: 1.2
+version: 1.4
 description: Generate a test case map from an Azure DevOps story and publish it directly into the Description field of the "Criar Mapa de Teste" card (child of the story), via MCP only — no Test Plan, no REST, no PAT. v3 — checklist obrigatorio de dimensoes (permissao/dados/concorrencia/regressao), tecnica formal de teste por cenario, historico de defeitos e reaproveitamento de /analise-negocio e /analise-tecnica. Baseado no v2 (encoding-hardened) apenas na parte de analise; a parte de publicacao foi reescrita para nao usar Test Plan.
 ---
 
-**Versão da skill: 1.2** (2026-11-09) · histórico em `CHANGELOG.md`
+**Versão da skill: 1.4** (2026-11-12) · histórico em `CHANGELOG.md`
 
 Generate a test map from Azure DevOps story arguments **$ARGUMENTS**.
 
@@ -174,7 +174,7 @@ Divergência em cenário marcado como recomendação **não vira defeito automat
 1. Do link, extraia `fileKey` e `node-id` (`14246-2550` → `14246:2550`). Chame `create_session` do conector Figma com a `fileKey` e use o `sessionId` nas demais chamadas.
 2. `get_metadata` no nó do link para listar os quadros. A resposta costuma ser grande: salve e liste só os nomes dos quadros (ex.: com `python -I`/`jq`), em vez de lê-la inteira. O metadata **não traz os textos**.
 3. Escolha os quadros que mostram o que a US trata: a tela principal, os estados (vazio, busca sem resultado, carregando/scroll, erro), os modais de confirmação e bloqueio e os toasts de sucesso. Ignore os quadros de telas que a US declara fora do escopo.
-4. `get_screenshot` de cada quadro escolhido (`maxDimension` suficiente para ler o texto). Baixe o PNG (a URL é de curta duração e não deve ser repassada) para `$CICLOS_DIR\US-<ID>\mapas-teste\prototipo\` e leia a imagem. Transcreva **literalmente**: mensagens, títulos, botões, rótulos de coluna, tooltips, textos de estado vazio e de toast.
+4. `get_screenshot` de cada quadro escolhido (`maxDimension` suficiente para ler o texto). Baixe o PNG (a URL é de curta duração e não deve ser repassada) para `$CICLOS_DIR\US-<ID>\mapas-teste\prototipo\` (`$CICLOS_DIR` = `C:\skills-qualidade\ciclos-executados`) e leia a imagem. Transcreva **literalmente**: mensagens, títulos, botões, rótulos de coluna, tooltips, textos de estado vazio e de toast.
 5. Compare com a US e registre, em "Fonte técnica", só o que diverge ou que a US não define (ex.: elemento que o protótipo mostra e o CA manda não exibir; valor de coluna que só o protótipo mostra).
 6. **Inventário de quadros.** Liste **todos** os quadros e estados do protótipo que a US cobre (tela principal, cada estado: vazio, erro de validação por tipo de campo, duplicidade, edição, confirmação, bloqueio, carregando, toasts, modais) e marque os que a US declara fora do escopo. **Nenhum quadro do escopo pode ficar sem cenário de fidelidade.** Grave o inventário na especificação do item 7.
 7. **Especificação de design por quadro.** Para cada quadro do inventário chame `get_design_context` (somente leitura) e extraia, usando o valor padrão que aparece depois da vírgula em cada `var(--...)` do código retornado: textos literais; família, peso, tamanho e altura de linha; cor do texto, do fundo e da borda (hex); padding, gap, largura e altura fixas; largura e cor da borda; raio; sombra; tamanho e nome dos ícones; estados (hover, desabilitado, inativo, erro, foco quando o quadro mostra). Grave em `$CICLOS_DIR\US-<ID>\mapas-teste\prototipo\especificacao_<AAAA-MM-DD>.md`, uma tabela por quadro. É essa especificação que o `/executar-teste` mede contra a tela. O que não puder ser lido do quadro vai para uma lista "não especificado no protótipo" (não vira cenário).
@@ -402,47 +402,12 @@ Se a tabela for muito grande e você quiser revisar antes de publicar, salve o H
 
 ---
 
-## Step 5b — Gerar o HTML interativo local (modelo)
-
-Executar **depois da aprovação do Step 4.5**, com a mesma tabela aprovada, e **independente do Step 6** (se a publicação falhar, o arquivo local ainda deve ser gravado). Este passo não escreve nada no Azure DevOps.
-
-**Variáveis:** `$CICLOS_DIR` = `C:\skills-qualidade\ciclos-executados`; `$TEMPLATES_DIR` = `C:\skills-qualidade\skills-qa-smartshare\templates`; `$EXEC` = data da execução (`AAAA-MM-DD`).
-
-1. Leia `$TEMPLATES_DIR\mapa-teste-viewer.template.html`. Se não existir, **pule o passo sem erro** e avise no Step 7 que o HTML interativo não foi gerado. O comentário no topo do template descreve cada placeholder e o formato exato das linhas.
-2. **Não altere o CSS nem o JS do template.** Substitua apenas os placeholders `{{...}}`:
-   - `{{TITULO}}`: `Mapa de Testes — US <ID> — <título curto da história>`; `{{PROJETO}}`, `{{SPRINT}}` e `{{CARD_MAPA_ID}}` do Step 1/2.
-   - `{{RESUMO_HTML}}`: parágrafos **Objetivo**, **Fonte técnica**, **Origem (siglas)**, **Histórico de defeitos considerado** e **Dimensões cobertas** (mesmo conteúdo do HTML do Step 5), seguidos de `<h4>Critérios de aceite</h4><ul>…</ul>`.
-   - `{{LINHAS_HTML}}`: uma linha `<tr class="group">` por categoria (nomes **com acentos**: `VALIDAÇÕES DE CAMPOS`, `PERMISSÃO`, `CONCORRÊNCIA`, `ERROS DE INTEGRAÇÃO / API`, `REGRESSÃO`, `CASOS DE BORDA / HIPÓTESES`) e uma linha `<tr data-id="N">` por cenário, no formato do template. `{{TOTAL}}` = número de cenários.
-   - `{{PREREQ_HTML}}`: o mesmo consolidado do Step 5, em `<li>`.
-   - `{{CHAVE_STORAGE}}` = `mapa-teste-us-<ID>-<slug>-testados-v1`; `{{ARQUIVO_EXPORT}}` = `mapa-teste-us-<ID>-<slug>.html` (`<slug>` curto, minúsculo, sem acentos).
-3. **Regras de apresentação (as mesmas do modelo de referência):**
-   - Coluna **Origem** em siglas: `CA<n>` (Critério de Aceite), `CT` (Casos de Teste do dev), `PI` (Pontos de Impacto do dev), `Bug #<id>` (histórico de defeitos), `+ protótipo` quando o texto literal veio do Figma (Step 3.9). Cenário `HIPOTESE:` leva `HIPOTESE: <siglas>, hipótese` e a linha recebe `class="row-hipotese"` e o selo `<span class="hip-badge">hipótese</span>` antes do nome (sem repetir o prefixo `HIPOTESE:` no texto).
-   - Tags: `tag-positivo` / `tag-negativo` em Tipo e Dimensão, `tag-regressao` em Dimensão `regressão`, `tag` simples nos demais.
-   - Linha `N/A` (ex.: Concorrência): Configurações = `Nenhum específico`; Ação, Resultado, Tipo e Técnica = `—`.
-   - Pré-requisitos no formato `[CATEGORIA] requisito` separados por `<br>`, texto idêntico ao do Step 5. Escape de `&`, `<` e `>` em todo texto de célula.
-4. Grave em `$CICLOS_DIR\US-<ID>\mapas-teste\US-<ID>_<$EXEC>_mapa-teste.html` (crie os diretórios se não existirem; **nunca sobrescreva** uma execução anterior: se o nome já existir, acrescente `_HHmm`). Nunca grave em pasta relativa ao diretório de trabalho nem dentro de `skills-qa-smartshare`.
-5. Confira antes de reportar: nenhum `{{` restante no arquivo e o número de `<tr data-id` igual ao total de cenários.
-
----
-
 ## Step 6 — Publicar via MCP
 
 - **Se `CARD_EXISTS = false`:** chame `mcp__azure-devops__create_work_item` com `workItemType: "Criar Mapa de Teste"`, `title: "Mapa de teste"`, `description: {HTML do Step 5}`, `parentId: $WI_ID`, `areaPath: $STORY_AREA_PATH`, `iterationPath: $STORY_ITERATION_PATH`, `projectId: $STORY_PROJECT`. Capture o `id` retornado como `$MAPA_CARD_ID`.
 - **Se `CARD_EXISTS = true`:** chame `mcp__azure-devops__update_work_item` com `workItemId: $MAPA_CARD_ID`, `description: {HTML do Step 5}`.
 
 **Regra fixa de publicação (2026-11-05, pedido da usuária):** ao publicar o mapa (criação do card ou atualização da Descrição), a skill também (1) muda o `System.State` do card "Criar Mapa de Teste" para **`Committed`** e (2) adiciona a tag **`agenteqa`** em `System.Tags`, **preservando as tags já existentes** (nunca substituir: leia `System.Tags` do card, acrescente `agenteqa` só se ainda não estiver, separando por `; `). Faça isso depois de a Descrição estar gravada, com `mcp__azure-devops__wit_work_item_write` (`action: "update"`, `id: $MAPA_CARD_ID`), usando `/fields/System.State` = `Committed` e `/fields/System.Tags`. Vale também para card que já existia e foi sobrescrito com a confirmação do Step 4.5. Se a mudança de estado ou a tag falhar (ex.: transição inválida), **não é bloqueante**: o mapa já está publicado; reporte o erro exato no Step 7 e avise a usuária. Não altere `assignedTo` nem outros campos além de Descrição, `State` e `Tags`; mover o card para "Done" continua sendo decisão do time, não da skill.
-
----
-
-## Step 6.4 — Anexar o HTML interativo ao card (regra fixa, 2026-11-05, pedido da usuária)
-
-Depois do Step 6 (mapa publicado e card em `Committed` com a tag `agenteqa`) e do Step 5b (HTML interativo gravado em `$CICLOS_DIR\US-<ID>\mapas-teste\`), **anexe esse arquivo `.html` ao card "Criar Mapa de Teste"** (`$MAPA_CARD_ID`):
-
-1. Leia as relações do card (`wit_work_item` com `expand: "Relations"`). Se já existir um `AttachedFile` com o **mesmo nome** do arquivo, não anexe de novo (evita duplicata em reexecução); se o conteúdo mudou, avise a usuária em vez de acumular versões.
-2. Envie o arquivo com `mcp__azure-devops__wit_work_item_attachment_upload` e vincule ao card com `mcp__azure-devops__wit_work_item_attachment_link` (ou a ferramenta equivalente do MCP). Use o caminho absoluto do arquivo gravado no Step 5b.
-3. Se o Step 5b foi pulado (template ausente) ou o upload/vínculo falhar, **não é bloqueante**: o mapa já está publicado. Reporte o erro exato no Step 7.
-
-Só o HTML interativo é anexado: nunca anexe prints, o `.md` da especificação do protótipo nem arquivos com segredo.
 
 ---
 
@@ -473,9 +438,7 @@ Reporte ao usuário:
 
 - Card publicado: `#$MAPA_CARD_ID` (criado ou atualizado), com link (`https://dev.azure.com/selbettidev/{projeto}/_workitems/edit/{id}`).
 - **Estado e tag:** confirme que o card ficou em `Committed` e com a tag `agenteqa` (ou o erro, se a alteração falhou).
-- **Anexo:** confirme que o HTML interativo ficou anexado ao card (ou que já existia um anexo de mesmo nome, ou o erro, se falhou).
 - Quantidade de cenários publicados e categorias cobertas.
-- **HTML interativo local:** caminho do arquivo gravado no Step 5b (ou aviso de que o template não foi encontrado e o passo foi pulado).
 - **Dimensões cobertas:** lista das dimensões (positivo/negativo/permissão/dados/concorrência/regressão) efetivamente presentes na tabela aprovada, e quais ficaram `N/A` com o motivo.
 - **Pré-requisitos de ambiente:** lista consolidada dos requisitos distintos (por categoria) e quantos cenários dependem de cada um — é o que a skill de validação de ambiente vai consumir.
 - **Histórico de defeitos considerado:** IDs dos bugs de `$DEFECT_HISTORY` que geraram cenário de regressão, ou "nenhum encontrado / busca indisponível".
@@ -497,7 +460,7 @@ Depois de reportar o Step 7, acrescente uma linha ao final da tabela em
 | <data/hora atual, ex.: via `Get-Date -Format "yyyy-MM-dd HH:mm"`> | `/gerar-mapa-testes-v3` | Publicação de mapa de testes (<criação\|atualização> do card) | Card #<MAPA_CARD_ID> → US #<WI_ID> | Sucesso | <nome do usuário que aprovou no chat> | <nº de cenários publicados> cenários, dimensões: <lista> |
 ```
 
-Se o estado do card foi para `Committed`, a tag `agenteqa` foi adicionada (Step 6) e o HTML foi anexado (Step 6.4), mencione isso na coluna Observações. Se o Step 4.5 registrou uma sobrescrita de conteúdo existente, mencione isso explicitamente na
+Se o estado do card foi para `Committed`, a tag `agenteqa` foi adicionada (Step 6), mencione isso na coluna Observações. Se o Step 4.5 registrou uma sobrescrita de conteúdo existente, mencione isso explicitamente na
 coluna Observações (ex.: "sobrescreveu mapa anterior do card, com confirmação do usuário"). Se o Step 6.5
 rodou, mencione também quantas hipóteses foram notificadas via comentário na história (ou que o comentário
 falhou, se for o caso).
@@ -514,7 +477,6 @@ falhou, se for o caso).
 - Se `create_work_item`/`update_work_item` falhar (ex.: `"Criar Mapa de Teste"` não é um tipo válido no processo do projeto informado, ou `parentId`/`areaPath` inconsistentes), pare e reporte o erro exato retornado pelo MCP — nunca tente contornar criando um tipo de work item diferente ou publicando em outro lugar sem confirmar com o usuário.
 - O comentário do Step 6.5 vai na **história** (`$WI_ID`), nunca no card "Criar Mapa de Teste" — postar lá misturaria o conteúdo do mapa com discussão, e ninguém olha o histórico de comentários de um card de mapa. Nunca mover os cenários `HIPOTESE:` para fora da tabela do mapa por causa desse comentário — ele é um apontador, não um substituto do mapa.
 - Se não for possível determinar o pré-requisito de um cenário a partir das 4 fontes, não deixe a célula vazia nem invente: registre o item com prefixo `HIPOTESE:` (Step 4.2b), para que a skill de validação de ambiente o trate como não verificável.
-- O HTML interativo do Step 5b é só um arquivo local de apoio à execução manual: o que vale como mapa é o conteúdo publicado no card. Se os dois divergirem, refaça o Step 5b a partir da tabela aprovada — nunca edite o mapa só no arquivo local.
 - Se o protótipo (Step 3.9) mostra algo que a US não pede ou manda não exibir (ex.: botão de filtro), **não crie cenário** nem trate como defeito: a US prevalece, e a diferença vai como observação em "Fonte técnica" e como nota no cenário de paridade visual.
 - Se, ao montar um cenário, a única justificativa que você consegue escrever na coluna Origem é "achei isso interessante na análise técnica" sem apontar para Instruções QA/Critérios de Aceite/Pontos de Impacto/Casos de Teste (Step 4.0), **não crie o cenário** — é sinal de que ele está fora do escopo da história, mesmo que pareça um risco técnico legítimo.
 
