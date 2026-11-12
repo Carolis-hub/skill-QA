@@ -434,15 +434,9 @@ Executar **depois da aprovação do Step 4.5**, com a mesma tabela aprovada, e *
 
 ---
 
-## Step 6.4 — Anexar o HTML interativo ao card (regra fixa, 2026-11-05, pedido da usuária)
+## Regra fixa — não anexar o HTML interativo ao card (2026-11-12, pedido da usuária)
 
-Depois do Step 6 (mapa publicado e card em `Committed` com a tag `agenteqa`) e do Step 5b (HTML interativo gravado em `$CICLOS_DIR\US-<ID>\mapas-teste\`), **anexe esse arquivo `.html` ao card "Criar Mapa de Teste"** (`$MAPA_CARD_ID`):
-
-1. Leia as relações do card (`wit_work_item` com `expand: "Relations"`). Se já existir um `AttachedFile` com o **mesmo nome** do arquivo, não anexe de novo (evita duplicata em reexecução); se o conteúdo mudou, avise a usuária em vez de acumular versões.
-2. Envie o arquivo com `mcp__azure-devops__wit_work_item_attachment_upload` e vincule ao card com `mcp__azure-devops__wit_work_item_attachment_link` (ou a ferramenta equivalente do MCP). Use o caminho absoluto do arquivo gravado no Step 5b.
-3. Se o Step 5b foi pulado (template ausente) ou o upload/vínculo falhar, **não é bloqueante**: o mapa já está publicado. Reporte o erro exato no Step 7.
-
-Só o HTML interativo é anexado: nunca anexe prints, o `.md` da especificação do protótipo nem arquivos com segredo.
+O HTML interativo do Step 5b **nunca** é anexado ao card "Criar Mapa de Teste" nem à US: o mapa vai somente no conteúdo (Descrição) do card. Não chame `wit_work_item_attachment_upload`/`_link` neste fluxo.
 
 ---
 
@@ -473,7 +467,6 @@ Reporte ao usuário:
 
 - Card publicado: `#$MAPA_CARD_ID` (criado ou atualizado), com link (`https://dev.azure.com/selbettidev/{projeto}/_workitems/edit/{id}`).
 - **Estado e tag:** confirme que o card ficou em `Committed` e com a tag `agenteqa` (ou o erro, se a alteração falhou).
-- **Anexo:** confirme que o HTML interativo ficou anexado ao card (ou que já existia um anexo de mesmo nome, ou o erro, se falhou).
 - Quantidade de cenários publicados e categorias cobertas.
 - **HTML interativo local:** caminho do arquivo gravado no Step 5b (ou aviso de que o template não foi encontrado e o passo foi pulado).
 - **Dimensões cobertas:** lista das dimensões (positivo/negativo/permissão/dados/concorrência/regressão) efetivamente presentes na tabela aprovada, e quais ficaram `N/A` com o motivo.
@@ -497,7 +490,7 @@ Depois de reportar o Step 7, acrescente uma linha ao final da tabela em
 | <data/hora atual, ex.: via `Get-Date -Format "yyyy-MM-dd HH:mm"`> | `/gerar-mapa-testes-v3` | Publicação de mapa de testes (<criação\|atualização> do card) | Card #<MAPA_CARD_ID> → US #<WI_ID> | Sucesso | <nome do usuário que aprovou no chat> | <nº de cenários publicados> cenários, dimensões: <lista> |
 ```
 
-Se o estado do card foi para `Committed`, a tag `agenteqa` foi adicionada (Step 6) e o HTML foi anexado (Step 6.4), mencione isso na coluna Observações. Se o Step 4.5 registrou uma sobrescrita de conteúdo existente, mencione isso explicitamente na
+Se o estado do card foi para `Committed`, a tag `agenteqa` foi adicionada (Step 6), mencione isso na coluna Observações. Se o Step 4.5 registrou uma sobrescrita de conteúdo existente, mencione isso explicitamente na
 coluna Observações (ex.: "sobrescreveu mapa anterior do card, com confirmação do usuário"). Se o Step 6.5
 rodou, mencione também quantas hipóteses foram notificadas via comentário na história (ou que o comentário
 falhou, se for o caso).
