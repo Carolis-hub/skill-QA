@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Relatório de Alterações das Skills — Arquitetura do SmartShare</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #5b6578;
+      --line: #dfe5ee;
+      --soft: #f5f7fb;
+      --blue: #1f5eff;
+      --blue-dark: #123b9b;
+      --green: #17824b;
+      --amber: #a56600;
+      --red: #b42318;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #eef2f7;
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.55;
+    }
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      background: #fff;
+      min-height: 100vh;
+      box-shadow: 0 8px 30px rgba(23, 32, 51, .08);
+    }
+    header {
+      padding: 56px 64px 48px;
+      color: #fff;
+      background: linear-gradient(135deg, #10275e 0%, #1f5eff 100%);
+    }
+    header .eyebrow {
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      font-size: 12px;
+      font-weight: 700;
+      opacity: .8;
+    }
+    h1, h2, h3 { line-height: 1.2; }
+    h1 { margin: 0; max-width: 820px; font-size: 38px; }
+    header p { margin: 18px 0 0; max-width: 760px; font-size: 17px; opacity: .9; }
+    main { padding: 42px 64px 64px; }
+    section { margin: 0 0 42px; }
+    h2 { margin: 0 0 18px; color: var(--blue-dark); font-size: 25px; }
+    h3 { margin: 26px 0 10px; font-size: 18px; }
+    p { margin: 8px 0 14px; }
+    .meta, .cards, .timeline, .skill-grid { display: grid; gap: 16px; }
+    .meta { grid-template-columns: repeat(3, 1fr); margin-top: 30px; }
+    .meta-card, .card, .skill, .note {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 18px 20px;
+    }
+    .meta-card { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.25); }
+    .meta-card strong { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; opacity: .75; }
+    .meta-card span { display: block; margin-top: 5px; font-size: 16px; }
+    .cards { grid-template-columns: repeat(3, 1fr); }
+    .card { background: var(--soft); }
+    .card strong { display: block; color: var(--blue-dark); font-size: 27px; }
+    .card span { color: var(--muted); font-size: 14px; }
+    .timeline { grid-template-columns: repeat(4, 1fr); }
+    .timeline .card { position: relative; }
+    .timeline .date { color: var(--blue); font-weight: 700; font-size: 14px; }
+    .timeline h3 { margin-top: 8px; font-size: 17px; }
+    .timeline p { color: var(--muted); font-size: 14px; }
+    .skill-grid { grid-template-columns: repeat(2, 1fr); }
+    .skill { border-left: 4px solid var(--blue); }
+    .skill h3 { margin-top: 0; color: var(--blue-dark); }
+    .skill ul, .note ul { margin: 8px 0 0; padding-left: 21px; }
+    li { margin: 5px 0; }
+    .status { display: inline-block; border-radius: 99px; padding: 3px 10px; font-size: 12px; font-weight: 700; }
+    .status.active { color: var(--green); background: #e7f7ee; }
+    .status.archive { color: var(--muted); background: #eef1f5; }
+    .status.warn { color: var(--amber); background: #fff4dc; }
+    table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 14px; }
+    th, td { padding: 11px 12px; border: 1px solid var(--line); vertical-align: top; text-align: left; }
+    th { color: #fff; background: var(--blue-dark); font-weight: 700; }
+    tr:nth-child(even) td { background: #fafbfc; }
+    .note { background: #fff9e8; border-color: #f1d48a; }
+    .note strong { color: var(--amber); }
+    .links a { color: var(--blue-dark); word-break: break-word; }
+    code { padding: 2px 5px; border-radius: 4px; background: #eef2f7; font-family: Consolas, monospace; font-size: .92em; }
+    footer { padding: 22px 64px 34px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    @media (max-width: 820px) {
+      header, main, footer { padding-left: 24px; padding-right: 24px; }
+      h1 { font-size: 30px; }
+      .meta, .cards, .timeline, .skill-grid { grid-template-columns: 1fr; }
+    }
+    @media print {
+      body { background: #fff; }
+      .page { box-shadow: none; }
+      header { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .skill, .card, .note { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <p class="eyebrow">QA · SmartShare · Arquitetura</p>
+      <h1>Relatório de alterações das skills</h1>
+      <p>Consolidação das mudanças registradas nas skills de QA da frente de Arquitetura do SmartShare, com base nos documentos existentes até 04/11/2026.</p>
+      <div class="meta">
+        <div class="meta-card"><strong>Período</strong><span>09/10/2026 a 04/11/2026</span></div>
+        <div class="meta-card"><strong>Skills ativas</strong><span>6 skills oficiais</span></div>
+        <div class="meta-card"><strong>Fonte</strong><span>Registros locais e arquivos ativos</span></div>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <h2>1. Resumo executivo</h2>
+        <p>As alterações transformaram o conjunto de skills em um fluxo mais rastreável, controlado e orientado por evidências. Foram consolidadas as regras arquiteturais da V1 com a operação da V3, revisados os gates de análise e execução, centralizados os arquivos e criada uma base de aprendizados reutilizáveis.</p>
+        <div class="cards">
+          <div class="card"><strong>6</strong><span>skills atualmente ativas</span></div>
+          <div class="card"><strong>9</strong><span>skills revisadas em 28/10</span></div>
+          <div class="card"><strong>3</strong><span>skills retiradas do conjunto ativo em 04/11</span></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>2. Linha do tempo</h2>
+        <div class="timeline">
+          <div class="card"><div class="date">09/10 e 27/10</div><h3>Consolidação do mapa</h3><p>União da V1 arquitetural com a V3 operacional e criação da skill definitiva.</p></div>
+          <div class="card"><div class="date">26/10</div><h3>Execução de testes</h3><p>Adaptação para o time de Arquitetura, com gate de ambiente, regras de banco e retomada.</p></div>
+          <div class="card"><div class="date">28/10</div><h3>Revisão geral</h3><p>Revisão das skills de análise, mapa, execução, falha, defeito, homologação, documentação e automação.</p></div>
+          <div class="card"><div class="date">04/11</div><h3>Centralização</h3><p>Fonte única, junctions, seis skills ativas e implantação do aprendizado contínuo.</p></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>3. Skills atualmente ativas</h2>
+        <div class="skill-grid">
+          <article class="skill">
+            <h3>1. Análise de negócio</h3>
+            <ul>
+              <li>Estados de prontidão: <code>APTA</code>, <code>APTA COM RESSALVAS</code> e <code>BLOQUEADA</code>.</li>
+              <li>Reaproveitamento dos relatórios do ciclo para reduzir reprocessamento.</li>
+              <li>Preservação da regra de não inventar requisitos.</li>
+              <li>Uso de caminhos relativos.</li>
+            </ul>
+          </article>
+          <article class="skill">
+            <h3>2. Análise técnica</h3>
+            <ul>
+              <li>Card <code>Análise</code> ausente ou vazio bloqueia a esteira.</li>
+              <li>Alterações fora do escopo passam a gerar risco e necessidade de revisão.</li>
+              <li>Inclusão da matriz entre versão analisada e versão implantada.</li>
+              <li>Verificação de build, commit, branch e método de validação.</li>
+            </ul>
+          </article>
+          <article class="skill">
+            <h3>3. Geração do mapa de testes</h3>
+            <ul>
+              <li>Integração das regras arquiteturais da V1 com o fluxo da V3.</li>
+              <li>Análise técnica obrigatória antes da geração.</li>
+              <li>Dimensões podem ser aplicáveis, N/A, bloqueadas ou fora do escopo.</li>
+              <li>Inclusão de <code>Camada</code> e <code>Componente</code> para reteste seletivo.</li>
+              <li>Releitura do card após publicar para verificar truncamentos.</li>
+            </ul>
+          </article>
+          <article class="skill">
+            <h3>4. Execução de testes</h3>
+            <ul>
+              <li>Pré-requisitos divididos em globais e específicos por cenário.</li>
+              <li>Uso mantido do Playwright e do navegador real, normalmente em HMG.</li>
+              <li>Resultados ampliados: passou, ressalva, falhou, bloqueado, inconclusivo e hipótese não validada.</li>
+              <li>Leituras de banco sem autorização; escritas exigem autorização específica.</li>
+              <li><code>DELETE</code> somente em ambiente não produtivo, com filtro seguro e limpeza/rollback.</li>
+              <li>Relatório Markdown e anexo ao card somente após aprovação.</li>
+            </ul>
+          </article>
+          <article class="skill">
+            <h3>5. Análise de falha</h3>
+            <ul>
+              <li>Cenário do mapa e relatório de execução são as fontes preferenciais.</li>
+              <li>Test Case formal permanece apenas como legado.</li>
+              <li>Registro estruturado de história, mapa e cenário.</li>
+              <li>Classificação por sintoma, camada e causa provável.</li>
+              <li>Vereditos: SIM, NÃO, INCONCLUSIVO e BLOQUEIO AMBIENTAL.</li>
+            </ul>
+          </article>
+          <article class="skill">
+            <h3>6. Geração de defeito</h3>
+            <ul>
+              <li>Busca de Bugs duplicados por história, cenário, componente, título e comportamento.</li>
+              <li>Validação dos campos e da severidade do projeto.</li>
+              <li>Aprovação inclui vínculo e upload das evidências.</li>
+              <li>Falha no upload recebe estado próprio.</li>
+              <li>PAT corporativo não aparece em prompts, logs ou relatórios.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2>4. Skills revisadas e retiradas do conjunto ativo</h2>
+        <table>
+          <thead><tr><th>Skill</th><th>Alterações registradas</th><th>Situação</th></tr></thead>
+          <tbody>
+            <tr><td><code>atualizar-documentacao</code></td><td>Aprovação página por página, inspeção de dados sensíveis, releitura antes da publicação e nova aprovação caso o conteúdo mude.</td><td><span class="status archive">Retirada em 04/11</span></td></tr>
+            <tr><td><code>homologar-release</code></td><td>Mapa como fonte oficial, matriz de completude, distinção entre falha e hipótese e bloqueio para alto risco sem análise técnica.</td><td><span class="status archive">Retirada em 04/11</span></td></tr>
+            <tr><td><code>priorizar-automacao</code></td><td>Mapa como origem oficial, validação de assertions/skip/fixme, detecção de waits artificiais e três execuções limpas quando possível.</td><td><span class="status archive">Retirada em 04/11</span></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>5. Centralização e organização estrutural</h2>
+        <ul>
+          <li>A pasta de arquitetura passou a ser a fonte única das skills.</li>
+          <li>As seis skills ativas foram disponibilizadas em <code>claude-skills/</code> por hard links.</li>
+          <li>As cópias físicas divergentes e as pastas <code>MELHORIA-*</code> foram removidas do conjunto ativo.</li>
+          <li><code>aprendizados</code>, <code>ciclos-execucao</code> e <code>log</code> passaram a existir fisicamente no workspace do SmartShare, com junctions reversas.</li>
+          <li>O registro do Claude foi atualizado para refletir somente o fluxo ativo.</li>
+          <li>A pasta de variáveis de ambiente permaneceu fora da autorização automática por conter dados potencialmente sensíveis.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>6. Aprendizado contínuo</h2>
+        <p>Foi criada a base persistente <code>aprendizados/</code>, consultada antes das etapas e avaliada ao final de cada ciclo.</p>
+        <ul>
+          <li>Somente aprendizados com estado <code>validado</code> influenciam decisões sem ressalva.</li>
+          <li>Hipóteses, observações e contradições permanecem identificadas.</li>
+          <li>Relatórios de ciclo continuam sendo a evidência primária.</li>
+          <li>Nenhum aprendizado factual foi inventado durante a implantação.</li>
+          <li>Segredos, tokens, credenciais e dados pessoais desnecessários são proibidos.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>7. Diretrizes vigentes</h2>
+        <div class="note">
+          <strong>Pontos de controle consolidados</strong>
+          <ul>
+            <li>Não inventar regras de negócio ou declarar aprovação sem evidência.</li>
+            <li>Exigir aprovação humana para escritas externas.</li>
+            <li>Validar o ambiente antes de executar cenários.</li>
+            <li>Distinguir falha funcional, bloqueio ambiental e resultado inconclusivo.</li>
+            <li>Manter rastreabilidade entre história, análises, mapa, execução, falha e defeito.</li>
+            <li>Proteger credenciais, tokens, endpoints sensíveis e dados pessoais.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="links">
+        <h2>8. Registros consultados</h2>
+        <ul>
+          <li><a href="Documentação%20da%20criação%20das%20Skills/registro-consolidacao-gerar-mapa-testes-arquitetura-2026-10-09.md">Consolidação da geração de mapas — 09/10/2026</a></li>
+          <li><a href="Documentação%20da%20criação%20das%20Skills/registro-alteracoes-executar-teste-arquitetura-2026-10-26.md">Alterações da execução de testes — 26/10/2026</a></li>
+          <li><a href="Documentação%20da%20criação%20das%20Skills/registro-revisao-analise-negocio-arquitetura-2026-10-28.md">Revisões das skills — 28/10/2026</a></li>
+          <li><a href="Documentação%20da%20criação%20das%20Skills/registro-organizacao-claude-junctions-arquitetura-2026-11-04.md">Organização e junctions — 04/11/2026</a></li>
+          <li><a href="Documentação%20da%20criação%20das%20Skills/registro-implementacao-aprendizado-continuo-arquitetura-2026-11-04.md">Aprendizado contínuo — 04/11/2026</a></li>
+          <li><a href="README.md">README da arquitetura</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      Relatório gerado em 05/11/2026 · Arquitetura do SmartShare · Documento consolidado a partir dos registros locais existentes.
+    </footer>
+  </div>
+</body>
+</html>

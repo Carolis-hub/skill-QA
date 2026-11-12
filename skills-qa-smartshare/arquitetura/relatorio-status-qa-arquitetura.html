@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatório de QA — Arquitetura SmartShare</title>
+  <style>
+    :root {
+      --navy: #17324d;
+      --blue: #2f6f9f;
+      --blue-soft: #eaf3f9;
+      --green: #18794e;
+      --green-soft: #eaf7f0;
+      --amber: #9a6700;
+      --amber-soft: #fff7df;
+      --red: #b42318;
+      --red-soft: #fff0ee;
+      --gray-50: #f7f9fb;
+      --gray-100: #eef2f6;
+      --gray-300: #cbd5df;
+      --gray-600: #52606d;
+      --gray-800: #25313c;
+      --shadow: 0 8px 24px rgba(23, 50, 77, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--gray-800);
+      background: var(--gray-50);
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    .hero {
+      color: #fff;
+      background: linear-gradient(135deg, #17324d 0%, #2f6f9f 100%);
+      padding: 42px 24px 48px;
+    }
+
+    .container { max-width: 1180px; margin: 0 auto; }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: #cfe6f5;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1, h2 { margin-top: 0; }
+    h1 { margin-bottom: 10px; font-size: clamp(2rem, 4vw, 3.2rem); }
+    h2 { color: var(--navy); font-size: 1.45rem; margin-bottom: 18px; }
+    .subtitle { max-width: 760px; margin: 0; color: #e8f2f8; font-size: 1.08rem; }
+
+    main { padding: 30px 24px 48px; }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .metric, .panel {
+      background: #fff;
+      border: 1px solid var(--gray-100);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .metric { padding: 22px; }
+    .metric-label { color: var(--gray-600); font-size: 0.92rem; }
+    .metric-value { color: var(--navy); font-size: 2.35rem; font-weight: 750; line-height: 1.1; margin: 8px 0; }
+    .metric-note { color: var(--gray-600); font-size: 0.86rem; }
+
+    .panel { padding: 24px; margin-bottom: 24px; }
+
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 13px 12px; border-bottom: 1px solid var(--gray-100); text-align: left; vertical-align: top; }
+    th { color: var(--navy); background: var(--blue-soft); font-size: 0.9rem; }
+    tr:last-child td { border-bottom: 0; }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .badge-green { color: var(--green); background: var(--green-soft); }
+    .badge-blue { color: var(--blue); background: var(--blue-soft); }
+    .badge-amber { color: var(--amber); background: var(--amber-soft); }
+    .badge-red { color: var(--red); background: var(--red-soft); }
+
+    .callout {
+      border-left: 4px solid var(--blue);
+      border-radius: 8px;
+      background: var(--blue-soft);
+      padding: 15px 17px;
+      margin: 16px 0 0;
+    }
+
+    .callout strong { color: var(--navy); }
+
+    .rounds {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .round {
+      border: 1px solid var(--gray-100);
+      border-radius: 10px;
+      padding: 18px;
+      background: #fff;
+    }
+
+    .round h3 { margin: 0 0 10px; color: var(--navy); font-size: 1.05rem; }
+    .round ul { margin: 0; padding-left: 20px; }
+    .round li { margin: 5px 0; }
+
+    .sources { margin: 0; padding-left: 20px; }
+    a { color: var(--blue); }
+
+    footer {
+      color: var(--gray-600);
+      border-top: 1px solid var(--gray-300);
+      padding: 20px 24px 32px;
+      font-size: 0.86rem;
+    }
+
+    @media (max-width: 820px) {
+      .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .rounds { grid-template-columns: 1fr; }
+      .panel { overflow-x: auto; }
+      table { min-width: 720px; }
+    }
+
+    @media (max-width: 520px) {
+      .summary-grid { grid-template-columns: 1fr; }
+      .hero, main, footer { padding-left: 16px; padding-right: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <p class="eyebrow">SmartShare · Time do Share</p>
+      <h1>Relatório de QA — Arquitetura</h1>
+      <p class="subtitle">Skills disponíveis, status operacional e indicadores dos ciclos de testes encontrados na frente de Arquitetura.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="summary-grid" aria-label="Indicadores principais">
+      <article class="metric">
+        <div class="metric-label">Mapas criados</div>
+        <div class="metric-value">2</div>
+        <div class="metric-note">Cards #165040 e #161492</div>
+      </article>
+      <article class="metric">
+        <div class="metric-label">Mapas executados</div>
+        <div class="metric-value">2</div>
+        <div class="metric-note">1 ciclo completo e 1 parcial</div>
+      </article>
+      <article class="metric">
+        <div class="metric-label">Falhas encontradas</div>
+        <div class="metric-value">1</div>
+        <div class="metric-note">Cenário #27</div>
+      </article>
+      <article class="metric">
+        <div class="metric-label">Bugs abertos</div>
+        <div class="metric-value">0</div>
+        <div class="metric-note">Sem evidência suficiente para abertura</div>
+      </article>
+    </section>
+
+    <section class="panel">
+      <h2>Skills do Agente de QA</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Frente/processo</th>
+            <th>Skill</th>
+            <th>Status</th>
+            <th>Uso no ciclo registrado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Análise</td>
+            <td><code>analise-negocio</code></td>
+            <td><span class="badge badge-green">Revisada e disponível</span></td>
+            <td>Utilizada nos ciclos US164251 e US160822.</td>
+          </tr>
+          <tr>
+            <td>Análise</td>
+            <td><code>analise-tecnica</code></td>
+            <td><span class="badge badge-green">Revisada e disponível</span></td>
+            <td>Utilizada nos ciclos US164251 e US160822.</td>
+          </tr>
+          <tr>
+            <td>Mapeamento</td>
+            <td><code>Arquitetura-gerar-mapa-testes</code></td>
+            <td><span class="badge badge-green">Consolidada e validada</span></td>
+            <td>Publicou os mapas #165040 e #161492.</td>
+          </tr>
+          <tr>
+            <td>Execução</td>
+            <td><code>executar-teste</code></td>
+            <td><span class="badge badge-amber">Operacional; HMG pendente</span></td>
+            <td>Executada em SQL Server/Oracle na US164251 e parcialmente em DEV local na US160822.</td>
+          </tr>
+          <tr>
+            <td>Falhas</td>
+            <td><code>analise-falha</code></td>
+            <td><span class="badge badge-green">Revisada e utilizada</span></td>
+            <td>Analisou a falha do cenário #27; US160822 teve achados inconclusivos.</td>
+          </tr>
+          <tr>
+            <td>Defeitos</td>
+            <td><code>gerar-defeito</code></td>
+            <td><span class="badge badge-blue">Disponível; não acionada</span></td>
+            <td>Não executada: não houve evidência suficiente para abrir Bug.</td>
+          </tr>
+          <tr>
+            <td>Release</td>
+            <td><code>homologar-release</code></td>
+            <td><span class="badge badge-blue">Disponível; pendente</span></td>
+            <td>Ainda não executada.</td>
+          </tr>
+          <tr>
+            <td>Documentação</td>
+            <td><code>atualizar-documentacao</code></td>
+            <td><span class="badge badge-blue">Disponível; pendente</span></td>
+            <td>Não executada no ciclo registrado.</td>
+          </tr>
+          <tr>
+            <td>Automação</td>
+            <td><code>priorizar-automacao</code></td>
+            <td><span class="badge badge-blue">Disponível; pendente</span></td>
+            <td>Não executada no ciclo registrado.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>Resultado das execuções</h2>
+      <div class="rounds">
+        <article class="round">
+          <h3>SQL Server — QA local</h3>
+          <ul>
+            <li><strong>20</strong> cenários passaram</li>
+            <li><strong>3</strong> passaram parcialmente</li>
+            <li><strong>1</strong> falhou: cenário #27</li>
+            <li><strong>1</strong> não executado: cenário #22</li>
+            <li><strong>2</strong> não aplicáveis</li>
+          </ul>
+        </article>
+        <article class="round">
+          <h3>Oracle — QA local</h3>
+          <ul>
+            <li><strong>20</strong> cenários passaram</li>
+            <li><strong>3</strong> passaram parcialmente</li>
+            <li><strong>1</strong> passou com observação</li>
+            <li><strong>1</strong> falhou: cenário #27</li>
+            <li><strong>2</strong> não aplicáveis</li>
+          </ul>
+        </article>
+      </div>
+      <div class="callout">
+        <strong>Falha registrada:</strong> o cenário #27 verificou que uma linha com <code>Data_Atualizacao</code> nula não era movida. A análise classificou o caso como hipótese não confirmada, pois não havia caminho conhecido que gerasse esse dado. Portanto, <strong>nenhum Bug foi aberto</strong>.
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Observações do mapa</h2>
+      <ul>
+        <li>O mapa foi criado inicialmente com 28 cenários.</li>
+        <li>O cenário #25 foi removido porque nenhuma rotina de ECM havia sido migrada.</li>
+        <li>O mapa ficou com 27 cenários após a remoção.</li>
+        <li>A execução em HMG permanece como próxima etapa.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2>Ciclo adicional encontrado</h2>
+      <p>Foi localizado um segundo ciclo da frente Arquitetura no repositório <code>D:\SmartShare-HUB\smartshare-hub\.claude\qa-arquitetura</code>.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Task / US</th>
+            <th>Mapa</th>
+            <th>Status da execução</th>
+            <th>Principais achados</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Task 161497 / US160822</strong><br>Rotina - Inicio Fluxo Revisão</td>
+            <td>Card #161492<br>27 cenários</td>
+            <td><span class="badge badge-amber">Parcial</span><br>Etapa 04 pausada; etapas 05–07 registradas em DEV local.</td>
+            <td>CT-5 passou. Houve 12 cenários aprovados, 4 com ressalva, 3 hipóteses observadas e 7 bloqueados. CT-22 registrou duplicidade de fluxo durante retry; não há Bug formal registrado no ciclo.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <strong>Leitura consolidada:</strong> a frente possui dois mapas arquiteturais encontrados. O mapa da US164251 foi executado em SQL Server e Oracle; o mapa da US160822 teve execução parcial em DEV local, com pendências de HMG, Oracle e pré-requisitos técnicos.
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Referências do projeto</h2>
+      <ul class="sources">
+        <li><a href="README.md">README da frente Arquitetura</a></li>
+        <li><a href="log/LOG-ACOES.md">Log de ações</a></li>
+        <li><a href="ciclos-execucao/164259-US164251/README.md">Ciclo da US164251</a></li>
+        <li><a href="ciclos-execucao/164259-US164251/03-mapa-testes.md">Registro do mapa de testes</a></li>
+        <li><a href="ciclos-execucao/164259-US164251/15-relatorio-execucao.md">Relatório SQL Server</a></li>
+        <li><a href="ciclos-execucao/164259-US164251/17-relatorio-execucao-oracle.md">Relatório Oracle</a></li>
+        <li><a href="versao-revisada-2026-10-28/README.md">Versão revisada das skills</a></li>
+        <li><a href="file:///D:/SmartShare-HUB/smartshare-hub/.claude/qa-arquitetura/log/LOG-ACOES.md">Log adicional de ações — US160822</a></li>
+        <li><a href="file:///D:/SmartShare-HUB/smartshare-hub/.claude/qa-arquitetura/ciclos-execucao/161497-US160822/README.md">Ciclo adicional — Task 161497 / US160822</a></li>
+        <li><a href="file:///D:/Skills%20QA%20-%20Share/skill-QA/skills-qualidade-2026-10-21/ciclos-executados/US-160818">US160818 — mapa sem execução registrada</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">Relatório consolidado a partir dos registros locais da frente Arquitetura. Última referência documental: 03/11/2026.</div>
+  </footer>
+</body>
+</html>

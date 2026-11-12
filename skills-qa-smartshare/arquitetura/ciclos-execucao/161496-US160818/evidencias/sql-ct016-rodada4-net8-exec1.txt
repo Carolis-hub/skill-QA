@@ -1,0 +1,14 @@
+# CT-016 rodada 4 net8, 1a execucao (08:34:07): Qtd4HistoricoTarefaNaoVerificado=22, Qtd5HistoricoTarefaFinalizada=3
+cd_fluxo|cd_tarefa|cd_passo|id_statustempo|vl_tempoideal|vl_tempototal|st_somado|dt_ultimaverificacao
+--------|---------|--------|--------------|-------------|-------------|---------|--------------------
+
+cd_processo|cd_fluxo|cd_fluxo_pai|id_statustempo|vl_tempoideal|vl_tempototal|vl_tempoparcial
+-----------|--------|------------|--------------|-------------|-------------|---------------
+
+cd_fluxo|n_hist
+--------|------
+900814|8
+900815|5
+900816|8
+900817|5
+900818|8

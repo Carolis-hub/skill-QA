@@ -1,0 +1,40 @@
+# Etapa 30 — execucao-testes — Bug #161839 (observação "executor da tarefa anterior") — ORACLE, net8
+
+- **Skill e argumentos:** `/arquitetura-executar-teste` — "execução do gate ORACLE, o necessário antes da execução, eu autorizo fazer" (09/11/2026)
+- **Mapa:** [25-mapa-testes-bug-161839.md](25-mapa-testes-bug-161839.md) (local, não publicado)
+- **Build:** branch do PR 30253, commit `bfaf8358`, worktree `Temp/wt30253` (Scheduler + Worker BPM, net8, Oracle `SHAREGUIZAO`). Clássico (PR 30254) fora do escopo por decisão do QA
+- **Gate:** [00-validacao-ambiente-oracle.md](00-validacao-ambiente-oracle.md), LIBERADO COM RESSALVA
+- **Status:** **PARCIAL** — 2ª rodada (09/11, com `qa.usuario2` e `qa.usuario3`) executou 3, 5 e 10 (parte); 3ª rodada (10/11, massa dos inconclusivos) executou 4, 7 e 8; resta o 9 (SQL Server) inconclusivo e 2, 6 e 11 fora de escopo
+
+## Preparação (com autorização)
+| Ação | Escopo | Rollback |
+|---|---|---|
+| `UPDATE JOB_CONFIG`: só o job 9 (NotifyWf) ativo | 12 linhas com `ATIVO` = 0 | `ATIVO` = 1 nos mesmos jobs (backup em `massa/backup-job_config-oracle-antes-execucao.txt`) |
+| `appsettings.json` do Worker (bin do wt30253) `8080` para `58149` | restaurado ao fim pelo `.orig-8080` | já restaurado |
+| Scheduler e Worker do PR 30253 | encerrados ao fim | — |
+
+## Resultado por cenário
+| # | Cenário | Resultado | Evidência |
+|---|---|---|---|
+| 1 | Executor anterior recebe e-mail (net8) | **PASSOU COM RESSALVA** | Processo 481 v6, fluxo 1682, tarefa 3 (passo 5, observação opção 4, tarefa anterior do `cd_usuario` 1). Observação incluída pela tela às 15:59:31 (ANOTAÇÕES). O Scheduler criou o job `NotificaObservacao|fluxo=1682|tarefa=3` (id 37824); o Worker achou o destinatário: **`guilherme.borges@selbetti.com.br`** (log: "Observação não enviada. Fluxo: 1682, Tarefa: 3, ... Email: guilherme.borges@..."); job concluído, `JOB_DUMP` status 3. Ressalva: o envio falha no Graph e a evidência aceita é o destinatário no log (decisão do QA da etapa 05); o executor anterior é o `root`, então não distingue de outro destinatário |
+| 2 | Mesma regra no clássico | **FORA DE ESCOPO** | decisão do QA (Agent clássico fora) |
+| 3 | Tarefa anterior de papel ou comitê | **PASSOU COM RESSALVA** | 2ª rodada (09/11, com `qa.usuario2` e `qa.usuario3`): processo 481 v6, fluxos 2414 e 2415. A tarefa anterior (passo 3) é de **papel** (Papel Default, cd 1), associada e concluída pela opção "Proximo": no 2414 por `qa.usuario2` (`TAREFA.cd_usuario` = 3) e no 2415 por `qa.usuario3` (`cd_usuario` = 23). Na tarefa 3 (passo 5, observação 4) o `root` incluiu a observação; o Worker notificou `qa.usuario2@example.com` (2414) e `qa.usuario3@example.com` (2415), isto é, quem concluiu a tarefa. Ressalva: papel apenas (comitê não testado); o envio falha no Graph e a evidência é o destinatário no log |
+| 4 | Tarefa anterior automática | **PASSOU COM RESSALVA** | 3ª rodada (10/11): massa criada. Processo 501 ganhou a v2 (revisão pela tela, liberada com motivo; v1 obsoleta); `PASSO_USUARIO` do passo 5 da v2 com `ID_PERMISSAO_OBSERVACAO` = 4 (`UPDATE` autorizado, 0 para 4; o editor gráfico da v2 abre vazio, então a opção não pôde ser marcada pela tela). Fluxo 2423 (v2): tarefa 3 no passo 11 (WebService, automática, `cd_usuario` nulo, executor 0/0) concluída às 07:48:26 pelo Worker do 30253 com o mock em modo ok, e a tarefa 4 (passo 5, root) abriu: o fluxo seguiu. Observação do root incluída às 07:50:38. `JOB_BPM`: `NotificaObservacao|fluxo=2423|tarefa=4` criado e concluído (`JOB_DUMP` id 34807, status 3, `Qt` 0). Log do Worker: job "executado com sucesso", **sem** linha "Observação não enviada ... Email" e 0 `ERROR`; `OBSERVACAO_TAREFA.ST_NOTIFICADO` = 1. Ressalva: só tarefa anterior WebService (SQL, e-mail e condição não testados); a opção 4 foi gravada por `UPDATE` no rascunho da v2 |
+| 5 | Isolamento entre fluxos (net8) | **PASSOU COM RESSALVA** | Mesma massa: fluxos 2414 e 2415 do mesmo processo, ambos com a tarefa 3 no passo 5 e executores anteriores distintos (usuários 3 e 23). Jobs `NotificaObservacao|fluxo=2414|tarefa=3` (id 37903) e `fluxo=2415|tarefa=3` (id 37905): o 2414 notificou só `qa.usuario2@example.com` e o 2415 só `qa.usuario3@example.com`, sem cruzar; ambos em `JOB_DUMP` status 3. Ressalva: envio falha no Graph (evidência = destinatário no log) |
+| 6 | Isolamento entre fluxos (clássico) | **FORA DE ESCOPO** | clássico |
+| 7 | Executor anterior com `cd_usuario` nulo ou 0 | **PASSOU COM RESSALVA** | 3ª rodada (10/11): mesma massa do cenário 4. A tarefa anterior (fluxo 2423, tarefa 3, passo 11) tem `TAREFA.cd_usuario` nulo e executor 0/0; com a observação 4 incluída na tarefa seguinte, o Worker concluiu o job sem erro, sem destinatário e marcou `ST_NOTIFICADO` = 1. Ressalva: a evidência é a mesma do cenário 4 (tarefa automática sem usuário); não houve caso com `cd_usuario` = 0 explícito |
+| 8 | Ramos paralelos | **PASSOU COM RESSALVA** (exploratório) | 3ª rodada (10/11): processo novo 621 `QA-161711 Ramos paralelos` desenhado no editor (Início, A Inicial, paralelo, B1 e B2, junção, C Final, Fim; passos 2 a 9) e liberado. Executores: A e C = Administrador, B1 = `qa.usuario2` (cd 3), B2 = `qa.usuario3` (cd 23); C com observação 4. Fluxo 2442: A concluída pelo root (08:28:08), split abriu B1 (tarefa 4) e B2 (tarefa 5) juntas; B1 concluída por `qa.usuario2` às 08:29:38 e B2 por `qa.usuario3` às 08:31:20; junção abriu C (tarefa 7). Observação do root em C às 08:33:06. Job `NotificaObservacao|fluxo=2442|tarefa=7` concluído (`JOB_DUMP` id 34810, status 3); log do Worker: "Observação não enviada ... Email: **qa.usuario2@example.com**" (falha do Graph) e job "executado com sucesso". Foi notificado **só um** dos dois executores (B1, o primeiro a concluir) e `qa.usuario3` não recebeu; sem erro, `ST_NOTIFICADO` = 1. Coerente com o mapa (fora de escopo: só um é notificado). Ressalva: observado, não aceitação; executores e opção 4 gravados por `UPDATE` autorizado em `PASSO_USUARIO` (a tela "Detalhes" dava erro de servidor ao salvar B1, B2 e C); o passo 3 ficou com 2 opções duplicadas (inofensivo) |
+| 9 | SQL Server e Oracle | **INCONCLUSIVO** | só Oracle nesta rodada |
+| 10 | Outras opções de observação | **PASSOU COM RESSALVA (só opção 3)** | Opção 3 (passo 3 do 481 v6): a observação do executor na tarefa 2 gerou `NotificaObservacao` e o Worker notificou o próprio executor (`qa.usuario2@example.com` no fluxo 2414, `qa.usuario3@example.com` no 2415), como antes da mudança. Opções 5 e 7 (outros destinatários) não testadas: tarefas abertas só de comitê. Nota: na 1ª rodada o fluxo 2411 (mesma opção 3) não gerou job de observação, porque a observação foi incluída pelo `root`, que não era o executor da tarefa |
+| 11 | Clássico: demais opções | **FORA DE ESCOPO** | clássico |
+
+## Observações
+- O botão "Associar Atividade" e a falta de botão de avanço no passo 3 do 481 v6 impediram avançar fluxos novos pela tela; usei as tarefas já abertas (1682 e 2411).
+- Fluxo 2411 (processo 481 v6) foi criado nesta rodada e segue aberto na tarefa 2.
+- **Estado (1ª rodada, já restaurado em 09/11):** `PASSO_USUARIO.ID_PERMISSAO_OBSERVACAO` do processo 522 v1, passo 6, voltou a 0 e o `JOB_CONFIG` voltou a 13 jobs ativos.
+- **Estado a manter/limpar (3ª rodada):** processo 501 v2 liberada com observação 4 no passo 5 (v1 obsoleta; para voltar, nova revisão com 0); fluxos 2422 (v1, criado sem querer ao abrir o título na lista) e 2423 (v2); `appsettings.json` do Worker do 30253 restaurado.
+
+## 2ª rodada (09/11, após criar `qa.usuario3`)
+- `UPDATE JOB_CONFIG` isolando o job 9 (12 linhas) e a restauração depois (13 jobs ativos), com a mesma finalidade e rollback da 1ª rodada. Scheduler e Worker do PR 30253 encerrados; `appsettings.json` restaurado.
+- Fluxos criados: 2412 e 2413 (processo 522 v1, sem uso: os usuários `qa` não são do papel 2 dessas tarefas), 2414 e 2415 (processo 481 v6, usados). Fluxos seguem abertos.
+- Mecânica: a tarefa de papel só mostra "OPÇÕES" depois de associada; a opção "Proximo" exige observação (validação) e abre a confirmação "Confirma ação Proximo?".

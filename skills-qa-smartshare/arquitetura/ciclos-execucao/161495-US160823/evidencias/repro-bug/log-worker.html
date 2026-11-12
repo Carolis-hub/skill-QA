@@ -1,0 +1,15 @@
+<html><body style="font:13px Consolas;background:#fff;padding:12px"><b>Log do Worker BPM - JOB_BPM/InicioDesassociarAutomatico (06/11/2026, fluxo 900749)</b><pre style="white-space:pre-wrap;width:1200px">2026-11-06 21:15:45.0314 INFO  Job InicioDesassociarAutomatico nÃ£o possui itens ativos para execuÃ§Ã£o. 
+
+2026-11-06 21:20:44.7753 INFO  Job InicioDesassociarAutomatico nÃ£o possui itens ativos para execuÃ§Ã£o. 
+
+2026-11-06 21:25:44.7916 INFO  Iniciando processamento do Job InicioDesassociarAutomatico. Id: 60105, ChaveUnica: BPM|InicioDesassociarAutomatico|fluxo=900749|tarefa=2, HashArgumentos: {&quot;cd_fluxo&quot;:900749,&quot;cd_tarefa&quot;:2,&quot;cd_usuario&quot;:1,&quot;cd_executor&quot;:2}, DataProgra 
+
+2026-11-06 21:25:45.0192 ERROR Erro na execuÃ§Ã£o. Fluxo: 900749 | Tarefa: 2. System.NullReferenceException: Object reference not set to an instance of an object.
+   at Selbetti.Application.Services.FluxoService.AtualizarValoresCorrenteCampoFormularioDaTarefa(Int32 pCdUsuario, Int32 pCdProcesso, Int32 pCdVersaoProcesso, Int32 pCdFluxo, Int32 pCdTarefa, Int32 pIdTipoExecutor, Int32 pCdResponsavel, Int32 pCdExecutor) in D:\SmartShare-HUB\smartshare-hub\smartshare-net8\src\3 - Core\Project.Core.Application\Services\FluxoService.cs:line 7749
+   at Selbetti.Application.Services.FluxoService.DesassociarFluxo(Int32 cdFluxo, Int32 cdTarefa, Int32 cdUsuario) in D:\SmartShare-H
+
+2026-11-06 21:25:45.2332 ERROR Erro ao executar Job InicioDesassociarAutomatico. Id: 60105, HashArgumentos: {&quot;cd_fluxo&quot;:900749,&quot;cd_tarefa&quot;:2,&quot;cd_usuario&quot;:1,&quot;cd_executor&quot;:2}, Tentativas: 1, Status: FalhaParaRepetir, DataTerminoProcessamento: 11/06/2026 21:25:45, System.NullReferenceException: Object reference not set to an instance of an object.
+   at Selbetti.Application.Services.FluxoService.AtualizarValoresCorrenteCampoFormularioDaTarefa(Int32 pCdUsuario, Int32 pCdProcesso, Int32 pCdVersaoProcesso, Int32 pCdFluxo, Int32 pCdTarefa, Int32 pIdTipoExecutor, Int32 pCdResponsavel, Int32 pCdExecutor) in D:\SmartShare-HUB\smartshare-hub\smartshare-net8\src\3 - Core\Project.Core.Application\Services\FluxoService.cs:line 7749
+   at Selbetti.Application.Services.FluxoService.DesassociarFluxo(Int32 cdFluxo, Int32 cdTarefa, Int32 cdUsuario) in D:\SmartShare-H
+
+2026-11-06 21:25:45.2872 INFO  Job InicioDesassociarAutomatico nÃ£o possui itens ativos para execuÃ§Ã£o. </pre></body></html>

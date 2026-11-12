@@ -1,0 +1,1 @@
+BK job7 ativo=1 BK job8 ativo=1 BK job9 ativo=1 BK job16 ativo=0 BK job18 ativo=1 BK job19 ativo=0 BK job20 ativo=1 BK job22 ativo=0 BK job25 ativo=0 BK job28 ativo=0 BK job32 ativo=1 BK job33 ativo=0 BK job34 ativo=0 

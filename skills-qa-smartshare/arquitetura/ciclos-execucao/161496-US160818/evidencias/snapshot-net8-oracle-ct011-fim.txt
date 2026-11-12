@@ -1,0 +1,14 @@
+﻿SP2-0042: unknown command "﻿" - rest of line ignored.
+ CD_TAREFA|ID_STATUSTEMPO|VL_TEMPOIDEAL|VL_TEMPOTOTAL
+----------|--------------|-------------|-------------
+	 1|		1|	      0|	    4
+	 2|		1|	      0|	  151
+	 3|		0|	      0|	    0
+	 4|		1|	      0|	 5339
+	 5|		1|	      0|	 5677
+	 6|		0|	      0|	 5677
+	 7|		1|	      0|	   96
+SP2-0042: unknown command "﻿" - rest of line ignored.
+VL_TEMPOIDEAL|VL_TEMPOTOTAL|VL_TEMPOPARCIAL
+-------------|-------------|---------------
+	    0|	       5832|		251

@@ -1,6 +1,6 @@
 # Como registrar uma etapa no ciclo de execução
 
-Procedimento comum a todas as skills de QA (Arquitetura). Cada skill chama este procedimento no seu último step, depois de entregar o relatório ao usuário. Gravar aqui é escrita **local** (não toca o Azure DevOps), então vale também para as skills somente leitura (`/analise-negocio`, `/analise-tecnica`, `/analise-falha`).
+Procedimento comum a todas as skills de QA (Arquitetura). Cada skill chama este procedimento no seu último step, depois de entregar o relatório ao usuário. Gravar aqui é escrita **local** (não toca o Azure DevOps), então vale também para as skills somente leitura (`/arquitetura-analise-negocio`, `/arquitetura-analise-tecnica`, `/arquitetura-analise-falha`).
 
 ## Caminhos
 
@@ -12,7 +12,7 @@ Procedimento comum a todas as skills de QA (Arquitetura). Cada skill chama este 
 
 A pasta se chama `<id da task>-US<id da história>` (ex.: `164259-US164251`).
 
-1. **Id da história:** o work item analisado pela skill (para `/gerar-defeito` e `/analise-falha`, a história à qual o defeito/falha pertence).
+1. **Id da história:** o work item analisado pela skill (para `/arquitetura-gerar-defeito` e `/arquitetura-analise-falha`, a história à qual o defeito/falha pertence).
 2. **Id da task:** o número entre colchetes da referência definida com `/task` nesta sessão (ex.: `[164259] - Testes do card de bugs 164251` → `164259`).
 3. Procure em `<raiz>` uma pasta terminada em `-US<id da história>`:
    - **Uma pasta encontrada:** use-a.
@@ -26,15 +26,12 @@ A pasta se chama `<id da task>-US<id da história>` (ex.: `164259-US164251`).
 
   | Skill | `<etapa>` |
   |---|---|
-  | `/analise-negocio` | `analise-negocio` |
-  | `/analise-tecnica` | `analise-tecnica` |
-  | `/gerar-mapa-testes-v3` | `mapa-testes` |
-  | `/executar-teste` | `execucao-testes` (Modo B: `reteste-bug-<BUG_ID>`) |
-  | `/analise-falha` | `analise-falha` |
-  | `/gerar-defeito` | `defeito-<BUG_ID>` |
-  | `/atualizar-documentacao` | `documentacao` |
-  | `/priorizar-automacao` | `priorizacao-automacao` |
-  | `/homologar-release` | `homologacao-release` |
+  | `/arquitetura-analise-negocio` | `analise-negocio` |
+  | `/arquitetura-analise-tecnica` | `analise-tecnica` |
+  | `/arquitetura-gerar-mapa-testes` | `mapa-testes` |
+  | `/arquitetura-executar-teste` | `execucao-testes` (Modo B: `reteste-bug-<BUG_ID>`) |
+  | `/arquitetura-analise-falha` | `analise-falha` |
+  | `/arquitetura-gerar-defeito` | `defeito-<BUG_ID>` |
 
 - Conteúdo, nesta ordem:
   1. Título `# Etapa NN — <nome da etapa> — #<história> <título da história>`.
@@ -65,13 +62,23 @@ Arquivo `<pasta do ciclo>\README.md`. Se não existir, crie com:
 | Artefato | Onde | Etapa |
 |---|---|---|
 
+## Aprendizados consultados ou registrados
+
+| ID | Status | Relação com a etapa | Ação |
+|---|---|---|---|
+
 ## Pendências
 ```
 
 Depois, via `Edit` (sem apagar linhas existentes):
 - Acrescente a linha da etapa na tabela **Etapas** (status: `Concluída`, `Parcial — <motivo>` ou `Bloqueada — <motivo>`).
 - Acrescente cada artefato criado no Azure DevOps na tabela **Artefatos**.
+- Acrescente os IDs de aprendizados consultados ou registrados na tabela **Aprendizados**. Se nenhum for aplicável, registre `Nenhum aprendizado aplicável`.
 - Atualize a seção **Pendências**: remova as resolvidas por esta etapa e inclua as novas.
+
+## Diretriz de aprendizado contínuo
+
+Antes de iniciar a etapa e antes de encerrá-la, siga `../aprendizados/COMO-USAR.md`. A consulta deve ser contextualizada e o registro deve ocorrer somente quando houver conhecimento reutilizável e fonte rastreável. A base de aprendizados não substitui a evidência do ciclo atual.
 
 ## 4. Atualizar o índice
 
@@ -89,4 +96,4 @@ O `LOG-ACOES.md` tem 8 colunas:
 | Data/hora | Skill | Ação | Alvo | Resultado | Aprovado por | Rodada | Observações |
 ```
 
-`Rodada` só tem valor em `/executar-teste` (`1 (funcional, HOM)`) e `/homologar-release` (`2 (homologação oficial, HOM)`); nas outras skills use `—`.
+`Rodada` só tem valor em `/arquitetura-executar-teste`; nas outras skills use `—`. O teste de confirmação usa `<etapa> = reteste-bug-<BUG_ID>` dentro dessa mesma skill.

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Relatório semanal de QA</title>
+<style>
+@page { size: A4 landscape; margin: 14mm 14mm 16mm 14mm;
+  @bottom-center { content: "Relatório semanal de QA · " counter(page) "/" counter(pages); font: 8pt Inter, Segoe UI, Arial, sans-serif; color: #6b7a86; } }
+* { box-sizing: border-box; }
+body { font-family: Inter, "Segoe UI", Arial, sans-serif; color: #1b2a35; font-size: 9pt; line-height: 1.35; margin: 0; }
+h1 { font-size: 24pt; color: #1f4e5f; margin: 0 0 6px; }
+h2 { font-size: 13pt; color: #1f4e5f; margin: 14px 0 5px; }
+p.lead { font-size: 10.5pt; margin: 0 0 4px; }
+p.note { color: #6b7a86; font-size: 8.5pt; margin: 0 0 10px; }
+code { background: #eef2f4; padding: 1px 4px; border-radius: 3px; font-family: Consolas, monospace; font-size: 9pt; }
+.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 12px 0 8px; }
+.card { background: #f3f6f8; border: 1px solid #dbe3e8; border-radius: 6px; padding: 10px 12px; }
+.card b { display: block; font-size: 22pt; font-weight: 400; color: #1f4e5f; line-height: 1.1; }
+.card span { font-size: 8.5pt; color: #5a6a76; }
+ul { margin: 4px 0 8px; padding-left: 18px; }
+li { margin: 2px 0; }
+table { width: 100%; border-collapse: collapse; margin: 6px 0 8px; font-size: 8.4pt; break-inside: avoid; }
+h2 { break-after: avoid; }
+th { background: #1f4e5f; color: #fff; text-align: left; padding: 5px 7px; font-weight: 600; }
+td { padding: 3.5px 7px; border-bottom: 1px solid #dbe3e8; vertical-align: top; }
+tr:nth-child(even) td { background: #f8fafb; }
+td.n, th.n { text-align: right; white-space: nowrap; }
+tr.tot td { font-weight: 700; background: #e8eef1; }
+section { break-inside: avoid; }
+.pb { break-before: page; }
+tr, .card { break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<h1>Relatório semanal de QA</h1>
+<p class="lead">Entre 26/10 e 10/11/2026, as execuções de QA da Arquitetura cobriram <b>3 ciclos</b> (US 164251, US 160823 e bugs dos instaladores), em <b>SQL Server e Oracle</b>, com <b>161 registros de cenário × banco</b> e <b>1 defeito novo</b> aberto a partir das execuções (#166161).</p>
+<p class="note">Números vêm dos relatórios de fechamento em <code>ciclos-execucao</code> (etapas 15 e 17 da 164251, relatório final da 160823 e etapa 31 dos instaladores). Posição documental de 10/11/2026; não houve nova consulta ao banco nem ao Azure DevOps. Emitido em 10/11/2026.</p>
+
+<div class="cards">
+  <div class="card"><b>3</b><span>ciclos de execução analisados</span></div>
+  <div class="card"><b>104</b><span>cenários nos mapas vigentes (27 + 30 + 47)</span></div>
+  <div class="card"><b>161</b><span>registros de cenário × banco (não são 161 testes distintos)</span></div>
+  <div class="card"><b>86</b><span>passaram sem ressalva (53,4%)</span></div>
+  <div class="card"><b>37</b><span>positivos com ressalva, parcial ou observação (23,0%)</span></div>
+  <div class="card"><b>4</b><span>falharam (2 cenários, nos 2 bancos); 1 virou defeito</span></div>
+  <div class="card"><b>11</b><span>inconclusivos ou parciais sem conclusão (instaladores)</span></div>
+  <div class="card"><b>1</b><span>defeito novo formalizado: #166161, em 2 bancos</span></div>
+</div>
+
+<section><h2>Execuções feitas por ciclo</h2>
+<ul>
+  <li>Cenário × banco: um mesmo cenário rodado em SQL Server e Oracle conta duas vezes. As rodadas intermediárias e os retestes não são somados de novo.</li>
+  <li>Resultado positivo com limitação: reúne "passou com ressalva", "passou parcial" e "passou com observação", como classificados nos relatórios.</li>
+</ul>
+<table>
+  <tr><th>Task / US</th><th>Título</th><th>Período</th><th>Bancos</th><th class="n">Cenários</th><th class="n">Passou</th><th class="n">Com limitação</th><th class="n">Falhou</th><th class="n">Inconcl.</th><th class="n">Não exec.</th><th class="n">N/A</th></tr>
+  <tr><td>164259 / 164251</td><td>[BUG] Ajustar regra de leitura de status no BPM</td><td>26/10 a 27/10</td><td>SQL Server, Oracle</td><td class="n">27 (×2)</td><td class="n">40</td><td class="n">7</td><td class="n">2</td><td class="n">0</td><td class="n">1</td><td class="n">4</td></tr>
+  <tr><td>161495 / 160823</td><td>Rotina - Início Desassociar Automático</td><td>04/11 a 06/11</td><td>Oracle, SQL Server</td><td class="n">30 (×2)</td><td class="n">37</td><td class="n">13</td><td class="n">2</td><td class="n">0</td><td class="n">8</td><td class="n">0</td></tr>
+  <tr><td>161711 / 161711</td><td>Bugs Instaladores (5 bugs com mapa próprio)</td><td>06/11 a 10/11</td><td>Oracle</td><td class="n">47</td><td class="n">9</td><td class="n">17</td><td class="n">0</td><td class="n">11</td><td class="n">10</td><td class="n">0</td></tr>
+  <tr class="tot"><td colspan="4">Total</td><td class="n">161</td><td class="n">86</td><td class="n">37</td><td class="n">4</td><td class="n">11</td><td class="n">19</td><td class="n">4</td></tr>
+</table></section>
+<section><h2>Resultados por ciclo e banco</h2>
+<table>
+  <tr><th>Ciclo / banco</th><th class="n">Passou</th><th class="n">Com limitação</th><th class="n">Falhou</th><th class="n">Inconcl.</th><th class="n">Não exec. / fora</th><th class="n">N/A</th><th class="n">Total</th></tr>
+  <tr><td>164251 · SQL Server</td><td class="n">20</td><td class="n">3</td><td class="n">1</td><td class="n">0</td><td class="n">1</td><td class="n">2</td><td class="n">27</td></tr>
+  <tr><td>164251 · Oracle</td><td class="n">20</td><td class="n">4</td><td class="n">1</td><td class="n">0</td><td class="n">0</td><td class="n">2</td><td class="n">27</td></tr>
+  <tr><td>160823 · Oracle</td><td class="n">18</td><td class="n">7</td><td class="n">1</td><td class="n">0</td><td class="n">4</td><td class="n">0</td><td class="n">30</td></tr>
+  <tr><td>160823 · SQL Server</td><td class="n">19</td><td class="n">6</td><td class="n">1</td><td class="n">0</td><td class="n">4</td><td class="n">0</td><td class="n">30</td></tr>
+  <tr><td>161711 · Oracle (5 bugs)</td><td class="n">9</td><td class="n">17</td><td class="n">0</td><td class="n">11</td><td class="n">10</td><td class="n">0</td><td class="n">47</td></tr>
+  <tr class="tot"><td>Total</td><td class="n">86</td><td class="n">37</td><td class="n">4</td><td class="n">11</td><td class="n">19</td><td class="n">4</td><td class="n">161</td></tr>
+</table>
+<p class="note">US 164251: 49 de 50 cenários aplicáveis tiveram execução (98%); a pendência é o #22 no SQL Server. US 160823: 26 cenários executáveis exercitados em cada banco; 4 hipóteses por banco sem execução. Instaladores: 37 de 47 com alguma avaliação (78,7%); 26 de 47 com resultado positivo, 17 deles com ressalva.</p></section>
+<section><h2>Defeitos abertos a partir das execuções</h2>
+<ul>
+  <li>Bug: defeito criado pelo fluxo de análise de falha e geração de defeito, com vínculo à US de origem.</li>
+  <li>Os achados de e-mail, timeout, logs e reenfileiramento são riscos registrados, não defeitos formais.</li>
+</ul>
+<table>
+  <tr><th>Bug</th><th>US pai</th><th>Descrição</th><th>Bancos</th><th>Situação registrada</th></tr>
+  <tr><td>#166161</td><td>160823</td><td>Valor inicial nulo em campo "Propriedade do Processo" gera NullReferenceException e impede a desassociação (cenário #22). Severidade sugerida: Medium, a confirmar com o time.</td><td>Oracle e SQL Server</td><td>Criado e vinculado à US em 06/11. Recomendação: não liberar a US até corrigir e reexecutar a regressão. A massa nula foi criada direto no banco; ocorrência em produção não confirmada.</td></tr>
+  <tr><td>sem defeito (#27)</td><td>164251</td><td>#27 falhou nos dois bancos com Data_Atualizacao nula. A análise de falha decidiu não abrir defeito: o esperado vem de inferência do legado e não há caminho real de gravação do nulo confirmado.</td><td>SQL Server e Oracle</td><td>Decisão cabe a dev/PO.</td></tr>
+</table></section>
+<section><h2>Bugs dos instaladores (US 161711)</h2>
+<ul>
+  <li>Cinco mapas atuais, cada um testado em branch isolada do PR. Testar branches isoladas não valida a integração entre elas.</li>
+  <li>Os bugs #161715 (sem implementação, ligado ao PBI #165944) e #161717 (fechado sem correção) não têm mapa próprio vigente.</li>
+</ul>
+<table>
+  <tr><th>Bug / PR</th><th>Tema</th><th class="n">Passou</th><th class="n">Ressalva</th><th class="n">Inconcl. / parcial</th><th class="n">Não exec. / fora</th><th>Evidência de valor</th></tr>
+  <tr><td>161716 / 30104</td><td>Duplicidade de ExecutaWs</td><td class="n">2</td><td class="n">3</td><td class="n">2</td><td class="n">2</td><td>103 pendências, 103 sucessos, 0 chaves repetidas (primeiro ciclo limitado a 100 linhas)</td></tr>
+  <tr><td>161713 / 30060</td><td>Retry e envenenamento do ExecutaSql</td><td class="n">3</td><td class="n">4</td><td class="n">2</td><td class="n">1</td><td>3 fluxos com endpoint indisponível chegaram a Envenenado após 5 tentativas, sem recriação duplicada; backoff de 60 s e de 60/120/240/480 s observado</td></tr>
+  <tr><td>161712 / 30457</td><td>Duplicidade no Scheduler</td><td class="n">2</td><td class="n">6</td><td class="n">3</td><td class="n">1</td><td>11 linhas, 11 chaves distintas por cerca de 10 ciclos; fuso Asia/Tokyo refletido em 5 jobs</td></tr>
+  <tr><td>161714 / 30486</td><td>Log do AvancoTemporal</td><td class="n">2</td><td class="n">0</td><td class="n">0</td><td class="n">3</td><td>As 2 aprovações são regressões; a exceção alvo em AvancarFluxo não foi exercitada</td></tr>
+  <tr><td>161839 / 30253</td><td>Destinatário da observação</td><td class="n">0</td><td class="n">4</td><td class="n">4</td><td class="n">3</td><td>Destinatário identificado em log; 2 alertas para 3 destinatários percorridos; entrega de e-mail falhou</td></tr>
+  <tr class="tot"><td colspan="2">Total</td><td class="n">9</td><td class="n">17</td><td class="n">11</td><td class="n">10</td><td></td></tr>
+</table></section>
+<section><h2>Evidências quantitativas da US 164251</h2>
+<table>
+  <tr><th>Evidência</th><th>SQL Server</th><th>Oracle</th></tr>
+  <tr><td>Concorrência real</td><td>600 itens; divisão 435 / 165 entre instâncias</td><td>600 itens; divisão 350 / 250</td></tr>
+  <tr><td>Sobreposição observada</td><td>cerca de 6,6 s</td><td>cerca de 28 s</td></tr>
+  <tr><td>Integridade do ensaio</td><td>0 duplicados, 0 órfãos</td><td>0 duplicados, 0 faltantes</td></tr>
+  <tr><td>Retomada após limpeza</td><td>novo agendamento em cerca de 2 s</td><td>novo agendamento em cerca de 1 s</td></tr>
+  <tr><td>Falha de e-mail (cenário 22)</td><td>não reproduzida; envios aceitos</td><td>35 tentativas com erro, 0 entregas; jobs em Sucesso conforme regra do PO</td></tr>
+</table>
+<p class="note">No Oracle houve 615 movimentações verificadas sem StuckItemMoveError; o número inclui o volume dos 600 itens e não se soma a ele. Os 625 dumps preservados são evidência de ambiente, não 625 cenários. Pendências da US: validação em HMG, efeito de negócio dos itens movidos, job 20 sem configuração e borda temporal de cerca de 70 s no Oracle. Código: commit d9784d80, PRs 29707 e 29965.</p></section>
+<section><h2>Evidências quantitativas da US 160823</h2>
+<ul>
+  <li>Escopo de 30 cenários (26 executáveis e 4 hipóteses). Código: net8 ab180c0f; clássico do PR 29228, commit 4b2b504ec.</li>
+  <li>SQL Server: 35 fluxos distribuídos em 27 e 8 entre duas instâncias, sem sobreposição de processamento.</li>
+  <li>Timeout de bloqueio: cerca de 30 s no SQL Server; esperas de 80 a 88 s sem timeout equivalente no Oracle. Não usar como SLA nem benchmark.</li>
+  <li>Cenário #24 (JOIN por passo do Agent clássico) passou com o build do PR 29228 nos dois bancos em 06/11.</li>
+</ul></section>
+<section><h2>Evolução das execuções</h2>
+<table>
+  <tr><th>Data</th><th>Marco</th><th>Ganho demonstrado</th></tr>
+  <tr><td>26/10</td><td>US 164251: bloqueio inicial de ferramentas, depois ensaios locais</td><td>De 5 aprovações iniciais para 18 ao fim do dia; concorrência e retry exercitados</td></tr>
+  <tr><td>27/10</td><td>Fechamento SQL Server e rodada Oracle</td><td>20 aprovações sem ressalva em cada banco; falha de envio exercitada no Oracle</td></tr>
+  <tr><td>04/11</td><td>Início da US 160823</td><td>Matriz de 30 cenários e primeira execução Oracle</td></tr>
+  <tr><td>05/11</td><td>SQL Server e investigação de valor nulo</td><td>Defeito #166161 formalizado; diferença de timeout identificada</td></tr>
+  <tr><td>06/11</td><td>Builds atualizados e comparação com o clássico</td><td>Cenário #24 aprovado com fix; falha de nulo mantida; relatório final anexado ao card 160823</td></tr>
+  <tr><td>06 a 09/11</td><td>Instaladores: análises, mapas e preparação</td><td>Mapa inicial de 41 cenários substituído por 5 mapas com 47 cenários</td></tr>
+  <tr><td>09/11</td><td>Oracle liberado com ressalva</td><td>Cinco bugs exercitados em branches isoladas</td></tr>
+  <tr><td>10/11</td><td>Complementos de massa e reexecuções</td><td>Backoff, fuso, recorrência e múltiplos alertas ganharam evidência</td></tr>
+</table></section>
+<section><h2>Riscos e decisões para a próxima reunião</h2>
+<p class="note">Prioridades e responsáveis são proposta deste relatório, não severidades oficialmente atribuídas.</p>
+<table>
+  <tr><th>Prioridade</th><th>Tema</th><th>Impacto</th><th>Próxima ação</th><th>Responsável sugerido</th></tr>
+  <tr><td>Alta</td><td>Bug #166161</td><td>Desassociação falha com nulo nos dois bancos</td><td>Corrigir e repetir #22, com nulo e vazio, nos dois bancos</td><td>Dev + QA</td></tr>
+  <tr><td>Alta</td><td>Integração dos PRs de instaladores</td><td>Fila pode divergir do validado isoladamente</td><td>Resolver conflito 30060 × 30457 e testar build integrado</td><td>Dev + QA</td></tr>
+  <tr><td>Alta</td><td>JOB_DUMP bloqueia ou permite reenfileirar</td><td>PR 30457 difere de 30104 / 30060; pendências já processadas podem voltar</td><td>Confirmar a regra e rodar regressão da chave após dump</td><td>Dev + PO + QA</td></tr>
+  <tr><td>Alta</td><td>Envio de e-mail</td><td>Job termina em Sucesso e marca notificação sem entrega</td><td>Corrigir o ambiente e validar entrega ponta a ponta</td><td>Responsável pelo ambiente + QA</td></tr>
+  <tr><td>Alta</td><td>Log principal do AvancoTemporal</td><td>Correção alvo sem evidência direta</td><td>Definir mecanismo de exceção e executar cenários 1 a 3</td><td>Dev + QA</td></tr>
+  <tr><td>Média</td><td>Oracle sem timeout equivalente</td><td>Linha bloqueada pode atrasar o lote</td><td>Avaliar CommandTimeout e ensaio controlado de lock</td><td>Dev</td></tr>
+  <tr><td>Média</td><td>Data_Atualizacao nula (#27)</td><td>Item final pode permanecer na fila</td><td>Confirmar origem real e esperado do cenário</td><td>Dev + PO</td></tr>
+  <tr><td>Média</td><td>SQL Server dos instaladores</td><td>Paridade entre bancos não demonstrada</td><td>Renovar o gate de ambiente e repetir cenários aplicáveis</td><td>QA</td></tr>
+  <tr><td>Média</td><td>Logs de inserção, sem identificação da instância</td><td>Diagnóstico limitado</td><td>Alinhar log ao resultado e incluir identificação de execução</td><td>Dev</td></tr>
+  <tr><td>Média</td><td>Massa e restaurações</td><td>Resíduos e builds incompletos dificultam repetição</td><td>Inventariar massa e reconstruir worktrees necessários</td><td>QA</td></tr>
+</table></section>
+<section><h2>Como os números foram medidos e seus limites</h2>
+<ul>
+  <li>Unidade de contagem: cenário do mapa vigente por banco da rodada consolidada. O mapa antigo de 41 cenários dos instaladores e o cenário extra 36a ficam fora do denominador atual de 47.</li>
+  <li>Os 104 cenários dos mapas podem se sobrepor entre bugs. Os 161 registros não são testes distintos.</li>
+  <li>Entre os 37 positivos com limitação há 6 "passou parcial", 30 "passou com ressalva" e 1 "passou com observação". Os parciais sem conclusão de #161716/3 e #161712/4 foram agrupados com os inconclusivos; a classificação original continua válida.</li>
+  <li>Prevalece o fechamento mais recente e específico. O índice geral ainda mostra os instaladores bloqueados, embora as etapas 26 a 31 documentem execuções de 10/11.</li>
+  <li>Divergências de revisão independente sobre os instaladores (por exemplo, ressalvas sugeridas como inconclusivas) não foram usadas para reclassificar os resultados.</li>
+  <li>Tokens não aparecem neste relatório: os ciclos desta pasta não registram consumo e não há sessão correspondente no histórico disponível (n/d).</li>
+  <li>Não há base para taxa de escape, SLA, desempenho sustentado, produtividade por hora ou retorno financeiro. Ensaios de 600 itens mostram integridade naquele contexto, não capacidade máxima.</li>
+  <li>Fontes e inventário com SHA-256: <code>relatorio-consolidado.md</code> e <code>inventario-fontes.csv</code>, na mesma pasta.</li>
+</ul></section>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+﻿SP2-0042: unknown command "﻿" - rest of line ignored.
+  CD_FLUXO| CD_TAREFA|VL_TEMPOTOTAL|UV
+----------|----------|-------------|--------
+      2522|	    1|		  3|11:59:10
+      2522|	    2|	      60622|14:50:22
+      2523|	    1|		  2|11:59:10
+      2523|	    2|	      71422|14:50:22
+      2527|	    1|		  2|11:59:10
+      2527|	    2|	      59064|14:24:24
+SP2-0042: unknown command "﻿" - rest of line ignored.
+QTD_ATUALIZADAS_NO_CICLO
+------------------------
+		       0

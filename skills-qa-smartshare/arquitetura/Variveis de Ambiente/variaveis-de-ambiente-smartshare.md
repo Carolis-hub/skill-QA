@@ -105,8 +105,26 @@ Valores encontrados em `tmp-share-db-check\Invoke-DbScript.ps1`:
 
 | Variável | Login | Senha |
 |---|---|---|
-| ``SS_TEST_USER`` | Não registrado; informado em tempo de execução | — |
-| ``SS_TEST_PASSWORD`` | — | Não registrado; informado em tempo de execução |
+| ``SS_TEST_USER`` | root | Selb@sshar3 |
+| ``SS_TEST_PASSWORD`` | — | Selb@sshar3 |
+
+### 4.1 Usuário de teste adicional (criado em 2026-11-04, ciclo 161495 / US 160823)
+
+Criado pela tela Gerenciamento > Usuários do Share local (Oracle `SHAREGUIZAO`, `cd_usuario` 3): tipo Administrador, área "Area Padrão", papel principal "Papel Default". Existe só no banco pessoal de QA.
+
+| Variável | Login | Senha | Observação |
+|---|---|---|---|
+| `SS_TEST_USER_2` | qa.usuario2 | QaUser2#2026x | Segundo usuário para cenários com mais de um usuário (ex.: liberação de anexo). Nome "QA Usuario Dois", e-mail de teste `qa.usuario2@example.com`. |
+
+### 4.2 Usuário de teste adicional 3 (criado em 2026-11-09, ciclo 161711 / US 161711)
+
+Criado pela tela Gerenciamento > Usuários do Share local (Oracle `SHAREGUIZAO`, `cd_usuario` 23): tipo Administrador, área "Área Padrão", papel principal "Papel Default". Login verificado em 09/11/2026 (portal abriu em contexto isolado). Existe só no banco pessoal de QA. Serve para cenários com três usuários distintos (ex.: executores anteriores diferentes, isolamento entre fluxos do #161839).
+
+| Variável | Login | Senha | Observação |
+|---|---|---|---|
+| `SS_TEST_USER_3` | qa.usuario3 | QaUser3#2026y | Terceiro usuário de teste. Nome "QA Usuario Tres", e-mail de teste `qa.usuario3@example.com`. |
+
+> Observação para criar usuário pela tela: os campos só são enviados se forem digitados com eventos de teclado (preencher por script sem teclado limpa o formulário), e Área e Papel devem ser escolhidos **antes** dos campos de texto (os zooms recarregam o formulário).
 
 Os scripts `work\smartshare_final_login.js`, `work\executasql_front_login_inspect.js`, `work\notifywf_poison_front.js` e `work\mailer_front_*.js` apenas leem essas variáveis do ambiente; nenhum login ou senha do Share foi persistido no projeto.
 

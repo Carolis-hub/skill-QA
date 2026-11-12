@@ -1,0 +1,6 @@
+T f900121 t2 passo3 avT=0 dt_cri=15:51:10
+T f900767 t2 passo3 avT=0 dt_cri=10:48:15
+T f900121 exec=1/2
+T f900767 exec=1/2
+T f900767 t3 passo5 exec=3/3 avT=0
+passo58 v2 proc5: tipo=7 ativ=2

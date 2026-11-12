@@ -1,0 +1,5 @@
+cd_historico_tarefa_indicador|cd_fluxo|cd_tarefa|cd_passo|vl_tempototal|dt_ultimaverificacao|st_somado
+-----------------------------|--------|---------|--------|-------------|--------------------|---------
+1131|900815|3|4|1654|2026-11-12 08:27:34.000|0
+1143|900817|3|4|0|NULL|0
+1156|900819|3|4|0|NULL|0

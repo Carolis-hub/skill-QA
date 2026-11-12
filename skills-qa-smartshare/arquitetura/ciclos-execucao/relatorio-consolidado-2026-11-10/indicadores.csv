@@ -1,0 +1,10 @@
+﻿US / bug;Banco;Passou;Com ressalva / parcial / observação;Falhou;Inconclusivo / parcial sem conclusão;Não executado / fora;Não aplicável;Total
+164251;SQL Server;20;3;1;0;1;2;27
+164251;Oracle;20;4;1;0;0;2;27
+160823;Oracle;18;7;1;0;4;0;30
+160823;SQL Server;19;6;1;0;4;0;30
+161711 / 161716;Oracle;2;3;0;2;2;0;9
+161711 / 161713;Oracle;3;4;0;2;1;0;10
+161711 / 161712;Oracle;2;6;0;3;1;0;12
+161711 / 161714;Oracle;2;0;0;0;3;0;5
+161711 / 161839;Oracle;0;4;0;4;3;0;11

@@ -1,0 +1,4 @@
+cd_passo|cd_processo|cd_versao_processo|cd_conexao|ds_comando_sql|st_avanca_atividade
+--------|-----------|------------------|----------|--------------|-------------------
+52|5|2|1|SELECT 1 AS Resultado;|0
+101|5|2|1|Select 1, 2|0

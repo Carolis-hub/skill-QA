@@ -1,0 +1,13 @@
+-- Ativacao por bug, no momento da execucao (autorizada em 09/11 pelo QA). Ambiente local SQL Server ShareGuizao.
+-- Rodar SO o bloco do bug em teste e reverter ao fim. Valores originais: massa/backup-job_config-antes.txt
+-- #161716 (PR 30104): ativar ExecutaWs (linha Id 23, job 28)
+-- UPDATE JOB_CONFIG SET Ativo = 1 WHERE Id = 23 AND Job = 28;   -- reverter: Ativo = 0
+-- #161713 (PR 30060): ativar ExecutaSql (linha Id 33, job 19; Max_Tentativas = 2)
+-- UPDATE JOB_CONFIG SET Ativo = 1 WHERE Id = 33 AND Job = 19;   -- reverter: Ativo = 0
+-- #161712 (PR 30457): ativar InicioPublicacao (Id 7, job 22) e ExecutaSql (Id 33, job 19); job 20 ja inserido (Id 35, Ativo = 1)
+-- UPDATE JOB_CONFIG SET Ativo = 1 WHERE Id IN (7, 33);          -- reverter: Ativo = 0
+-- Fim da rodada: apagar a linha inserida do job 20
+-- DELETE FROM JOB_CONFIG WHERE Id = 35 AND Job = 20 AND Params_Json LIKE '%INSERIDO_QA_161711%';
+-- #161714 (PR 30486) e #161839 (PR 30253): jobs 8 e 9 ja ativos, sem alteracao.
+-- Opcao 4 no processo 1019 v3 passo 4 (aplicada em 09/11): reverter com
+-- UPDATE PASSO_USUARIO SET id_permissao_observacao = 3 WHERE cd_processo = 1019 AND cd_versao_processo = 3 AND cd_passo = 4;

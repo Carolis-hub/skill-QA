@@ -1,0 +1,7 @@
+T f900785 t1 passo2 exec=2/1 usu=1 fim=14:56:44
+T f900785 t2 passo3 exec=2/1 usu=1 fim=14:57:16
+T f900785 t3 passo4 exec=0/0 usu=- fim=14:57:16
+T f900785 t4 passo5 exec=2/1 usu=1 fim=14:57:41
+T f900785 t5 passo6 exec=2/1 usu=1 fim=14:59:12
+T f900785 t6 passo7 exec=0/0 usu=- fim=14:59:12
+T f900785 t7 passo8 exec=2/1 usu=1 fim=-

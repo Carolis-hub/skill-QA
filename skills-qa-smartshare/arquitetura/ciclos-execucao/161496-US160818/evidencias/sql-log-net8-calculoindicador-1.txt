@@ -1,0 +1,22 @@
+2026-11-11 16:25:04.2046 INFO Job CalculoIndicador não possui itens ativos para execução."}
+2026-11-11 16:26:04.3143 INFO Iniciando processamento do Job CalculoIndicador. Id: 60899, ChaveUnica: BPM|CalculoIndicador, HashArgumentos: {\"job\":\"CalculoIndicador\"}, DataProgramada: 11/11/2026 1
+2026-11-11 16:26:13.4733 INFO CalculoIndicador: Qtd1TarefaNaoVerificada=26, Qtd2TarefaFinalizada=0, Qtd3TarefaEmExecucao=457, Qtd4HistoricoTarefaNaoVerificado=0, Qtd5HistoricoTarefaFinalizada=0"}
+2026-11-11 16:26:13.5049 INFO Job CalculoIndicador executado com sucesso. Id: 60899, ChaveUnica: BPM|CalculoIndicador, HashArgumentos: {\"job\":\"CalculoIndicador\"}, DataTerminoProcessamento: 11/11/2
+2026-11-11 16:27:03.7585 INFO Iniciando processamento do Job CalculoIndicador. Id: 60905, ChaveUnica: BPM|CalculoIndicador, HashArgumentos: {\"job\":\"CalculoIndicador\"}, DataProgramada: 11/11/2026 1
+2026-11-11 16:27:04.7994 INFO CalculoIndicador: Qtd1TarefaNaoVerificada=0, Qtd2TarefaFinalizada=0, Qtd3TarefaEmExecucao=457, Qtd4HistoricoTarefaNaoVerificado=0, Qtd5HistoricoTarefaFinalizada=0"}
+2026-11-11 16:27:04.8062 INFO Job CalculoIndicador executado com sucesso. Id: 60905, ChaveUnica: BPM|CalculoIndicador, HashArgumentos: {\"job\":\"CalculoIndicador\"}, DataTerminoProcessamento: 11/11/2
+2026-11-11 16:28:03.7719 INFO Iniciando processamento do Job CalculoIndicador. Id: 60911, ChaveUnica: BPM|CalculoIndicador, HashArgumentos: {\"job\":\"CalculoIndicador\"}, DataProgramada: 11/11/2026 1
+2026-11-11 16:28:04.5495 INFO CalculoIndicador: Qtd1TarefaNaoVerificada=0, Qtd2TarefaFinalizada=0, Qtd3TarefaEmExecucao=457, Qtd4HistoricoTarefaNaoVerificado=0, Qtd5HistoricoTarefaFinalizada=0"}
+2026-11-11 16:28:04.5541 INFO Job CalculoIndicador executado com sucesso. Id: 60911, ChaveUnica: BPM|CalculoIndicador, HashArgumentos: {\"job\":\"CalculoIndicador\"}, DataTerminoProcessamento: 11/11/2
+2026-11-11 16:29:03.7514 INFO Iniciando processamento do Job CalculoIndicador. Id: 60917, ChaveUnica: BPM|CalculoIndicador, HashArgumentos: {\"job\":\"CalculoIndicador\"}, DataProgramada: 11/11/2026 1
+2026-11-11 16:29:04.4516 INFO CalculoIndicador: Qtd1TarefaNaoVerificada=0, Qtd2TarefaFinalizada=0, Qtd3TarefaEmExecucao=457, Qtd4HistoricoTarefaNaoVerificado=0, Qtd5HistoricoTarefaFinalizada=0"}
+2026-11-11 16:29:04.4663 INFO Job CalculoIndicador executado com sucesso. Id: 60917, ChaveUnica: BPM|CalculoIndicador, HashArgumentos: {\"job\":\"CalculoIndicador\"}, DataTerminoProcessamento: 11/11/2
+2026-11-11 16:30:03.7415 INFO Iniciando processamento do Job CalculoIndicador. Id: 60923, ChaveUnica: BPM|CalculoIndicador, HashArgumentos: {\"job\":\"CalculoIndicador\"}, DataProgramada: 11/11/2026 1
+2026-11-11 16:30:04.4976 INFO CalculoIndicador: Qtd1TarefaNaoVerificada=0, Qtd2TarefaFinalizada=0, Qtd3TarefaEmExecucao=457, Qtd4HistoricoTarefaNaoVerificado=0, Qtd5HistoricoTarefaFinalizada=0"}
+2026-11-11 16:30:04.5137 INFO Job CalculoIndicador executado com sucesso. Id: 60923, ChaveUnica: BPM|CalculoIndicador, HashArgumentos: {\"job\":\"CalculoIndicador\"}, DataTerminoProcessamento: 11/11/2
+2026-11-11 16:31:03.7444 INFO Iniciando processamento do Job CalculoIndicador. Id: 60929, ChaveUnica: BPM|CalculoIndicador, HashArgumentos: {\"job\":\"CalculoIndicador\"}, DataProgramada: 11/11/2026 1
+2026-11-11 16:31:04.4753 INFO CalculoIndicador: Qtd1TarefaNaoVerificada=0, Qtd2TarefaFinalizada=0, Qtd3TarefaEmExecucao=457, Qtd4HistoricoTarefaNaoVerificado=0, Qtd5HistoricoTarefaFinalizada=0"}
+2026-11-11 16:31:04.4818 INFO Job CalculoIndicador executado com sucesso. Id: 60929, ChaveUnica: BPM|CalculoIndicador, HashArgumentos: {\"job\":\"CalculoIndicador\"}, DataTerminoProcessamento: 11/11/2
+2026-11-11 16:32:03.7569 INFO Iniciando processamento do Job CalculoIndicador. Id: 60935, ChaveUnica: BPM|CalculoIndicador, HashArgumentos: {\"job\":\"CalculoIndicador\"}, DataProgramada: 11/11/2026 1
+2026-11-11 16:32:04.8847 INFO CalculoIndicador: Qtd1TarefaNaoVerificada=0, Qtd2TarefaFinalizada=0, Qtd3TarefaEmExecucao=457, Qtd4HistoricoTarefaNaoVerificado=0, Qtd5HistoricoTarefaFinalizada=0"}
+2026-11-11 16:32:04.9069 INFO Job CalculoIndicador executado com sucesso. Id: 60935, ChaveUnica: BPM|CalculoIndicador, HashArgumentos: {\"job\":\"CalculoIndicador\"}, DataTerminoProcessamento: 11/11/2

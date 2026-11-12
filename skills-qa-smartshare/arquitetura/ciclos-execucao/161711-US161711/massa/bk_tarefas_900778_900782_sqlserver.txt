@@ -1,0 +1,11 @@
+f900778 t1 passo2 usu=1 exec=2/1
+f900778 t2 passo4 usu=1 exec=2/1
+f900779 t1 passo2 usu=1 exec=2/1
+f900779 t2 passo4 usu=1 exec=2/1
+f900780 t1 passo2 usu=1 exec=2/1
+f900780 t2 passo4 usu=1 exec=2/1
+f900781 t1 passo2 usu=1 exec=2/1
+f900781 t2 passo4 usu=1 exec=2/1
+f900782 t1 passo2 usu=1 exec=2/1
+f900782 t2 passo4 usu=1 exec=2/1
+OBS pend=5

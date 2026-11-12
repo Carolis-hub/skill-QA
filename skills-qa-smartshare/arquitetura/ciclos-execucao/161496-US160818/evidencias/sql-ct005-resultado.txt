@@ -1,0 +1,9 @@
+classico atualizou STATUS_AGENT:
+agora
+-----
+2026-11-11 16:49:20.240
+cd_status_agent|ds_status_agent|ds_periodicidade|dt_ultima_verificacao|dt_proxima_execucao|st_executando|hash_id
+---------------|---------------|----------------|---------------------|-------------------|-------------|-------
+16|CalculoIndicador|10 Minutos|2026-11-11 16:49:18.000|2026-11-11 16:59:18.000|1|8567AC278AECF5DD1E5E45F79B17D163789B2063
+linhas novas no log net8 desde Ativo=0 (Iniciando):
+0

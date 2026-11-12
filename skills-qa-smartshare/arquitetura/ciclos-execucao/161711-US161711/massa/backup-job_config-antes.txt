@@ -1,0 +1,31 @@
+Id|Modulo|Job|Max_Tentativas|Politica_Backoff|Max_Paralelo|Lease_Segundos|Schedule_Type|Interval_Ms|TimeZone_Id|Cron_Expression|Misfire_Policy|Params_Json|Ativo|Batch_Size|Calcular_Proxima_Execucao_Timer
+--|------|---|--------------|----------------|------------|--------------|-------------|-----------|-----------|---------------|--------------|-----------|-----|----------|-------------------------------
+1|2|2|5|0|1|60|1|600000|NULL|NULL|0|{"legacy":{"VlTempoNotify":"300000","DsFormatoNotify":"Minutos"}}|1|50|0
+2|3|4|5|0|1|60|2|NULL|America/Sao_Paulo|0 0 2 * * ?|0|{"note":"Legado: LimparLog executa 1x/dia \u00E0s 02:00 (hardcoded).","retention":{"VlTempoLogSis":15,"DsFormatoLogSer":"Dias"}}|1|50|1
+3|2|11|5|0|1|60|1|300000|America/Sao_Paulo|NULL|0|{"legacy":{"VlTempoEnvioEmail":"300000","DsFormatoEnvioEmail":"Minutos"}}|1|50|0
+4|3|21|5|0|1|60|2|NULL|America/Sao_Paulo|0 0 5 * * ?|0|{"note":"Legado: ExpiraLog 1x/dia no hor\u00E1rio DtExpiraLog (fallback 00:00)."}|1|50|1
+5|1|7|5|0|1|60|1|300000|NULL|NULL|0|{"legacy":{"VlTempoControleTemporal":"60000"}}|1|50|0
+6|1|8|5|0|1|60|1|60000|America/Sao_Paulo|NULL|0|{"legacy":{"VlTempoControleTemporalAndamento":"900000"}}|1|50|0
+7|1|22|5|0|1|60|1|60000|America/Sao_Paulo|NULL|0|{"legacy":{"VlFrequenciaInicioPublicacao":"60000"}}|0|50|0
+8|1|9|5|0|1|60|1|60000|America/Sao_Paulo|NULL|0|{"legacy":{"StStatusNotify":"false","VlTempoNotificacaoWF":"120000","VlTempoRecebimentoNotificacaoWF":"180000"}}|1|50|0
+9|1|16|5|0|1|60|1|600000|America/Sao_Paulo|NULL|0|{"legacy":{"VlTempoCalculaIndicadores":"600000"}}|0|50|0
+10|1|25|5|0|1|60|1|240000|America/Sao_Paulo|NULL|0|{"legacy":{"VlTempoNotInicioPub":"240000"}}|0|50|0
+11|1|33|5|0|1|60|1|300000|America/Sao_Paulo|NULL|0|{"legacy":{"VlTempoInicioFluxoRevisao":"300000"}}|0|50|0
+12|1|34|5|0|1|60|1|300000|America/Sao_Paulo|NULL|0|{"note":"Legado: VlTempoAtividadesAssociadas -\u003E JobId 34.","legacy":{"VlTempoAtividadesAssociadas":"300000"}}|0|50|0
+13|2|1|5|0|1|60|1|86400000|America/Sao_Paulo|NULL|0|{"legacy":{"VlTempoDelete":"86400000"}}|1|50|0
+14|2|5|5|0|1|60|1|86400000|America/Sao_Paulo|NULL|0|{"legacy":{"VlTempoFolderManager":"86400000"}}|1|50|0
+15|2|13|5|0|1|60|1|54000000|America/Sao_Paulo|NULL|0|{"legacy":{"VlTempoGeraPacotes":"54000000"}}|1|50|0
+16|2|24|5|0|1|60|1|54000000|America/Sao_Paulo|NULL|0|{"note":"Legado: GeraExcel usa o mesmo intervalo do GeraPacote.","legacy":{"VlTempoGeraPacotes":"54000000"}}|1|50|0
+17|2|29|5|0|1|60|1|NULL|America/Sao_Paulo|NULL|0|{"legacy":{"VlTransferenciaFTP":"0"}}|1|50|0
+18|2|23|5|0|1|60|1|NULL|America/Sao_Paulo|NULL|0|{"note":"Legado: se DsFormatoTransfereArquivoMFP vazio, for\u00E7a 60s.","legacy":{"DsFormatoTransfereArquivoMFP":"Dias","VlTempoTransfereArquivoMFP":"0"}}|1|50|0
+19|2|14|5|0|1|60|2|NULL|America/Sao_Paulo|0 39 14 * * ?|0|{"note":"Legado: AtualizarIndices 1x/dia no hor\u00E1rio configurado.","legacy":{"DtHorarioAtualizaIndice":"2025-01-15T14:39:18.7332208-03:00"}}|1|50|1
+20|2|15|5|0|1|60|1|120000|America/Sao_Paulo|NULL|0|{"note":"Legado: AtualizarIndicesIndividuais roda a cada 120s (fixo)."}|1|50|0
+21|3|27|5|0|1|60|2|NULL|America/Sao_Paulo|0 0 0 * * ?|0|{"note":"Legado: LimpaMFPSessaoUsuario executa 1x/dia."}|1|50|1
+22|3|26|5|0|1|60|2|NULL|America/Sao_Paulo|0 0 0 * * ?|0|{"note":"NotifyOcorrencia: importado como daily 00:00 por decis\u00E3o.","legacy":{"StNotificaOcorrencia":"false","HrOcorrencia":null}}|1|50|1
+23|1|28|5|0|1|60|1|1000|America/Sao_Paulo|NULL|0|{"note":"ExecutaWS: fixado em 60000 por decis\u00E3o.","legacy":{"source":"legado"}}|0|50|0
+24|1|32|5|0|1|60|2|0|America/Sao_Paulo|0 0 0 * * ?|0|{"note":"Legado: EnviaAlertaFluxo 1x/dia em hor\u00E1rio configurado (fallback 00:00).","legacy":{"DtEnviaAlerta":"1900-01-01T00:00:00"}}|1|50|1
+25|3|31|5|0|1|60|2|NULL|America/Sao_Paulo|0 0 0 * * ?|0|{"note":"LimpaLOG: executa 1x/dia (hor\u00E1rio default 00:00 se n\u00E3o houver config)."}|1|50|1
+26|2|3|5|0|1|60|1|36000000|America/Sao_Paulo|NULL|0|{"note":"Legado: DocControl roda por intervalo fixo de 10h (36.000.000 ms).","legacy":{"DtDocControl":"2025-08-12T10:32:16.0293622-03:00","ChbExecDocControl":"true"}}|1|50|0
+27|2|10|5|0|1|60|1|NULL|America/Sao_Paulo|NULL|0|{"note":"Importado como placeholder inativo. Definir schedule/params na tela para ativar.","jobName":"IntegracaoAD","legacy":{"cd_status_agent":10}}|1|50|0
+33|1|19|2|0|2|60|1|10000|America/Sao_Paulo|NULL|0|{"qa":"REPRODUCAO_MANUAL_BUG1_EXECUTASQL"}|0|10|0
+34|1|18|5|0|1|60|1|60000|America/Sao_Paulo|NULL|0|{"note":"Exclui os Fluxos que estao em solicitacao por mais tempo que o configurado","jobName":"ExcluiFluxoEmSolicitacao","legacy":{"cd_status_agent":18}}|1|50|0

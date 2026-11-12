@@ -1,0 +1,5 @@
+﻿SP2-0042: unknown command "﻿" - rest of line ignored.
+CD_FLUXO_INDICADOR|CD_PROCESSO|CD_VERSAO_PROCESSO|  CD_FLUXO|CD_FLUXO_PAI|ID_STATUSTEMPO|VL_TEMPOIDEAL|VL_TEMPOTOTAL|VL_TEMPOPARCIAL
+------------------|-----------|------------------|----------|------------|--------------|-------------|-------------|---------------
+	       411|	   541| 		1|	2528|		0|	       1|	     0| 	   2|	       60624
+SP2-0042: unknown command "﻿" - rest of line ignored.

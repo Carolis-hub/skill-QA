@@ -1,0 +1,2 @@
+2026-11-11 16:40:58.9675 INFO Iniciando processamento do Job CalculoIndicador. Id: 60977, ChaveUnica: BPM|CalculoIndicador, HashArgumentos: {\"job\":\"CalculoIndicador\"}, DataProgramada: 11
+2026-11-11 16:40:59.0656 INFO CalculoIndicador: 1 tarefa(s) do histórico tiveram a data de término corrigida."}

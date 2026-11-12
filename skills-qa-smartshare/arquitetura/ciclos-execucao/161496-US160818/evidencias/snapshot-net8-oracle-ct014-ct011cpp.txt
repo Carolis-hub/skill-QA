@@ -1,0 +1,17 @@
+﻿SP2-0042: unknown command "﻿" - rest of line ignored.
+ CD_TAREFA|FIM
+----------|--------------
+	 1|11-10 17:11:03
+	 2|11-10 17:11:25
+	 3|11-10 17:11:25
+SP2-0042: unknown command "﻿" - rest of line ignored.
+  CD_PASSO|ST_DENTRO_PARALELO|ID_TIPO_PARALELO
+----------|------------------|----------------
+	 2|		    0|		     0
+	 3|		    0|		     0
+	 4|		    0|		     1
+	 5|		    1|		     0
+	 6|		    1|		     0
+	 7|		    0|		     2
+	 8|		    0|		     0
+	 9|		    0|		     0

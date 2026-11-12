@@ -1,0 +1,3 @@
+cd_parametro|ds_parametro|ds_valor
+------------|------------|--------
+96|Utilizar nova API do Engine (1-Sim | 0-NÆo)|1
